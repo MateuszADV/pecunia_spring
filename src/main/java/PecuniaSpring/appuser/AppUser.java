@@ -9,6 +9,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -21,14 +22,14 @@ import java.util.Collections;
 public class AppUser implements UserDetails {
 
   @SequenceGenerator(
-          name = "student_sequence",
-          sequenceName = "student_sequence",
+          name = "user_sequence",
+          sequenceName = "user_sequence",
           allocationSize = 1
   )
   @Id
   @GeneratedValue(
           strategy = GenerationType.SEQUENCE,
-          generator = "student_sequence"
+          generator = "user_sequence"
   )
   private Long id;
   private String firstName;
@@ -39,6 +40,10 @@ public class AppUser implements UserDetails {
   private AppUserRole appUserRole;
   private Boolean locked = false;
   private Boolean enabled = true;
+  @Column(name = "created_at")
+  private Timestamp created_at;
+  @Column(name = "updated_at")
+  private Timestamp updated_at;
 
   public AppUser(String firstName, String lastName, String email, String password, AppUserRole appUserRole) {
     this.firstName = firstName;
