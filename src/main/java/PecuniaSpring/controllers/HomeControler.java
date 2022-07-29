@@ -53,12 +53,11 @@ public class HomeControler {
         System.out.println(request.toString());
         System.out.println(response.getLocale().toString());
 
+
         System.out.println("=========================================");
         Locale currentLocale = request.getLocale();
-        System.out.println(currentLocale.getCountry());
-        System.out.println(currentLocale.getDisplayCountry());
-        System.out.println(currentLocale.getLanguage());
-        System.out.println(currentLocale.getDisplayLanguage());
+        System.out.println(response.getLocale().getCountry() + " : " + response.getLocale().getDisplayCountry());
+        System.out.println(currentLocale.getLanguage() + " : " + currentLocale.getDisplayLanguage());
         System.out.println("==========================================");
 
         System.out.println(LocalDateTime.now());
