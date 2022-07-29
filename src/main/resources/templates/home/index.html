@@ -4,7 +4,7 @@
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
       layout:decorate="~{layouts/layout}">
 <head>
-    <title>Demo page</title>
+    <title>Pecunia Spring</title>
 </head>
 <body>
 <div layout:fragment="content" class="container">
@@ -20,34 +20,34 @@
 <!--            <a class="btn btn-lg btn-primary" th:href="@{/country}" role="button">See people list</a>-->
         </p>
         <h3 th:text="${test}"></h3>
-<!--        <div sec:authorize="isAuthenticated()">-->
-<!--            1 - <span sec:authentication="principal.authorities">Roles</span><br>-->
-<!--            2 - <span sec:authentication="principal.authorities">Bob</span><br>-->
-<!--            3 - <span sec:authentication="principal.firstName">Firstname</span><br>-->
-<!--            4 - <span sec:authentication="principal.email">Firstname</span><br>-->
-<!--            5 - <span th:text ="${#authentication.getAuthorities()}"></span><br>-->
-<!--            This content is only shown to authenticated users.-->
-<!--        </div>-->
-<!--&lt;!&ndash;        <div sec:authorize="hasRole('ROLE_ADMIN')">&ndash;&gt;-->
-<!--        <p>==================================</p>-->
-<!--        <div sec:authorize="hasAuthority('ADMIN')">-->
-<!--            This content is only shown to administrators.-->
-<!--            <p th:text="${#authentication.getAuthorities()[0].getAuthority()}"></p>-->
-<!--        </div>-->
-<!--        <div sec:authorize="hasAuthority('USER')">-->
-<!--            This content is only shown to users.-->
-<!--            <p th:text="${#authentication.getAuthorities()[0].getAuthority()}"></p>-->
-<!--        </div>-->
+        <div sec:authorize="isAuthenticated()">
+            1 - <span sec:authentication="principal.authorities">Roles</span><br>
+            2 - <span sec:authentication="principal.authorities">Bob</span><br>
+            3 - <span sec:authentication="principal.firstName">Firstname</span><br>
+            4 - <span sec:authentication="principal.email">Firstname</span><br>
+            5 - <span th:text ="${#authentication.getAuthorities()}"></span><br>
+            This content is only shown to authenticated users.
+        </div>
+<!--        <div sec:authorize="hasRole('ROLE_ADMIN')">-->
+        <p>==================================</p>
+        <div sec:authorize="hasAuthority('ADMIN')">
+            This content is only shown to administrators.
+            <p th:text="${#authentication.getAuthorities()[0].getAuthority()}"></p>
+        </div>
+        <div sec:authorize="hasAuthority('USER')">
+            This content is only shown to users.
+            <p th:text="${#authentication.getAuthorities()[0].getAuthority()}"></p>
+        </div>
 
 
-<!--        <div th:if = "${#authentication.getAuthorities()[0].getAuthority()} == 'USER'" >-->
-<!--            <h1>test</h1><br>-->
-<!--            1 - <span th:text ="${#authentication.getAuthorities()}"></span><br>-->
-<!--            2 - <span th:text ="${#authentication.getDetails()}"></span><br>-->
-<!--            3 - <span th:text ="${#authentication.getPrincipal()}"></span><br>-->
-<!--            4 - <span th:text ="${#authentication.authorities.size()}"></span><br>-->
-<!--            5 - <span th:text ="${#authentication.toString()}"></span>-->
-<!--        </div>-->
+        <div th:if = "${#authentication.getAuthorities()[0].getAuthority()} == 'USER'" >
+            <h1>test</h1><br>
+            1 - <span th:text ="${#authentication.getAuthorities()}"></span><br>
+            2 - <span th:text ="${#authentication.getDetails()}"></span><br>
+            3 - <span th:text ="${#authentication.getPrincipal()}"></span><br>
+            4 - <span th:text ="${#authentication.authorities.size()}"></span><br>
+            5 - <span th:text ="${#authentication.toString()}"></span>
+        </div>
 
     </div>
 
