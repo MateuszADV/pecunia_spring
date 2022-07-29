@@ -1,0 +1,82 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      layout:decorate="~{layouts/layout}">
+<head>
+    <title>Demo page</title>
+</head>
+<body>
+<div layout:fragment="content" class="container">
+
+    <div class="jumbotron">
+        <h1>FORMAT DATA</h1>
+        <h1 th:text="${#dates.format(standardDate, 'yyyy-MM-dd HH:mm')}"></h1>
+        <p th:text="${#temporals.formatISO(localDateTime)}"></p>
+        <p th:text="${#temporals.formatISO(localDate)}"></p>
+        <p th:text="${#temporals.formatISO(timestamp)}"></p>
+        <p>Allows to add people.</p>
+        <p>
+<!--            <a class="btn btn-lg btn-primary" th:href="@{/country}" role="button">See people list</a>-->
+        </p>
+        <h3 th:text="${test}"></h3>
+<!--        <div sec:authorize="isAuthenticated()">-->
+<!--            1 - <span sec:authentication="principal.authorities">Roles</span><br>-->
+<!--            2 - <span sec:authentication="principal.authorities">Bob</span><br>-->
+<!--            3 - <span sec:authentication="principal.firstName">Firstname</span><br>-->
+<!--            4 - <span sec:authentication="principal.email">Firstname</span><br>-->
+<!--            5 - <span th:text ="${#authentication.getAuthorities()}"></span><br>-->
+<!--            This content is only shown to authenticated users.-->
+<!--        </div>-->
+<!--&lt;!&ndash;        <div sec:authorize="hasRole('ROLE_ADMIN')">&ndash;&gt;-->
+<!--        <p>==================================</p>-->
+<!--        <div sec:authorize="hasAuthority('ADMIN')">-->
+<!--            This content is only shown to administrators.-->
+<!--            <p th:text="${#authentication.getAuthorities()[0].getAuthority()}"></p>-->
+<!--        </div>-->
+<!--        <div sec:authorize="hasAuthority('USER')">-->
+<!--            This content is only shown to users.-->
+<!--            <p th:text="${#authentication.getAuthorities()[0].getAuthority()}"></p>-->
+<!--        </div>-->
+
+
+<!--        <div th:if = "${#authentication.getAuthorities()[0].getAuthority()} == 'USER'" >-->
+<!--            <h1>test</h1><br>-->
+<!--            1 - <span th:text ="${#authentication.getAuthorities()}"></span><br>-->
+<!--            2 - <span th:text ="${#authentication.getDetails()}"></span><br>-->
+<!--            3 - <span th:text ="${#authentication.getPrincipal()}"></span><br>-->
+<!--            4 - <span th:text ="${#authentication.authorities.size()}"></span><br>-->
+<!--            5 - <span th:text ="${#authentication.toString()}"></span>-->
+<!--        </div>-->
+
+    </div>
+
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+        Launch demo modal
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h1>TEST MODAL</h1>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
