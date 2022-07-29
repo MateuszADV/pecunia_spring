@@ -29,7 +29,7 @@ public class WebSecurityConfig  {
                 .antMatchers("/api/v*/registration/**")
                 .anonymous().antMatchers("/", "/registration", "/user/add")
                 .permitAll()
-//                .antMatchers("/about").hasAnyAuthority("ADMIN")
+                .antMatchers("/about").hasAnyAuthority("ADMIN")
                 .antMatchers("/continent").hasAnyAuthority("USER", "ADMIN")
                 .antMatchers("/test").hasAnyAuthority("USER")
                 .anyRequest().hasAnyAuthority("ADMIN");
