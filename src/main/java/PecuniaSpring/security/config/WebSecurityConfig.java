@@ -27,9 +27,8 @@ public class WebSecurityConfig  {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/api/v*/registration/**")
-                .anonymous().antMatchers("/", "/registration", "/user/add")
+                .anonymous().antMatchers("/", "/registration", "/about")
                 .permitAll()
-                .antMatchers("/about").hasAnyAuthority("ADMIN")
                 .antMatchers("/continent").hasAnyAuthority("USER", "ADMIN")
                 .antMatchers("/test").hasAnyAuthority("USER")
                 .anyRequest().hasAnyAuthority("ADMIN");

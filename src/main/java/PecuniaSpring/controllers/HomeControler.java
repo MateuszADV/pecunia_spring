@@ -33,9 +33,6 @@ public class HomeControler {
     private final EmailValidator emailValidator;
     private UserCheckLoged userCheckLoged;
 
-
-
-
     @GetMapping("/")
     public String getIndex(ModelMap modelMap,
                            HttpServletRequest request,
