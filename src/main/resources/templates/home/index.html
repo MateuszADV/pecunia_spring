@@ -15,10 +15,7 @@
         <p th:text="${#temporals.formatISO(localDateTime)}"></p>
         <p th:text="${#temporals.formatISO(localDate)}"></p>
         <p th:text="${#temporals.formatISO(timestamp)}"></p>
-        <p>Allows to add people.</p>
-        <p>
-<!--            <a class="btn btn-lg btn-primary" th:href="@{/country}" role="button">See people list</a>-->
-        </p>
+
         <h3 th:text="${test}"></h3>
         <div sec:authorize="isAuthenticated()">
             1 - <span sec:authentication="principal.authorities">Roles</span><br>
