@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://thymeleaf.org"
+<html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
       layout:decorate="~{layouts/layout}">
@@ -18,10 +18,10 @@
 
         <h3 th:text="${test}"></h3>
         <div sec:authorize="isAuthenticated()">
-            1 - <span sec:authentication="principal.authorities">Roles</span><br>
-            2 - <span sec:authentication="principal.authorities">Bob</span><br>
-            3 - <span sec:authentication="principal.firstName">Firstname</span><br>
-            4 - <span sec:authentication="principal.email">Firstname</span><br>
+            1 - <span sec:authentication="principal.authorities[0]">Roles</span><br>
+            2 - <span sec:authentication="principal.firstName">Firstname</span><br>
+            3 - <span sec:authentication="principal.lastName">Lastname</span><br>
+            4 - <span sec:authentication="principal.email">email</span><br>
             5 - <span th:text ="${#authentication.getAuthorities()}"></span><br>
             This content is only shown to authenticated users.
         </div>
