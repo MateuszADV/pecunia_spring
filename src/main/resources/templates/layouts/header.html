@@ -46,7 +46,7 @@
                     <span th:text = "${#authentication.getAuthorities()[0].getAuthority()}">Roles</span>
                 </li>
                 <li sec:authorize="isAuthenticated()" class="nav-item">
-                    <span class="nav-link" sec:authentication="principal.email">Email</span>
+                    <span class="nav-link" sec:authentication="principal.email" data-toggle="modal" data-target="#exampleModal">Email</span>
                 </li>
                 <li sec:authorize="isAuthenticated()" class="nav-item">
                     <a class="nav-link btn btn-sm btn-outline-secondary" th:href="@{/logout}">Logout</a>
