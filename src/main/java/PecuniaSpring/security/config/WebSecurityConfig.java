@@ -28,6 +28,7 @@ public class WebSecurityConfig  {
                 .authorizeRequests()
                 .antMatchers("/api/v*/registration/**")
                 .anonymous().antMatchers("/", "/registration", "/about")
+                .anonymous().antMatchers("/country", "/country/show/**")
                 .permitAll()
                 .antMatchers("/continent").hasAnyAuthority("USER", "ADMIN")
                 .antMatchers("/test").hasAnyAuthority("USER")
