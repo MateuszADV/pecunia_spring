@@ -32,7 +32,8 @@
                     <td th:text="${country.capital_city}" class="pt-1 pb-1"></td>
                     <td class="pt-1 pb-1">
                         <a th:href="@{'/country/show/' + ${country.id}}">SHOW</a>
-                        Edit, Delete
+                        Edit
+                        <a th:href="@{'/country/delete/' + ${country.id}}">DELETE</a>
                     </td>
                 </tr>
             </Block>

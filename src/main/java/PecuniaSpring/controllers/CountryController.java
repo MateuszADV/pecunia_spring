@@ -5,10 +5,7 @@ import PecuniaSpring.models.repsitories.CountryRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -55,6 +52,13 @@ public class CountryController {
         List<Country> countries = countryRepository.findAll();
         modelMap.addAttribute("countries", countries);
 
+        return "country/index";
+    }
+    @GetMapping("/country/delete/{countryId}")
+    public String deleteCountry(@PathVariable Long countryId, ModelMap modelMap) {
+        countryRepository.deleteById(countryId);
+        List<Country> countries = countryRepository.findAll();
+        modelMap.addAttribute("countries", countries);
         return "country/index";
     }
 }
