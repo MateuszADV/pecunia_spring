@@ -31,9 +31,9 @@
                     <td th:text="${country.country_pl}" class="pt-1 pb-1"></td>
                     <td th:text="${country.capital_city}" class="pt-1 pb-1"></td>
                     <td class="pt-1 pb-1">
-                        <a th:href="@{'/country/show/' + ${country.id}}">SHOW</a>
-                        Edit
-                        <a th:href="@{'/country/delete/' + ${country.id}}">DELETE</a>
+                        <a th:href="@{'/country/show/' + ${country.id}}" class="btn btn-sm btn-info">SHOW</a>
+                        <a th:href="@{'/country/edit/' + ${country.id}}" class="btn btn-sm btn-primary">EDIT</a>
+                        <a th:href="@{'/country/delete/' + ${country.id}}" class="btn btn-sm btn-danger">DELETE</a>
                     </td>
                 </tr>
             </Block>

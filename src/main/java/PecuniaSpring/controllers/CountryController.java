@@ -16,10 +16,13 @@ public class CountryController {
 
     private CountryRepository countryRepository;
 
+    private Optional<Country> country;
+
     @GetMapping("/country")
     public String getIndex(ModelMap modelMap)
     {
-        List<Country> countries = countryRepository.findAll();
+//        List<Country> countries = countryRepository.findAll();
+        List<Country> countries = countryRepository.countriesOrderByCountry_enAsc();
         modelMap.addAttribute("countries", countries);
         return "country/index";
     }
@@ -30,9 +33,17 @@ public class CountryController {
         System.out.println("Id - " + countryId);
         Optional<Country> country = countryRepository.findById(countryId);
         System.out.println(country.isPresent());
-        System.out.println(country.get().getCountry_en());
-        modelMap.addAttribute("country", country);
-        return "country/show";
+
+        if (country.isPresent()) {
+            modelMap.addAttribute("country", country);
+            System.out.println(country.get().getCountry_en());
+            return "country/show";
+        }
+        else {
+            modelMap.addAttribute("error", "Błedne Id - " + countryId);
+            return "error";
+        }
+
     }
 
     @GetMapping("/country/new")
@@ -44,16 +55,46 @@ public class CountryController {
     }
 
     @PostMapping("/country/new")
-    public String postRegistration(@ModelAttribute("countryForm")Country country, ModelMap modelMap) {
-        System.out.println("--------------------********************************-----------------------------");
+    public String postNew(@ModelAttribute("countryForm")Country countryForm, ModelMap modelMap) {
+        System.out.println("--------------------***************START*****************-----------------------------");
         System.out.println(country.toString());
-        countryRepository.save(country);
-        System.out.println("--------------------********************************-----------------------------");
+        countryRepository.save(countryForm);
+        System.out.println("--------------------*****************END***************-----------------------------");
         List<Country> countries = countryRepository.findAll();
         modelMap.addAttribute("countries", countries);
 
         return "country/index";
     }
+
+    @GetMapping("/country/edit/{countryId}")
+    public String getEdit(@PathVariable Long countryId, ModelMap modelMap) {
+        country = countryRepository.findById(countryId);
+        modelMap.addAttribute("countryForm", country);
+        System.out.println("------------------EDIT COUNTRY----------------------");
+        System.out.println("Id - " + countryId);
+        System.out.println(country);
+        System.out.println("-------------------EDIT------------------------------");
+
+        return "country/edit";
+    }
+
+    @PostMapping("/country/edit")
+    public String postEdit(@ModelAttribute("countryForm")Country countryForm, ModelMap modelMap) {
+        System.out.println("--------------------********************************-----------------------------");
+        System.out.println(country);
+        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+        System.out.println(countryForm);
+
+        countryForm.setId(country.get().getId());
+        countryForm.setCreated_at(country.get().getCreated_at());
+        countryRepository.save(countryForm);
+        System.out.println("--------------------********************************-----------------------------");
+
+        return "redirect:/country";
+    }
+
+
+
     @GetMapping("/country/delete/{countryId}")
     public String deleteCountry(@PathVariable Long countryId, ModelMap modelMap) {
         countryRepository.deleteById(countryId);

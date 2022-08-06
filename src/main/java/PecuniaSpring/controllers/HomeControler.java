@@ -55,7 +55,7 @@ public class HomeControler {
         Locale currentLocale = request.getLocale();
         System.out.println(response.getLocale().getCountry() + " : " + response.getLocale().getDisplayCountry());
         System.out.println(currentLocale.getLanguage() + " : " + currentLocale.getDisplayLanguage());
-        System.out.println(request.getHeader("X-FORWARDED-FOR"));
+//        System.out.println(request.getHeader("X-FORWARDED-FOR"));
         System.out.println(request.getRemoteAddr());
         System.out.println("==========================================");
 
