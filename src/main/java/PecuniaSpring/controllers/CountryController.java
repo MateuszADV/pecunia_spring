@@ -2,10 +2,13 @@ package PecuniaSpring.controllers;
 
 import PecuniaSpring.models.Country;
 import PecuniaSpring.models.repsitories.CountryRepository;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import utils.JsonUtils;
 
 import java.util.List;
 import java.util.Optional;
@@ -36,7 +39,12 @@ public class CountryController {
 
         if (country.isPresent()) {
             modelMap.addAttribute("country", country);
-            System.out.println(country.get().getCountry_en());
+
+            String json = JsonUtils.gsonPretty(country.get());
+            System.out.println(json);
+            modelMap.addAttribute("json", json);
+
+
             return "country/show";
         }
         else {
@@ -58,6 +66,10 @@ public class CountryController {
     public String postNew(@ModelAttribute("countryForm")Country countryForm, ModelMap modelMap) {
         System.out.println("--------------------***************START*****************-----------------------------");
         System.out.println(country.toString());
+
+        System.out.println(JsonUtils.gsonPretty(countryForm));
+        Gson gson = new Gson();
+
         countryRepository.save(countryForm);
         System.out.println("--------------------*****************END***************-----------------------------");
         List<Country> countries = countryRepository.findAll();
