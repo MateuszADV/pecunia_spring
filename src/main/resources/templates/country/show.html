@@ -12,8 +12,12 @@
 
 <!--    <p th:text="${country}"></p>-->
     <h2 th:text="${country.get.getCountry_en}"></h2>
-    <textarea th:text="${json}" rows="15" cols="33" style="font-family: inherit;" th:readonly="System"></textarea><br>
-    <img th:src="@{'/images/flags/' + ${country.get.getCountry_en} + '.png'}"/>
+    <div style="float: left">
+        <textarea th:text="${json}" rows="15" cols="33" style="font-family: inherit; resize: none; color: black" disabled></textarea><br>
+    </div>
+    <div>
+        <img th:src="@{'/images/flags/' + ${country.get.getCountry_en} + '.png'}" style="width: 150px"/>
+    </div>
 
 </div>
 </body>
