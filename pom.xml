@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>pl.mateusz</groupId>
 	<artifactId>pecunia-spring</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.2-SNAPSHOT</version>
 	<name>pecunia-spring</name>
 	<description>Project Pecunia version 4</description>
 	<properties>
