@@ -1,4 +1,4 @@
-package PecuniaSpring.controllers;
+package PecuniaSpring.controllers.viewControllers;
 
 import PecuniaSpring.controllers.dto.UserRegistration;
 import PecuniaSpring.registration.EmailValidator;

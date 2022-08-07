@@ -9,4 +9,3 @@
     \__|      \________| \______/  \______/ \__|  \__|\______|\__|  \__|
 
 ${Ansi.YELLOW}:: Spring Boot ::  ${Ansi.DEFAULT}(v${spring-boot.version})
-

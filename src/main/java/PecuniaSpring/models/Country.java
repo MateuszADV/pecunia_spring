@@ -19,12 +19,12 @@ public class Country {
             sequenceName = "countries_sequence",
             allocationSize = 1
     )
-    @javax.persistence.Id
+    @Id
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
             generator = "countries_sequence"
     )
-    private Long Id;
+    private Long id;
     private String continent;
     @Column(name = "country_en")
     private String country_en;

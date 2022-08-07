@@ -1,9 +1,8 @@
-package PecuniaSpring.controllers;
+package PecuniaSpring.controllers.viewControllers;
 
 import PecuniaSpring.models.Country;
 import PecuniaSpring.models.repsitories.CountryRepository;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;

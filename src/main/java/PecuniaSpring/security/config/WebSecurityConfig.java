@@ -28,6 +28,8 @@ public class WebSecurityConfig  {
                 .authorizeRequests()
                 .antMatchers("/api/v*/registration/**")
                 .permitAll()
+                .antMatchers("/api/v*/country")
+                .permitAll()
                 .antMatchers("/", "/registration", "/about")
                 .permitAll()
                 .antMatchers("/country", "/country/show/**")
