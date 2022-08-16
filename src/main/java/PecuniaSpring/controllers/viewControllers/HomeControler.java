@@ -1,6 +1,8 @@
 package PecuniaSpring.controllers.viewControllers;
 
 import PecuniaSpring.controllers.dto.UserRegistration;
+import PecuniaSpring.models.Country;
+import PecuniaSpring.models.repsitories.CountryRepository;
 import PecuniaSpring.registration.EmailValidator;
 import PecuniaSpring.registration.RegistrationRequest;
 import PecuniaSpring.registration.RegistrationService;
@@ -22,7 +24,9 @@ import javax.validation.Valid;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 @Controller
@@ -32,6 +36,7 @@ public class HomeControler {
     private RegistrationService registrationService;
     private final EmailValidator emailValidator;
     private UserCheckLoged userCheckLoged;
+    private CountryRepository countryRepository;
 
     @GetMapping("/")
     public String getIndex(ModelMap modelMap,
@@ -119,6 +124,8 @@ public class HomeControler {
     @GetMapping("/test")
     public String getTest(){
         System.out.println("==============STRONA TESTOWA===================");
+        List<Country> countries = countryRepository.findAll();
+        countries.stream().forEach(System.out::println);
         return "home/test";
     }
 
