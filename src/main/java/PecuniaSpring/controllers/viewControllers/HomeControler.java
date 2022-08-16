@@ -125,7 +125,12 @@ public class HomeControler {
     public String getTest(){
         System.out.println("==============STRONA TESTOWA===================");
         List<Country> countries = countryRepository.findAll();
-        countries.stream().forEach(System.out::println);
+//        countries.stream().forEach(System.out::println);
+        countries.stream()
+                .filter(country -> country.getId() > 100)
+                .filter(country -> country.getId() < 150)
+                .filter(country -> country.getContinent().contains("Azja"))
+                .forEach(System.out::println);
         return "home/test";
     }
 
