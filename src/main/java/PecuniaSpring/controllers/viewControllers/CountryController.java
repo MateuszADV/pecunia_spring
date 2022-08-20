@@ -124,7 +124,10 @@ public class CountryController {
 
     @GetMapping("/page/{pageNo}")
     public String findPaginated(@PathVariable(value = "pageNo") int pageNo, ModelMap modelMap) {
-        int pageSize = 5;
+        int pageSize = 10;
+        System.out.println("=========================================");
+        System.out.println(pageNo);
+        System.out.println("==========================================");
         Page<Country> page = countryService.findPaginated(pageNo, pageSize);
         List<Country> countries = page.getContent();
         modelMap.addAttribute("currentPage", pageNo);
