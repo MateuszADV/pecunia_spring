@@ -11,5 +11,5 @@ public interface CountryService {
     void saveCountry(Country country);
     Country getCountryById(Long id);
     void deleteCountryById(Long id);
-    Page<Country> findPaginated(Integer pageNo, Integer pageSize);
+    Page<Country> findPaginated(Integer pageNo, Integer pageSize, String sortField, String sortDirection);
 }

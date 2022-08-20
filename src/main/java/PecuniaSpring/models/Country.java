@@ -27,7 +27,7 @@ public class Country {
     private Long id;
     private String continent;
     @Column(name = "country_en")
-    private String country_en;
+    private String countryEn;
     @Column(name = "country_pl")
     private String country_pl;
     @Column(name = "capital_city")

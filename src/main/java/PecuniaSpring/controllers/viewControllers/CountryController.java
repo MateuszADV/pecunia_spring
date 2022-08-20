@@ -34,7 +34,7 @@ public class CountryController {
     @GetMapping("/country")
     public String getIndex(ModelMap modelMap) {
 
-     return findPaginated(1, modelMap);
+     return findPaginated(1, "continent", "asc", modelMap);
     }
 
     @GetMapping("/country/show/{countryId}")
@@ -123,16 +123,27 @@ public class CountryController {
     }
 
     @GetMapping("/page/{pageNo}")
-    public String findPaginated(@PathVariable(value = "pageNo") int pageNo, ModelMap modelMap) {
+    public String findPaginated(@PathVariable(value = "pageNo") int pageNo,
+                                @RequestParam("sortField") String sortField,
+                                @RequestParam("sortDir") String sortDir,
+                                ModelMap modelMap) {
         int pageSize = 10;
         System.out.println("=========================================");
         System.out.println(pageNo);
+        System.out.println(sortField);
+        System.out.println(sortDir);
         System.out.println("==========================================");
-        Page<Country> page = countryService.findPaginated(pageNo, pageSize);
+        Page<Country> page = countryService.findPaginated(pageNo, pageSize, sortField, sortDir);
         List<Country> countries = page.getContent();
+
         modelMap.addAttribute("currentPage", pageNo);
         modelMap.addAttribute("totalPages", page.getTotalPages());
         modelMap.addAttribute("totalItems", page.getTotalElements());
+
+        modelMap.addAttribute("sortField", sortField);
+        modelMap.addAttribute("sortDir",sortDir);
+        modelMap.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+
         modelMap.addAttribute("countries", countries);
 
         return "country/index";

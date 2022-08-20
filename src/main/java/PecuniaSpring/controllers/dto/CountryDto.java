@@ -17,7 +17,7 @@ public class CountryDto {
 
     private Long id;
     private String continent;
-    private String country_en;
+    private String countryEn;
     private String country_pl;
     private String capital_city;
     private String alfa_2;
