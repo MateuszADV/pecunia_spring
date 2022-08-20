@@ -4,11 +4,11 @@
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
       layout:decorate="~{layouts/layout}">
 <head>
-    <title>Country</title>
+    <title>Country Pagin</title>
 </head>
 <body>
     <div layout:fragment="content" class="container">
-    <h1 style="text-align: center">COUNTRY</h1>
+    <h1 style="text-align: center">COUNTRY Pganin TEST</h1>
 
         <a th:href="@{/country/new}" class="btn btn-sm btn-primary">Add new Country</a>
         <table class="table table-striped table-bordered table-hover table-sm">
@@ -40,18 +40,6 @@
             </tbody>
         </table>
 
-        <div th:if = "${totalPages > 1}">
-            <div class="row col-sm-10">
-                <div class="col-sm-2">
-                    Total Rows: [[${totalItems}]]
-                </div>
-                <div class="col-sm-1"></div>
-                <div class="col-sm-1"></div>
-            </div>
-            <h2>TEST</h2>
-            <p th:text="${totalPages}"></p>
-
-        </div>
     </div>
 </body>
 </html>

@@ -2,8 +2,10 @@ package PecuniaSpring.controllers.viewControllers;
 
 import PecuniaSpring.models.Country;
 import PecuniaSpring.models.repsitories.CountryRepository;
+import PecuniaSpring.services.countryServices.CountryServiceImpl;
 import com.google.gson.Gson;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -17,16 +19,22 @@ import java.util.Optional;
 public class CountryController {
 
     private CountryRepository countryRepository;
+    private CountryServiceImpl countryService;
 
     private Optional<Country> country;
 
+//    @GetMapping("/country")
+//    public String getIndex(ModelMap modelMap)
+//    {
+////        List<Country> countries = countryRepository.findAll();
+//        List<Country> countries = countryRepository.countriesOrderByCountry_enAsc();
+//        modelMap.addAttribute("countries", countries);
+//        return "country/index";
+//    }
     @GetMapping("/country")
-    public String getIndex(ModelMap modelMap)
-    {
-//        List<Country> countries = countryRepository.findAll();
-        List<Country> countries = countryRepository.countriesOrderByCountry_enAsc();
-        modelMap.addAttribute("countries", countries);
-        return "country/index";
+    public String getIndex(ModelMap modelMap) {
+
+     return findPaginated(1, modelMap);
     }
 
     @GetMapping("/country/show/{countryId}")
@@ -111,6 +119,19 @@ public class CountryController {
         countryRepository.deleteById(countryId);
         List<Country> countries = countryRepository.findAll();
         modelMap.addAttribute("countries", countries);
+        return "country/index";
+    }
+
+    @GetMapping("/page/{pageNo}")
+    public String findPaginated(@PathVariable(value = "pageNo") int pageNo, ModelMap modelMap) {
+        int pageSize = 5;
+        Page<Country> page = countryService.findPaginated(pageNo, pageSize);
+        List<Country> countries = page.getContent();
+        modelMap.addAttribute("currentPage", pageNo);
+        modelMap.addAttribute("totalPages", page.getTotalPages());
+        modelMap.addAttribute("totalItems", page.getTotalElements());
+        modelMap.addAttribute("countries", countries);
+
         return "country/index";
     }
 }
