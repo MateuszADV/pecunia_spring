@@ -82,7 +82,8 @@ public class CountryController {
         List<Country> countries = countryRepository.findAll();
         modelMap.addAttribute("countries", countries);
 
-        return "country/index";
+//        return "country/index";
+        return findPaginated(1, "continent", "asc", modelMap);
     }
 
     @GetMapping("/country/edit/{countryId}")

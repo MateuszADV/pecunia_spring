@@ -11,4 +11,5 @@
 ${Ansi.YELLOW}:: Spring Boot ::  ${Ansi.DEFAULT}(v${spring-boot.version})
 ${Ansi.BRIGHT_RED}:: Application Name: ${Ansi.DEFAULT}${info.app.name}
 ${Ansi.BLUE}:: Application Version: ${Ansi.DEFAULT}(${info.app.version})
+${Ansi.GREEN}:: Java Version: ${Ansi.DEFAULT}(${info.app.java})
 ${Ansi.DEFAULT}

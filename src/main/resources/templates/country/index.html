@@ -26,6 +26,7 @@
                 </th>
                 <th>Country PL</th>
                 <th>Capital City</th>
+                <th>Description</th>
                 <th>Akcja</th>
             </tr>
             </thead>
@@ -38,10 +39,11 @@
                     <td th:text="${country.countryEn}" class="pt-1 pb-1"></td>
                     <td th:text="${country.country_pl}" class="pt-1 pb-1"></td>
                     <td th:text="${country.capital_city}" class="pt-1 pb-1"></td>
+                    <td th:text="${country.description}" class="pt-1 pb-1" style="font-size: 12px"></td>
                     <td class="pt-1 pb-1">
-                        <a th:href="@{'/country/show/' + ${country.id}}" class="btn btn-sm btn-info">SHOW</a>
-                        <a th:href="@{'/country/edit/' + ${country.id}}" class="btn btn-sm btn-primary">EDIT</a>
-                        <a th:href="@{'/country/delete/' + ${country.id}}" class="btn btn-sm btn-danger">DELETE</a>
+                        <a th:href="@{'/country/show/' + ${country.id}}" class="btn btn-sm btn-info" style="font-size: 10px">SHOW</a>
+                        <a th:href="@{'/country/edit/' + ${country.id}}" class="btn btn-sm btn-primary" style="font-size: 10px">EDIT</a>
+                        <a th:href="@{'/country/delete/' + ${country.id}}" class="btn btn-sm btn-danger" style="font-size: 10px">DELETE</a>
                     </td>
                 </tr>
             </Block>
