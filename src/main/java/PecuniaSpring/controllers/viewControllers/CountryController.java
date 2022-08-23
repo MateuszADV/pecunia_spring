@@ -112,14 +112,13 @@ public class CountryController {
         return "redirect:/country";
     }
 
-
-
     @GetMapping("/country/delete/{countryId}")
     public String deleteCountry(@PathVariable Long countryId, ModelMap modelMap) {
         countryRepository.deleteById(countryId);
         List<Country> countries = countryRepository.findAll();
         modelMap.addAttribute("countries", countries);
-        return "country/index";
+//        return "country/index";
+        return findPaginated(1, "continent", "asc", modelMap);
     }
 
     @GetMapping("/page/{pageNo}")
@@ -128,6 +127,9 @@ public class CountryController {
                                 @RequestParam("sortDir") String sortDir,
                                 ModelMap modelMap) {
         int pageSize = 10;
+        modelMap.addAttribute("pageSize", pageSize);
+        String pathPage = "/page/";
+        modelMap.addAttribute("pathPage", pathPage);
         System.out.println("=========================================");
         System.out.println(pageNo);
         System.out.println(sortField);

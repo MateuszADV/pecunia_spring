@@ -14,6 +14,7 @@
         <table class="table table-striped table-bordered table-hover table-sm">
             <thead class="thead-dark">
             <tr>
+                <th>Lp:</th>
                 <th>ID</th>
 <!--                <th>Continent</th>-->
                 <th>
@@ -29,8 +30,9 @@
             </tr>
             </thead>
             <tbody>
-            <Block th:each="country : ${countries}">
+            <Block th:each="country, i : ${countries}">
                 <tr>
+                    <td th:text="${(i.index + 1) + (pageSize * (currentPage - 1))}"></td>
                     <td th:text="${country.id}" class="pt-1 pb-1"></td>
                     <td th:text="${country.continent}" class="pt-1 pb-1"></td>
                     <td th:text="${country.countryEn}" class="pt-1 pb-1"></td>
@@ -46,29 +48,7 @@
             </tbody>
         </table>
 
-        <div th:if = "${totalPages > 1}">
-            <div class="row col-sm-10">
-                <div class="col-sm-2">
-                    Total Rows: [[${totalItems}]]
-                </div>
-                <div class="col-sm-15">
-                    <span th:each="i: ${#numbers.sequence(1, totalPages)}">
-                        <a th:if="${currentPage != i}" th:href="@{'/page/' + ${i} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}} ">[[${i}]]</a>
-                        <span th:unless="${currentPage != i}">[[${i}]]</span> &nbsp; &nbsp;
-                    </span>
-                </div>
-                <div class="col-sm-1">
-                    <a th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${currentPage + 1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}} ">NEXT</a>
-                    <span th:unless="${currentPage < totalPages}">NEXT</span>
-                </div>
-                <div class="col-sm-1">
-                    <a th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${totalPages} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}} ">Last</a>
-                    <span th:unless="${currentPage < totalPages}">Last</span>
-                </div>
-            </div>
-
-
-        </div>
+        <div th:replace="fragments/_paginationB :: paginationB"></div>
     </div>
 </body>
 </html>
