@@ -31,11 +31,11 @@ public class CountryServiceImpl implements CountryService {
     @Override
     public Country getCountryById(Long id) {
         Optional<Country> optional = countryRepository.findById(id);
-        Country country = null;
+        Country country = new Country();
         if (optional.isPresent()) {
             country = optional.get();
         }else {
-            throw new RuntimeException("Contry Not Found For Id :: " + id);
+            throw new RuntimeException("Country Not Found For Id :: " + id);
         }
         return country;
     }

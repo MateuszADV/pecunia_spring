@@ -58,13 +58,21 @@ public class CountryController {
 //            return "error";
 //        }
 
-        String json = JsonUtils.gsonPretty(countryService.getCountryById(countryId));
-        System.out.println("=======================================");
-        System.out.println(json);
-        System.out.println(countryService.getCountryById(countryId));
-        System.out.println("=======================================");
-        modelMap.addAttribute("json", json);
-        modelMap.addAttribute("country", countryService.getCountryById(countryId));
+        try {
+            String json = JsonUtils.gsonPretty(countryService.getCountryById(countryId));
+            System.out.println("=======================================");
+            System.out.println(json);
+            System.out.println(countryService.getCountryById(countryId));
+            System.out.println("=======================================");
+            modelMap.addAttribute("json", json);
+            modelMap.addAttribute("country", countryService.getCountryById(countryId));
+        } catch (Exception e) {
+            System.out.println("+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=+");
+            System.out.println(e.getMessage());
+            System.out.println("+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=+");
+            modelMap.addAttribute("error", e.getMessage());
+            return "error";
+        }
         return "country/show";
 
     }
@@ -122,10 +130,20 @@ public class CountryController {
 
     @GetMapping("/country/delete/{countryId}")
     public String deleteCountry(@PathVariable Long countryId, ModelMap modelMap) {
-        countryRepository.deleteById(countryId);
-        List<Country> countries = countryRepository.findAll();
-        modelMap.addAttribute("countries", countries);
+//        countryRepository.deleteById(countryId);
+//        List<Country> countries = countryRepository.findAll();
+//        modelMap.addAttribute("countries", countries);
 //        return "country/index";
+
+        try {
+            countryService.deleteCountryById(countryId);
+        } catch (Exception e) {
+            System.out.println("*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&");
+            System.out.println(e.getMessage());
+            System.out.println("*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&");
+            modelMap.addAttribute("error", "Country Not Found For Id :: " + countryId);
+            return "error";
+        }
         return findPaginated(1, "continent", "asc", modelMap);
     }
 
