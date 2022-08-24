@@ -15,8 +15,8 @@ jobs:
       - image: cimg/openjdk:11.0
         environment:
           JDBC_DATABASE_URL: jdbc:postgresql://localhost:5432/pecunia_spring?useUnicode=true&characterEncoding=UTF-8
-          JDBC_DATABASE_USERNAME: root
-          JDBC_DATABASE_PASSWORD: root
+          JDBC_DATABASE_USERNAME: postgres
+          JDBC_DATABASE_PASSWORD: postgres
 
       - image: circleci/postgres:13.5-bullseye-postgis-ram
         environment:
