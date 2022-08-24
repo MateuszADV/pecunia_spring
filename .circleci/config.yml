@@ -18,9 +18,9 @@ jobs:
           JDBC_DATABASE_USERNAME: postgres
           JDBC_DATABASE_PASSWORD: postgres
 
-      - image: circleci/postgres:9.6.5-apline-ram
+      - image: circleci/postgres:12-postgis-ram
         environment:
-          POSTGRES_DB: pecunia_spring
+          POSTGRES_DB: jdbc:postgresql://localhost:5432/pecunia_spring?useUnicode=true&characterEncoding=UTF-8
 
 
 
