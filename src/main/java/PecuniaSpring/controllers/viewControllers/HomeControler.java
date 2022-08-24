@@ -2,7 +2,7 @@ package PecuniaSpring.controllers.viewControllers;
 
 import PecuniaSpring.controllers.dto.UserRegistration;
 import PecuniaSpring.models.Country;
-import PecuniaSpring.models.repsitories.CountryRepository;
+import PecuniaSpring.models.repositories.CountryRepository;
 import PecuniaSpring.registration.EmailValidator;
 import PecuniaSpring.registration.RegistrationRequest;
 import PecuniaSpring.registration.RegistrationService;
@@ -24,7 +24,6 @@ import javax.validation.Valid;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;

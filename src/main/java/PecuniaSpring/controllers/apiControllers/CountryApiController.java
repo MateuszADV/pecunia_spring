@@ -2,7 +2,7 @@ package PecuniaSpring.controllers.apiControllers;
 
 import PecuniaSpring.controllers.dto.CountryDto;
 import PecuniaSpring.models.Country;
-import PecuniaSpring.models.repsitories.CountryRepository;
+import PecuniaSpring.models.repositories.CountryRepository;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;

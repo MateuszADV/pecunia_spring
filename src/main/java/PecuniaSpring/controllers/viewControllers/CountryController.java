@@ -1,9 +1,8 @@
 package PecuniaSpring.controllers.viewControllers;
 
 import PecuniaSpring.models.Country;
-import PecuniaSpring.models.repsitories.CountryRepository;
+import PecuniaSpring.models.repositories.CountryRepository;
 import PecuniaSpring.services.countryServices.CountryServiceImpl;
-import com.google.gson.Gson;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -44,20 +43,29 @@ public class CountryController {
         Optional<Country> country = countryRepository.findById(countryId);
         System.out.println(country.isPresent());
 
-        if (country.isPresent()) {
-            modelMap.addAttribute("country", country);
+//        if (country.isPresent()) {
+//            modelMap.addAttribute("country", country);
+//
+//            String json = JsonUtils.gsonPretty(country.get());
+//            System.out.println(json);
+//            modelMap.addAttribute("json", json);
+//
+//
+//            return "country/show";
+//        }
+//        else {
+//            modelMap.addAttribute("error", "Błedne Id - " + countryId);
+//            return "error";
+//        }
 
-            String json = JsonUtils.gsonPretty(country.get());
-            System.out.println(json);
-            modelMap.addAttribute("json", json);
-
-
-            return "country/show";
-        }
-        else {
-            modelMap.addAttribute("error", "Błedne Id - " + countryId);
-            return "error";
-        }
+        String json = JsonUtils.gsonPretty(countryService.getCountryById(countryId));
+        System.out.println("=======================================");
+        System.out.println(json);
+        System.out.println(countryService.getCountryById(countryId));
+        System.out.println("=======================================");
+        modelMap.addAttribute("json", json);
+        modelMap.addAttribute("country", countryService.getCountryById(countryId));
+        return "country/show";
 
     }
 
@@ -75,9 +83,8 @@ public class CountryController {
         System.out.println(country.toString());
 
         System.out.println(JsonUtils.gsonPretty(countryForm));
-        Gson gson = new Gson();
 
-        countryRepository.save(countryForm);
+        countryService.saveCountry(countryForm);
         System.out.println("--------------------*****************END***************-----------------------------");
         List<Country> countries = countryRepository.findAll();
         modelMap.addAttribute("countries", countries);

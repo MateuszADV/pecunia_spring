@@ -1,7 +1,7 @@
 package PecuniaSpring.services.countryServices;
 
 import PecuniaSpring.models.Country;
-import PecuniaSpring.models.repsitories.CountryRepository;
+import PecuniaSpring.models.repositories.CountryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

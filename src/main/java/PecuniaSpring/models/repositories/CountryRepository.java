@@ -1,4 +1,4 @@
-package PecuniaSpring.models.repsitories;
+package PecuniaSpring.models.repositories;
 
 import PecuniaSpring.models.Country;
 import org.springframework.data.jpa.repository.JpaRepository;
