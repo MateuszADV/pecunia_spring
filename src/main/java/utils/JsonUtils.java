@@ -12,7 +12,9 @@ public class JsonUtils {
 
 //        Gson gson = new Gson();
 //        Gson gson = new GsonBuilder().disableHtmlEscaping().create();
-        Gson gson = new GsonBuilder().setPrettyPrinting()
+        Gson gson = new GsonBuilder()
+                .setPrettyPrinting()
+                .setDateFormat("yyyy-MM-dd HH:mm:ss")
                 .disableHtmlEscaping()
                 .create();
         gson.htmlSafe();
