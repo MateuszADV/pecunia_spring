@@ -10,6 +10,7 @@
     <div layout:fragment="content" class="container">
 
         <div class="jumbotron">
+            <h5 th:text="${ip}"></h5>
             <h1>FORMAT DATA</h1>
             <h1 th:text="${#dates.format(standardDate, 'yyyy-MM-dd HH:mm')}"></h1>
             <p th:text="${#temporals.formatISO(localDateTime)}"></p>

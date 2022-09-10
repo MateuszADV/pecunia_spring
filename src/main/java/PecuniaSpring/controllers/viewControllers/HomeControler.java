@@ -53,6 +53,7 @@ public class HomeControler {
         System.out.println("---------------------TEST START------------------------");
         System.out.println(request.toString());
         System.out.println(response.getLocale().toString());
+        modelMap.addAttribute("ip", request.getRemoteAddr());
 
 
         System.out.println("=========================================");
