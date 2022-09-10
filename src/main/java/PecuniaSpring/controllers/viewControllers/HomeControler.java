@@ -75,7 +75,8 @@ public class HomeControler {
     }
 
     @GetMapping("/about")
-    public String getAbout(){
+    public String getAbout(ModelMap modelMap){
+        modelMap.addAttribute("standardDate", new Date());
         return "home/about";
     }
 
