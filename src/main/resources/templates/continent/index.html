@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      layout:decorate="~{layouts/layout}">
+<head>
+    <title>CONTINENT</title>
+</head>
+<body>
+    <div layout:fragment="content" class="container">
+        <h1 style="text-align: center">CONTINENT</h1>
+        <a th:href="@{/continent/new}" class="btn btn-sm btn-primary">Add new Continent</a>
+
+        <div class="container">
+            <Block th:each="continent : ${continents}">
+                <p th:text="${continent}"></p>
+            </Block>
+        </div>
+    </div>
+
+</body>
+</html>

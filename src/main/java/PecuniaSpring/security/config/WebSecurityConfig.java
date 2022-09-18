@@ -34,7 +34,9 @@ public class WebSecurityConfig  {
                 .permitAll()
                 .antMatchers("/country", "/country/show/**")
                 .permitAll()
-                .antMatchers("/continent").hasAnyAuthority("USER", "ADMIN")
+//                .antMatchers("/continent").hasAnyAuthority("USER", "ADMIN")
+                .antMatchers("/continent")
+                .permitAll()
 //                .antMatchers("/test").hasAnyAuthority("USER")
                 .anyRequest().hasAnyAuthority("ADMIN");
         http
