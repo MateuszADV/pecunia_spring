@@ -12,9 +12,17 @@
         <a th:href="@{/continent/new}" class="btn btn-sm btn-primary">Add new Continent</a>
 
         <div class="container">
-            <Block th:each="continent : ${continents}">
-                <p th:text="${continent}"></p>
-            </Block>
+            <div class="row">
+                <Block th:each="continent : ${continents}">
+                    <div class="col-sm-2" style="text-align: center">
+                        <div calss="container" style="margin: 15px">
+                            <a th:href="@{'/continent/?selectContinent=' + ${continent.continentEn}}">
+                                <img th:src="@{'/images/continents/' + ${continent.continentCode} + '.png'}" style="width: 150px"/>
+                            </a>
+                        </div>
+                    </div>
+                </Block>
+            </div>
         </div>
     </div>
 

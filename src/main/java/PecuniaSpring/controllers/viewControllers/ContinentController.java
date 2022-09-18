@@ -7,9 +7,7 @@ import PecuniaSpring.services.continentServices.ContinentServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import utils.JsonUtils;
 
 import java.util.List;
@@ -49,6 +47,15 @@ public class ContinentController {
         List<Continent> continents = continentRepository.findAll();
         modelMap.addAttribute("continents", continents);
 
+        return "continent/index";
+    }
+
+    @GetMapping("/continent/")
+    public String getNContinent(@RequestParam("selectContinent") String continentEn,
+                                ModelMap modelMap) {
+        System.out.println("====================Continent ID============================");
+        System.out.println(continentEn);
+        modelMap.addAttribute("continents", continentRepository.findAll());
         return "continent/index";
     }
 }
