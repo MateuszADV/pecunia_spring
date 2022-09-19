@@ -1,9 +1,11 @@
 package PecuniaSpring.controllers.viewControllers;
 
 import PecuniaSpring.models.Continent;
+import PecuniaSpring.models.Country;
 import PecuniaSpring.models.repositories.ContinentRepository;
 import PecuniaSpring.services.continentServices.ContinentService;
 import PecuniaSpring.services.continentServices.ContinentServiceImpl;
+import PecuniaSpring.services.countryServices.CountryService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -18,6 +20,7 @@ public class ContinentController {
 
     private ContinentRepository continentRepository;
     private ContinentServiceImpl continentService;
+    private CountryService countryService;
 
     @GetMapping("/continent")
     public String getIndex(ModelMap modelMap) {
@@ -56,6 +59,10 @@ public class ContinentController {
         System.out.println("====================Continent ID============================");
         System.out.println(continentEn);
         modelMap.addAttribute("continents", continentRepository.findAll());
-        return "continent/index";
+        List<Country> countries = countryService.getCountriesWithContinent(continentEn);
+        System.out.println(countries);
+        modelMap.addAttribute("countries", countries);
+//        System.out.println(continentRepository.getContinent(continentEn));
+        return "continent/country";
     }
 }
