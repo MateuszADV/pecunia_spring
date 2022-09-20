@@ -2,6 +2,7 @@ package PecuniaSpring.controllers.viewControllers;
 
 import PecuniaSpring.models.Country;
 import PecuniaSpring.models.repositories.CountryRepository;
+import PecuniaSpring.services.continentServices.ContinentServiceImpl;
 import PecuniaSpring.services.countryServices.CountryServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -19,6 +20,7 @@ public class CountryController {
 
     private CountryRepository countryRepository;
     private CountryServiceImpl countryService;
+    private ContinentServiceImpl continentService;
 
     private Optional<Country> country;
 
@@ -32,7 +34,8 @@ public class CountryController {
 //    }
     @GetMapping("/country")
     public String getIndex(ModelMap modelMap) {
-
+        List<Country> countries = countryRepository.findAll();
+//        System.out.println(countries);
      return findPaginated(1, "continent", "asc", modelMap);
     }
 
@@ -42,21 +45,6 @@ public class CountryController {
         System.out.println("Id - " + countryId);
         Optional<Country> country = countryRepository.findById(countryId);
         System.out.println(country.isPresent());
-
-//        if (country.isPresent()) {
-//            modelMap.addAttribute("country", country);
-//
-//            String json = JsonUtils.gsonPretty(country.get());
-//            System.out.println(json);
-//            modelMap.addAttribute("json", json);
-//
-//
-//            return "country/show";
-//        }
-//        else {
-//            modelMap.addAttribute("error", "Błedne Id - " + countryId);
-//            return "error";
-//        }
 
         try {
             String json = JsonUtils.gsonPretty(countryService.getCountryById(countryId));
@@ -80,6 +68,8 @@ public class CountryController {
     @GetMapping("/country/new")
     public String getNew(ModelMap modelMap) {
         modelMap.addAttribute("countryForm", new Country());
+        System.out.println(continentService.getAllContinent());
+
         System.out.println("------------------NEW COUNTRY----------------------");
 
         return "country/new";

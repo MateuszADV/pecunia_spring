@@ -46,4 +46,8 @@ public class Country {
     private Timestamp updated_at;
     private Boolean exists;
     private String description;
+
+    @ManyToOne
+    @JoinColumn(name = "continent_id")
+    private Continent continents;
 }
