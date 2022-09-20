@@ -29,7 +29,7 @@ public class Country {
     @Column(name = "country_en")
     private String countryEn;
     @Column(name = "country_pl")
-    private String country_pl;
+    private String countryPl;
     @Column(name = "capital_city")
     private String capital_city;
     @Column(name = "alfa_2")
