@@ -1,5 +1,7 @@
 <header th:fragment="form"
     xmlns:th="http://www.thymeleaf.org">
+    <p th:text="${continentEdit.continentPl}">></p>
+    <p th:text="${continentEdit.id}"></p>
     <table>
         <!--            <input class="input" type="hidden" th:field="*{created_at}" readonly/>-->
         <!--            <input class="input" type="hidden" th:field="*{updated_at}" readonly/>-->
@@ -11,10 +13,14 @@
             <td>Id continent</td>
             <td>
                 <select th:field="*{continent_id}">
+
                     <option th:each="continent : ${continents}"
                             th:value="${continent.id}"
-                            th:text="${continent.continentPl}">
+                            th:text="${continent.continentPl} + ${continent.id.toString}">
                         Address
+                    </option>
+                    <option th:value="${continentEdit.id}"
+                            th:text="${continentEdit.id}">
                     </option>
                 </select>
             </td>
