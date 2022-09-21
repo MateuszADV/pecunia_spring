@@ -1,5 +1,6 @@
-package PecuniaSpring.controllers.dto;
+package PecuniaSpring.controllers.dto.country;
 
+import PecuniaSpring.controllers.dto.continent.ContinentDto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
@@ -15,6 +16,7 @@ import java.sql.Timestamp;
 @JsonInclude(JsonInclude.Include.NON_EMPTY)  //nie wyswietla null i pustych wartości
 public class CountryDto {
 
+    private Long continent_id;
     private Long id;
     private String continent;
     private String countryEn;
@@ -26,6 +28,6 @@ public class CountryDto {
     private String iso_code;
     private Boolean exists;
     private String description;
-//    private Timestamp created_at;
-//    private Timestamp updated_at;
+    private Timestamp created_at;
+    private Timestamp updated_at;
 }

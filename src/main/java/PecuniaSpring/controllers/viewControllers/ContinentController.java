@@ -66,9 +66,10 @@ public class ContinentController {
         System.out.println(continentEn);
         modelMap.addAttribute("continents", continentRepository.findAll());
         List<Country> countries = countryService.getCountriesWithContinent(continentEn);
-        System.out.println(countries);
+//        System.out.println(countries);
         modelMap.addAttribute("countries", countries);
-//        System.out.println(continentRepository.getContinent(continentEn));
+        System.out.println(countries.get(0).getContinents().getContinentCode());
+        System.out.println("====================Continent ID============================");
         return "continent/country";
     }
 }
