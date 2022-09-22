@@ -28,7 +28,7 @@ public class CountryController {
     private CountryServiceImpl countryService;
     private ContinentServiceImpl continentService;
     private ContinentRepository continentRepository;
-    private Optional<Country> country;
+    private Optional<Country> countryTemp;
 
 //    @GetMapping("/country")
 //    public String getIndex(ModelMap modelMap)
@@ -103,7 +103,7 @@ public class CountryController {
 
     @GetMapping("/country/edit/{countryId}")
     public String getEdit(@PathVariable Long countryId, ModelMap modelMap) {
-        country = countryRepository.findById(countryId);
+        countryTemp = countryRepository.findById(countryId);
         List<Continent> continents = continentService.getAllContinent();
         List<ContinentDto> continentDtos = new ArrayList<>();
         for (Continent continent : continents) {
@@ -111,35 +111,24 @@ public class CountryController {
         }
         System.out.println(continentDtos);
         modelMap.addAttribute("continents", continentDtos);
-        CountryDto countryDto = new ModelMapper().map(country, CountryDto.class);
+        CountryDto countryDto = new ModelMapper().map(countryTemp, CountryDto.class);
 
-        countryDto.setContinent_id(country.get().getContinents().getId());
-        Continent continent = country.get().getContinents();
+        countryDto.setContinent_id(countryTemp.get().getContinents().getId());
+        Continent continent = countryTemp.get().getContinents();
         modelMap.addAttribute("continentEdit", continent);
         modelMap.addAttribute("countryForm", countryDto);
-        System.out.println("------------------EDIT COUNTRY----------------------");
-        System.out.println(country.get().getContinents().getId());
-        System.out.println("Id - " + countryId);
-        System.out.println(countryDto);
-        System.out.println("-------------------EDIT------------------------------");
-
         return "country/edit";
     }
 
     @PostMapping("/country/edit")
     public String postEdit(@ModelAttribute("countryForm")CountryDto countryForm, ModelMap modelMap) {
-        countryForm.setId(country.get().getId());
-        countryForm.setCreated_at(country.get().getCreated_at());
-        System.out.println("------------TU JESTEM--------------------------");
-        System.out.println(countryForm);
-        System.out.println(countryForm.getContinent_id());
-        Country country1 = new ModelMapper().map(countryForm, Country.class);
-//        System.out.println(country1.getContinents().getId());
+        countryForm.setId(countryTemp.get().getId());
+        countryForm.setCreated_at(countryTemp.get().getCreated_at());
+
+        Country country = new ModelMapper().map(countryForm, Country.class);
         Optional<Continent> continent = continentRepository.findById(countryForm.getContinent_id());
-        System.out.println();
-        System.out.println("----------KONIEC TU JESTEM---------------------------");
-        country1.setContinents(continent.get());
-        countryRepository.save(country1);
+        country.setContinents(continent.get());
+        countryRepository.save(country);
 
         return "redirect:/country";
     }
