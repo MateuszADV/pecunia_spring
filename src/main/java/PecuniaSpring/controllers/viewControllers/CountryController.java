@@ -4,6 +4,7 @@ import PecuniaSpring.controllers.dto.continent.ContinentDto;
 import PecuniaSpring.controllers.dto.country.CountryDto;
 import PecuniaSpring.models.Continent;
 import PecuniaSpring.models.Country;
+import PecuniaSpring.models.repositories.ContinentRepository;
 import PecuniaSpring.models.repositories.CountryRepository;
 import PecuniaSpring.services.continentServices.ContinentServiceImpl;
 import PecuniaSpring.services.countryServices.CountryServiceImpl;
@@ -26,7 +27,7 @@ public class CountryController {
     private CountryRepository countryRepository;
     private CountryServiceImpl countryService;
     private ContinentServiceImpl continentService;
-
+    private ContinentRepository continentRepository;
     private Optional<Country> country;
 
 //    @GetMapping("/country")
@@ -89,8 +90,8 @@ public class CountryController {
 //        System.out.println(country.toString());
         System.out.println(JsonUtils.gsonPretty(countryForm));
         Country country1 = new ModelMapper().map(countryForm, Country.class);
-        Optional<Country> continent = countryRepository.findById(countryForm.getContinent_id());
-        country1.setContinents(continent.get().getContinents());
+        Optional<Continent> continent = continentRepository.findById(countryForm.getContinent_id());
+        country1.setContinents(continent.get());
         countryService.saveCountry(country1);
         System.out.println("--------------------*****************END***************-----------------------------");
         List<Country> countries = countryRepository.findAll();
@@ -134,10 +135,10 @@ public class CountryController {
         System.out.println(countryForm.getContinent_id());
         Country country1 = new ModelMapper().map(countryForm, Country.class);
 //        System.out.println(country1.getContinents().getId());
-        Optional<Country> continent = countryRepository.findById(countryForm.getContinent_id());
-
+        Optional<Continent> continent = continentRepository.findById(countryForm.getContinent_id());
+        System.out.println();
         System.out.println("----------KONIEC TU JESTEM---------------------------");
-        country1.setContinents(continent.get().getContinents());
+        country1.setContinents(continent.get());
         countryRepository.save(country1);
 
         return "redirect:/country";

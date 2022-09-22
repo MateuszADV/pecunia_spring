@@ -16,7 +16,7 @@
                 <td>Id continent</td>
                 <td>
                     <select th:field="*{continent_id}">
-                        <option value="Europa">SELECT CONTINENT</option>
+                        <option value="">SELECT CONTINENT</option>
                         <option th:each="continent : ${continents}"
                                 th:value="${continent.id}"
                                 th:text="${continent.continentPl}">
