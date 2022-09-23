@@ -14,8 +14,10 @@
         <table class="table table-striped table-bordered table-hover table-sm">
             <thead class="thead-dark">
             <tr>
+<!--                <th>CON</th>-->
                 <th>Lp:</th>
                 <th>ID</th>
+                <th>Con</th>
 <!--                <th>Continent</th>-->
                 <th>
                     <a th:href="@{'/page/' + ${currentPage} + '?sortField=continent&sortDir=' + ${reverseSortDir}}">Continent</a>
@@ -33,8 +35,10 @@
             <tbody>
             <Block th:each="country, i : ${countries}">
                 <tr>
+<!--                    <td th:text="${country.getContinents().getContinentCode()}"></td>-->
                     <td th:text="${(i.index + 1) + (pageSize * (currentPage - 1))}"></td>
                     <td th:text="${country.id}" class="pt-1 pb-1"></td>
+                    <td th:text="${country.continents.continentPl}" class="pt-1 pb-1"></td>
                     <td th:text="${country.continent}" class="pt-1 pb-1"></td>
                     <td th:text="${country.countryEn}" class="pt-1 pb-1"></td>
                     <td th:text="${country.countryPl}" class="pt-1 pb-1"></td>

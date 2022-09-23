@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import utils.JsonUtils;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @AllArgsConstructor
@@ -25,11 +26,16 @@ public class ContinentController {
     @GetMapping("/continent")
     public String getIndex(ModelMap modelMap) {
         List<Continent> continents = continentRepository.findAll();
-        System.out.println(continents);
+        for (Continent c : continents) {
+            System.out.println(c.getContinentPl() + " - " + c.getCountries().size());
+            for (Country country : c.getCountries()){
+                System.out.println(country.getContinents().getContinentPl());
+            }
+        }
         modelMap.addAttribute("continents", continents);
 
-        String json = JsonUtils.gsonPretty(continents.get(0));
-        System.out.println(json);
+//        String json = JsonUtils.gsonPretty(continents.get(0));
+//        System.out.println(json);
         return "continent/index";
     }
 
@@ -60,9 +66,10 @@ public class ContinentController {
         System.out.println(continentEn);
         modelMap.addAttribute("continents", continentRepository.findAll());
         List<Country> countries = countryService.getCountriesWithContinent(continentEn);
-        System.out.println(countries);
+//        System.out.println(countries);
         modelMap.addAttribute("countries", countries);
-//        System.out.println(continentRepository.getContinent(continentEn));
+        System.out.println(countries.get(0).getContinents().getContinentCode());
+        System.out.println("====================Continent ID============================");
         return "continent/country";
     }
 }

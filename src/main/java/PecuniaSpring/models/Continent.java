@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Getter
 @Setter
@@ -36,4 +37,7 @@ public class Continent {
     private Timestamp created_at;
     @Column(name = "updated_at")
     private Timestamp updated_at;
+
+    @OneToMany(mappedBy = "continents", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    private List<Country> countries;
 }
