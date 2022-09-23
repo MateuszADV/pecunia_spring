@@ -41,4 +41,9 @@ public class ContinentServiceImpl implements ContinentService {
     public void deleteContinentById(Long id) {
         this.continentRepository.deleteById(id);
     }
+
+    @Override
+    public Continent getContinentByContinentEn(String continentEn) {
+        return continentRepository.getContinent(continentEn);
+    }
 }
