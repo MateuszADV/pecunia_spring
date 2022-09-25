@@ -2,6 +2,7 @@ package PecuniaSpring.controllers.dto.continent;
 
 import lombok.*;
 
+import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 import java.util.List;
 @AllArgsConstructor
@@ -10,6 +11,7 @@ import java.util.List;
 @Setter
 @ToString
 public class ContinentDto {
+    @NotNull
     private Long id;
     private String continentEn;
     private String continentPl;

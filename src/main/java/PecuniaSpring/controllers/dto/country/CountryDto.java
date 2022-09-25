@@ -5,6 +5,10 @@ import PecuniaSpring.models.Continent;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.sql.Timestamp;
 
 @AllArgsConstructor
@@ -19,6 +23,9 @@ public class CountryDto {
 
     private Long id;
     private String continent;
+    @NotNull
+    @NotEmpty
+    @Size(min=3, max=30)
     private String countryEn;
     private String countryPl;
     private String capital_city;
@@ -30,5 +37,7 @@ public class CountryDto {
     private String description;
     private Timestamp created_at;
     private Timestamp updated_at;
+    @NotNull
+    @Valid
     private ContinentDto continents;
 }

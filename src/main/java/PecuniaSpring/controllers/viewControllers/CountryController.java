@@ -6,6 +6,7 @@ import PecuniaSpring.models.Continent;
 import PecuniaSpring.models.Country;
 import PecuniaSpring.models.repositories.ContinentRepository;
 import PecuniaSpring.models.repositories.CountryRepository;
+import PecuniaSpring.registration.RegistrationRequest;
 import PecuniaSpring.services.continentServices.ContinentServiceImpl;
 import PecuniaSpring.services.countryServices.CountryServiceImpl;
 import lombok.AllArgsConstructor;
@@ -13,9 +14,11 @@ import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import utils.JsonUtils;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -86,16 +89,26 @@ public class CountryController {
     }
 
     @PostMapping("/country/new")
-    public String postNew(@ModelAttribute("countryForm")CountryDto countryForm, ModelMap modelMap) {
+    public String postNew(@ModelAttribute("countryForm")
+                              @Valid CountryDto countryForm, BindingResult result, ModelMap modelMap) {
         System.out.println("--------------------***************START*****************-----------------------------");
-        System.out.println(JsonUtils.gsonPretty(countryForm));
-        Country country = new ModelMapper().map(countryForm, Country.class);
-        countryService.saveCountry(country);
-        System.out.println("--------------------*****************END***************-----------------------------");
-//        List<Country> countries = countryRepository.findAll();
-//
-//        modelMap.addAttribute("countries", countries);
-
+//        System.out.println(JsonUtils.gsonPretty(countryForm));
+        System.out.println(result.hasErrors());
+        System.out.println(countryForm);
+        System.out.println(countryForm.getContinents().toString());
+        System.out.println(result.toString());
+        if (result.hasErrors()) {
+            List<Continent> continents = continentService.getAllContinent();
+            List<ContinentDto> continentDtos = new ArrayList<>();
+            for (Continent continent : continents) {
+                continentDtos.add(new ModelMapper().map(continent, ContinentDto.class));
+            }
+            modelMap.addAttribute("continents", continentDtos);
+            return "country/new";
+        }
+//        Country country = new ModelMapper().map(countryForm, Country.class);
+//        countryService.saveCountry(country);
+//        System.out.println("--------------------*****************END***************-----------------------------");
 //        return "country/index";
         return findPaginated(1, "continent", "asc", modelMap);
     }

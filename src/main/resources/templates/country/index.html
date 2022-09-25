@@ -17,7 +17,9 @@
 <!--                <th>CON</th>-->
                 <th>Lp:</th>
                 <th>ID</th>
-                <th>Con</th>
+                <th>
+                    <a th:href="@{'/page/' + ${currentPage} + '?sortField=continents.continentEn&sortDir=' + ${reverseSortDir}}">Con</a>
+                </th>
 <!--                <th>Continent</th>-->
                 <th>
                     <a th:href="@{'/page/' + ${currentPage} + '?sortField=continent&sortDir=' + ${reverseSortDir}}">Continent</a>
