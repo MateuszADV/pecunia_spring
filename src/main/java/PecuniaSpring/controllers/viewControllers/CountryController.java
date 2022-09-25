@@ -106,9 +106,10 @@ public class CountryController {
             modelMap.addAttribute("continents", continentDtos);
             return "country/new";
         }
-//        Country country = new ModelMapper().map(countryForm, Country.class);
-//        countryService.saveCountry(country);
-//        System.out.println("--------------------*****************END***************-----------------------------");
+        System.out.println(JsonUtils.gsonPretty(countryForm));
+        Country country = new ModelMapper().map(countryForm, Country.class);
+        countryService.saveCountry(country);
+        System.out.println("--------------------*****************END***************-----------------------------");
 //        return "country/index";
         return findPaginated(1, "continent", "asc", modelMap);
     }
