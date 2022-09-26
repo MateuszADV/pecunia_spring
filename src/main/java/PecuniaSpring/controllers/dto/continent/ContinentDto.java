@@ -11,7 +11,7 @@ import java.util.List;
 @Setter
 @ToString
 public class ContinentDto {
-    @NotNull
+    @NotNull(message = "Select continent")
     private Long id;
     private String continentEn;
     private String continentPl;
