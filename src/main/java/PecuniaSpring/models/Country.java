@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Getter
 @Setter
@@ -50,4 +51,7 @@ public class Country {
     @ManyToOne
     @JoinColumn(name = "continent_id")
     private Continent continents;
+
+    @OneToMany(mappedBy = "countries", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    private List<Currency> currencies;
 }
