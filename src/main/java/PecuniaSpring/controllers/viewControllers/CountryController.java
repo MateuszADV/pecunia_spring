@@ -79,12 +79,7 @@ public class CountryController {
     @GetMapping("/country/new")
     public String getNew(ModelMap modelMap) {
         modelMap.addAttribute("countryForm", new CountryDto());
-        List<Continent> continents = continentService.getAllContinent();
-        List<ContinentDto> continentDtos = new ArrayList<>();
-        for (Continent continent : continents) {
-            continentDtos.add(new ModelMapper().map(continent, ContinentDto.class));
-        }
-        modelMap.addAttribute("continents", continentDtos);
+        getAllContinents(modelMap);
         return "country/new";
     }
 
@@ -92,18 +87,8 @@ public class CountryController {
     public String postNew(@ModelAttribute("countryForm")
                               @Valid CountryDto countryForm, BindingResult result, ModelMap modelMap) {
         System.out.println("--------------------***************START*****************-----------------------------");
-//        System.out.println(JsonUtils.gsonPretty(countryForm));
-        System.out.println(result.hasErrors());
-        System.out.println(countryForm);
-        System.out.println(countryForm.getContinents().toString());
-        System.out.println(result.toString());
         if (result.hasErrors()) {
-            List<Continent> continents = continentService.getAllContinent();
-            List<ContinentDto> continentDtos = new ArrayList<>();
-            for (Continent continent : continents) {
-                continentDtos.add(new ModelMapper().map(continent, ContinentDto.class));
-            }
-            modelMap.addAttribute("continents", continentDtos);
+            getAllContinents(modelMap);
             return "country/new";
         }
         System.out.println(JsonUtils.gsonPretty(countryForm));
@@ -137,24 +122,33 @@ public class CountryController {
     }
 
     @PostMapping("/country/edit")
-    public String postEdit(@ModelAttribute("countryForm")CountryDto countryForm, ModelMap modelMap) {
+    public String postEdit(@ModelAttribute("countryForm")
+                           @Valid CountryDto countryForm,
+                           BindingResult result, ModelMap modelMap) {
+        if (result.hasErrors()) {
+            getAllContinents(modelMap);
+            return "country/edit";
+        }
         countryForm.setId(countryTemp.get().getId());
         countryForm.setCreated_at(countryTemp.get().getCreated_at());
 
         Country country = new ModelMapper().map(countryForm, Country.class);
-//        Optional<Continent> continent = continentRepository.findById(countryForm.getContinent_id());
-//        country.setContinents(continent.get());
         countryRepository.save(country);
 
         return "redirect:/country";
     }
 
+    private void getAllContinents(ModelMap modelMap) {
+        List<Continent> continents = continentService.getAllContinent();
+        List<ContinentDto> continentDtos = new ArrayList<>();
+        for (Continent continent : continents) {
+            continentDtos.add(new ModelMapper().map(continent, ContinentDto.class));
+        }
+        modelMap.addAttribute("continents", continentDtos);
+    }
+
     @GetMapping("/country/delete/{countryId}")
     public String deleteCountry(@PathVariable Long countryId, ModelMap modelMap) {
-//        countryRepository.deleteById(countryId);
-//        List<Country> countries = countryRepository.findAll();
-//        modelMap.addAttribute("countries", countries);
-//        return "country/index";
 
         try {
             countryService.deleteCountryById(countryId);
@@ -199,8 +193,6 @@ public class CountryController {
         }
 
         modelMap.addAttribute("countries", countryDtos);
-
-
         return "country/index";
     }
 }
