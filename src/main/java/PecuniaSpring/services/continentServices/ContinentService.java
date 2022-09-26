@@ -11,4 +11,5 @@ public interface ContinentService {
     void saveContinent(Continent continent);
     Continent getContinentById(Long id);
     void deleteContinentById(Long id);
+    Continent getContinentByContinentEn(String continentEn);
 }
