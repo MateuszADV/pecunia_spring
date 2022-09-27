@@ -41,6 +41,8 @@ public class WebSecurityConfig  {
 //                *********************CURRENCY******************************************
                 .antMatchers("/currency", "/currency/list/**")
                 .permitAll()
+                .antMatchers("/search")
+                .permitAll()
 //                .antMatchers("/test").hasAnyAuthority("USER")
                 .anyRequest().hasAnyAuthority("ADMIN");
         http

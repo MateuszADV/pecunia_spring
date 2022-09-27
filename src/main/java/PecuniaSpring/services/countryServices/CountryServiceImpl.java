@@ -73,4 +73,9 @@ public class CountryServiceImpl implements CountryService {
     public List<Country> getCountryByCountryEnAsc() {
         return countryRepository.countriesOrderByCountryEnAsc();
     }
+
+    @Override
+    public List<Country> searchCountry(String keyWord) {
+        return countryRepository.searchCountry(keyWord);
+    }
 }

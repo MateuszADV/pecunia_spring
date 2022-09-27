@@ -3,6 +3,7 @@ package PecuniaSpring.controllers.viewControllers;
 import PecuniaSpring.controllers.dto.country.CountryGetCurrencyDto;
 import PecuniaSpring.controllers.dto.country.CountryGetDto;
 import PecuniaSpring.models.Country;
+import PecuniaSpring.models.repositories.CountryRepository;
 import PecuniaSpring.services.countryServices.CountryServiceImpl;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -23,6 +24,7 @@ import java.util.List;
 public class CurrencyController {
 
     private CountryServiceImpl countryService;
+    private CountryRepository countryRepository;
 
     @GetMapping("/currency")
     public String getIndex(ModelMap modelMap) {
@@ -62,6 +64,13 @@ public class CurrencyController {
         }
         System.out.println(keyword);
         modelMap.addAttribute("keyword", keyword);
+        List<Country> countries = countryService.searchCountry(keyword);
+        List<CountryGetDto> countryGetDtos = new ArrayList<>();
+        for (Country country : countries) {
+            countryGetDtos.add(new ModelMapper().map(country, CountryGetDto.class));
+        }
+        modelMap.addAttribute("countries", countryGetDtos);
+        System.out.println(JsonUtils.gsonPretty(countryGetDtos));
         return "currency/index";
     }
 }
