@@ -68,4 +68,9 @@ public class CountryServiceImpl implements CountryService {
         System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++");
         return countries;
     }
+
+    @Override
+    public List<Country> getCountryByCountryEnAsc() {
+        return countryRepository.countriesOrderByCountryEnAsc();
+    }
 }

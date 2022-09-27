@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      layout:decorate="~{layouts/layout}">
+<head>
+    <title>Country</title>
+</head>
+<body>
+    <div layout:fragment="content" class="container">
+        <h1 style="text-align: center">LISTA WALUT DANEGO PAńSTWA</h1>
+        <div class="container" style="text-align: center; margin-top: 15px">
+            <img th:src="@{'/images/flags/' + ${country.countryEn} + '.png'}" style="width: 100px"/><br>
+            <h5 th:text="${country.countryEn}"></h5>
+        </div>
+        <div>
+            <lu>
+                <block th:each="currency : ${country.getCurrencies}">
+                    <li th:text="${currency.id} + ' - ' + ${currency.pattern} + ' - ' + ${currency.currencySeries}"></li>
+                </block>
+            </lu>
+        </div>
+
+
+<!--        <a th:href="@{/country/new}" class="btn btn-sm btn-primary">Add new Country</a>-->
+
+    </div>
+</body>
+</html>
