@@ -1,0 +1,19 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      layout:decorate="~{layouts/layout}">
+<head>
+    <title>Active Seting</title>
+</head>
+<body>
+    <div layout:fragment="content" class="container">
+    <h1 style="text-align: center">ACTIVE</h1>
+        <a th:href="@{/active/new}" class="btn btn-sm btn-primary">Add new Active</a>
+
+            <lu th:each="active : ${activeDtos}">
+                <li th:text="${active}"></li>
+            </lu>
+    </div>
+</body>
+</html>
