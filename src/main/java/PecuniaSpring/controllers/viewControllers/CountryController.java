@@ -6,7 +6,6 @@ import PecuniaSpring.models.Continent;
 import PecuniaSpring.models.Country;
 import PecuniaSpring.models.repositories.ContinentRepository;
 import PecuniaSpring.models.repositories.CountryRepository;
-import PecuniaSpring.registration.RegistrationRequest;
 import PecuniaSpring.services.continentServices.ContinentServiceImpl;
 import PecuniaSpring.services.countryServices.CountryServiceImpl;
 import lombok.AllArgsConstructor;

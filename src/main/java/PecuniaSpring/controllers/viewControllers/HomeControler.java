@@ -1,6 +1,7 @@
 package PecuniaSpring.controllers.viewControllers;
 
 import PecuniaSpring.controllers.dto.UserRegistration;
+import PecuniaSpring.controllers.dto.country.CountryDto;
 import PecuniaSpring.models.Country;
 import PecuniaSpring.models.repositories.CountryRepository;
 import PecuniaSpring.registration.EmailValidator;
@@ -8,6 +9,7 @@ import PecuniaSpring.registration.RegistrationRequest;
 import PecuniaSpring.registration.RegistrationService;
 import PecuniaSpring.security.config.UserCheckLoged;
 import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -17,6 +19,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import utils.JsonUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,6 +27,7 @@ import javax.validation.Valid;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -127,7 +131,11 @@ public class HomeControler {
         System.out.println("==============STRONA TESTOWA===================");
         List<Country> countries = countryRepository.findAll();
 //        countries.stream().forEach(System.out::println);
-        countries.stream()
+        List<CountryDto> countryDtos = new ArrayList<>();
+        for (Country country : countries) {
+            countryDtos.add(new ModelMapper().map(country, CountryDto.class));
+        }
+        countryDtos.stream()
                 .filter(country -> country.getId() > 100)
                 .filter(country -> country.getId() < 150)
                 .filter(country -> country.getContinent().contains("Azja"))
