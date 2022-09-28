@@ -1,9 +1,12 @@
 package PecuniaSpring.controllers.dto.country;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
+import PecuniaSpring.controllers.dto.continent.ContinentDto;
+import PecuniaSpring.controllers.dto.currency.CurrencyDto;
+import PecuniaSpring.models.Currency;
 import lombok.*;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -11,10 +14,7 @@ import java.sql.Timestamp;
 @Setter
 @ToString
 @EqualsAndHashCode
-//@JsonInclude(JsonInclude.Include.NON_NULL)    //nie wyświetla nulowych wartości
-@JsonInclude(JsonInclude.Include.NON_EMPTY)  //nie wyswietla null i pustych wartości
-public class CountryGetDto {
-
+public class CountryGetCurrencyDto {
     private Long id;
     private String continent;
     private String countryEn;
@@ -28,4 +28,7 @@ public class CountryGetDto {
     private String description;
     private Timestamp created_at;
     private Timestamp updated_at;
+
+//    private ContinentDto continents;
+    private List<CurrencyDto> currencies;
 }

@@ -13,4 +13,6 @@ public interface CountryService {
     void deleteCountryById(Long id);
     Page<Country> findPaginated(Integer pageNo, Integer pageSize, String sortField, String sortDirection);
     List<Country> getCountriesWithContinent(String continentEn);
+    List<Country> getCountryByCountryEnAsc();
+    List<Country> searchCountry(String keyWord);
 }
