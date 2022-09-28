@@ -38,4 +38,9 @@ public class ActiveServiceImpl implements ActiveService {
     public void deleteActiveById(Long id) {
         this.activeRepository.deleteById(id);
     }
+
+    @Override
+    public Boolean activeCodExist(Integer activeCod) {
+        return activeRepository.existsByActiveCod(activeCod);
+    }
 }

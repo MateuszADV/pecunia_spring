@@ -48,7 +48,12 @@ public class ActiveController {
         if (result.hasErrors()) {
             return "active/new";
         }
-        activeService.saveActive(active);
+//        activeService.saveActive(active);
+
+        System.out.println("-------------TEST START-----------------------");
+        Boolean test = activeService.activeCodExist(activeDto.getActiveCod());
+        System.out.println(test);
+        System.out.println("-------------TEST stop-----------------------");
         return "redirect:/active";
     }
 }
