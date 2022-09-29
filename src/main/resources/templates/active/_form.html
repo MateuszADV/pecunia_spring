@@ -4,7 +4,8 @@
         <tr>
             <td>
                 <label>Active Cod</label><br>
-                <input class="input" type="number" th:field="*{activeCod}" placeholder="Active Cod"/>
+                <b th:if="${checkActive == true}" style="color: red; font-size: 15px">Podana wartość już istnieje w bazie<br></b>
+                <input class="input" type="number" th:field="*{activeCod}" placeholder="Active Cod" />
                 <div th:if="${#fields.hasErrors('activeCod')}" class="alert alert-danger alert-sm" role="alert" style="padding: 0px 10px 0px 10px" >
                     <span th:errors="*{activeCod}" ></span>
                 </div>

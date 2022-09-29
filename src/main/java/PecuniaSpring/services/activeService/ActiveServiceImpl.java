@@ -43,4 +43,13 @@ public class ActiveServiceImpl implements ActiveService {
     public Boolean activeCodExist(Integer activeCod) {
         return activeRepository.existsByActiveCod(activeCod);
     }
+
+    @Override
+    public Active getActiveByActiveCod(Integer activeCod) {
+        Active active = activeRepository.findByActiveCod(activeCod);
+        if (active != null) {
+            return active;
+        }
+        return null;
+    }
 }

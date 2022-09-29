@@ -2,6 +2,7 @@ package PecuniaSpring.controllers.viewControllers;
 
 import PecuniaSpring.controllers.dto.active.ActiveDto;
 import PecuniaSpring.models.Active;
+import PecuniaSpring.models.repositories.ActiveRepository;
 import PecuniaSpring.services.activeService.ActiveServiceImpl;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -10,18 +11,22 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import utils.JsonUtils;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @AllArgsConstructor
 public class ActiveController {
 
     private ActiveServiceImpl activeService;
+    private ActiveRepository activeRepository;
+    private Optional<Active> activeTemp;
 
     @GetMapping("/active")
     public String getIndex(ModelMap modelMap) {
@@ -45,15 +50,52 @@ public class ActiveController {
     public String getNew(@ModelAttribute("activeForm")@Valid ActiveDto activeDto, BindingResult result, ModelMap modelMap) {
         System.out.println(JsonUtils.gsonPretty(activeDto));
         Active active = new ModelMapper().map(activeDto, Active.class);
+        Boolean test = activeService.activeCodExist(activeDto.getActiveCod());
         if (result.hasErrors()) {
+            if (test) {
+                modelMap.addAttribute("checkActive", test);
+            }
             return "active/new";
         }
-//        activeService.saveActive(active);
+        if (test) {
+            modelMap.addAttribute("checkActive", test);
+            return "active/new";
+        }
+        activeService.saveActive(active);
+        return "redirect:/active";
+    }
 
-        System.out.println("-------------TEST START-----------------------");
-        Boolean test = activeService.activeCodExist(activeDto.getActiveCod());
-        System.out.println(test);
-        System.out.println("-------------TEST stop-----------------------");
+    @GetMapping("/active/edit/{activeId}")
+    public String getEdit(@PathVariable Long activeId, ModelMap modelMap) {
+        activeTemp = activeRepository.findById(activeId);
+        Active active = activeService.getActiveById(activeId);
+        ActiveDto activeDto = new ModelMapper().map(active, ActiveDto.class);
+        modelMap.addAttribute("activeForm", activeDto);
+        return "active/edit";
+    }
+
+    @PostMapping("/active/edit")
+    public String postEdit(@ModelAttribute("activeForm")@Valid ActiveDto activeDto, BindingResult result, ModelMap modelMap) {
+        activeDto.setId(activeTemp.get().getId());
+        activeDto.setCreated_at(activeTemp.get().getCreated_at());
+        if (result.hasErrors()) {
+            if (activeService.getActiveByActiveCod(activeDto.getActiveCod()) != null) {
+                if (activeDto.getId() != (activeService.getActiveByActiveCod(activeDto.getActiveCod()).getId())) {
+                    modelMap.addAttribute("checkActive", true);
+                 }
+            }
+            return "active/edit";
+        }
+
+        if (activeService.getActiveByActiveCod(activeDto.getActiveCod()) != null) {
+            if (activeDto.getId() != (activeService.getActiveByActiveCod(activeDto.getActiveCod()).getId())) {
+                modelMap.addAttribute("checkActive", true);
+                return "active/edit";
+            }
+        }
+        Active active = new ModelMapper().map(activeDto, Active.class);
+
+        activeService.saveActive(active);
         return "redirect:/active";
     }
 }

@@ -12,4 +12,6 @@ public interface ActiveService {
     Active getActiveById(Long id);
     void deleteActiveById(Long id);
     Boolean activeCodExist(Integer activeCod);
+
+    Active getActiveByActiveCod(Integer activeCod);
 }
