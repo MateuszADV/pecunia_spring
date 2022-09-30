@@ -38,6 +38,11 @@ public class WebSecurityConfig  {
 //                ********************CONTINENT*****************************************
                 .antMatchers("/continent/**")
                 .permitAll()
+//                *********************CURRENCY******************************************
+                .antMatchers("/currency", "/currency/list/**")
+                .permitAll()
+                .antMatchers("/search")
+                .permitAll()
 //                .antMatchers("/test").hasAnyAuthority("USER")
                 .anyRequest().hasAnyAuthority("ADMIN");
         http

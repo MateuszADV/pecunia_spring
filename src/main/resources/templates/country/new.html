@@ -11,54 +11,7 @@
     <h1 style="text-align: center">COUNTRY NEW</h1>
 
     <form th:action="@{/country/new}" method="post" th:object="${countryForm}">
-        <table>
-            <tr>
-                <td>Continent</td>
-                <td><input class="input" type="text" th:field="*{continent}" placeholder="First Name"/></td>
-            </tr>
-            <tr>
-                <td>Country En</td>
-                <td><input class="input" type="text" th:field="*{countryEn}" placeholder="First Name"/></td>
-            </tr>
-            <tr>
-                <td>Country Pl</td>
-                <td><input class="input" type="text" th:field="*{countryPl}" placeholder="First Name"/></td>
-            </tr>
-            <tr>
-                <td>Capital City</td>
-                <td><input class="input" type="text" th:field="*{capital_city}" placeholder="First Name"/></td>
-            </tr>
-            <tr>
-                <td>Alfa 2</td>
-                <td><input class="input" type="text" th:field="*{alfa_2}" placeholder="First Name"/></td>
-            </tr>
-            <tr>
-                <td>Alfa 3</td>
-                <td><input class="input" type="text" th:field="*{alfa_3}" placeholder="First Name"/></td>
-            </tr>
-            <tr>
-                <td>Numeric Code</td>
-                <td><input class="input" type="text" th:field="*{numeric_code}" placeholder="First Name"/></td>
-            </tr>
-            <tr>
-                <td>ISO Code</td>
-                <td><input class="input" type="text" th:field="*{iso_code}" placeholder="First Name"/></td>
-            </tr>
-            <tr>
-                <td>Exist</td>
-                <td><input class="input" type="checkbox" th:field="*{exists}" placeholder="First Name"/></td>
-            </tr>
-            <tr>
-                <td>Description</td>
-                <td>
-                    <div>
-                        <textarea class="input" th:field="*{description}" placeholder="First Name"></textarea>
-                    </div>
-                </td>
-            </tr>
-
-        </table>
-
+        <div th:replace="country/_form :: form"></div>
         <p> <input type="submit" value="Dodaj" class="btn btn-sm btn-primary"></p>
     </form>
 
