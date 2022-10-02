@@ -29,6 +29,7 @@
                     <td th:text="${active.description}" class="pt-1 pb-1"></td>
                     <td class="pt-1 pb-1">
                         <a th:href="@{'/active/edit/' + ${active.id}}" class="btn btn-sm btn-primary" style="font-size: 10px">EDIT</a>
+                        <a th:href="@{'/active/delete/' + ${active.id}}" class="btn btn-sm btn-danger" style="font-size: 10px">Delete</a>
                     </td>
                 </tr>
             </Block>

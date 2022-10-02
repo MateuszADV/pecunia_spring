@@ -98,4 +98,19 @@ public class ActiveController {
         activeService.saveActive(active);
         return "redirect:/active";
     }
+
+    @GetMapping("/active/delete/{activeId}")
+    public String deleteActive(@PathVariable Long activeId, ModelMap modelMap) {
+
+        try {
+            activeService.deleteActiveById(activeId);
+        } catch (Exception e) {
+            System.out.println("*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&");
+            System.out.println(e.getMessage());
+            System.out.println("*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&*&");
+            modelMap.addAttribute("error", "Active Not Found For Id :: " + activeId);
+            return "error";
+        }
+        return "redirect:/active";
+    }
 }
