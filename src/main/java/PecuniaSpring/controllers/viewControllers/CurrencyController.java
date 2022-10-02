@@ -2,20 +2,22 @@ package PecuniaSpring.controllers.viewControllers;
 
 import PecuniaSpring.controllers.dto.country.CountryGetCurrencyDto;
 import PecuniaSpring.controllers.dto.country.CountryGetDto;
+import PecuniaSpring.controllers.dto.currency.CurrencyActiveDto;
+import PecuniaSpring.controllers.dto.currency.CurrencyDto;
+import PecuniaSpring.models.Active;
 import PecuniaSpring.models.Country;
+import PecuniaSpring.models.Currency;
 import PecuniaSpring.models.repositories.CountryRepository;
+import PecuniaSpring.services.activeService.ActiveServiceImpl;
 import PecuniaSpring.services.countryServices.CountryServiceImpl;
+import PecuniaSpring.services.currencyService.CurrencyServiceImpl;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import utils.JsonUtils;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,9 +25,9 @@ import java.util.List;
 @Controller
 public class CurrencyController {
 
+    private CurrencyServiceImpl currencyService;
     private CountryServiceImpl countryService;
-    private CountryRepository countryRepository;
-
+    private ActiveServiceImpl activeService;
     @GetMapping("/currency")
     public String getIndex(ModelMap modelMap) {
 
@@ -70,7 +72,38 @@ public class CurrencyController {
             countryGetDtos.add(new ModelMapper().map(country, CountryGetDto.class));
         }
         modelMap.addAttribute("countries", countryGetDtos);
-        System.out.println(JsonUtils.gsonPretty(countryGetDtos));
+//        System.out.println(JsonUtils.gsonPretty(countryGetDtos));
         return "currency/index";
+    }
+
+    @GetMapping("/currency/new")
+    public String getNew(@RequestParam("countryId") Long countryId,  ModelMap modelMap) {
+        System.out.println("===================Country ID===================");
+        Country country = countryService.getCountryById(countryId);
+        CountryGetDto countryGetDto = new ModelMapper().map(country, CountryGetDto.class);
+        CurrencyActiveDto currencyActiveDto = new CurrencyActiveDto();
+        currencyActiveDto.setCountries(countryGetDto);
+        System.out.println(JsonUtils.gsonPretty(currencyActiveDto));
+        System.out.println(currencyActiveDto.getActives());
+        System.out.println(countryId);
+
+        List<Active> actives = activeService.getAllActive();
+
+        modelMap.addAttribute("actives", actives);
+        modelMap.addAttribute("currencyForm", currencyActiveDto);
+        System.out.println("================================================");
+        return "currency/new";
+    }
+
+    @PostMapping("currency/new")
+    public String postNew(@ModelAttribute("curencyForm") CurrencyActiveDto currencyActiveDto, ModelMap modelMap) {
+
+        Active active = activeService.getActiveById(currencyActiveDto.getActives().getId());
+        System.out.println(currencyActiveDto);
+        System.out.println(JsonUtils.gsonPretty(currencyActiveDto));
+        Currency currency = new ModelMapper().map(currencyActiveDto, Currency.class);
+        currency.setActive(active.getActiveCod());
+        currencyService.saveCurrency(currency);
+        return getSearch("", modelMap);
     }
 }

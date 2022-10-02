@@ -13,6 +13,7 @@
             <img th:src="@{'/images/flags/' + ${country.countryEn} + '.png'}" style="width: 100px"/><br>
             <h5 th:text="${country.countryEn}"></h5>
         </div>
+        <a th:href="@{'/currency/new/' + '?countryId=' + ${country.id}}" class="btn btn-sm btn-primary">Add new Country</a>
         <div th:if="${country.getCurrencies.size} == 0">
             <h3>Brak Dodanych walut do państwa - [[${country.getCurrencies.size}]]</h3>
         </div>
