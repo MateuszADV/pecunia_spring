@@ -1,5 +1,6 @@
 package PecuniaSpring.controllers.viewControllers;
 
+import PecuniaSpring.controllers.dto.active.ActiveDtoCurrency;
 import PecuniaSpring.controllers.dto.country.CountryGetCurrencyDto;
 import PecuniaSpring.controllers.dto.country.CountryGetDto;
 import PecuniaSpring.controllers.dto.currency.CurrencyActiveDto;
@@ -11,13 +12,16 @@ import PecuniaSpring.models.repositories.CountryRepository;
 import PecuniaSpring.services.activeService.ActiveServiceImpl;
 import PecuniaSpring.services.countryServices.CountryServiceImpl;
 import PecuniaSpring.services.currencyService.CurrencyServiceImpl;
+import groovyjarjarpicocli.CommandLine;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import utils.JsonUtils;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -88,20 +92,41 @@ public class CurrencyController {
         System.out.println(countryId);
 
         List<Active> actives = activeService.getAllActive();
+        List<ActiveDtoCurrency> activeDtoCurrencies = new ArrayList<>();
+        for (Active active : actives) {
+            activeDtoCurrencies.add(new ModelMapper().map(active, ActiveDtoCurrency.class));
+        }
 
-        modelMap.addAttribute("actives", actives);
+        modelMap.addAttribute("actives", activeDtoCurrencies);
         modelMap.addAttribute("currencyForm", currencyActiveDto);
         System.out.println("================================================");
         return "currency/new";
     }
 
     @PostMapping("currency/new")
-    public String postNew(@ModelAttribute("curencyForm") CurrencyActiveDto currencyActiveDto, ModelMap modelMap) {
+    public String postNew(@ModelAttribute("currencyForm") @Valid CurrencyActiveDto currencyForm,
+                          BindingResult result,
+                          ModelMap modelMap) {
 
-        Active active = activeService.getActiveById(currencyActiveDto.getActives().getId());
-        System.out.println(currencyActiveDto);
-        System.out.println(JsonUtils.gsonPretty(currencyActiveDto));
-        Currency currency = new ModelMapper().map(currencyActiveDto, Currency.class);
+        if (result.hasErrors()) {
+            System.out.println(result.toString());
+            System.out.println(JsonUtils.gsonPretty(currencyForm));
+
+            List<Active> actives = activeService.getAllActive();
+            List<ActiveDtoCurrency> activeDtoCurrencies = new ArrayList<>();
+            for (Active active : actives) {
+                activeDtoCurrencies.add(new ModelMapper().map(active, ActiveDtoCurrency.class));
+            }
+
+            modelMap.addAttribute("actives", activeDtoCurrencies);
+            modelMap.addAttribute("currencyForm", currencyForm);
+
+            return "currency/new";
+        }
+        Active active = activeService.getActiveById(currencyForm.getActives().getId());
+        System.out.println(currencyForm);
+        System.out.println(JsonUtils.gsonPretty(currencyForm));
+        Currency currency = new ModelMapper().map(currencyForm, Currency.class);
         currency.setActive(active.getActiveCod());
         currencyService.saveCurrency(currency);
         return getSearch("", modelMap);

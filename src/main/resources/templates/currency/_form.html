@@ -1,6 +1,7 @@
 <header th:fragment="form"
     xmlns:th="http://www.thymeleaf.org">
     <input class="input" type="text" th:field="*{countries.id}" th:readonly="id"/>
+
 <!--    <input class="input" type="text" th:field="*{created_at}" th:readonly="created_at" th:type="hidden"/>-->
 <!--    <input class="input" type="text" th:field="*{updated_at}" th:readonly="updated_at" th:type="hidden"/>-->
 
@@ -10,25 +11,28 @@
             <td>
                 <div class="field">
                     <label>COD</label><br>
-                    <input type="text" th:field="*{cod}" class="form-control form-control-sm" placeholder="COD"/>
+                    <input type="text" th:field="*{cod}" class="input form-control form-control-sm" placeholder="COD"/>
+                    <div th:if="${#fields.hasErrors('cod')}" class="alert alert-danger alert-sm" role="alert" style="padding: 0px 10px 0px 10px" >
+                        <span th:errors="*{cod}" ></span>
+                    </div>
                 </div>
             </td>
             <td>
                 <div class="field">
                 <label>Pattern</label><br>
                     <input type="text" th:field="*{pattern}" class="form-control form-control-sm" placeholder="Pattern"/>
-    <!--                <div th:if="${#fields.hasErrors('countryEn')}" class="alert alert-danger alert-sm" role="alert" style="padding: 0px 10px 0px 10px" >-->
-    <!--                    <span th:errors="*{countryEn}" ></span>-->
-    <!--                </div>-->
+                    <div th:if="${#fields.hasErrors('pattern')}" class="alert alert-danger alert-sm" role="alert" style="padding: 0px 10px 0px 10px" >
+                        <span th:errors="*{pattern}" ></span>
+                    </div>
                 </div>
             </td>
             <td>
                 <div class="field">
                     <label>Name Currency</label><br>
                     <input type="text" th:field="*{currency}" class="form-control form-control-sm" placeholder="Currency"/>
-    <!--                <div th:if="${#fields.hasErrors('countryPl')}" class="alert alert-danger alert-sm" role="alert" style="padding: 0px 10px 0px 10px" >-->
-    <!--                    <span th:errors="*{countryPl}" ></span>-->
-    <!--                </div>-->
+                    <div th:if="${#fields.hasErrors('currency')}" class="alert alert-danger alert-sm" role="alert" style="padding: 0px 10px 0px 10px" >
+                        <span th:errors="*{currency}" ></span>
+                    </div>
                 </div>
             </td>
 
@@ -47,9 +51,9 @@
                 <div class="field">
                     <label>Active</label><br>
                     <select th:field="*{actives.id}" class="form-control form-control-sm">
-                                            <span th:if="*{actives.id == null}">
-                                                <option value="">SELECT</option>
-                                            </span>
+                        <span th:if="*{actives.id == null}">
+                            <option value="">SELECT</option>
+                        </span>
                         <option th:each="active : ${actives}"
                                 th:value="${active.id}"
                                 th:text="${active.name}">
@@ -57,9 +61,9 @@
                         </option>
                     </select>
                 </div>
-                <!--                <div th:if="${#fields.hasErrors('continents.id')}" class="alert alert-danger alert-sm" role="alert" style="padding: 0px 10px 0px 10px" >-->
-                <!--                    <span th:errors="*{continents.id}" ></span>-->
-                <!--                </div>-->
+                <div th:if="${#fields.hasErrors('actives.id')}" class="alert alert-danger alert-sm" role="alert" style="padding: 0px 10px 0px 10px" >
+                    <span th:errors="*{actives.id}" ></span>
+                </div>
             </td>
             <td>
                 <div class="field">
@@ -73,9 +77,9 @@
                 <div class="field ">
                     <label>Currency Series</label><br>
                     <input type="text" th:field="*{currencySeries}" class="form-control form-control-sm" placeholder="Currency Series"/>
-    <!--                <div th:if="${#fields.hasErrors('currencySeries')}"  class="alert alert-danger alert-sm" role="alert" style="padding: 0px 10px 0px 10px" >-->
-    <!--                    <span th:errors="*{currencySeries}" ></span>-->
-    <!--                </div>-->
+                    <div th:if="${#fields.hasErrors('currencySeries')}"  class="alert alert-danger alert-sm" role="alert" style="padding: 0px 10px 0px 10px" >
+                        <span th:errors="*{currencySeries}" ></span>
+                    </div>
                 </div>
             </td>
         <tr>
