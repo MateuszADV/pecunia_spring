@@ -19,7 +19,7 @@ public class CurrencyActiveDto {
     private Long id;
     @Pattern(regexp="([A-Z]{3})|^$", message = "Pole moze być puste lub zawierać kod waluty(np: ABC)")
     private String cod;
-    @Pattern(regexp = "([A_Z])", message = "Muszą być duze litery (NOTE, COIN, BOND...) ")
+    @Pattern(regexp = "[A-Z]*", message = "Muszą być duze litery (NOTE, COIN, BOND...) ")
     @NotEmpty(message = "Pole nie może być puste (NOTE, COIN, BOND...) ")
     private String pattern;
     @NotEmpty(message = "Pole nie może byc EMPTY")
