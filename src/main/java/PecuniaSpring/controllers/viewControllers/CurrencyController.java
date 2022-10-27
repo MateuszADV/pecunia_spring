@@ -9,6 +9,7 @@ import PecuniaSpring.models.Active;
 import PecuniaSpring.models.Country;
 import PecuniaSpring.models.Currency;
 import PecuniaSpring.models.repositories.CountryRepository;
+import PecuniaSpring.models.repositories.CurrencyRepository;
 import PecuniaSpring.services.activeService.ActiveServiceImpl;
 import PecuniaSpring.services.countryServices.CountryServiceImpl;
 import PecuniaSpring.services.currencyService.CurrencyServiceImpl;
@@ -24,14 +25,18 @@ import utils.JsonUtils;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @AllArgsConstructor
 @Controller
 public class CurrencyController {
 
+    private CurrencyRepository currencyRepository;
     private CurrencyServiceImpl currencyService;
     private CountryServiceImpl countryService;
     private ActiveServiceImpl activeService;
+
+    private Optional<Currency> currencyTemp;
     @GetMapping("/currency")
     public String getIndex(ModelMap modelMap) {
 
@@ -130,5 +135,37 @@ public class CurrencyController {
         currency.setActive(active.getActiveCod());
         currencyService.saveCurrency(currency);
         return getSearch("", modelMap);
+    }
+
+    @GetMapping("currency/edit/{currencyId}")
+    public String postEdit(@PathVariable Long currencyId,
+                          ModelMap modelMap) {
+        currencyTemp = currencyRepository.findById(currencyId);
+        CurrencyActiveDto currencyActiveDto = new ModelMapper().map(currencyTemp, CurrencyActiveDto.class);
+        List<Active> actives = activeService.getAllActive();
+        List<ActiveDtoCurrency> activeDtoCurrencies = new ArrayList<>();
+        for (Active active : actives) {
+            activeDtoCurrencies.add(new ModelMapper().map(active, ActiveDtoCurrency.class));
+        }
+
+        modelMap.addAttribute("actives", activeDtoCurrencies);
+        modelMap.addAttribute("currencyFORM", currencyActiveDto);
+        System.out.println("+++++++++++++++++Strat Currency Edit++++++++++++++");
+        System.out.println(currencyId);
+        System.out.println(JsonUtils.gsonPretty(currencyActiveDto));
+        return "currency/edit";
+    }
+
+    @GetMapping("/currency/show/{currencyId}")
+    public String getShow(@PathVariable Long currencyId, ModelMap modelMap) {
+        Currency currency = currencyService.getCurrencyById(currencyId);
+        CurrencyActiveDto currencyActiveDto = new ModelMapper().map(currency, CurrencyActiveDto.class);
+        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++");
+        System.out.println(currencyId);
+        System.out.println(JsonUtils.gsonPretty(currencyActiveDto));
+
+        modelMap.addAttribute("currency", currencyActiveDto);
+        modelMap.addAttribute("json", JsonUtils.gsonPretty(currencyActiveDto));
+        return "currency/show";
     }
 }
