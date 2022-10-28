@@ -149,11 +149,40 @@ public class CurrencyController {
         }
 
         modelMap.addAttribute("actives", activeDtoCurrencies);
-        modelMap.addAttribute("currencyFORM", currencyActiveDto);
+        modelMap.addAttribute("currencyForm", currencyActiveDto);
         System.out.println("+++++++++++++++++Strat Currency Edit++++++++++++++");
         System.out.println(currencyId);
         System.out.println(JsonUtils.gsonPretty(currencyActiveDto));
         return "currency/edit";
+    }
+
+    @PostMapping("currency/edit")
+    public String postEdit(@ModelAttribute("currencyForm") @Valid CurrencyActiveDto currencyForm,
+                          BindingResult result,
+                          ModelMap modelMap) {
+
+        if (result.hasErrors()) {
+            System.out.println(JsonUtils.gsonPretty(currencyForm));
+
+            List<Active> actives = activeService.getAllActive();
+            List<ActiveDtoCurrency> activeDtoCurrencies = new ArrayList<>();
+            for (Active active : actives) {
+                activeDtoCurrencies.add(new ModelMapper().map(active, ActiveDtoCurrency.class));
+            }
+
+            modelMap.addAttribute("actives", activeDtoCurrencies);
+            modelMap.addAttribute("currencyForm", currencyForm);
+
+            return "currency/edit";
+        }
+        Active active = activeService.getActiveById(currencyForm.getActives().getId());
+        System.out.println(JsonUtils.gsonPretty(currencyForm));
+        currencyForm.setId(currencyTemp.get().getId());
+        currencyForm.setCreated_at(currencyTemp.get().getCreated_at());
+        currencyForm.setActive(active.getActiveCod());
+        Currency currency = new ModelMapper().map(currencyForm, Currency.class);
+        currencyService.saveCurrency(currency);
+        return getSearch("", modelMap);
     }
 
     @GetMapping("/currency/show/{currencyId}")
