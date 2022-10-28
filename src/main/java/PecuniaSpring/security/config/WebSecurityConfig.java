@@ -39,7 +39,7 @@ public class WebSecurityConfig  {
                 .antMatchers("/continent/**")
                 .permitAll()
 //                *********************CURRENCY******************************************
-                .antMatchers("/currency", "/currency/list/**")
+                .antMatchers("/currency", "/currency/show/**", "/currency/list/**")
                 .permitAll()
                 .antMatchers("/search")
                 .permitAll()

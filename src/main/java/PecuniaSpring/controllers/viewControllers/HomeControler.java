@@ -1,7 +1,7 @@
 package PecuniaSpring.controllers.viewControllers;
 
-import PecuniaSpring.controllers.dto.UserRegistration;
-import PecuniaSpring.controllers.dto.country.CountryDto;
+import PecuniaSpring.models.dto.UserRegistration;
+import PecuniaSpring.models.dto.country.CountryDto;
 import PecuniaSpring.models.Country;
 import PecuniaSpring.models.repositories.CountryRepository;
 import PecuniaSpring.registration.EmailValidator;
@@ -19,7 +19,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import utils.JsonUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

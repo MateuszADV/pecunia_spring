@@ -1,11 +1,9 @@
 package PecuniaSpring.controllers.viewControllers;
 
-import PecuniaSpring.controllers.dto.continent.ContinentCountriesDto;
-import PecuniaSpring.controllers.dto.continent.ContinentDto;
+import PecuniaSpring.models.dto.continent.ContinentCountriesDto;
+import PecuniaSpring.models.dto.continent.ContinentDto;
 import PecuniaSpring.models.Continent;
-import PecuniaSpring.models.Country;
 import PecuniaSpring.models.repositories.ContinentRepository;
-import PecuniaSpring.services.continentServices.ContinentService;
 import PecuniaSpring.services.continentServices.ContinentServiceImpl;
 import PecuniaSpring.services.countryServices.CountryService;
 import lombok.AllArgsConstructor;
@@ -17,7 +15,6 @@ import utils.JsonUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @AllArgsConstructor
