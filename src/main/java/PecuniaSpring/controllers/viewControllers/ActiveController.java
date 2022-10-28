@@ -1,6 +1,6 @@
 package PecuniaSpring.controllers.viewControllers;
 
-import PecuniaSpring.controllers.dto.active.ActiveDto;
+import PecuniaSpring.models.dto.active.ActiveDto;
 import PecuniaSpring.models.Active;
 import PecuniaSpring.models.repositories.ActiveRepository;
 import PecuniaSpring.services.activeService.ActiveServiceImpl;

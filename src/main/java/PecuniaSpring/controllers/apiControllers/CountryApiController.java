@@ -1,6 +1,6 @@
 package PecuniaSpring.controllers.apiControllers;
 
-import PecuniaSpring.controllers.dto.country.CountryDto;
+import PecuniaSpring.models.dto.country.CountryDto;
 import PecuniaSpring.models.Country;
 import PecuniaSpring.models.repositories.CountryRepository;
 import lombok.AllArgsConstructor;

@@ -1,6 +1,6 @@
-package PecuniaSpring.controllers.dto.continent;
+package PecuniaSpring.models.dto.continent;
 
-import PecuniaSpring.controllers.dto.country.CountryGetDto;
+import PecuniaSpring.models.dto.country.CountryGetDto;
 import lombok.*;
 
 import java.sql.Timestamp;

@@ -1,10 +1,10 @@
-package PecuniaSpring.controllers.dto.continent;
+package PecuniaSpring.models.dto.continent;
 
 import lombok.*;
 
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
-import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter

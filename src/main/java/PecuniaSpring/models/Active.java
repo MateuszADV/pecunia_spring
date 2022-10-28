@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Getter
 @Setter
@@ -33,4 +34,8 @@ public class Active {
     private Timestamp created_at;
     @Column(name = "updated_at")
     private Timestamp updated_at;
+
+    @OneToMany(mappedBy = "countries", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    private List<Currency> currencies;
+
 }

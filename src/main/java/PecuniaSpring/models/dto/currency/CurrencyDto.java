@@ -1,6 +1,5 @@
-package PecuniaSpring.controllers.dto.currency;
+package PecuniaSpring.models.dto.currency;
 
-import PecuniaSpring.controllers.dto.country.CountryDto;
 import lombok.*;
 
 import java.sql.Timestamp;
