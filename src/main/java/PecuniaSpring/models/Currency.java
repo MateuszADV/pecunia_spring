@@ -46,4 +46,8 @@ public class Currency {
     @ManyToOne
     @JoinColumn(name = "country_id")
     private Country countries;
+
+    @ManyToOne
+    @JoinColumn(name = "active_id")
+    private Active actives;
 }

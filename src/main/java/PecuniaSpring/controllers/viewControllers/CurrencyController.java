@@ -1,31 +1,42 @@
 package PecuniaSpring.controllers.viewControllers;
 
+import PecuniaSpring.controllers.dto.active.ActiveDtoCurrency;
 import PecuniaSpring.controllers.dto.country.CountryGetCurrencyDto;
 import PecuniaSpring.controllers.dto.country.CountryGetDto;
+import PecuniaSpring.controllers.dto.currency.CurrencyActiveDto;
+import PecuniaSpring.controllers.dto.currency.CurrencyDto;
+import PecuniaSpring.models.Active;
 import PecuniaSpring.models.Country;
+import PecuniaSpring.models.Currency;
 import PecuniaSpring.models.repositories.CountryRepository;
+import PecuniaSpring.models.repositories.CurrencyRepository;
+import PecuniaSpring.services.activeService.ActiveServiceImpl;
 import PecuniaSpring.services.countryServices.CountryServiceImpl;
+import PecuniaSpring.services.currencyService.CurrencyServiceImpl;
+import groovyjarjarpicocli.CommandLine;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import utils.JsonUtils;
 
-import java.math.BigInteger;
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @AllArgsConstructor
 @Controller
 public class CurrencyController {
 
+    private CurrencyRepository currencyRepository;
+    private CurrencyServiceImpl currencyService;
     private CountryServiceImpl countryService;
-    private CountryRepository countryRepository;
+    private ActiveServiceImpl activeService;
 
+    private Optional<Currency> currencyTemp;
     @GetMapping("/currency")
     public String getIndex(ModelMap modelMap) {
 
@@ -70,7 +81,120 @@ public class CurrencyController {
             countryGetDtos.add(new ModelMapper().map(country, CountryGetDto.class));
         }
         modelMap.addAttribute("countries", countryGetDtos);
-        System.out.println(JsonUtils.gsonPretty(countryGetDtos));
+//        System.out.println(JsonUtils.gsonPretty(countryGetDtos));
         return "currency/index";
+    }
+
+    @GetMapping("/currency/new")
+    public String getNew(@RequestParam("countryId") Long countryId,  ModelMap modelMap) {
+        System.out.println("===================Country ID===================");
+        Country country = countryService.getCountryById(countryId);
+        CountryGetDto countryGetDto = new ModelMapper().map(country, CountryGetDto.class);
+        CurrencyActiveDto currencyActiveDto = new CurrencyActiveDto();
+        currencyActiveDto.setCountries(countryGetDto);
+        System.out.println(JsonUtils.gsonPretty(currencyActiveDto));
+        System.out.println(currencyActiveDto.getActives());
+        System.out.println(countryId);
+
+        List<Active> actives = activeService.getAllActive();
+        List<ActiveDtoCurrency> activeDtoCurrencies = new ArrayList<>();
+        for (Active active : actives) {
+            activeDtoCurrencies.add(new ModelMapper().map(active, ActiveDtoCurrency.class));
+        }
+
+        modelMap.addAttribute("actives", activeDtoCurrencies);
+        modelMap.addAttribute("currencyForm", currencyActiveDto);
+        System.out.println("================================================");
+        return "currency/new";
+    }
+
+    @PostMapping("currency/new")
+    public String postNew(@ModelAttribute("currencyForm") @Valid CurrencyActiveDto currencyForm,
+                          BindingResult result,
+                          ModelMap modelMap) {
+
+        if (result.hasErrors()) {
+            System.out.println(result.toString());
+            System.out.println(JsonUtils.gsonPretty(currencyForm));
+
+            List<Active> actives = activeService.getAllActive();
+            List<ActiveDtoCurrency> activeDtoCurrencies = new ArrayList<>();
+            for (Active active : actives) {
+                activeDtoCurrencies.add(new ModelMapper().map(active, ActiveDtoCurrency.class));
+            }
+
+            modelMap.addAttribute("actives", activeDtoCurrencies);
+            modelMap.addAttribute("currencyForm", currencyForm);
+
+            return "currency/new";
+        }
+        Active active = activeService.getActiveById(currencyForm.getActives().getId());
+        System.out.println(currencyForm);
+        System.out.println(JsonUtils.gsonPretty(currencyForm));
+        Currency currency = new ModelMapper().map(currencyForm, Currency.class);
+        currency.setActive(active.getActiveCod());
+        currencyService.saveCurrency(currency);
+        return getSearch("", modelMap);
+    }
+
+    @GetMapping("currency/edit/{currencyId}")
+    public String postEdit(@PathVariable Long currencyId,
+                          ModelMap modelMap) {
+        currencyTemp = currencyRepository.findById(currencyId);
+        CurrencyActiveDto currencyActiveDto = new ModelMapper().map(currencyTemp, CurrencyActiveDto.class);
+        List<Active> actives = activeService.getAllActive();
+        List<ActiveDtoCurrency> activeDtoCurrencies = new ArrayList<>();
+        for (Active active : actives) {
+            activeDtoCurrencies.add(new ModelMapper().map(active, ActiveDtoCurrency.class));
+        }
+
+        modelMap.addAttribute("actives", activeDtoCurrencies);
+        modelMap.addAttribute("currencyForm", currencyActiveDto);
+        System.out.println("+++++++++++++++++Strat Currency Edit++++++++++++++");
+        System.out.println(currencyId);
+        System.out.println(JsonUtils.gsonPretty(currencyActiveDto));
+        return "currency/edit";
+    }
+
+    @PostMapping("currency/edit")
+    public String postEdit(@ModelAttribute("currencyForm") @Valid CurrencyActiveDto currencyForm,
+                          BindingResult result,
+                          ModelMap modelMap) {
+
+        if (result.hasErrors()) {
+            System.out.println(JsonUtils.gsonPretty(currencyForm));
+
+            List<Active> actives = activeService.getAllActive();
+            List<ActiveDtoCurrency> activeDtoCurrencies = new ArrayList<>();
+            for (Active active : actives) {
+                activeDtoCurrencies.add(new ModelMapper().map(active, ActiveDtoCurrency.class));
+            }
+
+            modelMap.addAttribute("actives", activeDtoCurrencies);
+            modelMap.addAttribute("currencyForm", currencyForm);
+
+            return "currency/edit";
+        }
+        Active active = activeService.getActiveById(currencyForm.getActives().getId());
+        System.out.println(JsonUtils.gsonPretty(currencyForm));
+        currencyForm.setId(currencyTemp.get().getId());
+        currencyForm.setCreated_at(currencyTemp.get().getCreated_at());
+        currencyForm.setActive(active.getActiveCod());
+        Currency currency = new ModelMapper().map(currencyForm, Currency.class);
+        currencyService.saveCurrency(currency);
+        return getSearch("", modelMap);
+    }
+
+    @GetMapping("/currency/show/{currencyId}")
+    public String getShow(@PathVariable Long currencyId, ModelMap modelMap) {
+        Currency currency = currencyService.getCurrencyById(currencyId);
+        CurrencyActiveDto currencyActiveDto = new ModelMapper().map(currency, CurrencyActiveDto.class);
+        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++");
+        System.out.println(currencyId);
+        System.out.println(JsonUtils.gsonPretty(currencyActiveDto));
+
+        modelMap.addAttribute("currency", currencyActiveDto);
+        modelMap.addAttribute("json", JsonUtils.gsonPretty(currencyActiveDto));
+        return "currency/show";
     }
 }
