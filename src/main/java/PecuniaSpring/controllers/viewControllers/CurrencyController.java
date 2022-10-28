@@ -1,19 +1,16 @@
 package PecuniaSpring.controllers.viewControllers;
 
-import PecuniaSpring.controllers.dto.active.ActiveDtoCurrency;
-import PecuniaSpring.controllers.dto.country.CountryGetCurrencyDto;
-import PecuniaSpring.controllers.dto.country.CountryGetDto;
-import PecuniaSpring.controllers.dto.currency.CurrencyActiveDto;
-import PecuniaSpring.controllers.dto.currency.CurrencyDto;
+import PecuniaSpring.models.dto.active.ActiveDtoCurrency;
+import PecuniaSpring.models.dto.country.CountryGetCurrencyDto;
+import PecuniaSpring.models.dto.country.CountryGetDto;
+import PecuniaSpring.models.dto.currency.CurrencyActiveDto;
 import PecuniaSpring.models.Active;
 import PecuniaSpring.models.Country;
 import PecuniaSpring.models.Currency;
-import PecuniaSpring.models.repositories.CountryRepository;
 import PecuniaSpring.models.repositories.CurrencyRepository;
 import PecuniaSpring.services.activeService.ActiveServiceImpl;
 import PecuniaSpring.services.countryServices.CountryServiceImpl;
 import PecuniaSpring.services.currencyService.CurrencyServiceImpl;
-import groovyjarjarpicocli.CommandLine;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;

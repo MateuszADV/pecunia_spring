@@ -1,7 +1,7 @@
 package PecuniaSpring.controllers.viewControllers;
 
-import PecuniaSpring.controllers.dto.continent.ContinentDto;
-import PecuniaSpring.controllers.dto.country.CountryDto;
+import PecuniaSpring.models.dto.continent.ContinentDto;
+import PecuniaSpring.models.dto.country.CountryDto;
 import PecuniaSpring.models.Continent;
 import PecuniaSpring.models.Country;
 import PecuniaSpring.models.repositories.ContinentRepository;

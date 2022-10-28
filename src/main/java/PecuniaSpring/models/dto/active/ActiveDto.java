@@ -1,4 +1,4 @@
-package PecuniaSpring.controllers.dto.active;
+package PecuniaSpring.models.dto.active;
 
 import lombok.*;
 
@@ -12,10 +12,12 @@ import java.sql.Timestamp;
 @Setter
 @ToString
 @EqualsAndHashCode
-public class ActiveDtoCurrency {
-    @NotNull(message = "Select Active")
+public class ActiveDto {
     private Long id;
+    @NotNull(message = "Pdaj kod actiwe np:(123)")
     private Integer activeCod;
+    @NotEmpty(message = "podaj Opis")
+    @NotNull(message = "Opis musi być podany")
     private String name;
     private String description;
     private Timestamp created_at;

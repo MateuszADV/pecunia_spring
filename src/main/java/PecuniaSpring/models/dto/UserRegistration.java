@@ -1,4 +1,4 @@
-package PecuniaSpring.controllers.dto;
+package PecuniaSpring.models.dto;
 
 import lombok.*;
 

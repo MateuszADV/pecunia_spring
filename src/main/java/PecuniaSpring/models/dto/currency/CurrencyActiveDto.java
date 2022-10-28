@@ -1,8 +1,7 @@
-package PecuniaSpring.controllers.dto.currency;
+package PecuniaSpring.models.dto.currency;
 
-import PecuniaSpring.controllers.dto.active.ActiveDto;
-import PecuniaSpring.controllers.dto.active.ActiveDtoCurrency;
-import PecuniaSpring.controllers.dto.country.CountryGetDto;
+import PecuniaSpring.models.dto.active.ActiveDtoCurrency;
+import PecuniaSpring.models.dto.country.CountryGetDto;
 import lombok.*;
 
 import javax.validation.Valid;
