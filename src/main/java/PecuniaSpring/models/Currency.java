@@ -50,4 +50,8 @@ public class Currency {
     @ManyToOne
     @JoinColumn(name = "active_id")
     private Active actives;
+
+    @ManyToOne
+    @JoinColumn(name = "pattern_id")
+    private Pattern patterns;
 }
