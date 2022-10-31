@@ -31,8 +31,6 @@ public class PatternController {
             patternDtos.add(new ModelMapper().map(pattern, PatternDto.class));
         }
         modelMap.addAttribute("patternDtos", patternDtos);
-        System.out.println("===============PATTERN========================");
-        System.out.println("Pattern - Rodzaje");
         return "seting/pattern/index";
     }
 
@@ -50,8 +48,6 @@ public class PatternController {
         Pattern pattern = new ModelMapper().map(patternDto, Pattern.class);
         System.out.println("--------------------------------------");
         System.out.println(JsonUtils.gsonPretty(patternDto));
-        System.out.println("---------------------------------------");
-        System.out.println(JsonUtils.gsonPretty(pattern));
         System.out.println("---------------------------------------");
         patternService.savePattern(pattern);
 

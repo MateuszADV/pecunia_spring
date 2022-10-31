@@ -21,7 +21,8 @@ public class PatternServiceImpl implements PatternService {
 
     @Override
     public void savePattern(Pattern pattern) {
-        this.patternRepository.save(pattern);
+        System.out.println(patternRepository.save(pattern).getId());
+//        this.patternRepository.save(pattern);
     }
 
     @Override
