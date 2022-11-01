@@ -21,8 +21,14 @@ public class PatternServiceImpl implements PatternService {
 
     @Override
     public void savePattern(Pattern pattern) {
-        System.out.println(patternRepository.save(pattern).getId());
+
 //        this.patternRepository.save(pattern);
+    }
+
+    @Override
+    public Pattern savePatternGet(Pattern pattern) {
+        Pattern patternSaveGet = patternRepository.save(pattern);
+        return patternSaveGet;
     }
 
     @Override
@@ -39,4 +45,5 @@ public class PatternServiceImpl implements PatternService {
     public void deletePatternById(Long id) {
         this.patternRepository.deleteById(id);
     }
+
 }

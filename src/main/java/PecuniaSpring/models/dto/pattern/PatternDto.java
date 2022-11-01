@@ -1,5 +1,6 @@
 package PecuniaSpring.models.dto.pattern;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
 import javax.validation.constraints.NotEmpty;
@@ -12,6 +13,7 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
+//@JsonInclude(JsonInclude.Include.NON_EMPTY)  //nie wyswietla null i pustych wartości
 public class PatternDto {
 
     private Long id;

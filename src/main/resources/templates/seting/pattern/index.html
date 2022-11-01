@@ -28,7 +28,7 @@
                     <td th:text="${pattern.name}" class="pt-1 pb-1"></td>
                     <td th:text="${pattern.description}" class="pt-1 pb-1"></td>
                     <td class="pt-1 pb-1">
-                        <span class="btn btn-sm btn-info" style="font-size: 10px" data-toggle="modal" th:attr="data-target='#' + ${pattern.pattern} + '-' + ${pattern.id}" >SHOW</span>
+                        <a th:href="@{'/pattern/show/' + ${pattern.id}}" class="btn btn-sm btn-info" style="font-size: 10px" data-toggle="modal" th:attr="data-target='#' + ${pattern.pattern} + '-' + ${pattern.id}" >SHOW</a>
                         <div class="modal fade" th:attr="id= ${pattern.pattern} + '-' + ${pattern.id}"  tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div th:replace="seting/pattern/_showModal :: showModal"></div>
                         </div>

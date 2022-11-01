@@ -9,6 +9,7 @@ import java.util.List;
 public interface PatternService {
     List<Pattern> getAllPattern();
     void savePattern(Pattern pattern);
+    Pattern savePatternGet(Pattern pattern);
     Pattern getPatternById(Long id);
     void deletePatternById(Long id);
 }
