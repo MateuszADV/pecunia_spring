@@ -2,6 +2,7 @@ package PecuniaSpring.controllers.viewControllers;
 
 import PecuniaSpring.models.Pattern;
 import PecuniaSpring.models.dto.pattern.PatternDto;
+import PecuniaSpring.models.repositories.PatternRepository;
 import PecuniaSpring.services.patternService.PatternServiceImpl;
 import groovy.lang.GrabExclude;
 import lombok.AllArgsConstructor;
@@ -15,12 +16,15 @@ import utils.JsonUtils;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @AllArgsConstructor
 @Controller
 public class PatternController {
 
     private PatternServiceImpl patternService;
+    private PatternRepository patternRepository;
+    private Optional<Pattern> patternTemp;
 
     @GetMapping("/pattern")
     public String getIndex(ModelMap modelMap) {
@@ -55,6 +59,15 @@ public class PatternController {
 //        return "redirect:/pattern";
         return getShow(pattern.getId(), modelMap);
     }
+
+    @GetMapping("/pattern/edit/{patternId}")
+    public String getEdit(@PathVariable Long patternId, ModelMap modelMap) {
+        patternTemp = patternRepository.findById(patternId);
+        PatternDto patternDto = new ModelMapper().map(patternTemp, PatternDto.class);
+        modelMap.addAttribute("patternForm", patternDto);
+        return "seting/pattern/edit";
+    }
+
 
     @GetMapping("/pattern/show/{patternId}")
     public String getShow(@PathVariable Long patternId, ModelMap modelMap) {
