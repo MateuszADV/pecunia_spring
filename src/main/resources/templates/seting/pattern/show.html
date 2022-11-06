@@ -1,0 +1,15 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      layout:decorate="~{layouts/layout}">
+<head>
+    <title>Country SHOW</title>
+</head>
+<body>
+<div layout:fragment="content" class="container">
+    <h1 style="text-align: center">PATTERN SHOW</h1>
+    <b th:text="${pattern}"></b>
+</div>
+</body>
+</html>
