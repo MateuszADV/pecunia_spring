@@ -150,13 +150,21 @@ public class CurrencyController {
         System.out.println("*****************************START************************************");
         System.out.println(JsonUtils.gsonPretty(currencyDtoForm));
         System.out.println("*****************************STOP************************************");
+
         List<Active> actives = activeService.getAllActive();
         List<ActiveDtoCurrency> activeDtoCurrencies = new ArrayList<>();
         for (Active active : actives) {
             activeDtoCurrencies.add(new ModelMapper().map(active, ActiveDtoCurrency.class));
         }
 
+        List<Pattern> patterns = patternService.getAllPattern();
+        List<PatternDtoCurrency> patternDtoCurrencies = new ArrayList<>();
+        for (Pattern pattern : patterns) {
+            patternDtoCurrencies.add(new ModelMapper().map(pattern, PatternDtoCurrency.class));
+        }
+
         modelMap.addAttribute("actives", activeDtoCurrencies);
+        modelMap.addAttribute("patterns", patternDtoCurrencies);
         modelMap.addAttribute("currencyForm", currencyDtoForm);
         System.out.println("+++++++++++++++++Strat Currency Edit++++++++++++++");
         System.out.println(currencyId);
@@ -178,19 +186,33 @@ public class CurrencyController {
                 activeDtoCurrencies.add(new ModelMapper().map(active, ActiveDtoCurrency.class));
             }
 
+            List<Pattern> patterns = patternService.getAllPattern();
+            List<PatternDtoCurrency> patternDtoCurrencies = new ArrayList<>();
+            for (Pattern pattern : patterns) {
+                patternDtoCurrencies.add(new ModelMapper().map(pattern, PatternDtoCurrency.class));
+            }
+
             modelMap.addAttribute("actives", activeDtoCurrencies);
+            modelMap.addAttribute("patterns", patternDtoCurrencies);
             modelMap.addAttribute("currencyForm", currencyForm);
 
             return "currency/edit";
         }
+
+        Pattern pattern = patternService.getPatternById(currencyForm.getPatterns().getId());
         Active active = activeService.getActiveById(currencyForm.getActives().getId());
-        System.out.println(JsonUtils.gsonPretty(currencyForm));
         currencyForm.setId(currencyTemp.get().getId());
         currencyForm.setCreated_at(currencyTemp.get().getCreated_at());
+        currencyForm.setPattern(pattern.getPattern());
         currencyForm.setActive(active.getActiveCod());
         Currency currency = new ModelMapper().map(currencyForm, Currency.class);
         currencyService.saveCurrency(currency);
-        return getSearch("", modelMap);
+
+        System.out.println("%%%%%%%%%%%%%%%%%%%%%%START EDIT%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+        System.out.println(JsonUtils.gsonPretty(currencyForm));
+        System.out.println("%%%%%%%%%%%%%%%%%%%%%%STOP EDIT%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+
+        return getCountryCurrency(currencyForm.getCountries().getId(), modelMap);
     }
 
     @GetMapping("/currency/show/{currencyId}")
@@ -204,5 +226,11 @@ public class CurrencyController {
         modelMap.addAttribute("currency", currencyDtoForm);
         modelMap.addAttribute("json", JsonUtils.gsonPretty(currencyDtoForm));
         return "currency/show";
+    }
+
+    @GetMapping("/currency/delete/{currencyId}/{countryId}")
+    public String getDelete(@PathVariable Long currencyId, @PathVariable Long countryId, ModelMap modelMap) {
+        currencyService.deleteCurrencyById(currencyId);
+        return "redirect:/currency/list/" + countryId;
     }
 }
