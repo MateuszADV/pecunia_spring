@@ -28,7 +28,8 @@ public class PatternServiceImpl implements PatternService {
     @Override
     public Pattern savePatternGet(Pattern pattern) {
         Pattern patternSaveGet = patternRepository.save(pattern);
-        return patternSaveGet;
+//        return patternSaveGet;
+        return this.patternRepository.save(pattern);
     }
 
     @Override

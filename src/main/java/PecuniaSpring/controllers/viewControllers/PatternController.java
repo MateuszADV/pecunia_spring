@@ -68,6 +68,21 @@ public class PatternController {
         return "seting/pattern/edit";
     }
 
+    @PostMapping("/pattern/edit")
+    public String postEdit(@ModelAttribute("patternForm")@Valid PatternDto patternDto, BindingResult result, ModelMap modelMap ){
+        if(result.hasErrors()) {
+            return "seting/pattern/edit";
+        }
+        patternDto.setId(patternTemp.get().getId());
+        patternDto.setCreated_at(patternTemp.get().getCreated_at());
+        Pattern pattern = new ModelMapper().map(patternDto, Pattern.class);
+        System.out.println("--------------------------------------");
+        System.out.println(JsonUtils.gsonPretty(patternDto));
+        System.out.println("---------------------------------------");
+        Pattern patternGet = patternService.savePatternGet(pattern);
+        return getShow(pattern.getId(), modelMap);
+    }
+
 
     @GetMapping("/pattern/show/{patternId}")
     public String getShow(@PathVariable Long patternId, ModelMap modelMap) {
