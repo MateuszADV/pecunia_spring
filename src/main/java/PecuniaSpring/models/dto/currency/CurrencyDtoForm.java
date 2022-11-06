@@ -2,6 +2,7 @@ package PecuniaSpring.models.dto.currency;
 
 import PecuniaSpring.models.dto.active.ActiveDtoCurrency;
 import PecuniaSpring.models.dto.country.CountryGetDto;
+import PecuniaSpring.models.dto.pattern.PatternDtoCurrency;
 import lombok.*;
 
 import javax.validation.Valid;
@@ -14,12 +15,12 @@ import java.sql.Timestamp;
 @ToString
 @EqualsAndHashCode
 
-public class CurrencyActiveDto {
+public class CurrencyDtoForm {
     private Long id;
     @Pattern(regexp="([A-Z]{3})|^$", message = "Pole moze być puste lub zawierać kod waluty(np: ABC)")
     private String cod;
-    @Pattern(regexp = "[A-Z]*", message = "Muszą być duze litery (NOTE, COIN, BOND...) ")
-    @NotEmpty(message = "Pole nie może być puste (NOTE, COIN, BOND...) ")
+//    @Pattern(regexp = "[A-Z]*", message = "Muszą być duze litery (NOTE, COIN, BOND...) ")
+//    @NotEmpty(message = "Pole nie może być puste (NOTE, COIN, BOND...) ")
     private String pattern;
     @NotEmpty(message = "Pole nie może byc EMPTY")
     private String currency;
@@ -36,5 +37,8 @@ public class CurrencyActiveDto {
     @NotNull
     @Valid
     private ActiveDtoCurrency actives;
+    @NotNull
+    @Valid
+    private PatternDtoCurrency patterns;
     private CountryGetDto countries;
 }
