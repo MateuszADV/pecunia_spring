@@ -31,6 +31,7 @@
                 <!--                <th>CON</th>-->
                 <th>Lp:</th>
                 <th>ID</th>
+                <th>Pattern</th>
                 <th>Seria</th>
                 <th style="width: 156px">Akcja</th>
             </tr>
@@ -39,14 +40,14 @@
             <Block th:each="currency, i : ${country.getCurrencies}">
                 <tr>
                     <!--                    <td th:text="${country.getContinents().getContinentCode()}"></td>-->
-                    <td th:text="${(i.index + 1)}"></td>
+                    <td th:text="${(i.index + 1)}" class="pt-1 pb-1"></td>
                     <td th:text="${currency.id}" class="pt-1 pb-1"></td>
-
+                    <td th:text="${currency.pattern}" class="pt-1 pb-1"></td>
                     <td th:text="${currency.currencySeries}" class="pt-1 pb-1" style="font-size: 12px"></td>
                     <td class="pt-1 pb-1">
                         <a th:href="@{'/currency/show/' + ${currency.id}}" class="btn btn-sm btn-info" style="font-size: 10px">SHOW</a>
                         <a th:href="@{'/currency/edit/' + ${currency.id}}" class="btn btn-sm btn-primary" style="font-size: 10px">EDIT</a>
-                        <a th:href="@{'/currency/delete/' + ${currency.id}}" class="btn btn-sm btn-danger" style="font-size: 10px">DELETE</a>
+                        <a th:href="@{'/currency/delete/' + ${currency.id} + '/' + ${country.id}}" class="btn btn-sm btn-danger" style="font-size: 10px">DELETE</a>
                     </td>
                 </tr>
             </Block>
