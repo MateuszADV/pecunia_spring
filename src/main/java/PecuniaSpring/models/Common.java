@@ -2,8 +2,7 @@ package PecuniaSpring.models;
 
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Timestamp;
 
@@ -28,14 +27,24 @@ public abstract class Common {
     private Double priceBuy;            //Cena zakupu
     @Column(name = "price_sell")
     private Double priceSell;           //Cena Sprzedaży (sugerowana)
+    @Column(name = "quantity")
     private Integer quantity;           //ilość
+    @Column(name = "unit_quantity")
+    private String unitQuantity;       //Określa rodzaj ilości(szt, set...)
+    @Column(name = "quality")
     private String quality;             //Stan Itemu
+    @Column(name = "status")
     private String status;              // Status (kolekcja, na sprzedaż, sprzedane
     @Column(name = "status_sell")
     private String statusSell;          //StatusSell odpowiada za to czy dany banknot został wystawiony na sprzedaż
+    @Column(name = "description")
     private String description;         //Opis
     @Column(name = "img_type")
     private String imgType;             //Typ obrazka(skan, foto, ze strony)
+    @Column(name = "visible")
+    private Boolean visible;            //Określa czy dany element jest widoczny dla wszystkich
+    @Column(name = "unit_currency")
+    private String unitCurrency;
     @Column(name = "avers_path")
     private String aversPath;
     @Column(name = "reverse_path")

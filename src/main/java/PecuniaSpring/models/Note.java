@@ -1,5 +1,6 @@
 package PecuniaSpring.models;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -8,6 +9,7 @@ import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Timestamp;
 
+@AllArgsConstructor
 @Getter
 @Setter
 @ToString
@@ -15,14 +17,18 @@ import java.sql.Timestamp;
 @Table(name = "notes")
 public class Note extends Common {
 
+
     public Note(String bought, String itemDate, Date dateBuy, String nameCurrency, Integer signatureCode, Double priceBuy, Double priceSell,
                 Integer quantity, String status, String statusSell, String description, String imgType, String aversPath, String reversePath,
-                Double denomination, String quality, String series, String making, Timestamp created_at, Timestamp updated_at) {
-        super(bought, itemDate, dateBuy, nameCurrency, signatureCode, priceBuy, priceSell, quantity,quality, status, statusSell, description,
-                imgType, aversPath, reversePath, created_at, updated_at);
+                Double denomination, String quality, String series, String making, Integer width, Integer height, Timestamp created_at, Timestamp updated_at,
+                Boolean visible, String unitCurrency, String unitQuantity ) {
+        super(bought, itemDate, dateBuy, nameCurrency, signatureCode, priceBuy, priceSell, quantity, quality, status, statusSell, description,
+                imgType, unitQuantity, visible, unitCurrency, aversPath, reversePath, created_at, updated_at);
         this.denomination = denomination;
         this.series = series;
         this.making = making;
+        this.width = width;
+        this.height = height;
     }
     public Note() {
     }
@@ -38,9 +44,16 @@ public class Note extends Common {
             generator = "notes_sequence"
     )
     private Long id;
+    @Column(name = "denomination")
     private Double denomination;
+    @Column(name = "series")
     private String series;
+    @Column(name = "making")
     private String making;
+    @Column(name = "width")
+    private Integer width;
+    @Column(name = "height")
+    private Integer height;
 
     @ManyToOne
     @JoinColumn(name = "currency_id")
