@@ -1,7 +1,7 @@
 package PecuniaSpring.controllers.viewControllers;
 
 import PecuniaSpring.models.dto.continent.ContinentDto;
-import PecuniaSpring.models.dto.country.CountryDto;
+import PecuniaSpring.models.dto.country.CountryDtoForm;
 import PecuniaSpring.models.Continent;
 import PecuniaSpring.models.Country;
 import PecuniaSpring.models.repositories.ContinentRepository;
@@ -55,7 +55,7 @@ public class CountryController {
         System.out.println(country.isPresent());
 
         try {
-            CountryDto countryDto = new ModelMapper().map(countryService.getCountryById(countryId), CountryDto.class);
+            CountryDtoForm countryDto = new ModelMapper().map(countryService.getCountryById(countryId), CountryDtoForm.class);
             System.out.println("=======================================");
             System.out.println(countryDto);
             String json = JsonUtils.gsonPretty(countryDto);
@@ -77,14 +77,14 @@ public class CountryController {
 
     @GetMapping("/country/new")
     public String getNew(ModelMap modelMap) {
-        modelMap.addAttribute("countryForm", new CountryDto());
+        modelMap.addAttribute("countryForm", new CountryDtoForm());
         getAllContinents(modelMap);
         return "country/new";
     }
 
     @PostMapping("/country/new")
     public String postNew(@ModelAttribute("countryForm")
-                              @Valid CountryDto countryForm, BindingResult result, ModelMap modelMap) {
+                              @Valid CountryDtoForm countryForm, BindingResult result, ModelMap modelMap) {
         System.out.println("--------------------***************START*****************-----------------------------");
         if (result.hasErrors()) {
             getAllContinents(modelMap);
@@ -108,7 +108,7 @@ public class CountryController {
         }
         System.out.println(continentDtos);
         modelMap.addAttribute("continents", continentDtos);
-        CountryDto countryDto = new ModelMapper().map(countryTemp, CountryDto.class);
+        CountryDtoForm countryDto = new ModelMapper().map(countryTemp, CountryDtoForm.class);
         System.out.println("+++++++++++++++++START+++++++++++++++++++++");
         System.out.println(countryDto.getContinents().getContinentPl());
         System.out.println("++++++++++++++++STOP++++++++++++++++++++++++");
@@ -122,7 +122,7 @@ public class CountryController {
 
     @PostMapping("/country/edit")
     public String postEdit(@ModelAttribute("countryForm")
-                           @Valid CountryDto countryForm,
+                           @Valid CountryDtoForm countryForm,
                            BindingResult result, ModelMap modelMap) {
         if (result.hasErrors()) {
             getAllContinents(modelMap);
@@ -186,9 +186,9 @@ public class CountryController {
         modelMap.addAttribute("sortDir",sortDir);
         modelMap.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
 
-        List<CountryDto> countryDtos = new ArrayList<>();
+        List<CountryDtoForm> countryDtos = new ArrayList<>();
         for (Country country : countries) {
-            countryDtos.add(new ModelMapper().map(country, CountryDto.class));
+            countryDtos.add(new ModelMapper().map(country, CountryDtoForm.class));
         }
 
         modelMap.addAttribute("countries", countryDtos);

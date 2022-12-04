@@ -15,4 +15,5 @@ public interface CountryService {
     List<Country> getCountriesWithContinent(String continentEn);
     List<Country> getCountryByCountryEnAsc();
     List<Country> searchCountry(String keyWord);
+    Country getCountyByCountryEn(String countryEn);
 }

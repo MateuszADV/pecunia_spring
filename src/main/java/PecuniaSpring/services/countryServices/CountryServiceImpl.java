@@ -78,4 +78,13 @@ public class CountryServiceImpl implements CountryService {
     public List<Country> searchCountry(String keyWord) {
         return countryRepository.searchCountry(keyWord);
     }
+
+    @Override
+    public Country getCountyByCountryEn(String countryEn) {
+        Country country = countryRepository.findByCountryEn(countryEn);
+        if (country != null){
+            return country;
+        }
+        return null;
+    }
 }

@@ -19,4 +19,6 @@ public interface CountryRepository extends JpaRepository<Country, Long> {
             "WHERE LOWER(cou.countryEn) LIKE LOWER(CONCAT('%', ?1, '%'))" +
             "OR    LOWER(cou.countryPl) LIKE LOWER(CONCAT('%', ?1, '%'))")
     List<Country> searchCountry(String keyWord);
+
+    Country findByCountryEn(String countryEn);
 }

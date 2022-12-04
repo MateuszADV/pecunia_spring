@@ -38,4 +38,10 @@ public class CurrencyServiceImpl implements CurrencyService {
     public void deleteCurrencyById(Long id) {
         currencyRepository.deleteById(id);
     }
+
+    @Override
+    public List<Currency> getCurrencyByCountryByPattern(Long countryId, String pattern) {
+        List<Currency> currencies = currencyRepository.getCurrencyByCountryByPattern(countryId, pattern);
+        return currencies;
+    }
 }
