@@ -72,4 +72,12 @@ public class NoteController {
 //        System.out.println(JsonUtils.gsonPretty(countryGetDtos));
         return "note/index";
     }
+
+    @GetMapping("/note/note_list")
+    public String getNoteList(@RequestParam(value = "currencySeries") String currencySeries,
+                              ModelMap modelMap) {
+
+        System.out.println(currencySeries);
+        return "/note/note_list";
+    }
 }
