@@ -1,9 +1,11 @@
 package PecuniaSpring.models.dto.currency;
 
 import PecuniaSpring.models.dto.country.CountryDto;
+import PecuniaSpring.models.dto.note.NoteDto;
 import lombok.*;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -28,4 +30,5 @@ public class CurrencyDto {
     private Timestamp updated_at;
 
     private CountryDto countries;
+    private List<NoteDto> notes;
 }

@@ -33,7 +33,7 @@ public class NoteDto extends CommonDto {
     public NoteDto() {
     }
 
-    private CurrencyDto currencies;
+//    private CurrencyDto currencies;
 
     private Long id;
     private Double denomination;
