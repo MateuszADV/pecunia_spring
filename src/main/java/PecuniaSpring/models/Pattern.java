@@ -13,21 +13,21 @@ import java.util.List;
 @ToString
 @EqualsAndHashCode
 @Entity
-@Table(name = "actives")
-public class Active {
+@Table(name = "patterns")
+public class Pattern {
+
     @SequenceGenerator(
-            name = "actives_sequence",
-            sequenceName = "actives_sequence",
+            name = "patterns_sequence",
+            sequenceName = "patterns_sequence",
             allocationSize = 1
     )
     @Id
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "actives_sequence"
+            generator = "patterns_sequence"
     )
     private Long id;
-    @Column(name = "active_cod")
-    private Integer activeCod;
+    private String pattern;
     private String name;
     private String description;
     @Column(name = "created_at")
@@ -35,7 +35,6 @@ public class Active {
     @Column(name = "updated_at")
     private Timestamp updated_at;
 
-    @OneToMany(mappedBy = "actives", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @OneToMany(mappedBy = "patterns", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private List<Currency> currencies;
-
 }
