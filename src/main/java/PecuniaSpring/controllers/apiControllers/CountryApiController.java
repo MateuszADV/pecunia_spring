@@ -1,6 +1,6 @@
 package PecuniaSpring.controllers.apiControllers;
 
-import PecuniaSpring.models.dto.country.CountryDto;
+import PecuniaSpring.models.dto.country.CountryDtoForm;
 import PecuniaSpring.models.Country;
 import PecuniaSpring.models.repositories.CountryRepository;
 import lombok.AllArgsConstructor;
@@ -23,9 +23,9 @@ public class CountryApiController {
 
     public ResponseEntity<Object> getAllCountry() {
         List<Country> countries = countryRepository.findAll();
-        List<CountryDto> countryDtoList = new ArrayList<>();
+        List<CountryDtoForm> countryDtoList = new ArrayList<>();
         for (Country country : countries) {
-            countryDtoList.add(new ModelMapper().map(country, CountryDto.class));
+            countryDtoList.add(new ModelMapper().map(country, CountryDtoForm.class));
         }
         return ResponseEntity.ok().body(countryDtoList);
     }
@@ -34,7 +34,7 @@ public class CountryApiController {
     public ResponseEntity<Object> getCountryById(@RequestParam String countryId) {
         try {
             Optional<Country> country = countryRepository.findById(Long.parseLong(countryId));
-            CountryDto countryDto = new ModelMapper().map(country.get(), CountryDto.class);
+            CountryDtoForm countryDto = new ModelMapper().map(country.get(), CountryDtoForm.class);
             return ResponseEntity.ok().body(countryDto);
         }
         catch (Exception e) {

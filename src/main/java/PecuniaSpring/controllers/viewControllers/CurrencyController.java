@@ -21,6 +21,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import utils.JsonUtils;
+import utils.Search;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -58,30 +59,9 @@ public class CurrencyController {
         return "currency/list";
     }
 
-    @PostMapping("/search")
+    @PostMapping("/currency/search")
     public String getSearch(@RequestParam(value = "keyword") String keyword, ModelMap modelMap) {
-        if (keyword.isEmpty()) {
-            System.out.println(" pole wyszukiwania jest puste");
-            List<CountryGetDto> countryGetDtos = new ArrayList<>();
-            List<Country> countries = countryService.getCountryByCountryEnAsc();
-            for (Country country : countries) {
-                countryGetDtos.add(new ModelMapper().map(country, CountryGetDto.class));
-            }
-            modelMap.addAttribute("countries", countryGetDtos);
-            System.out.println("****************************************************");
-            System.out.println("TU JESTEM");
-            System.out.println(countryGetDtos.size());
-//        System.out.println(JsonUtils.gsonPretty(countryGetDtos));
-            System.out.println("****************************************************");
-        }
-        System.out.println(keyword);
-        modelMap.addAttribute("keyword", keyword);
-        List<Country> countries = countryService.searchCountry(keyword);
-        List<CountryGetDto> countryGetDtos = new ArrayList<>();
-        for (Country country : countries) {
-            countryGetDtos.add(new ModelMapper().map(country, CountryGetDto.class));
-        }
-        modelMap.addAttribute("countries", countryGetDtos);
+        Search.searchCountry(keyword, modelMap, countryService);
 //        System.out.println(JsonUtils.gsonPretty(countryGetDtos));
         return "currency/index";
     }
