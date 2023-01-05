@@ -11,4 +11,5 @@ public interface CurrencyService {
     void saveCurrency(Currency currency);
     Currency getCurrencyById(Long id);
     void deleteCurrencyById(Long id);
+    List<Currency> getCurrencyByCountryByPattern(Long countryId, String pattern);
 }

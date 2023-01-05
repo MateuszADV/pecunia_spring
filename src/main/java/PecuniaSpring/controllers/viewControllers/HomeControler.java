@@ -1,7 +1,7 @@
 package PecuniaSpring.controllers.viewControllers;
 
 import PecuniaSpring.models.dto.UserRegistration;
-import PecuniaSpring.models.dto.country.CountryDto;
+import PecuniaSpring.models.dto.country.CountryDtoForm;
 import PecuniaSpring.models.Country;
 import PecuniaSpring.models.repositories.CountryRepository;
 import PecuniaSpring.registration.EmailValidator;
@@ -130,9 +130,9 @@ public class HomeControler {
         System.out.println("==============STRONA TESTOWA===================");
         List<Country> countries = countryRepository.findAll();
 //        countries.stream().forEach(System.out::println);
-        List<CountryDto> countryDtos = new ArrayList<>();
+        List<CountryDtoForm> countryDtos = new ArrayList<>();
         for (Country country : countries) {
-            countryDtos.add(new ModelMapper().map(country, CountryDto.class));
+            countryDtos.add(new ModelMapper().map(country, CountryDtoForm.class));
         }
         countryDtos.stream()
                 .filter(country -> country.getId() > 100)

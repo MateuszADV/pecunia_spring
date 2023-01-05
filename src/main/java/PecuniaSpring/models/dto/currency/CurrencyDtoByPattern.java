@@ -1,6 +1,5 @@
 package PecuniaSpring.models.dto.currency;
 
-import PecuniaSpring.models.dto.country.CountryDto;
 import PecuniaSpring.models.dto.note.NoteDto;
 import lombok.*;
 
@@ -13,7 +12,7 @@ import java.util.List;
 @Setter
 @ToString
 @EqualsAndHashCode
-public class CurrencyDto {
+public class CurrencyDtoByPattern {
 
     private Long id;
     private String cod;
@@ -29,6 +28,5 @@ public class CurrencyDto {
     private Timestamp created_at;
     private Timestamp updated_at;
 
-    private CountryDto countries;
-    private List<NoteDto> notes;
+    private NoteDto notes;
 }
