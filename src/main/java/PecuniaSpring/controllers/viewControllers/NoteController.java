@@ -95,4 +95,16 @@ public class NoteController {
         modelMap.addAttribute("notes", noteDtos);
         return "/note/note_list";
     }
+
+    @GetMapping("/note/show/{noteId}")
+    public String getShowNote(@PathVariable Long noteId, ModelMap modelMap) {
+        System.out.println(noteId);
+        Note note = noteService.getNoteById(noteId);
+        NoteDto noteDto = new ModelMapper().map(note, NoteDto.class);
+        System.out.println(JsonUtils.gsonPretty(noteDto));
+
+        modelMap.addAttribute("note", noteDto);
+        modelMap.addAttribute("json", JsonUtils.gsonPretty(noteDto));
+        return "/note/show";
+    }
 }

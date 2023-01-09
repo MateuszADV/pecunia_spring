@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      layout:decorate="~{layouts/layout}">
+<head>
+    <title>NOTE SHOW</title>
+</head>
+<body>
+    <div layout:fragment="content" class="container">
+        <h1 style="text-align: center">NOTE SHOW</h1>
+        <div class="container">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3">
+                <div class="col-4 field ">
+                    <strong>Id: </strong><span th:text="${note.id}"></span>
+                    <strong>Date Buy: </strong><span th:text="${note.dateBuy}"></span>
+                </div>
+                <div class="col-4 field ">
+
+                </div>
+            </div>
+        </div>
+        <div>
+            <b th:text="${json}"></b><br>
+            <textarea th:text="${json}" rows="15" cols="55" style="font-family: inherit; resize: none; color: black" disabled></textarea><br>
+
+        </div>
+
+    </div>
+</body>
+</html>
