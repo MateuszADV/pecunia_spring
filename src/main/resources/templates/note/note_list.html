@@ -37,8 +37,8 @@
                         <td th:text="${note.status}"></td>
                         <td class="p-0 m-0" style="width: 100px">
                             <div style="display: flex; justify-content: center">
-                                <div th:replace="fragments/_note :: note(note = ${note.aversPath})"></div>
-                                <div th:replace="fragments/_note :: note(note = ${note.reversePath})"></div>
+                                <div th:replace="fragments/_image-small :: image-small(image = ${note.aversPath})"></div>
+                                <div th:replace="fragments/_image-small :: image-small(image = ${note.reversePath})"></div>
                             </div>
                         </td>
                         <td class="pt-1 pb-1">

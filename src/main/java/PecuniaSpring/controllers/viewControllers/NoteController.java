@@ -5,7 +5,9 @@ import PecuniaSpring.models.Currency;
 import PecuniaSpring.models.Note;
 import PecuniaSpring.models.dto.country.CountryDtoForm;
 import PecuniaSpring.models.dto.currency.CurrencyDto;
+import PecuniaSpring.models.dto.currency.CurrencyDtoByNote;
 import PecuniaSpring.models.dto.note.NoteDto;
+import PecuniaSpring.models.dto.note.NoteDtoByCurrency;
 import PecuniaSpring.models.repositories.NoteRepository;
 import PecuniaSpring.services.countryServices.CountryServiceImpl;
 import PecuniaSpring.services.currencyService.CurrencyServiceImpl;
@@ -46,22 +48,22 @@ public class NoteController {
         Country country = countryService.getCountyByCountryEn(countryEn);
         CountryDtoForm countryDto = new ModelMapper().map(country, CountryDtoForm.class);
         List<Currency> currencies = currencyService.getCurrencyByCountryByPattern(countryDto.getId(), "NOTE");
-        List<CurrencyDto> currencyDtos = new ArrayList<>();
+        List<CurrencyDtoByNote> currencyDtoByNotes = new ArrayList<>();
         for (Currency currency : currencies) {
-            currencyDtos.add(new ModelMapper().map(currency, CurrencyDto.class));
+            currencyDtoByNotes.add(new ModelMapper().map(currency, CurrencyDtoByNote.class));
         }
 
         System.out.println("=======================START===========================");
         System.out.println(countryEn);
         System.out.println(JsonUtils.gsonPretty(countryDto));
         System.out.println("---------------------------------------------------------");
-        System.out.println(currencyDtos.size());
-        for (CurrencyDto currencyDto : currencyDtos) {
-            System.out.println(currencyDto.getCurrencySeries());
+        System.out.println(currencyDtoByNotes.size());
+        for (CurrencyDtoByNote currencyDtoByNote : currencyDtoByNotes) {
+            System.out.println(currencyDtoByNote.getCurrencySeries());
         }
-        System.out.println(JsonUtils.gsonPretty(currencyDtos));
+        System.out.println(JsonUtils.gsonPretty(currencyDtoByNotes));
         System.out.println("=======================STOP===========================");
-        modelMap.addAttribute("currencies", currencyDtos);
+        modelMap.addAttribute("currencies", currencyDtoByNotes);
         return "note/currency";
     }
 
@@ -81,18 +83,18 @@ public class NoteController {
         System.out.println(currencySeries);
         System.out.println(currencyId);
         Currency currency = currencyService.getCurrencyById(currencyId);
-        CurrencyDto currencyDto = new ModelMapper().map(currency, CurrencyDto.class);
+        CurrencyDtoByNote currencyDtoByNote = new ModelMapper().map(currency, CurrencyDtoByNote.class);
         List<Note> notes = noteService.getNoteByCurrencyId(currencyId);
-        List<NoteDto> noteDtos = new ArrayList();
+        List<NoteDtoByCurrency> noteDtoByCurrencies = new ArrayList();
         for (Note note : notes) {
-            noteDtos.add(new ModelMapper().map(note, NoteDto.class));
+            noteDtoByCurrencies.add(new ModelMapper().map(note, NoteDtoByCurrency.class));
         }
 
         System.out.println(notes.size());
-        System.out.println(JsonUtils.gsonPretty(noteDtos));
+        System.out.println(JsonUtils.gsonPretty(noteDtoByCurrencies));
 
-        modelMap.addAttribute("currency", currencyDto);
-        modelMap.addAttribute("notes", noteDtos);
+        modelMap.addAttribute("currency", currencyDtoByNote);
+        modelMap.addAttribute("notes", noteDtoByCurrencies);
         return "/note/note_list";
     }
 
