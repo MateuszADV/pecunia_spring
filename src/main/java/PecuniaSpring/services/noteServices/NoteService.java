@@ -7,5 +7,6 @@ import java.util.List;
 
 @Service
 public interface NoteService {
+    Note getNoteById(Long id);
     List<Note> getNoteByCurrencyId(Long currencyId);
 }
