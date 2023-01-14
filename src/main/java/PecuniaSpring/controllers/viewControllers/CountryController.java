@@ -50,11 +50,7 @@ public class CountryController {
     @GetMapping("/country")
     public String getIndex(ModelMap modelMap) throws NoSuchFieldException {
         List<Country> countries = countryRepository.findAll();
-        List<CountryDto> countryDtos = new ArrayList<>();
-        for (Country country : countries) {
-            countryDtos.add(new ModelMapper().map(country, CountryDto.class));
-        }
-        System.out.println(countryDtos.get(0));
+
         List<Object[]> objects = countryRepository.countryByContinent();
 //        for (Object[] objects1 : objects) {
 //            System.out.println(objects1);
