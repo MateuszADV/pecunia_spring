@@ -1,6 +1,8 @@
 package PecuniaSpring.controllers.viewControllers;
 
+import PecuniaSpring.models.clasy.Kontynent;
 import PecuniaSpring.models.dto.continent.ContinentDto;
+import PecuniaSpring.models.dto.country.CountryDto;
 import PecuniaSpring.models.dto.country.CountryDtoForm;
 import PecuniaSpring.models.Continent;
 import PecuniaSpring.models.Country;
@@ -9,6 +11,8 @@ import PecuniaSpring.models.repositories.CountryRepository;
 import PecuniaSpring.services.continentServices.ContinentServiceImpl;
 import PecuniaSpring.services.countryServices.CountryServiceImpl;
 import lombok.AllArgsConstructor;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -17,10 +21,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import utils.JsonUtils;
 
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.lang.reflect.Field;
+import java.sql.Array;
+import java.util.*;
 
 @AllArgsConstructor
 @Controller
@@ -31,8 +37,9 @@ public class CountryController {
     private ContinentServiceImpl continentService;
     private ContinentRepository continentRepository;
     private Optional<Country> countryTemp;
+    private EntityManager entityManager;
 
-//    @GetMapping("/country")
+    //    @GetMapping("/country")
 //    public String getIndex(ModelMap modelMap)
 //    {
 ////        List<Country> countries = countryRepository.findAll();
@@ -41,9 +48,89 @@ public class CountryController {
 //        return "country/index";
 //    }
     @GetMapping("/country")
-    public String getIndex(ModelMap modelMap) {
+    public String getIndex(ModelMap modelMap) throws NoSuchFieldException {
         List<Country> countries = countryRepository.findAll();
-//        System.out.println(countries);
+        List<CountryDto> countryDtos = new ArrayList<>();
+        for (Country country : countries) {
+            countryDtos.add(new ModelMapper().map(country, CountryDto.class));
+        }
+        System.out.println(countryDtos.get(0));
+        List<Object[]> objects = countryRepository.countryByContinent();
+//        for (Object[] objects1 : objects) {
+//            System.out.println(objects1);
+//        }
+        JSONArray jsonArray7 = new JSONArray(objects.toArray());
+        System.out.println(jsonArray7);
+        System.out.println("----------------------------------------");
+//        System.out.println(JsonUtils.gsonPretty(objects));
+        List<Kontynent> kontynents = new ArrayList<>();
+        for (Object[] object : objects) {
+            System.out.println(object[0].toString());
+            kontynents.add(new ModelMapper().map(object[0], Kontynent.class));
+
+        }
+
+        System.out.println(kontynents);
+        System.out.println(kontynents.get(0).toString());
+
+        JSONArray jsonArray8 = new JSONArray(kontynents);
+        System.out.println(jsonArray8);
+        System.out.println(JsonUtils.gsonPretty(kontynents));
+//        Object json = JsonUtils.gsonPretty(objects);
+//        System.out.println(json);
+//
+//        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++");
+////        Query query = entityManager.createNativeQuery("SELECT COUNT(*) FROM Countries WHERE continent_id =:id");
+////        query.setParameter("id", 1);
+////        int count = ((Number) query.getSingleResult()).intValue();
+////        Query query = entityManager.createNativeQuery("SELECT continent, COUNT(continent) FROM Countries GROUP BY continent");
+//        List<Object> list1 = entityManager.createNativeQuery("SELECT * FROM Countries WHERE continent = ?1")
+//                .setParameter(1, "Azja")
+//                .getResultList();
+//
+//        JSONArray jsonArray = new JSONArray(list1);
+//        System.out.println(jsonArray.get(0));
+//        System.out.println(list1.size());
+//
+//        List<Object[]> objectList =  entityManager.createNativeQuery("SELECT continent as kontynent, COUNT(continent) as total FROM Countries GROUP BY continent")
+//                .getResultList();
+//        JSONArray jsonArray1 = new JSONArray(objectList);
+//        System.out.println(jsonArray1.get(0));
+//        for (Object[] objects1 : objectList) {
+//            System.out.println(objects1[0] + " - " + objects1[1]);
+//        }
+//
+////        List<Object> objectList4 = (List<Object>) entityManager.createQuery("SELECT cou FROM Country cou WHERE cou.continent = 'Azja'")
+////                .getResultList();
+////        JSONArray jsonArray3 = new JSONArray(objectList4);
+////        System.out.println(jsonArray3.get(0));
+//
+//
+////        List<Country> countries1 = countryRepository.countries("Azja");
+////        List<CountryDto>countryDtos = new ArrayList<>();
+////        for (Country country : countries1) {
+////            countryDtos.add(new ModelMapper().map(country, CountryDto.class));
+////        }
+////        System.out.println(jsonArray1.put(countryDtos));
+////        System.out.println(list1.get(1));
+//        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++");
+//
+//        System.out.println("-------------------------------");
+//        Query query1 = entityManager.createNativeQuery("SELECT continent, COUNT(continent) as liczba FROM Countries GROUP BY continent");
+//        List<Object> list = (query1.getResultList());
+//        System.out.println(list);
+//
+//        JSONObject jsonObject = new JSONObject();
+//        jsonObject.append("liczba", list.get(0));
+//
+////        JSONArray jsonArray = new JSONArray();
+////        jsonArray.put(list.get(0));
+////        System.out.println(jsonObject);
+////        System.out.println(jsonArray);
+
+        System.out.println("---------------------------------");
+
+
      return findPaginated(1, "continent", "asc", modelMap);
     }
 
