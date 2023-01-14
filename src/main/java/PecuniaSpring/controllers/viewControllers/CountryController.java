@@ -76,6 +76,8 @@ public class CountryController {
         JSONArray jsonArray8 = new JSONArray(kontynents);
         System.out.println(jsonArray8);
         System.out.println(JsonUtils.gsonPretty(kontynents));
+
+        //TODO Zoptymalizować powyższy kod do akceptowalnego poziomu
 //        Object json = JsonUtils.gsonPretty(objects);
 //        System.out.println(json);
 //
