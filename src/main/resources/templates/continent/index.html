@@ -14,11 +14,12 @@
         <div class="container">
             <div class="row">
                 <Block th:each="continent : ${continents}">
-                    <div class="col-sm-2" style="text-align: center">
+                    <div class="col-sm-2" style="text-align: center; max-width: 100%">
                         <div calss="container" style="margin: 15px">
                             <a th:href="@{'/continent/?selectContinent=' + ${continent.continentEn}}">
-                                <img th:src="@{'/images/continents/' + ${continent.continentCode} + '.png'}" style="width: 150px"/>
-                            </a>
+                                <img th:src="@{'/images/continents/' + ${continent.code} + '.png'}" style="width: 150px"/>
+                            </a><br>
+                            <span th:text="${continent.total}"></span>
                         </div>
                     </div>
                 </Block>

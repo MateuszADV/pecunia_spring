@@ -1,6 +1,7 @@
 package PecuniaSpring.services.countryServices;
 
 import PecuniaSpring.models.Country;
+import PecuniaSpring.models.sqlClass.CountryCount;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
@@ -16,4 +17,9 @@ public interface CountryService {
     List<Country> getCountryByCountryEnAsc();
     List<Country> searchCountry(String keyWord);
     Country getCountyByCountryEn(String countryEn);
+
+//    *****************************************
+//    ******Query związane z countries*********
+//    *****************************************
+    List<CountryCount> countryCounts();
 }

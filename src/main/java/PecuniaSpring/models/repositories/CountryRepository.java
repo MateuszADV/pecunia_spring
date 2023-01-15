@@ -26,8 +26,20 @@ public interface CountryRepository extends JpaRepository<Country, Long> {
 
     Country findByCountryEn(String countryEn);
 
-    @Query(value = "SELECT new map(cou.continent AS kontynent, COUNT(cou.continent) AS liczba) FROM Country cou " +
+
+//    *****************************************
+//    ******Query związane z countries*********
+//    *****************************************
+
+    @Query(value = "SELECT new map(cou.continent AS continent, COUNT(cou.continent) AS total) FROM Country cou " +
                    "GROUP BY cou.continent")
     List<Object[]> countryByContinent();
+
+    @Query(value = "SELECT new map(con.id AS continentId, con.continentPl AS continentPl, con.continentEn AS continentEn, " +
+            "con.continentCode AS code, COUNT(cou.continent) AS total) FROM Country cou " +
+            "LEFT JOIN Continent con " +
+            "ON cou.continents = con.id " +
+            "GROUP BY con.id, con.continentPl, continentEn, con.continentCode")
+    List<Object[]> countCountry();
 
 }
