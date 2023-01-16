@@ -1,5 +1,6 @@
 package PecuniaSpring.models.dto.country;
 
+import PecuniaSpring.models.dto.continent.ContinentDto;
 import PecuniaSpring.models.dto.currency.CurrencyDto;
 import lombok.*;
 
@@ -27,6 +28,6 @@ public class CountryGetCurrencyDto {
     private Timestamp created_at;
     private Timestamp updated_at;
 
-//    private ContinentDto continents;
+    private ContinentDto continents;
     private List<CurrencyDto> currencies;
 }
