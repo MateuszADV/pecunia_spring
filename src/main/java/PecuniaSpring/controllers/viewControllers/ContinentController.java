@@ -13,9 +13,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import utils.JsonUtils;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Controller
 @AllArgsConstructor
 public class ContinentController {
@@ -54,12 +51,14 @@ public class ContinentController {
     }
 
     private void getContinentList(ModelMap modelMap) {
-        List<Continent> continents = continentRepository.findAll();
-        List<ContinentDto> continentDtos = new ArrayList<>();
-        for (Continent continent : continents) {
-            continentDtos.add(new ModelMapper().map(continent, ContinentDto.class));
-        }
-        modelMap.addAttribute("continents", continentDtos);
+//        List<Continent> continents = continentRepository.findAll();
+//        List<ContinentDto> continentDtos = new ArrayList<>();
+//        for (Continent continent : continents) {
+//            continentDtos.add(new ModelMapper().map(continent, ContinentDto.class));
+//        }
+//        modelMap.addAttribute("continents", continentDtos);
+
+        modelMap.addAttribute("continents", countryService.countryCounts());
     }
 
     @GetMapping("/continent/")

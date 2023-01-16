@@ -2,10 +2,9 @@ package PecuniaSpring.controllers.viewControllers;
 
 import PecuniaSpring.models.dto.continent.ContinentDto;
 import PecuniaSpring.models.dto.country.CountryDtoForm;
-import PecuniaSpring.models.Continent;
 import PecuniaSpring.models.Country;
-import PecuniaSpring.models.repositories.ContinentRepository;
 import PecuniaSpring.models.repositories.CountryRepository;
+import PecuniaSpring.models.sqlClass.CountryCount;
 import PecuniaSpring.services.continentServices.ContinentServiceImpl;
 import PecuniaSpring.services.countryServices.CountryServiceImpl;
 import lombok.AllArgsConstructor;
@@ -17,10 +16,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import utils.JsonUtils;
 
+import javax.persistence.EntityManager;
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @AllArgsConstructor
 @Controller
@@ -29,10 +27,10 @@ public class CountryController {
     private CountryRepository countryRepository;
     private CountryServiceImpl countryService;
     private ContinentServiceImpl continentService;
-    private ContinentRepository continentRepository;
     private Optional<Country> countryTemp;
+    private EntityManager entityManager;
 
-//    @GetMapping("/country")
+    //    @GetMapping("/country")
 //    public String getIndex(ModelMap modelMap)
 //    {
 ////        List<Country> countries = countryRepository.findAll();
@@ -41,9 +39,12 @@ public class CountryController {
 //        return "country/index";
 //    }
     @GetMapping("/country")
-    public String getIndex(ModelMap modelMap) {
+    public String getIndex(ModelMap modelMap) throws NoSuchFieldException {
         List<Country> countries = countryRepository.findAll();
-//        System.out.println(countries);
+
+        List<CountryCount> countryCounts = countryService.countryCounts();
+        System.out.println(countryCounts);
+
      return findPaginated(1, "continent", "asc", modelMap);
     }
 
@@ -101,9 +102,9 @@ public class CountryController {
     @GetMapping("/country/edit/{countryId}")
     public String getEdit(@PathVariable Long countryId, ModelMap modelMap) {
         countryTemp = countryRepository.findById(countryId);
-        List<Continent> continents = continentService.getAllContinent();
+        List<PecuniaSpring.models.Continent> continents = continentService.getAllContinent();
         List<ContinentDto> continentDtos = new ArrayList<>();
-        for (Continent continent : continents) {
+        for (PecuniaSpring.models.Continent continent : continents) {
             continentDtos.add(new ModelMapper().map(continent, ContinentDto.class));
         }
         System.out.println(continentDtos);
@@ -114,7 +115,7 @@ public class CountryController {
         System.out.println("++++++++++++++++STOP++++++++++++++++++++++++");
 
 //        countryDto.setContinent_id(countryTemp.get().getContinents().getId());
-        Continent continent = countryTemp.get().getContinents();
+        PecuniaSpring.models.Continent continent = countryTemp.get().getContinents();
         modelMap.addAttribute("continentEdit", continent);
         modelMap.addAttribute("countryForm", countryDto);
         return "country/edit";
@@ -138,9 +139,9 @@ public class CountryController {
     }
 
     private void getAllContinents(ModelMap modelMap) {
-        List<Continent> continents = continentService.getAllContinent();
+        List<PecuniaSpring.models.Continent> continents = continentService.getAllContinent();
         List<ContinentDto> continentDtos = new ArrayList<>();
-        for (Continent continent : continents) {
+        for (PecuniaSpring.models.Continent continent : continents) {
             continentDtos.add(new ModelMapper().map(continent, ContinentDto.class));
         }
         modelMap.addAttribute("continents", continentDtos);

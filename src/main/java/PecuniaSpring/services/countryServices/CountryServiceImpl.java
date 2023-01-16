@@ -4,14 +4,18 @@ import PecuniaSpring.models.Continent;
 import PecuniaSpring.models.Country;
 import PecuniaSpring.models.repositories.ContinentRepository;
 import PecuniaSpring.models.repositories.CountryRepository;
+import PecuniaSpring.models.sqlClass.CountryCount;
 import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import utils.JsonUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -86,5 +90,24 @@ public class CountryServiceImpl implements CountryService {
             return country;
         }
         return null;
+    }
+
+
+//    *****************************************
+//    ******Query związane z countries*********
+//    *****************************************
+
+    @Override
+    public List<CountryCount> countryCounts() {
+
+        List<Object[]> objects = countryRepository.countCountry();
+        List<CountryCount> countryCounts = new ArrayList<>();
+
+        for (Object[] object : objects) {
+            countryCounts.add(new ModelMapper().map(object[0], CountryCount.class));
+        }
+        System.out.println(JsonUtils.gsonPretty(countryCounts));
+
+        return countryCounts;
     }
 }

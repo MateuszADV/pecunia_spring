@@ -1,11 +1,15 @@
 package PecuniaSpring.models.repositories;
 
 import PecuniaSpring.models.Country;
+import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.awt.print.Pageable;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 @Repository
 public interface CountryRepository extends JpaRepository<Country, Long> {
@@ -21,4 +25,21 @@ public interface CountryRepository extends JpaRepository<Country, Long> {
     List<Country> searchCountry(String keyWord);
 
     Country findByCountryEn(String countryEn);
+
+
+//    *****************************************
+//    ******Query związane z countries*********
+//    *****************************************
+
+    @Query(value = "SELECT new map(cou.continent AS continent, COUNT(cou.continent) AS total) FROM Country cou " +
+                   "GROUP BY cou.continent")
+    List<Object[]> countryByContinent();
+
+    @Query(value = "SELECT new map(con.id AS continentId, con.continentPl AS continentPl, con.continentEn AS continentEn, " +
+            "con.continentCode AS code, COUNT(cou.continent) AS total) FROM Country cou " +
+            "LEFT JOIN Continent con " +
+            "ON cou.continents = con.id " +
+            "GROUP BY con.id, con.continentPl, continentEn, con.continentCode")
+    List<Object[]> countCountry();
+
 }
