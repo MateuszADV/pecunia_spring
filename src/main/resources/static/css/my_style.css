@@ -1,8 +1,27 @@
 body
 {
     /*background: url("../images/mochaGrunge.png");*/
+    background-color: #c4e1c1;
     /*background-color: aquamarine;*/
-    background-color: #b0d0ad;
+}
+
+.navbar-light .navbar-nav .nav-link
+{
+    color: azure;
+}
+
+.navbar-light:hover .navbar-nav:hover .nav-link:hover
+{
+    color: lightgray;
+}
+
+.navbar-light .navbar-brand
+{
+    color: aliceblue;
+}
+.dropdown-menu
+{
+    background-color: darkgray;
 }
 
 /*.stopka*/
