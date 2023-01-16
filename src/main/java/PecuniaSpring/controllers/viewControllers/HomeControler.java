@@ -44,37 +44,7 @@ public class HomeControler {
     public String getIndex(ModelMap modelMap,
                            HttpServletRequest request,
                            HttpServletResponse response){
-        System.out.println("++++++++++++++++++++++++++++NAPIS TESTOWY++++++++++++++++++++++++++++++++++");
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        System.out.println(userCheckLoged.UserCheckLoged().getName());
-        System.out.println(userCheckLoged.UserCheckLoged().getAuthorities());
-        System.out.println(userCheckLoged.UserCheckLoged().getCredentials());
-        System.out.println(userCheckLoged.UserCheckLoged().getPrincipal().getClass().getCanonicalName());
 
-        modelMap.addAttribute("test", "NAPIS TESTOWY");
-
-        System.out.println("---------------------TEST START------------------------");
-        System.out.println(request.toString());
-        System.out.println(response.getLocale().toString());
-        modelMap.addAttribute("ip", request.getRemoteAddr());
-
-
-        System.out.println("=========================================");
-        Locale currentLocale = request.getLocale();
-        System.out.println(response.getLocale().getCountry() + " : " + response.getLocale().getDisplayCountry());
-        System.out.println(currentLocale.getLanguage() + " : " + currentLocale.getDisplayLanguage());
-//        System.out.println(request.getHeader("X-FORWARDED-FOR"));
-        System.out.println(request.getRemoteAddr());
-        System.out.println("==========================================");
-
-        System.out.println(LocalDateTime.now());
-
-        modelMap.addAttribute("standardDate", new Date());
-        modelMap.addAttribute("localDateTime", LocalDateTime.now());
-        modelMap.addAttribute("localDate", LocalDate.now());
-        modelMap.addAttribute("timestamp", Instant.now());
-
-        System.out.println("---------------------TEST STOP------------------------");
         return "home/index";
     }
 
@@ -126,7 +96,9 @@ public class HomeControler {
     }
 
     @GetMapping("/test")
-    public String getTest(){
+    public String getTest(ModelMap modelMap,
+                          HttpServletRequest request,
+                          HttpServletResponse response){
         System.out.println("==============STRONA TESTOWA===================");
         List<Country> countries = countryRepository.findAll();
 //        countries.stream().forEach(System.out::println);
@@ -139,6 +111,42 @@ public class HomeControler {
                 .filter(country -> country.getId() < 150)
                 .filter(country -> country.getContinent().contains("Azja"))
                 .forEach(System.out::println);
+
+
+//        ********************************************************
+//        ***************TESTY AUTORYZACJI************************
+//        ********************************************************
+
+        System.out.println("++++++++++++++++++++++++++++NAPIS TESTOWY++++++++++++++++++++++++++++++++++");
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        System.out.println(userCheckLoged.UserCheckLoged().getName());
+        System.out.println(userCheckLoged.UserCheckLoged().getAuthorities());
+        System.out.println(userCheckLoged.UserCheckLoged().getCredentials());
+        System.out.println(userCheckLoged.UserCheckLoged().getPrincipal().getClass().getCanonicalName());
+
+
+        System.out.println("---------------------TEST START------------------------");
+        System.out.println(request.toString());
+        System.out.println(response.getLocale().toString());
+        modelMap.addAttribute("ip", request.getRemoteAddr());
+
+
+        System.out.println("=========================================");
+        Locale currentLocale = request.getLocale();
+        System.out.println(response.getLocale().getCountry() + " : " + response.getLocale().getDisplayCountry());
+        System.out.println(currentLocale.getLanguage() + " : " + currentLocale.getDisplayLanguage());
+//        System.out.println(request.getHeader("X-FORWARDED-FOR"));
+        System.out.println(request.getRemoteAddr());
+        System.out.println("==========================================");
+
+        System.out.println(LocalDateTime.now());
+
+        modelMap.addAttribute("standardDate", new Date());
+        modelMap.addAttribute("localDateTime", LocalDateTime.now());
+        modelMap.addAttribute("localDate", LocalDate.now());
+        modelMap.addAttribute("timestamp", Instant.now());
+
+        System.out.println("---------------------TEST STOP------------------------");
         return "home/test";
     }
 
