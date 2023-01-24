@@ -9,5 +9,6 @@ import java.util.List;
 public interface BoughtServices {
     List<Bought>getAllBought();
     List<Bought>getAllOrderById();
+    Bought getBoughtById(Long id);
     Bought saveBought(Bought bought);
 }
