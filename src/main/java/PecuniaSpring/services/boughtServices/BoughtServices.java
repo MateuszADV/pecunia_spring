@@ -11,4 +11,7 @@ public interface BoughtServices {
     List<Bought>getAllOrderById();
     Bought getBoughtById(Long id);
     Bought saveBought(Bought bought);
+    void deleteBoughtById(Long id);
+
+    void updateBought(Bought bought);
 }

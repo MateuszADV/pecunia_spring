@@ -87,9 +87,24 @@ public class BoughtController {
         Bought bought = new ModelMapper().map(boughtFormDto, Bought.class);
         bought.setId(boughtTemp.get().getId());
 
-        boughtRepository.updateBought(bought.getName(), bought.getFullName());
-        //TODO pomyslećnad metodą do update bought
+        try {
+           boughtServices.updateBought(bought);
+        }catch (Exception e) {
+            modelMap.addAttribute("error", e.getMessage());
+            return "error";
+        }
 
         return "redirect:/bought";
+    }
+
+    @GetMapping("/bought/delete/{id}")
+    public String getDelete(@PathVariable Long id, ModelMap modelMap) {
+        try {
+            boughtServices.deleteBoughtById(id);
+            return "redirect:/bought";
+        }catch (Exception e) {
+            modelMap.addAttribute("error", e.getMessage());
+            return "error";
+        }
     }
 }

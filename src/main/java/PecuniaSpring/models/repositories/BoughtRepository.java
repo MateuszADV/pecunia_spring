@@ -19,7 +19,10 @@ public interface BoughtRepository extends JpaRepository<Bought, Long> {
 
     @Modifying
     @Query(nativeQuery = true,
-            value = "UPDATE boughts SET name = :name, full_name = :fullName " +
-                    "WHERE id = 16")
-    void updateBought(@Param("name") String name, @Param("fullName") String fullName);
+            value = "UPDATE boughts SET name = :name, full_name = :fullName, description = :description " +
+                    "WHERE id = :id")
+    Integer updateBought(@Param("name") String name,
+                      @Param("fullName") String fullName,
+                      @Param("description") String description,
+                      @Param("id") Long id);
 }

@@ -39,4 +39,23 @@ public class BoughtServicesImpl implements BoughtServices {
             throw new RuntimeException("Bought Not Found For Id :: " + id);
         }
     }
+
+    @Override
+    public void updateBought(Bought bought) {
+        if (boughtRepository.existsById(bought.getId())) {
+            boughtRepository.updateBought(bought.getName(), bought.getFullName(), bought.getDescription(), bought.getId());
+        }else   {
+            throw new RuntimeException("Podczas aktualizacji danych wystąpił bład (id - " + bought.getId() + " nie istnieje)");
+        }
+    }
+
+    @Override
+    public void deleteBoughtById(Long id) {
+        if (boughtRepository.existsById(id)) {
+            this.boughtRepository.deleteById(id);
+        }else   {
+            throw new RuntimeException("record o (id - " + id + " który chcesz usunąć nie istnieje)");
+        }
+
+    }
 }
