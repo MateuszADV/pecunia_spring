@@ -3,6 +3,8 @@ package PecuniaSpring.controllers.apiControllers;
 import PecuniaSpring.models.dto.country.CountryDtoForm;
 import PecuniaSpring.models.Country;
 import PecuniaSpring.models.repositories.CountryRepository;
+import PecuniaSpring.models.sqlClass.Continent;
+import PecuniaSpring.services.countryServices.CountryServiceImpl;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +20,7 @@ import java.util.Optional;
 public class CountryApiController {
 
     private CountryRepository countryRepository;
+    private CountryServiceImpl countryService;
 
     @GetMapping("/country")
 
@@ -40,6 +43,12 @@ public class CountryApiController {
         catch (Exception e) {
             return ResponseEntity.ok().body(e.getMessage());
         }
+    }
+
+    @GetMapping("/count_country")
+    public ResponseEntity<List<Continent>> getCountry() {
+
+        return ResponseEntity.ok().body(countryService.getTotalCountry());
     }
 
 }

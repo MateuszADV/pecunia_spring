@@ -25,10 +25,18 @@ public class WebSecurityConfig  {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
+//                        ***********************************
+//                        *************API*******************
+//                        ***********************************
                 .authorizeRequests()
                 .antMatchers("/api/v*/registration/**")
                 .permitAll()
                 .antMatchers("/api/v*/country")
+                .permitAll()
+                .antMatchers("/api/v*/count_country")
+//                        ***********************************
+//                        *************VIEW******************
+//                        ***********************************
                 .permitAll()
                 .antMatchers("/", "/registration", "/about")
                 .permitAll()

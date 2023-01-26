@@ -1,6 +1,7 @@
 package PecuniaSpring.services.countryServices;
 
 import PecuniaSpring.models.Country;
+import PecuniaSpring.models.sqlClass.Continent;
 import PecuniaSpring.models.sqlClass.CountryCount;
 import org.springframework.data.domain.Page;
 
@@ -22,4 +23,6 @@ public interface CountryService {
 //    ******Query związane z countries*********
 //    *****************************************
     List<CountryCount> countryCounts();
+
+    List<Continent> getTotalCountry();
 }

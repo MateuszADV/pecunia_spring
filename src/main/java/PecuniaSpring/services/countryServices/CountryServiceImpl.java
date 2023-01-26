@@ -110,4 +110,15 @@ public class CountryServiceImpl implements CountryService {
 
         return countryCounts;
     }
+
+    @Override
+    public List<PecuniaSpring.models.sqlClass.Continent> getTotalCountry() {
+        List<Object[]> objects = countryRepository.countryByContinent();
+        List<PecuniaSpring.models.sqlClass.Continent> continents = new ArrayList<>();
+        for (Object[] object : objects) {
+            continents.add(new ModelMapper().map(object[0], PecuniaSpring.models.sqlClass.Continent.class));
+        }
+        System.out.println(JsonUtils.gsonPretty(continents));
+        return continents;
+    }
 }
