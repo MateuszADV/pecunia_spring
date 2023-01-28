@@ -1,0 +1,128 @@
+<header th:fragment="form"
+    xmlns:th="http://www.thymeleaf.org">
+
+    <div class="form-row align-items-center">
+        <div class="col-auto">
+            <label class="m-0">Currency Series</label>
+            <select class="form-control form-control-sm mb-2" th:field="*{currencies.id}">
+                    <span th:if="*{currencies.id == null}">
+                        <option value="">SELECT CONTINENT</option>
+                    </span>
+                <option th:each="currency : ${currencies}"
+                        th:value="${currency.id}"
+                        th:text="${currency.currencySeries}">
+                    Address
+                </option>
+            </select>
+        </div>
+    </div>
+    <div class="form-row align-items-center">
+        <div class="col-auto">
+            <label class="m-0">Date Buy</label>
+            <input class="form-control form-control-sm mb-2" type="date" th:max="${#dates.format(standartDate, 'yyyy-MM-dd')}" th:field="*{dateBuy}">
+        </div>
+        <div class="col-auto">
+            <label class="m-0" for="inlineFormInput">Item Date</label>
+            <input type="text" class="form-control form-control-sm mb-2" id="inlineFormInput" th:field="*{itemDate}" placeholder="Item Date">
+        </div>
+
+        <div class="col-auto">
+            <div class="form-check mb-2">
+                <input class="form-check-input" type="checkbox" id="autoSizingCheck">
+                <label class="form-check-label" for="autoSizingCheck">
+                    Remember me
+                </label>
+            </div>
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary mb-2">Submit</button>
+        </div>
+    </div>
+
+
+
+    <table>
+        <tr>
+            <td>
+
+<!--                <div th:if="${#fields.hasErrors('continents.id')}" class="alert alert-danger alert-sm" role="alert" style="padding: 0px 10px 0px 10px" >-->
+<!--                    <span th:errors="*{continents.id}" ></span>-->
+<!--                </div>-->
+            </td>
+
+<!--            <td>-->
+<!--                <label>Continent</label><br>-->
+<!--                <input class="input" type="text" th:field="*{continent}" placeholder="Continent"/>-->
+<!--            </td>-->
+        </tr>
+        <tr>
+            <td>
+
+            </td>
+            <td>
+                <div class="form-group">
+
+                </div>
+            </td>
+<!--            <td>-->
+<!--                <label>Country Pl</label><br>-->
+<!--                <input class="input" type="text" th:field="*{countryPl}" placeholder="Continent Pl"/>-->
+<!--                <div th:if="${#fields.hasErrors('countryPl')}" class="alert alert-danger alert-sm" role="alert" style="padding: 0px 10px 0px 10px" >-->
+<!--                    <span th:errors="*{countryPl}" ></span>-->
+<!--                </div>-->
+<!--            </td>-->
+<!--            <td>-->
+<!--                <label>Capital City</label><br>-->
+<!--                <input class="input" type="text" th:field="*{capital_city}" placeholder="Capital City"/>-->
+<!--                <div th:if="${#fields.hasErrors('capital_city')}"  class="alert alert-danger alert-sm" role="alert" style="padding: 0px 10px 0px 10px" >-->
+<!--                    <span th:errors="*{capital_city}" ></span>-->
+<!--                </div>-->
+<!--            </td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--            <td>-->
+<!--                <label>Alfa 2</label><br>-->
+<!--                <input class="input" type="text" th:field="*{alfa_2}" placeholder="ALFA 2"/>-->
+<!--                <div th:if="${#fields.hasErrors('alfa_2')}"  class="alert alert-danger alert-sm" role="alert" style="padding: 0px 10px 0px 10px" >-->
+<!--                    <span th:errors="*{alfa_2}" ></span>-->
+<!--                </div>-->
+<!--            </td>-->
+<!--            <td>-->
+<!--                <label>Alfa 3</label><br>-->
+<!--                <input class="input" type="text" th:field="*{alfa_3}" placeholder="ALFA 3"/>-->
+<!--                <div th:if="${#fields.hasErrors('alfa_3')}"  class="alert alert-danger alert-sm" role="alert" style="padding: 0px 10px 0px 10px" >-->
+<!--                    <span th:errors="*{alfa_3}" ></span>-->
+<!--                </div>-->
+<!--            </td>-->
+<!--        <tr>-->
+
+<!--        </tr>-->
+<!--        <tr>-->
+<!--            <td>-->
+<!--                <label>Numeric Code</label><br>-->
+<!--                <input class="input" type="text" th:field="*{numeric_code}" placeholder="First Name"/>-->
+<!--                <div th:if="${#fields.hasErrors('numeric_code')}"  class="alert alert-danger alert-sm" role="alert" style="padding: 0px 10px 0px 10px" >-->
+<!--                    <span th:errors="*{numeric_code}" ></span>-->
+<!--                </div>-->
+<!--            </td>-->
+<!--            <td>-->
+<!--                <label>ISO Code</label><br>-->
+<!--                <input class="input" type="text" th:field="*{iso_code}" placeholder="iso code"/>-->
+<!--            </td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--            <td>-->
+<!--                <label>Exist</label><br>-->
+<!--                <input class="input" type="checkbox" th:field="*{exists}" placeholder="exist"/>-->
+<!--            </td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--            <td>-->
+<!--                <label>Description</label><br>-->
+<!--                <div>-->
+<!--                    <textarea class="input" th:field="*{description}" placeholder="Description"></textarea>-->
+<!--                </div>-->
+<!--            </td>-->
+        </tr>
+    </table>
+</header>

@@ -8,6 +8,7 @@ import PecuniaSpring.models.dto.currency.CurrencyDto;
 import PecuniaSpring.models.dto.currency.CurrencyDtoByNote;
 import PecuniaSpring.models.dto.note.NoteDto;
 import PecuniaSpring.models.dto.note.NoteDtoByCurrency;
+import PecuniaSpring.models.dto.note.NoteFormDto;
 import PecuniaSpring.models.repositories.NoteRepository;
 import PecuniaSpring.services.countryServices.CountryServiceImpl;
 import PecuniaSpring.services.currencyService.CurrencyServiceImpl;
@@ -16,17 +17,16 @@ import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import utils.JsonUtils;
 import utils.Search;
 
 import javax.servlet.http.HttpServletRequest;
+import java.sql.Date;
+import java.time.Instant;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @AllArgsConstructor
@@ -108,5 +108,39 @@ public class NoteController {
         modelMap.addAttribute("note", noteDto);
         modelMap.addAttribute("json", JsonUtils.gsonPretty(noteDto));
         return "/note/show";
+    }
+
+    @GetMapping("/note/new")
+    public String getNew(@RequestParam(value = "curId") Long currencyId,
+                         ModelMap modelMap) {
+        Currency currency = currencyService.getCurrencyById(currencyId);
+        CurrencyDto currencyDto = new ModelMapper().map(currency, CurrencyDto.class);
+        List<Currency> currenciesList = currencyService.getCurrencyByCountryByPattern(currency.getCountries().getId(), "NOTE");
+        List<CurrencyDto> currencyDtos = new ArrayList<>();
+        for (Currency currency1 : currenciesList) {
+            currencyDtos.add(new ModelMapper().map(currency1, CurrencyDto.class));
+        }
+        System.out.println(JsonUtils.gsonPretty(currencyDtos));
+        modelMap.addAttribute("currencies", currencyDtos);
+        NoteFormDto noteFormDto = new NoteFormDto();
+        noteFormDto.setCurrencies(currencyDto);
+
+        noteFormDto.setDateBuy(Date.valueOf(LocalDate.now()));
+
+        modelMap.addAttribute("standartDate", Date.valueOf(LocalDate.now()));
+        modelMap.addAttribute("noteForm", noteFormDto);
+         return "note/new";
+    }
+
+    @PostMapping("/note/new")
+    public String postNew(@ModelAttribute ("noteForm") NoteFormDto noteForm,
+                          HttpServletRequest request,
+                          ModelMap modelMap) {
+        Currency currency = currencyService.getCurrencyById(noteForm.getCurrencies().getId());
+        System.out.println("++++++++++++++++++++++++++++++START++++++++++++++++++++++++++++++");
+        System.out.println(JsonUtils.gsonPretty(noteForm));
+        System.out.println("++++++++++++++++++++++++++++++STOP+++++++++++++++++++++++++++++++");
+
+        return getNoteList(currency.getCurrencySeries(), currency.getId(), request, modelMap);
     }
 }
