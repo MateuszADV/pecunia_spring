@@ -1,5 +1,6 @@
 package PecuniaSpring.models.dto.note;
 
+import PecuniaSpring.models.dto.bought.BoughtDtoNote;
 import PecuniaSpring.models.dto.currency.CurrencyDto;
 import PecuniaSpring.models.dto.CommonFormDto;
 import lombok.AllArgsConstructor;
@@ -7,6 +8,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.sql.Date;
 import java.sql.Timestamp;
 
@@ -33,6 +36,9 @@ public class NoteFormDto extends CommonFormDto {
     }
 
     private CurrencyDto currencies;
+    @NotNull
+    @Valid
+    private BoughtDtoNote boughts;
 
     private Long id;
     private Double denomination;

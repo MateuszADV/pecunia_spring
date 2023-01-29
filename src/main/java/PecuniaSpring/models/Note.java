@@ -59,5 +59,8 @@ public class Note extends Common {
     @JoinColumn(name = "currency_id")
     private Currency currencies;
 
+    @ManyToOne
+    @JoinColumn(name = "bought_id")
+    private Bought boughts;
 }
 

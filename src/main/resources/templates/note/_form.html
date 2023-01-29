@@ -20,23 +20,42 @@
         <div class="col-auto">
             <label class="m-0">Date Buy</label>
             <input class="form-control form-control-sm mb-2" type="date" th:max="${#dates.format(standartDate, 'yyyy-MM-dd')}" th:field="*{dateBuy}">
-        </div>
-        <div class="col-auto">
-            <label class="m-0" for="inlineFormInput">Item Date</label>
-            <input type="text" class="form-control form-control-sm mb-2" id="inlineFormInput" th:field="*{itemDate}" placeholder="Item Date">
-        </div>
-
-        <div class="col-auto">
-            <div class="form-check mb-2">
-                <input class="form-check-input" type="checkbox" id="autoSizingCheck">
-                <label class="form-check-label" for="autoSizingCheck">
-                    Remember me
-                </label>
+            <div th:if="${#fields.hasErrors('dateBuy')}" class="alert alert-danger alert-sm" role="alert" style="padding: 0px 10px 0px 10px" >
+                <span th:errors="*{dateBuy}" ></span>
             </div>
         </div>
         <div class="col-auto">
-            <button type="submit" class="btn btn-primary mb-2">Submit</button>
+            <label class="m-0">Bought</label>
+            <select class="form-control form-control-sm mb-2" th:field="*{boughts.id}">
+                    <span th:if="*{boughts.id == null}">
+                        <option value="">SELECT BOUGHT</option>
+                    </span>
+                <option th:each="bought : ${boughts}"
+                        th:value="${bought.id}"
+                        th:text="${bought.name}">
+                </option>
+            </select>
+            <div th:if="${#fields.hasErrors('boughts.id')}" class="alert alert-danger alert-sm" role="alert" style="padding: 0px 10px 0px 10px" >
+                <span th:errors="*{boughts.id}" ></span>
+            </div>
         </div>
+
+    </div>
+
+    <div class="form-row align-items-center">
+        <div class="col-auto">
+            <label class="m-0" for="denomination">Denomination</label>
+            <input type="text" class="form-control form-control-sm mb-2" id="denomination" th:field="*{denomination}" placeholder="Denomiation">
+        </div>
+        <div class="col-auto">
+            <label class="m-0" for="nameCurrency">Name Currency</label>
+            <input type="text" class="form-control form-control-sm mb-2" id="nameCurrency" th:field="*{nameCurrency}" placeholder="Name Currency">
+        </div>
+        <div class="col-auto">
+            <label class="m-0" for="itemDate">Item Date</label>
+            <input type="text" class="form-control form-control-sm mb-2" id="itemDate" th:field="*{itemDate}" placeholder="Item Date">
+        </div>
+
     </div>
 
 

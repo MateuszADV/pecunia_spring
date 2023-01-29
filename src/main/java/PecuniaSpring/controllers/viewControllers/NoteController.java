@@ -1,8 +1,10 @@
 package PecuniaSpring.controllers.viewControllers;
 
+import PecuniaSpring.models.Bought;
 import PecuniaSpring.models.Country;
 import PecuniaSpring.models.Currency;
 import PecuniaSpring.models.Note;
+import PecuniaSpring.models.dto.bought.BoughtDto;
 import PecuniaSpring.models.dto.country.CountryDtoForm;
 import PecuniaSpring.models.dto.currency.CurrencyDto;
 import PecuniaSpring.models.dto.currency.CurrencyDtoByNote;
@@ -10,6 +12,7 @@ import PecuniaSpring.models.dto.note.NoteDto;
 import PecuniaSpring.models.dto.note.NoteDtoByCurrency;
 import PecuniaSpring.models.dto.note.NoteFormDto;
 import PecuniaSpring.models.repositories.NoteRepository;
+import PecuniaSpring.services.boughtServices.BoughtServicesImpl;
 import PecuniaSpring.services.countryServices.CountryServiceImpl;
 import PecuniaSpring.services.currencyService.CurrencyServiceImpl;
 import PecuniaSpring.services.noteServices.NoteServiceImpl;
@@ -17,11 +20,13 @@ import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import utils.JsonUtils;
 import utils.Search;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.sql.Date;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -36,6 +41,7 @@ public class NoteController {
     private NoteServiceImpl noteService;
     private CountryServiceImpl countryService;
     private CurrencyServiceImpl currencyService;
+    private BoughtServicesImpl boughtServices;
 
     @GetMapping("/note")
     public String getIndex(ModelMap modelMap) {
@@ -113,15 +119,15 @@ public class NoteController {
     @GetMapping("/note/new")
     public String getNew(@RequestParam(value = "curId") Long currencyId,
                          ModelMap modelMap) {
+        System.out.println("================================BEGIN===============================");
         Currency currency = currencyService.getCurrencyById(currencyId);
         CurrencyDto currencyDto = new ModelMapper().map(currency, CurrencyDto.class);
-        List<Currency> currenciesList = currencyService.getCurrencyByCountryByPattern(currency.getCountries().getId(), "NOTE");
-        List<CurrencyDto> currencyDtos = new ArrayList<>();
-        for (Currency currency1 : currenciesList) {
-            currencyDtos.add(new ModelMapper().map(currency1, CurrencyDto.class));
-        }
-        System.out.println(JsonUtils.gsonPretty(currencyDtos));
-        modelMap.addAttribute("currencies", currencyDtos);
+
+        noteFormVariable(modelMap, currency);
+
+        System.out.println("================================END===============================");
+
+
         NoteFormDto noteFormDto = new NoteFormDto();
         noteFormDto.setCurrencies(currencyDto);
 
@@ -133,14 +139,53 @@ public class NoteController {
     }
 
     @PostMapping("/note/new")
-    public String postNew(@ModelAttribute ("noteForm") NoteFormDto noteForm,
+    public String postNew(@ModelAttribute ("noteForm")@Valid NoteFormDto noteForm, BindingResult result,
                           HttpServletRequest request,
                           ModelMap modelMap) {
+
+//        System.out.println(noteForm.getDateBuy().toString().length());
+        if (noteForm.getDateBuy() == null) {
+            noteForm.setDateBuy(Date.valueOf(LocalDate.now()));
+        }
+        if (result.hasErrors()) {
+            System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&ERROR&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+//            System.out.println(noteForm.getDateBuy().toString().length());
+            System.out.println(result.toString());
+            System.out.println(result.getTarget().toString());
+
+            System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&ERROR END&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+
+            Currency currency = currencyService.getCurrencyById(noteForm.getCurrencies().getId());
+
+            noteFormVariable(modelMap, currency);
+            return "note/new";
+        }
+
+
         Currency currency = currencyService.getCurrencyById(noteForm.getCurrencies().getId());
         System.out.println("++++++++++++++++++++++++++++++START++++++++++++++++++++++++++++++");
         System.out.println(JsonUtils.gsonPretty(noteForm));
         System.out.println("++++++++++++++++++++++++++++++STOP+++++++++++++++++++++++++++++++");
 
         return getNoteList(currency.getCurrencySeries(), currency.getId(), request, modelMap);
+    }
+
+    private void noteFormVariable(ModelMap modelMap, Currency currency) {
+        List<Currency> currenciesList = currencyService.getCurrencyByCountryByPattern(currency.getCountries().getId(), "NOTE");
+        List<CurrencyDto> currencyDtos = new ArrayList<>();
+        for (Currency currency1 : currenciesList) {
+            currencyDtos.add(new ModelMapper().map(currency1, CurrencyDto.class));
+        }
+//        System.out.println(JsonUtils.gsonPretty(currencyDtos));
+
+        List<Bought> boughts = boughtServices.getAllBought();
+        List<BoughtDto> boughtDtos = new ArrayList<>();
+        for (Bought bought : boughts) {
+            boughtDtos.add(new ModelMapper().map(bought, BoughtDto.class));
+        }
+//        System.out.println(JsonUtils.gsonPretty(boughtDtos));
+
+        modelMap.addAttribute("currencies", currencyDtos);
+        modelMap.addAttribute("boughts", boughtDtos);
     }
 }
