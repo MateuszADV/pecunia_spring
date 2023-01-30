@@ -86,8 +86,8 @@ public class NoteController {
                               HttpServletRequest request,
                               ModelMap modelMap) {
 
-        System.out.println(currencySeries);
-        System.out.println(currencyId);
+//        System.out.println(currencySeries);
+//        System.out.println(currencyId);
         Currency currency = currencyService.getCurrencyById(currencyId);
         CurrencyDtoByNote currencyDtoByNote = new ModelMapper().map(currency, CurrencyDtoByNote.class);
         List<Note> notes = noteService.getNoteByCurrencyId(currencyId);
@@ -96,8 +96,8 @@ public class NoteController {
             noteDtoByCurrencies.add(new ModelMapper().map(note, NoteDtoByCurrency.class));
         }
 
-        System.out.println(notes.size());
-        System.out.println(JsonUtils.gsonPretty(noteDtoByCurrencies));
+//        System.out.println(notes.size());
+//        System.out.println(JsonUtils.gsonPretty(noteDtoByCurrencies));
 
         modelMap.addAttribute("currency", currencyDtoByNote);
         modelMap.addAttribute("notes", noteDtoByCurrencies);
@@ -132,8 +132,6 @@ public class NoteController {
         noteFormDto.setCurrencies(currencyDto);
 
         noteFormDto.setDateBuy(Date.valueOf(LocalDate.now()));
-
-        modelMap.addAttribute("standartDate", Date.valueOf(LocalDate.now()));
         modelMap.addAttribute("noteForm", noteFormDto);
          return "note/new";
     }
@@ -143,16 +141,18 @@ public class NoteController {
                           HttpServletRequest request,
                           ModelMap modelMap) {
 
-//        System.out.println(noteForm.getDateBuy().toString().length());
-        if (noteForm.getDateBuy() == null) {
-            noteForm.setDateBuy(Date.valueOf(LocalDate.now()));
-        }
         if (result.hasErrors()) {
             System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&ERROR&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
-//            System.out.println(noteForm.getDateBuy().toString().length());
             System.out.println(result.toString());
-            System.out.println(result.getTarget().toString());
+            System.out.println(result.hasFieldErrors("dateBuy"));
+            System.out.println(result.resolveMessageCodes("test błedu", "dateBuy").toString());
 
+            if (result.hasFieldErrors("dateBuy")) {
+                System.out.println(result.getFieldError("dateBuy").getDefaultMessage());
+                System.out.println(result.getFieldError("dateBuy").getCode());
+//                result.rejectValue("dateBuy", "typeMismatch", "Błąd Testowy????");
+                modelMap.addAttribute("errorDateBuy", "Podaj porawną datę");
+            }
             System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&ERROR END&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
 
             Currency currency = currencyService.getCurrencyById(noteForm.getCurrencies().getId());
@@ -187,5 +187,6 @@ public class NoteController {
 
         modelMap.addAttribute("currencies", currencyDtos);
         modelMap.addAttribute("boughts", boughtDtos);
+        modelMap.addAttribute("standartDate", Date.valueOf(LocalDate.now()));
     }
 }

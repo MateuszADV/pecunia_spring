@@ -1,6 +1,6 @@
 package PecuniaSpring.models.dto.currency;
 
-import PecuniaSpring.models.dto.active.ActiveDtoCurrency;
+import PecuniaSpring.models.dto.active.ActiveDtoSelect;
 import PecuniaSpring.models.dto.country.CountryGetDto;
 import PecuniaSpring.models.dto.pattern.PatternDtoCurrency;
 import lombok.*;
@@ -36,7 +36,7 @@ public class CurrencyDtoForm {
     private Timestamp updated_at;
     @NotNull
     @Valid
-    private ActiveDtoCurrency actives;
+    private ActiveDtoSelect actives;
     @NotNull
     @Valid
     private PatternDtoCurrency patterns;

@@ -1,6 +1,6 @@
 package PecuniaSpring.models.dto.note;
 
-import PecuniaSpring.models.dto.bought.BoughtDtoNote;
+import PecuniaSpring.models.dto.bought.BoughtDtoSelect;
 import PecuniaSpring.models.dto.currency.CurrencyDto;
 import PecuniaSpring.models.dto.CommonFormDto;
 import lombok.AllArgsConstructor;
@@ -38,7 +38,7 @@ public class NoteFormDto extends CommonFormDto {
     private CurrencyDto currencies;
     @NotNull
     @Valid
-    private BoughtDtoNote boughts;
+    private BoughtDtoSelect boughts;
 
     private Long id;
     private Double denomination;

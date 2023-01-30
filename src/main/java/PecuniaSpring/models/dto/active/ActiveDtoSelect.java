@@ -11,7 +11,7 @@ import java.sql.Timestamp;
 @Setter
 @ToString
 @EqualsAndHashCode
-public class ActiveDtoCurrency {
+public class ActiveDtoSelect {
     @NotNull(message = "Select Active")
     private Long id;
     private Integer activeCod;

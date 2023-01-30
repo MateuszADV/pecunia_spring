@@ -21,7 +21,8 @@
             <label class="m-0">Date Buy</label>
             <input class="form-control form-control-sm mb-2" type="date" th:max="${#dates.format(standartDate, 'yyyy-MM-dd')}" th:field="*{dateBuy}">
             <div th:if="${#fields.hasErrors('dateBuy')}" class="alert alert-danger alert-sm" role="alert" style="padding: 0px 10px 0px 10px" >
-                <span th:errors="*{dateBuy}" ></span>
+<!--                <span th:errors="*{dateBuy}" ></span>-->
+                <span th:text="${errorDateBuy}"></span>
             </div>
         </div>
         <div class="col-auto">
@@ -52,8 +53,28 @@
             <input type="text" class="form-control form-control-sm mb-2" id="nameCurrency" th:field="*{nameCurrency}" placeholder="Name Currency">
         </div>
         <div class="col-auto">
+            <label class="m-0" for="series">Series</label>
+            <input type="text" class="form-control form-control-sm mb-2" id="series" th:field="*{series}" placeholder="Series">
+        </div>
+        <div class="col-auto">
             <label class="m-0" for="itemDate">Item Date</label>
             <input type="text" class="form-control form-control-sm mb-2" id="itemDate" th:field="*{itemDate}" placeholder="Item Date">
+        </div>
+        <div class="col-auto">
+            <div style="float: left; max-width: 110px">
+                <label class="m-0" for="itemDate">Quantity</label>
+                <input type="number" class="form-control form-control-sm mb-2" id="quality" th:field="*{quantity}" min="0" placeholder="quantity">
+                <div th:if="${#fields.hasErrors('quantity')}" class="alert alert-danger alert-sm" role="alert" style="padding: 0px 10px 0px 10px" >
+                    <span th:errors="*{quantity}" ></span>
+                </div>
+            </div>
+            <div style="float:left; max-width: 100px">
+                <label class="m-0" for="itemDate">Unit</label>
+                <select class="form-control form-control-sm mb-2" th:field="*{unitQuantity}">
+                    <option th:value="'szt'" th:text="szt"></option>
+                    <option th:value="'set'" th:text="set"></option>
+                </select>
+            </div>
         </div>
 
     </div>

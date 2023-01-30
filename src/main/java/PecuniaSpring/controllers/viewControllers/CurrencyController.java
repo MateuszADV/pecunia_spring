@@ -1,7 +1,7 @@
 package PecuniaSpring.controllers.viewControllers;
 
 import PecuniaSpring.models.Pattern;
-import PecuniaSpring.models.dto.active.ActiveDtoCurrency;
+import PecuniaSpring.models.dto.active.ActiveDtoSelect;
 import PecuniaSpring.models.dto.country.CountryGetCurrencyDto;
 import PecuniaSpring.models.dto.country.CountryGetDto;
 import PecuniaSpring.models.dto.currency.CurrencyDtoForm;
@@ -106,9 +106,9 @@ public class CurrencyController {
 
     private void currencyParameters(@ModelAttribute("currencyForm") @Valid CurrencyDtoForm currencyForm, ModelMap modelMap) {
         List<Active> actives = activeService.getAllActive();
-        List<ActiveDtoCurrency> activeDtoCurrencies = new ArrayList<>();
+        List<ActiveDtoSelect> activeDtoCurrencies = new ArrayList<>();
         for (Active active : actives) {
-            activeDtoCurrencies.add(new ModelMapper().map(active, ActiveDtoCurrency.class));
+            activeDtoCurrencies.add(new ModelMapper().map(active, ActiveDtoSelect.class));
         }
 
         List<Pattern> patterns = patternService.getAllPattern();
@@ -132,9 +132,9 @@ public class CurrencyController {
         System.out.println("*****************************STOP************************************");
 
         List<Active> actives = activeService.getAllActive();
-        List<ActiveDtoCurrency> activeDtoCurrencies = new ArrayList<>();
+        List<ActiveDtoSelect> activeDtoCurrencies = new ArrayList<>();
         for (Active active : actives) {
-            activeDtoCurrencies.add(new ModelMapper().map(active, ActiveDtoCurrency.class));
+            activeDtoCurrencies.add(new ModelMapper().map(active, ActiveDtoSelect.class));
         }
 
         List<Pattern> patterns = patternService.getAllPattern();
@@ -161,9 +161,9 @@ public class CurrencyController {
             System.out.println(JsonUtils.gsonPretty(currencyForm));
 
             List<Active> actives = activeService.getAllActive();
-            List<ActiveDtoCurrency> activeDtoCurrencies = new ArrayList<>();
+            List<ActiveDtoSelect> activeDtoCurrencies = new ArrayList<>();
             for (Active active : actives) {
-                activeDtoCurrencies.add(new ModelMapper().map(active, ActiveDtoCurrency.class));
+                activeDtoCurrencies.add(new ModelMapper().map(active, ActiveDtoSelect.class));
             }
 
             List<Pattern> patterns = patternService.getAllPattern();

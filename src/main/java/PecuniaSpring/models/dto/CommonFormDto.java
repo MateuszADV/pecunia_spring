@@ -1,7 +1,6 @@
 package PecuniaSpring.models.dto;
 
 import lombok.*;
-import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.*;
 import java.sql.Date;
@@ -18,17 +17,14 @@ public abstract class CommonFormDto {
 
     private String bought;          //Miejsce Zakupu
     private String itemDate;
-//    @NotNull(message = "Wybierz datę")
-//    @NotEmpty(message = "brak Daty")
-//    @DateTimeFormat(pattern="dd-MM-yyyy")
-    @NotNull(message = "NULL NULL")
-//    @Past(message = "nie NULL")
-//    @PastOrPresent(message = "Nic z tego")
     private Date dateBuy;           //Data  zakupu/ Data utworzenia seta banknotów
     private String nameCurrency;        //Nazwa waluty/ Nazwa Seta
     private Integer signatureCode;      // Sygnatura banknotu/ oznaczenie Seta (Opcjonalne narazie - 999 kod doseta określający różne banknoty)
     private Double priceBuy;            //Cena zakupu
     private Double priceSell;           //Cena Sprzedaży (sugerowana)
+//    @Digits(integer=6, fraction = 2)
+    @PositiveOrZero(message = "Wartość >=0 ")
+    @NotNull(message = "Wartość nie może być NULL")
     private Integer quantity;           //ilość
     private String unitQuantity;       //Określa rodzaj ilości(szt, set...)
     private String quality;             //Stan Itemu
@@ -42,12 +38,4 @@ public abstract class CommonFormDto {
     private String  reversePath;
     private Timestamp created_at;
     private Timestamp updated_at;
-
-    public Date getDateBuy() {
-        return dateBuy;
-    }
-
-    public void setDateBuy(Date dateBuy) {
-        this.dateBuy = dateBuy;
-    }
 }

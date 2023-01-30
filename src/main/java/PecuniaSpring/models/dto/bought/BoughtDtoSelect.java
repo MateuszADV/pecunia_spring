@@ -11,7 +11,7 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
-public class BoughtDtoNote {
+public class BoughtDtoSelect {
     @NotNull(message = "Select Bought")
     private Long id;
     private String name;
