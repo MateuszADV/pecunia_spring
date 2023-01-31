@@ -1,9 +1,7 @@
 package PecuniaSpring.controllers.viewControllers;
 
-import PecuniaSpring.models.Bought;
-import PecuniaSpring.models.Country;
-import PecuniaSpring.models.Currency;
-import PecuniaSpring.models.Note;
+import PecuniaSpring.models.*;
+import PecuniaSpring.models.dto.active.ActiveDtoSelect;
 import PecuniaSpring.models.dto.bought.BoughtDto;
 import PecuniaSpring.models.dto.country.CountryDtoForm;
 import PecuniaSpring.models.dto.currency.CurrencyDto;
@@ -12,6 +10,7 @@ import PecuniaSpring.models.dto.note.NoteDto;
 import PecuniaSpring.models.dto.note.NoteDtoByCurrency;
 import PecuniaSpring.models.dto.note.NoteFormDto;
 import PecuniaSpring.models.repositories.NoteRepository;
+import PecuniaSpring.services.activeService.ActiveServiceImpl;
 import PecuniaSpring.services.boughtServices.BoughtServicesImpl;
 import PecuniaSpring.services.countryServices.CountryServiceImpl;
 import PecuniaSpring.services.currencyService.CurrencyServiceImpl;
@@ -28,7 +27,6 @@ import utils.Search;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.sql.Date;
-import java.time.Instant;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +40,7 @@ public class NoteController {
     private CountryServiceImpl countryService;
     private CurrencyServiceImpl currencyService;
     private BoughtServicesImpl boughtServices;
+    private ActiveServiceImpl activeService;
 
     @GetMapping("/note")
     public String getIndex(ModelMap modelMap) {
@@ -185,8 +184,15 @@ public class NoteController {
         }
 //        System.out.println(JsonUtils.gsonPretty(boughtDtos));
 
+        List<Active> actives = activeService.getAllActive();
+        List<ActiveDtoSelect> activeDtoSelects = new ArrayList<>();
+        for (Active active : actives) {
+            activeDtoSelects.add(new ModelMapper().map(active, ActiveDtoSelect.class));
+        }
+
         modelMap.addAttribute("currencies", currencyDtos);
         modelMap.addAttribute("boughts", boughtDtos);
+        modelMap.addAttribute("actives", activeDtoSelects);
         modelMap.addAttribute("standartDate", Date.valueOf(LocalDate.now()));
     }
 }

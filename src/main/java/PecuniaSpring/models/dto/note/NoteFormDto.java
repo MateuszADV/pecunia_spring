@@ -1,5 +1,6 @@
 package PecuniaSpring.models.dto.note;
 
+import PecuniaSpring.models.dto.active.ActiveDtoSelect;
 import PecuniaSpring.models.dto.bought.BoughtDtoSelect;
 import PecuniaSpring.models.dto.currency.CurrencyDto;
 import PecuniaSpring.models.dto.CommonFormDto;
@@ -36,9 +37,14 @@ public class NoteFormDto extends CommonFormDto {
     }
 
     private CurrencyDto currencies;
+
     @NotNull
     @Valid
     private BoughtDtoSelect boughts;
+
+    @NotNull
+    @Valid
+    private ActiveDtoSelect actives;
 
     private Long id;
     private Double denomination;

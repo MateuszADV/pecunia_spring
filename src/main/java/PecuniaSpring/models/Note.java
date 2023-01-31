@@ -62,5 +62,9 @@ public class Note extends Common {
     @ManyToOne
     @JoinColumn(name = "bought_id")
     private Bought boughts;
+
+    @ManyToOne
+    @JoinColumn(name = "active_id")
+    private Active actives;
 }
 

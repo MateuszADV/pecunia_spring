@@ -1,10 +1,11 @@
 package PecuniaSpring.models.dto;
 
 import lombok.*;
-import javax.persistence.MappedSuperclass;
+
 import javax.validation.constraints.*;
+import javax.persistence.MappedSuperclass;
+//import javax.validation.constraints.*;
 import java.sql.Date;
-//import java.util.Date;
 import java.sql.Timestamp;
 
 @AllArgsConstructor
@@ -20,7 +21,14 @@ public abstract class CommonFormDto {
     private Date dateBuy;           //Data  zakupu/ Data utworzenia seta banknotów
     private String nameCurrency;        //Nazwa waluty/ Nazwa Seta
     private Integer signatureCode;      // Sygnatura banknotu/ oznaczenie Seta (Opcjonalne narazie - 999 kod doseta określający różne banknoty)
+//    @Pattern(regexp = "(^[0-9]*\\.[0-9]{2}$)", message = "To nie jest liczba")
+    @Digits(integer=6, fraction = 2, message = "Podaj poprawną cenę (1.23)")
+    @DecimalMin(value = "0.00", message = "Wartość nie może być ujemna")
+    @NotNull(message = "Wartość nie może być pusta")
     private Double priceBuy;            //Cena zakupu
+    @Digits(integer=6, fraction = 2, message = "Podaj poprawną cenę (1.23)")
+    @DecimalMin(value = "0.00", message = "Wartość nie może być ujemna")
+    @NotNull(message = "Wartość nie może być pusta")
     private Double priceSell;           //Cena Sprzedaży (sugerowana)
 //    @Digits(integer=6, fraction = 2)
     @PositiveOrZero(message = "Wartość >=0 ")
