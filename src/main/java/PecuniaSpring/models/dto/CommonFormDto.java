@@ -17,6 +17,7 @@ import java.sql.Timestamp;
 public abstract class CommonFormDto {
 
     private String bought;          //Miejsce Zakupu
+    @Pattern(regexp="([0-9]{4}|[0-9]{4}.[0-9]{2}|[0-9]{4}.[0-9]{2}.[0-9]{2})", message = "Podaj poprawną datę 2000; 2000.01 ;2000.01.01")
     private String itemDate;
     private Date dateBuy;           //Data  zakupu/ Data utworzenia seta banknotów
     private String nameCurrency;        //Nazwa waluty/ Nazwa Seta
@@ -30,11 +31,12 @@ public abstract class CommonFormDto {
     @DecimalMin(value = "0.00", message = "Wartość nie może być ujemna")
     @NotNull(message = "Wartość nie może być pusta")
     private Double priceSell;           //Cena Sprzedaży (sugerowana)
-//    @Digits(integer=6, fraction = 2)
     @PositiveOrZero(message = "Wartość >=0 ")
     @NotNull(message = "Wartość nie może być NULL")
     private Integer quantity;           //ilość
     private String unitQuantity;       //Określa rodzaj ilości(szt, set...)
+    @NotNull
+    @NotEmpty
     private String quality;             //Stan Itemu
     private String status;              // Status (kolekcja, na sprzedaż, sprzedane
     private String statusSell;          //StatusSell odpowiada za to czy dany banknot został wystawiony na sprzedaż

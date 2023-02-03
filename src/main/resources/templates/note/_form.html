@@ -59,6 +59,9 @@
         <div class="col-auto">
             <label class="m-0" for="itemDate">Item Date</label>
             <input type="text" class="form-control form-control-sm mb-2" id="itemDate" th:field="*{itemDate}" placeholder="Item Date">
+            <div th:if="${#fields.hasErrors('itemDate')}" class="alert alert-danger alert-sm" role="alert" style="padding: 0px 10px 0px 10px" >
+                <span th:errors="*{itemDate}" ></span>
+            </div>
         </div>
         <div class="col-auto">
             <div style="float: left; max-width: 110px">
@@ -107,6 +110,39 @@
             <input class="form-control form-control-sm mb-2" type="number" step="0.01"  th:field="*{priceSell}" placeholder="0.00">
             <div th:if="${#fields.hasErrors('priceSell')}" class="alert alert-danger alert-sm" role="alert" style="padding: 0px 10px 0px 10px" >
                 <span th:errors="*{priceSell}" ></span>
+            </div>
+        </div>
+        <!--        TODO Dodać seleckta do making utwożć nową tabele Making   -->
+        <div class="col-auto">
+            <label class="m-0">Making</label>
+            <select class="form-control form-control-sm mb-2" th:field="*{making}">
+                <option th:value="'Będzei rozaj materiała SELECT'" th:text="Papier"></option>
+            </select>
+            <div th:if="${#fields.hasErrors('making')}" class="alert alert-danger alert-sm" role="alert" style="padding: 0px 10px 0px 10px" >
+                <span th:errors="*{making}" ></span>
+            </div>
+        </div>
+        <div class="col-auto">
+            <label class="m-0">Quality</label>
+            <input class="form-control form-control-sm mb-2" type="text"  th:field="*{quality}">
+            <div th:if="${#fields.hasErrors('quality')}" class="alert alert-danger alert-sm" role="alert" style="padding: 0px 10px 0px 10px" >
+                <span th:errors="*{quality}" ></span>
+            </div>
+        </div>
+    </div>
+    <div class="form-row align-items-center">
+        <div class="col-auto">
+            <label class="m-0">Width</label>
+            <input class="form-control form-control-sm mb-2" type="number" min="0"  th:field="*{width}">
+            <div th:if="${#fields.hasErrors('width')}" class="alert alert-danger alert-sm" role="alert" style="padding: 0px 10px 0px 10px" >
+                <span th:errors="*{width}" ></span>
+            </div>
+        </div>
+        <div class="col-auto">
+            <label class="m-0">Height</label>
+            <input class="form-control form-control-sm mb-2" type="number" min="0"  th:field="*{height}">
+            <div th:if="${#fields.hasErrors('height')}" class="alert alert-danger alert-sm" role="alert" style="padding: 0px 10px 0px 10px" >
+                <span th:errors="*{height}" ></span>
             </div>
         </div>
     </div>

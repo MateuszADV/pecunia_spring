@@ -49,6 +49,7 @@ public class NoteFormDto extends CommonFormDto {
     private Long id;
     private Double denomination;
     private String series;
+    @NotNull
     private String making;
     private Integer width;
     private Integer height;
