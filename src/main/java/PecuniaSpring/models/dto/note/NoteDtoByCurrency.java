@@ -1,6 +1,8 @@
 package PecuniaSpring.models.dto.note;
 
 import PecuniaSpring.models.dto.CommonDto;
+import PecuniaSpring.models.dto.active.ActiveDto;
+import PecuniaSpring.models.dto.bought.BoughtDto;
 import PecuniaSpring.models.dto.currency.CurrencyDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,11 +19,11 @@ import java.sql.Timestamp;
 public class NoteDtoByCurrency extends CommonDto {
 
 
-    public NoteDtoByCurrency(String bought, String itemDate, Date dateBuy, String nameCurrency, Integer signatureCode, Double priceBuy, Double priceSell,
+    public NoteDtoByCurrency(String itemDate, Date dateBuy, String nameCurrency, Double priceBuy, Double priceSell,
                              Integer quantity, String status, String statusSell, String description, String imgType, String aversPath, String reversePath,
                              Double denomination, String quality, String series, String making, Integer width, Integer height, Timestamp created_at, Timestamp updated_at,
                              Boolean visible, String unitCurrency, String unitQuantity ) {
-        super(bought, itemDate, dateBuy, nameCurrency, signatureCode, priceBuy, priceSell, quantity, quality, status, statusSell, description,
+        super(itemDate, dateBuy, nameCurrency, priceBuy, priceSell, quantity, quality, status, statusSell, description,
                 imgType, unitQuantity, visible, unitCurrency, aversPath, reversePath, created_at, updated_at);
         this.denomination = denomination;
         this.series = series;
@@ -38,6 +40,9 @@ public class NoteDtoByCurrency extends CommonDto {
     private String making;
     private Integer width;
     private Integer height;
+
+    private ActiveDto actives;
+    private BoughtDto boughts;
 
 //    private CurrencyDto currencies;
 }

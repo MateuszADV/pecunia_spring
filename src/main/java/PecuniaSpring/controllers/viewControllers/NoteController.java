@@ -166,6 +166,21 @@ public class NoteController {
         System.out.println(JsonUtils.gsonPretty(noteForm));
         System.out.println("++++++++++++++++++++++++++++++STOP+++++++++++++++++++++++++++++++");
 
+        Note note = new ModelMapper().map(noteForm, Note.class);
+//        **********************************************
+//        *****Kolumny do usunięcia z tabeli NOte*******
+//        **********************************************
+
+        Bought bought = boughtServices.getBoughtById(noteForm.getBoughts().getId());
+        note.setBought(bought.getName());
+
+        Active active = activeService.getActiveById(noteForm.getActives().getId());
+        note.setSignatureCode(active.getActiveCod());
+
+//        **********************************************
+
+        noteRepository.save(note);
+
         return getNoteList(currency.getCurrencySeries(), currency.getId(), request, modelMap);
     }
 

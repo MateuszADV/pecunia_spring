@@ -15,11 +15,11 @@ import java.sql.Timestamp;
 @MappedSuperclass
 public abstract class CommonDto {
 
-    private String bought;          //Miejsce Zakupu
+//    private String bought;          //DO USUNIĘCIA Miejsce Zakupu
     private String itemDate;
     private Date dateBuy;           //Data zakupu/ Data utworzenia seta banknotów
     private String nameCurrency;        //Nazwa waluty/ Nazwa Seta
-    private Integer signatureCode;      // Sygnatura banknotu/ oznaczenie Seta (Opcjonalne narazie - 999 kod doseta określający różne banknoty)
+//    private Integer signatureCode;      //DO USUNIĘCIA Sygnatura banknotu/ oznaczenie Seta (Opcjonalne narazie - 999 kod doseta określający różne banknoty)
     private Double priceBuy;            //Cena zakupu
     private Double priceSell;           //Cena Sprzedaży (sugerowana)
     private Integer quantity;           //ilość
