@@ -13,7 +13,7 @@ import java.sql.Timestamp;
 public class MakingDto {
     private Long id;
     private String making;
-    private String makingPL;
+    private String makingPl;
     private String description;
     private Timestamp created_at;
     private Timestamp updated_at;

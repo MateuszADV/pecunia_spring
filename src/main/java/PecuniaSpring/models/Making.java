@@ -17,13 +17,13 @@ import java.util.List;
 public class Making {
     @SequenceGenerator(
             name = "makings_sequence",
-            sequenceName = "actives_sequence",
+            sequenceName = "makings_sequence",
             allocationSize = 1
     )
     @Id
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "maknigs_sequence"
+            generator = "makings_sequence"
     )
     private Long id;
     private String making;

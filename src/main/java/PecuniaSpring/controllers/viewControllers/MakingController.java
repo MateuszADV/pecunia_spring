@@ -29,6 +29,8 @@ public class MakingController {
         for (Making making : makings) {
             makingDtos.add(new ModelMapper().map(making, MakingDto.class));
         }
+
+        System.out.println(makingDtos);
         modelMap.addAttribute("makingDtos", makingDtos);
         return "seting/making/index";
     }
@@ -45,6 +47,6 @@ public class MakingController {
         Making making = new ModelMapper().map(makingDtoForm, Making.class);
 
         makingService.saveMaking(making);
-        return "seting/making/index";
+        return "redirect:/making";
     }
 }
