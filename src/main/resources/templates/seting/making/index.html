@@ -32,8 +32,8 @@
                         <div class="modal fade" th:attr="id= ${making.making} + '-' + ${making.id}"  tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div th:replace="seting/making/_showModal :: showModal"></div>
                         </div>
-<!--                        <a th:href="@{'/maknig/edit/' + ${making.id}}" class="btn btn-sm btn-primary" style="font-size: 10px" >EDIT</a>-->
-<!--                        <a th:href="@{'/maknig/delete/' + ${making.id}}" class="btn btn-sm btn-danger" style="font-size: 10px">Delete</a>-->
+                        <a th:href="@{'/making/edit/' + ${making.id}}" class="btn btn-sm btn-primary" style="font-size: 10px" >EDIT</a>
+                        <a th:href="@{'/making/delete/' + ${making.id}}" class="btn btn-sm btn-danger" style="font-size: 10px">Delete</a>
                     </td>
                 </tr>
             </Block>
