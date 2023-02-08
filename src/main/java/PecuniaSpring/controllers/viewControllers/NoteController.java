@@ -16,6 +16,7 @@ import PecuniaSpring.services.countryServices.CountryServiceImpl;
 import PecuniaSpring.services.currencyService.CurrencyServiceImpl;
 import PecuniaSpring.services.noteServices.NoteServiceImpl;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -30,6 +31,7 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @AllArgsConstructor
@@ -41,6 +43,8 @@ public class NoteController {
     private CurrencyServiceImpl currencyService;
     private BoughtServicesImpl boughtServices;
     private ActiveServiceImpl activeService;
+
+    Optional<Note> noteTmp;
 
     @GetMapping("/note")
     public String getIndex(ModelMap modelMap) {
@@ -183,6 +187,74 @@ public class NoteController {
 
         return getNoteList(currency.getCurrencySeries(), currency.getId(), request, modelMap);
     }
+
+    @GetMapping("/note/edit/{noteId}")
+    public String getEdit(@PathVariable Long noteId, ModelMap modelMap) {
+        noteTmp = Optional.ofNullable(noteService.getNoteById(noteId));
+        NoteFormDto noteFormDto = new ModelMapper().map(noteTmp, NoteFormDto.class);
+        System.out.println(JsonUtils.gsonPretty(noteFormDto));
+        modelMap.addAttribute("noteForm", noteFormDto);
+        noteFormVariable(modelMap, noteTmp.get().getCurrencies());
+        return "note/edit";
+    }
+
+    @PostMapping("/note/edit")
+    public String postEdit(@ModelAttribute ("noteForm")@Valid NoteFormDto noteForm, BindingResult result,
+                           HttpServletRequest request,
+                           ModelMap modelMap) {
+        if (result.hasErrors()) {
+            System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&ERROR&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+            System.out.println(result.toString());
+            System.out.println(result.hasFieldErrors("dateBuy"));
+            System.out.println(result.resolveMessageCodes("test błedu", "dateBuy").toString());
+
+            if (result.hasFieldErrors("dateBuy")) {
+                System.out.println(result.getFieldError("dateBuy").getDefaultMessage());
+                System.out.println(result.getFieldError("dateBuy").getCode());
+//                result.rejectValue("dateBuy", "typeMismatch", "Błąd Testowy????");
+                modelMap.addAttribute("errorDateBuy", "Podaj porawną datę");
+            }
+            System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&ERROR END&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+
+            Currency currency = currencyService.getCurrencyById(noteForm.getCurrencies().getId());
+
+            noteFormVariable(modelMap, currency);
+            return "note/new";
+        }
+
+
+        Currency currency = currencyService.getCurrencyById(noteForm.getCurrencies().getId());
+        System.out.println("++++++++++++++++++++++++++++++START++++++++++++++++++++++++++++++");
+        System.out.println(JsonUtils.gsonPretty(noteForm));
+        System.out.println("------------------------------------------------------------------");
+        noteForm.setId(noteTmp.get().getId());
+        noteForm.setCreated_at(noteTmp.get().getCreated_at());
+        System.out.println(JsonUtils.gsonPretty(noteForm));
+        System.out.println("++++++++++++++++++++++++++++++STOP+++++++++++++++++++++++++++++++");
+
+
+
+        Note note = new ModelMapper().map(noteForm, Note.class);
+//        **********************************************
+//        *****Kolumny do usunięcia z tabeli NOte*******
+//        **********************************************
+
+        Bought bought = boughtServices.getBoughtById(noteForm.getBoughts().getId());
+        note.setBought(bought.getName());
+
+        Active active = activeService.getActiveById(noteForm.getActives().getId());
+        note.setSignatureCode(active.getActiveCod());
+
+//        **********************************************
+
+
+//        noteRepository.save(note);
+
+        return getNoteList(currency.getCurrencySeries(), currency.getId(), request, modelMap);
+
+    }
+
+
 
     private void noteFormVariable(ModelMap modelMap, Currency currency) {
         List<Currency> currenciesList = currencyService.getCurrencyByCountryByPattern(currency.getCountries().getId(), "NOTE");
