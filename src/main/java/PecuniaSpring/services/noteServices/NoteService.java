@@ -9,4 +9,5 @@ import java.util.List;
 public interface NoteService {
     Note getNoteById(Long id);
     List<Note> getNoteByCurrencyId(Long currencyId);
+    void deleteNoteById(Long id);
 }

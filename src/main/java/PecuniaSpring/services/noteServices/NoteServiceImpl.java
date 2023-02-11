@@ -32,4 +32,9 @@ public class NoteServiceImpl implements NoteService {
         List<Note> notes = noteRepository.getNoteByCurrencyId(currencyId);
         return notes;
     }
+
+    @Override
+    public void deleteNoteById(Long id) {
+        this.noteRepository.deleteById(id);
+    }
 }

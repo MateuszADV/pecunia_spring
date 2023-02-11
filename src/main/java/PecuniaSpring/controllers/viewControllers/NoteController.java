@@ -247,13 +247,24 @@ public class NoteController {
 
 //        **********************************************
 
-
-//        noteRepository.save(note);
+        noteRepository.save(note);
 
         return getNoteList(currency.getCurrencySeries(), currency.getId(), request, modelMap);
 
     }
 
+    @GetMapping("/note/delete/{noteId}")
+    public String getDelete(@PathVariable Long noteId, HttpServletRequest request, ModelMap modelMap) {
+        Note note = noteService.getNoteById(noteId);
+        System.out.println("^^^^^^^^^^^^^^^^^^^^^^^BEGIN^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+        System.out.println(note.getCurrencies().getCurrencySeries());
+        System.out.println(note.getCurrencies().getId());
+        System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^END^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+
+        noteService.deleteNoteById(noteId);
+
+        return getNoteList(note.getCurrencies().getCurrencySeries(), note.getCurrencies().getId(), request, modelMap);
+    }
 
 
     private void noteFormVariable(ModelMap modelMap, Currency currency) {
