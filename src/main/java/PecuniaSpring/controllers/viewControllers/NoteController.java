@@ -6,6 +6,7 @@ import PecuniaSpring.models.dto.bought.BoughtDto;
 import PecuniaSpring.models.dto.country.CountryDtoForm;
 import PecuniaSpring.models.dto.currency.CurrencyDto;
 import PecuniaSpring.models.dto.currency.CurrencyDtoByNote;
+import PecuniaSpring.models.dto.making.MakingDtoSelect;
 import PecuniaSpring.models.dto.note.NoteDto;
 import PecuniaSpring.models.dto.note.NoteDtoByCurrency;
 import PecuniaSpring.models.dto.note.NoteFormDto;
@@ -14,6 +15,7 @@ import PecuniaSpring.services.activeService.ActiveServiceImpl;
 import PecuniaSpring.services.boughtServices.BoughtServicesImpl;
 import PecuniaSpring.services.countryServices.CountryServiceImpl;
 import PecuniaSpring.services.currencyService.CurrencyServiceImpl;
+import PecuniaSpring.services.makingServices.MakingServiceImpl;
 import PecuniaSpring.services.noteServices.NoteServiceImpl;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -43,6 +45,7 @@ public class NoteController {
     private CurrencyServiceImpl currencyService;
     private BoughtServicesImpl boughtServices;
     private ActiveServiceImpl activeService;
+    private MakingServiceImpl makingService;
 
     Optional<Note> noteTmp;
 
@@ -181,6 +184,9 @@ public class NoteController {
         Active active = activeService.getActiveById(noteForm.getActives().getId());
         note.setSignatureCode(active.getActiveCod());
 
+        Making making = makingService.getMakingById(noteForm.getMakings().getId());
+        note.setMaking(making.getMaking());
+
 //        **********************************************
 
         noteRepository.save(note);
@@ -245,6 +251,10 @@ public class NoteController {
         Active active = activeService.getActiveById(noteForm.getActives().getId());
         note.setSignatureCode(active.getActiveCod());
 
+        Making making = makingService.getMakingById(noteForm.getMakings().getId());
+        note.setMaking(making.getMaking());
+
+
 //        **********************************************
 
         System.out.println("######################################################");
@@ -292,9 +302,20 @@ public class NoteController {
             activeDtoSelects.add(new ModelMapper().map(active, ActiveDtoSelect.class));
         }
 
+        List<Making> makings = makingService.getAllMakings();
+        List<MakingDtoSelect> makingDtoSelects = new ArrayList<>();
+        for (Making making : makings) {
+            makingDtoSelects.add(new ModelMapper().map(making, MakingDtoSelect.class));
+        }
+
+        System.out.println("##############################################");
+        System.out.println(JsonUtils.gsonPretty(makingDtoSelects));
+        System.out.println("##############################################");
+
         modelMap.addAttribute("currencies", currencyDtos);
         modelMap.addAttribute("boughts", boughtDtos);
         modelMap.addAttribute("actives", activeDtoSelects);
+        modelMap.addAttribute("makings", makingDtoSelects);
         modelMap.addAttribute("standartDate", Date.valueOf(LocalDate.now()));
     }
 }

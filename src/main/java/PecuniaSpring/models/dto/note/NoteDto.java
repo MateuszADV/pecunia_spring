@@ -4,6 +4,7 @@ import PecuniaSpring.models.dto.CommonDto;
 import PecuniaSpring.models.dto.active.ActiveDto;
 import PecuniaSpring.models.dto.bought.BoughtDto;
 import PecuniaSpring.models.dto.currency.CurrencyDto;
+import PecuniaSpring.models.dto.making.MakingDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -38,6 +39,7 @@ public class NoteDto extends CommonDto {
     private CurrencyDto currencies;
     private ActiveDto actives;
     private BoughtDto boughts;
+    private MakingDto makings;
 
     private Long id;
     private Double denomination;

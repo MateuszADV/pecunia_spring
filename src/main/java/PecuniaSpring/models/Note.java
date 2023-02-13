@@ -20,13 +20,13 @@ public class Note extends Common {
 
     public Note(String bought, String itemDate, Date dateBuy, String nameCurrency, Integer signatureCode, Double priceBuy, Double priceSell,
                 Integer quantity, String status, String statusSell, String description, String imgType, String aversPath, String reversePath,
-                Double denomination, String quality, String series, String making, Integer width, Integer height, Timestamp created_at, Timestamp updated_at,
+                Double denomination, String quality, String series, Integer width, Integer height, Timestamp created_at, Timestamp updated_at,
                 Boolean visible, String unitCurrency, String unitQuantity ) {
         super(bought, itemDate, dateBuy, nameCurrency, signatureCode, priceBuy, priceSell, quantity, quality, status, statusSell, description,
                 imgType, unitQuantity, visible, unitCurrency, aversPath, reversePath, created_at, updated_at);
         this.denomination = denomination;
         this.series = series;
-        this.making = making;
+//        this.making = making;
         this.width = width;
         this.height = height;
     }
@@ -66,5 +66,9 @@ public class Note extends Common {
     @ManyToOne
     @JoinColumn(name = "active_id")
     private Active actives;
+
+    @ManyToOne
+    @JoinColumn(name = "making_id")
+    private Making makings;
 }
 

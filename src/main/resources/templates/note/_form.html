@@ -115,11 +115,17 @@
         <!--        TODO Dodać seleckta do making utwożć nową tabele Making   -->
         <div class="col-auto">
             <label class="m-0">Making</label>
-            <select class="form-control form-control-sm mb-2" th:field="*{making}">
-                <option th:value="'Będzei rozaj materiała SELECT'" th:text="Papier"></option>
+            <select class="form-control form-control-sm mb-2" th:field="*{makings.id}">
+                    <span th:if="*{makings.id == null}">
+                        <option value="">SELECT MAKING</option>
+                    </span>
+                <option th:each="making : ${makings}"
+                        th:value="${making.id}"
+                        th:text="${making.making}">
+                </option>
             </select>
-            <div th:if="${#fields.hasErrors('making')}" class="alert alert-danger alert-sm" role="alert" style="padding: 0px 10px 0px 10px" >
-                <span th:errors="*{making}" ></span>
+            <div th:if="${#fields.hasErrors('makings.id')}" class="alert alert-danger alert-sm" role="alert" style="padding: 0px 10px 0px 10px" >
+                <span th:errors="*{makings.id}" ></span>
             </div>
         </div>
         <div class="col-auto">

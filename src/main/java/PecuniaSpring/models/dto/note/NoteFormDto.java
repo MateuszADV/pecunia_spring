@@ -4,6 +4,7 @@ import PecuniaSpring.models.dto.active.ActiveDtoSelect;
 import PecuniaSpring.models.dto.bought.BoughtDtoSelect;
 import PecuniaSpring.models.dto.currency.CurrencyDto;
 import PecuniaSpring.models.dto.CommonFormDto;
+import PecuniaSpring.models.dto.making.MakingDtoSelect;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -46,10 +47,13 @@ public class NoteFormDto extends CommonFormDto {
     @Valid
     private ActiveDtoSelect actives;
 
+    @NotNull
+    @Valid
+    private MakingDtoSelect makings;
+
     private Long id;
     private Double denomination;
     private String series;
-    @NotNull
     private String making;
     private Integer width;
     private Integer height;
