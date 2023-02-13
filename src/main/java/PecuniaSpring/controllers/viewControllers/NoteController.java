@@ -219,7 +219,7 @@ public class NoteController {
             Currency currency = currencyService.getCurrencyById(noteForm.getCurrencies().getId());
 
             noteFormVariable(modelMap, currency);
-            return "note/new";
+            return "note/edit";
         }
 
 
@@ -247,7 +247,11 @@ public class NoteController {
 
 //        **********************************************
 
+        System.out.println("######################################################");
+        System.out.println("BANKNOT ZOSTAŁ ZAPISANY!!!!!!!!!!");
         noteRepository.save(note);
+        System.out.println("######################################################");
+
 
         return getNoteList(currency.getCurrencySeries(), currency.getId(), request, modelMap);
 
