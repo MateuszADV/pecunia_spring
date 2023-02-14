@@ -8,13 +8,13 @@ CREATE TABLE makings(
 	updated_at TIMESTAMP NOT NULL
 
 );
-COMMENT ON TABLE makings IS 'Waluty';
+COMMENT ON TABLE makings IS 'Materiał';
 COMMENT ON COLUMN makings.id IS 'Klucz główny';
 COMMENT ON COLUMN makings.making IS 'Materiał wykonania (EN)';
 COMMENT ON COLUMN makings.making_pl IS 'MAteriał wykonania (PL)';
-COMMENT ON COLUMN actives.description IS 'Dodatkowy opis';
-COMMENT ON COLUMN actives.created_at IS 'Data dodania';
-COMMENT ON COLUMN actives.updated_at IS 'Data modyfikacji';
+COMMENT ON COLUMN makings.description IS 'Dodatkowy opis';
+COMMENT ON COLUMN makings.created_at IS 'Data dodania';
+COMMENT ON COLUMN makings.updated_at IS 'Data modyfikacji';
 
 CREATE OR REPLACE FUNCTION makings_biu_trigfunc()
 	RETURNS TRIGGER
