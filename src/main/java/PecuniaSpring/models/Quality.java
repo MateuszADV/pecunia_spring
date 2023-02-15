@@ -35,6 +35,6 @@ public class Quality {
     @Column(name = "updated_at")
     private Timestamp updated_at;
 
-//    @OneToMany(mappedBy = "qualities", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-//    private List<Note> notes;
+    @OneToMany(mappedBy = "qualities", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    private List<Note> notes;
 }

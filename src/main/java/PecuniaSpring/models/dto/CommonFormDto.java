@@ -1,7 +1,11 @@
 package PecuniaSpring.models.dto;
 
+import PecuniaSpring.models.dto.bought.BoughtDtoSelect;
+import PecuniaSpring.models.dto.quality.QualityDto;
+import PecuniaSpring.models.dto.quality.QualityDtoSelect;
 import lombok.*;
 
+import javax.validation.Valid;
 import javax.validation.constraints.*;
 import javax.persistence.MappedSuperclass;
 //import javax.validation.constraints.*;
@@ -35,8 +39,8 @@ public abstract class CommonFormDto {
     @NotNull(message = "Wartość nie może być NULL")
     private Integer quantity;           //ilość
     private String unitQuantity;       //Określa rodzaj ilości(szt, set...)
-    @NotNull
-    @NotEmpty
+//    @NotNull
+//    @NotEmpty
     private String quality;             //Stan Itemu
     private String status;              // Status (kolekcja, na sprzedaż, sprzedane
     private String statusSell;          //StatusSell odpowiada za to czy dany banknot został wystawiony na sprzedaż
@@ -48,4 +52,12 @@ public abstract class CommonFormDto {
     private String  reversePath;
     private Timestamp created_at;
     private Timestamp updated_at;
+
+    @NotNull
+    @Valid
+    private BoughtDtoSelect boughts;
+
+    @NotNull
+    @Valid
+    private QualityDtoSelect qualities;
 }

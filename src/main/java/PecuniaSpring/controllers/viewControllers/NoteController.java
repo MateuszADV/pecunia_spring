@@ -10,6 +10,7 @@ import PecuniaSpring.models.dto.making.MakingDtoSelect;
 import PecuniaSpring.models.dto.note.NoteDto;
 import PecuniaSpring.models.dto.note.NoteDtoByCurrency;
 import PecuniaSpring.models.dto.note.NoteFormDto;
+import PecuniaSpring.models.dto.quality.QualityDtoSelect;
 import PecuniaSpring.models.repositories.NoteRepository;
 import PecuniaSpring.services.activeService.ActiveServiceImpl;
 import PecuniaSpring.services.boughtServices.BoughtServicesImpl;
@@ -17,6 +18,7 @@ import PecuniaSpring.services.countryServices.CountryServiceImpl;
 import PecuniaSpring.services.currencyService.CurrencyServiceImpl;
 import PecuniaSpring.services.makingServices.MakingServiceImpl;
 import PecuniaSpring.services.noteServices.NoteServiceImpl;
+import PecuniaSpring.services.quality.QualityServiceImpl;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -46,6 +48,7 @@ public class NoteController {
     private BoughtServicesImpl boughtServices;
     private ActiveServiceImpl activeService;
     private MakingServiceImpl makingService;
+    private QualityServiceImpl qualityService;
 
     Optional<Note> noteTmp;
 
@@ -164,6 +167,7 @@ public class NoteController {
             Currency currency = currencyService.getCurrencyById(noteForm.getCurrencies().getId());
 
             noteFormVariable(modelMap, currency);
+
             return "note/new";
         }
 
@@ -178,14 +182,7 @@ public class NoteController {
 //        *****Kolumny do usunięcia z tabeli NOte*******
 //        **********************************************
 
-        Bought bought = boughtServices.getBoughtById(noteForm.getBoughts().getId());
-        note.setBought(bought.getName());
-
-        Active active = activeService.getActiveById(noteForm.getActives().getId());
-        note.setSignatureCode(active.getActiveCod());
-
-        Making making = makingService.getMakingById(noteForm.getMakings().getId());
-        note.setMaking(making.getMaking());
+        columnToDelete(noteForm, note);
 
 //        **********************************************
 
@@ -245,15 +242,7 @@ public class NoteController {
 //        *****Kolumny do usunięcia z tabeli NOte*******
 //        **********************************************
 
-        Bought bought = boughtServices.getBoughtById(noteForm.getBoughts().getId());
-        note.setBought(bought.getName());
-
-        Active active = activeService.getActiveById(noteForm.getActives().getId());
-        note.setSignatureCode(active.getActiveCod());
-
-        Making making = makingService.getMakingById(noteForm.getMakings().getId());
-        note.setMaking(making.getMaking());
-
+        columnToDelete(noteForm, note);
 
 //        **********************************************
 
@@ -266,6 +255,7 @@ public class NoteController {
         return getNoteList(currency.getCurrencySeries(), currency.getId(), request, modelMap);
 
     }
+
 
     @GetMapping("/note/delete/{noteId}")
     public String getDelete(@PathVariable Long noteId, HttpServletRequest request, ModelMap modelMap) {
@@ -308,14 +298,35 @@ public class NoteController {
             makingDtoSelects.add(new ModelMapper().map(making, MakingDtoSelect.class));
         }
 
+        List<Quality> qualities = qualityService.getAllQuality();
+        List<QualityDtoSelect> qualityDtoSelects = new ArrayList<>();
+        for (Quality quality : qualities) {
+            qualityDtoSelects.add(new ModelMapper().map(quality, QualityDtoSelect.class));
+        }
+
         System.out.println("##############################################");
-        System.out.println(JsonUtils.gsonPretty(makingDtoSelects));
+
         System.out.println("##############################################");
 
         modelMap.addAttribute("currencies", currencyDtos);
         modelMap.addAttribute("boughts", boughtDtos);
         modelMap.addAttribute("actives", activeDtoSelects);
         modelMap.addAttribute("makings", makingDtoSelects);
+        modelMap.addAttribute("qualities", qualityDtoSelects);
         modelMap.addAttribute("standartDate", Date.valueOf(LocalDate.now()));
+    }
+
+    private void columnToDelete(@ModelAttribute("noteForm") @Valid NoteFormDto noteForm, Note note) {
+        Bought bought = boughtServices.getBoughtById(noteForm.getBoughts().getId());
+        note.setBought(bought.getName());
+
+        Active active = activeService.getActiveById(noteForm.getActives().getId());
+        note.setSignatureCode(active.getActiveCod());
+
+        Making making = makingService.getMakingById(noteForm.getMakings().getId());
+        note.setMaking(making.getMaking());
+
+        Quality quality = qualityService.getQualityById(noteForm.getQualities().getId());
+        note.setQuality(quality.getQuality());
     }
 }

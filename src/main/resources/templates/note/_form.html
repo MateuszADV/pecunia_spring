@@ -130,11 +130,17 @@
         </div>
         <div class="col-auto">
             <label class="m-0">Quality</label>
-            <select class="form-control form-control-sm mb-2" th:field="*{quality}">
-                <option th:value="'Będzei Stan Intemu SELECT'" th:text="UNC"></option>
+            <select class="form-control form-control-sm mb-2" th:field="*{qualities.id}">
+                    <span th:if="*{qualities.id == null}">
+                        <option value="">SELECT QUALITY</option>
+                    </span>
+                <option th:each="quality : ${qualities}"
+                        th:value="${quality.id}"
+                        th:text="${quality.quality}">
+                </option>
             </select>
-            <div th:if="${#fields.hasErrors('quality')}" class="alert alert-danger alert-sm" role="alert" style="padding: 0px 10px 0px 10px">
-                <span th:errors="*{quality}"></span>
+            <div th:if="${#fields.hasErrors('qualities.id')}" class="alert alert-danger alert-sm" role="alert" style="padding: 0px 10px 0px 10px" >
+                <span th:errors="*{qualities.id}" ></span>
             </div>
         </div>
     </div>

@@ -5,6 +5,7 @@ import PecuniaSpring.models.dto.bought.BoughtDtoSelect;
 import PecuniaSpring.models.dto.currency.CurrencyDto;
 import PecuniaSpring.models.dto.CommonFormDto;
 import PecuniaSpring.models.dto.making.MakingDtoSelect;
+import PecuniaSpring.models.dto.quality.QualityDtoSelect;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,9 +26,9 @@ public class NoteFormDto extends CommonFormDto {
     public NoteFormDto(String bought, String itemDate, Date dateBuy, String nameCurrency, Integer signatureCode, Double priceBuy, Double priceSell,
                        Integer quantity, String status, String statusSell, String description, String imgType, String aversPath, String reversePath,
                        Double denomination, String quality, String series, String making, Integer width, Integer height, Timestamp created_at, Timestamp updated_at,
-                       Boolean visible, String unitCurrency, String unitQuantity ) {
+                       Boolean visible, String unitCurrency, String unitQuantity, BoughtDtoSelect boughts, QualityDtoSelect qualities) {
         super(bought, itemDate, dateBuy, nameCurrency, signatureCode, priceBuy, priceSell, quantity, quality, status, statusSell, description,
-                imgType, unitQuantity, visible, unitCurrency, aversPath, reversePath, created_at, updated_at);
+                imgType, unitQuantity, visible, unitCurrency, aversPath, reversePath, created_at, updated_at, boughts, qualities);
         this.denomination = denomination;
         this.series = series;
         this.making = making;
@@ -38,10 +39,6 @@ public class NoteFormDto extends CommonFormDto {
     }
 
     private CurrencyDto currencies;
-
-    @NotNull
-    @Valid
-    private BoughtDtoSelect boughts;
 
     @NotNull
     @Valid

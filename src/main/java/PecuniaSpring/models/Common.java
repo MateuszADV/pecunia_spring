@@ -54,6 +54,14 @@ public abstract class Common {
     @Column(name = "updated_at")
     private Timestamp updated_at;
 
+    @ManyToOne
+    @JoinColumn(name = "bought_id")
+    private Bought boughts;
+
+    @ManyToOne
+    @JoinColumn(name = "quality_id")
+    private Quality qualities;
+
 
 //    @Override
 //    public String toString() {

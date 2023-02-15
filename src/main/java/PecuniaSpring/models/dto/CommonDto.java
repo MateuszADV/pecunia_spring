@@ -1,5 +1,7 @@
 package PecuniaSpring.models.dto;
 
+import PecuniaSpring.models.dto.bought.BoughtDto;
+import PecuniaSpring.models.dto.quality.QualityDto;
 import lombok.*;
 
 import javax.persistence.Column;
@@ -35,5 +37,8 @@ public abstract class CommonDto {
     private String  reversePath;
     private Timestamp created_at;
     private Timestamp updated_at;
+
+    private BoughtDto boughts;
+    private QualityDto qualities;
 
 }
