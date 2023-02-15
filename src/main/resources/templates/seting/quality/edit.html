@@ -8,10 +8,10 @@
 </head>
 <body>
 <div layout:fragment="content" class="container">
-    <h1 style="text-align: center">MAKING EDIT</h1>
+    <h1 style="text-align: center">QUALITY EDIT</h1>
 
-    <form th:action="@{/making/edit}" method="post" th:object="${makingForm}">
-        <div th:replace="seting/making/_form :: form"></div>
+    <form th:action="@{/quality/edit}" method="post" th:object="${qualityForm}">
+        <div th:replace="seting/quality/_form :: form"></div>
         <p> <input type="submit" value="Zapisz Zmiany" class="btn btn-sm btn-primary"></p>
     </form>
 

@@ -18,7 +18,7 @@
                     <th>Quality</th>
                     <th>Quality Pl</th>
                     <th>desctiption</th>
-                    <th>Action</th>
+                    <th style="width: 155px">Action</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -29,12 +29,12 @@
                         <td th:text="${quality.qualityPl}" class="pt-1 pb-1"></td>
                         <td th:text="${quality.description}" class="pt-1 pb-1"></td>
                         <td class="pt-1 pb-1">
-    <!--                        <a th:href="@{'/quality/show/' + ${quality.id}}" class="btn btn-sm btn-info" style="font-size: 10px" data-toggle="modal" th:attr="data-target='#' + ${quality.quality} + '-' + ${quality.id}" >SHOW</a>-->
-    <!--                        <div class="modal fade" th:attr="id= ${quality.quality} + '-' + ${quality.id}"  tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">-->
-    <!--                            <div th:replace="seting/quality/_showModal :: showModal"></div>-->
-    <!--                        </div>-->
-    <!--                        <a th:href="@{'/quality/edit/' + ${quality.id}}" class="btn btn-sm btn-primary" style="font-size: 10px" >EDIT</a>-->
-    <!--                        <a th:href="@{'/quality/delete/' + ${quality.id}}" class="btn btn-sm btn-danger" style="font-size: 10px">Delete</a>-->
+                            <a th:href="@{'/quality/show/' + ${quality.id}}" class="btn btn-sm btn-info" style="font-size: 10px" data-toggle="modal" th:attr="data-target='#quality-' + ${quality.id}" >SHOW</a>
+                            <div class="modal fade" th:attr="id='quality-' + ${quality.id}"  tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div th:replace="seting/quality/_showModal :: showModal"></div>
+                            </div>
+                            <a th:href="@{'/quality/edit/' + ${quality.id}}" class="btn btn-sm btn-primary" style="font-size: 10px" >EDIT</a>
+                            <a th:href="@{'/quality/delete/' + ${quality.id}}" class="btn btn-sm btn-danger" style="font-size: 10px">Delete</a>
                         </td>
                     </tr>
                 </Block>
