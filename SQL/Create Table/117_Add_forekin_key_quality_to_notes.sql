@@ -6,3 +6,4 @@ UPDATE notes
    SET quality_id = quality.id
   FROM (SELECT * FROM qualities ) AS quality
  WHERE quality.quality = notes.quality;
+ ALTER TABLE notes ALTER COLUMN quality_id SET NOT NULL;
