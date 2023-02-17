@@ -6,3 +6,4 @@ UPDATE notes
    SET making_id = making.id
   FROM (SELECT * FROM makings ) AS making
  WHERE making.making = notes.making;
+ ALTER TABLE notes ALTER COLUMN making_id SET NOT NULL;
