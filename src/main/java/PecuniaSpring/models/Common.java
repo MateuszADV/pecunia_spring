@@ -62,6 +62,10 @@ public abstract class Common {
     @JoinColumn(name = "quality_id")
     private Quality qualities;
 
+    @ManyToOne
+    @JoinColumn(name = "status_id")
+    private Status statuses;
+
 
 //    @Override
 //    public String toString() {

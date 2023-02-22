@@ -2,6 +2,7 @@ package PecuniaSpring.models.dto;
 
 import PecuniaSpring.models.dto.bought.BoughtDto;
 import PecuniaSpring.models.dto.quality.QualityDto;
+import PecuniaSpring.models.dto.status.StatusDto;
 import lombok.*;
 
 import javax.persistence.Column;
@@ -40,5 +41,6 @@ public abstract class CommonDto {
 
     private BoughtDto boughts;
     private QualityDto qualities;
+    private StatusDto statuses;
 
 }

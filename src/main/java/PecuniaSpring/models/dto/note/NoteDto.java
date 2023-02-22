@@ -6,6 +6,7 @@ import PecuniaSpring.models.dto.bought.BoughtDto;
 import PecuniaSpring.models.dto.currency.CurrencyDto;
 import PecuniaSpring.models.dto.making.MakingDto;
 import PecuniaSpring.models.dto.quality.QualityDto;
+import PecuniaSpring.models.dto.status.StatusDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,9 +26,9 @@ public class NoteDto extends CommonDto {
     public NoteDto(String itemDate, Date dateBuy, String nameCurrency, Double priceBuy, Double priceSell,
                    Integer quantity, String status, String statusSell, String description, String imgType, String aversPath, String reversePath,
                    Double denomination, String quality, String series, String making, Integer width, Integer height, Timestamp created_at, Timestamp updated_at,
-                   Boolean visible, String unitCurrency, String unitQuantity, BoughtDto boughts, QualityDto qualities) {
+                   Boolean visible, String unitCurrency, String unitQuantity, BoughtDto boughts, QualityDto qualities, StatusDto statuses) {
         super(itemDate, dateBuy, nameCurrency, priceBuy, priceSell, quantity, quality, status, statusSell, description,
-                imgType, unitQuantity, visible, unitCurrency, aversPath, reversePath, created_at, updated_at, boughts, qualities);
+                imgType, unitQuantity, visible, unitCurrency, aversPath, reversePath, created_at, updated_at, boughts, qualities, statuses);
         this.denomination = denomination;
         this.series = series;
         this.making = making;

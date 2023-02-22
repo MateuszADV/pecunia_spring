@@ -1,8 +1,8 @@
 package PecuniaSpring.models.dto;
 
 import PecuniaSpring.models.dto.bought.BoughtDtoSelect;
-import PecuniaSpring.models.dto.quality.QualityDto;
 import PecuniaSpring.models.dto.quality.QualityDtoSelect;
+import PecuniaSpring.models.dto.status.StatusDtoSelect;
 import lombok.*;
 
 import javax.validation.Valid;
@@ -60,4 +60,8 @@ public abstract class CommonFormDto {
     @NotNull
     @Valid
     private QualityDtoSelect qualities;
+
+    @NotNull
+    @Valid
+    private StatusDtoSelect statuses;
 }

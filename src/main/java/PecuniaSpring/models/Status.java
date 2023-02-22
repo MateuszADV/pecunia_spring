@@ -35,6 +35,6 @@ public class Status {
     @Column(name = "updated_at")
     private Timestamp updated_at;
 
-//    @OneToMany(mappedBy = "statuses", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-//    private List<Note> notes;
+    @OneToMany(mappedBy = "statuses", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    private List<Note> notes;
 }

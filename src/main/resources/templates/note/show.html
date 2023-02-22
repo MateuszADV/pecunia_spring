@@ -55,7 +55,7 @@
                     <strong>Price Sell: </strong>
                     <span th:text="${#numbers.formatDecimal(note.priceSell,1,2)} + 'zł'"></span><br>
                     <strong>Status: </strong>
-                    <span th:text="${note.status}"></span><br>
+                    <span th:text="${note.statuses.status}"></span><br>
                     <strong>Status Sell: </strong>
                     <span th:text="${note.statusSell}"></span>
                 </div>

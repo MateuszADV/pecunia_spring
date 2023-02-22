@@ -11,6 +11,7 @@ import PecuniaSpring.models.dto.note.NoteDto;
 import PecuniaSpring.models.dto.note.NoteDtoByCurrency;
 import PecuniaSpring.models.dto.note.NoteFormDto;
 import PecuniaSpring.models.dto.quality.QualityDtoSelect;
+import PecuniaSpring.models.dto.status.StatusDtoSelect;
 import PecuniaSpring.models.repositories.NoteRepository;
 import PecuniaSpring.services.activeService.ActiveServiceImpl;
 import PecuniaSpring.services.boughtServices.BoughtServicesImpl;
@@ -19,6 +20,7 @@ import PecuniaSpring.services.currencyService.CurrencyServiceImpl;
 import PecuniaSpring.services.makingServices.MakingServiceImpl;
 import PecuniaSpring.services.noteServices.NoteServiceImpl;
 import PecuniaSpring.services.quality.QualityServiceImpl;
+import PecuniaSpring.services.statusService.StatusServiceImpl;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -49,6 +51,7 @@ public class NoteController {
     private ActiveServiceImpl activeService;
     private MakingServiceImpl makingService;
     private QualityServiceImpl qualityService;
+    private StatusServiceImpl statusService;
 
     Optional<Note> noteTmp;
 
@@ -304,7 +307,11 @@ public class NoteController {
             qualityDtoSelects.add(new ModelMapper().map(quality, QualityDtoSelect.class));
         }
 
-        System.out.println("##############################################");
+        List<Status> statuses = statusService.getAllStatuses();
+        List<StatusDtoSelect> statusDtoSelects = new ArrayList<>();
+        for (Status status : statuses) {
+            statusDtoSelects.add(new ModelMapper().map(status, StatusDtoSelect.class));
+        }
 
         System.out.println("##############################################");
 
@@ -313,6 +320,7 @@ public class NoteController {
         modelMap.addAttribute("actives", activeDtoSelects);
         modelMap.addAttribute("makings", makingDtoSelects);
         modelMap.addAttribute("qualities", qualityDtoSelects);
+        modelMap.addAttribute("statuses", statusDtoSelects);
         modelMap.addAttribute("standartDate", Date.valueOf(LocalDate.now()));
     }
 
@@ -328,5 +336,8 @@ public class NoteController {
 
         Quality quality = qualityService.getQualityById(noteForm.getQualities().getId());
         note.setQuality(quality.getQuality());
+
+        Status status = statusService.getStatusById(noteForm.getStatuses().getId());
+        note.setStatus(status.getStatus());
     }
 }
