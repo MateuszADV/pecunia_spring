@@ -21,19 +21,19 @@
             </tr>
             </thead>
             <tbody>
-            <Block th:each="type, i : ${imegeTypeDtos}">
+            <Block th:each="imgTyp, i : ${imageTypeDtos}">
                 <tr>
                     <td th:text="${i.index + 1}" class="pt-1 pb-1"></td>
-                    <td th:text="${type.type}" class="pt-1 pb-1"></td>
-                    <td th:text="${type.typePl}" class="pt-1 pb-1"></td>
-                    <td th:text="${type.description}" class="pt-1 pb-1"></td>
+                    <td th:text="${imgTyp.type}" class="pt-1 pb-1"></td>
+                    <td th:text="${imgTyp.typePl}" class="pt-1 pb-1"></td>
+                    <td th:text="${imgTyp.description}" class="pt-1 pb-1"></td>
                     <td class="pt-1 pb-1">
-<!--                        <a th:href="@{'/imageType/show/' + ${type.id}}" class="btn btn-sm btn-info" style="font-size: 10px" data-toggle="modal" th:attr="data-target='#type-' + ${type.id}" >SHOW</a>-->
-<!--                        <div class="modal fade" th:attr="id= 'type-' + ${type.id}"  tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">-->
-<!--                            <div th:replace="seting/type/_showModal :: showModal"></div>-->
-<!--                        </div>-->
-<!--                        <a th:href="@{'/imageType/edit/' + ${type.id}}" class="btn btn-sm btn-primary" style="font-size: 10px" >EDIT</a>-->
-<!--                        <a th:href="@{'/imageType/delete/' + ${type.id}}" class="btn btn-sm btn-danger" style="font-size: 10px">Delete</a>-->
+                        <a th:href="@{'/imageType/show/' + ${imgTyp.id}}" class="btn btn-sm btn-info" style="font-size: 10px" data-toggle="modal" th:attr="data-target='#type-' + ${imgTyp.id}" >SHOW</a>
+                        <div class="modal fade" th:attr="id= 'type-' + ${imgTyp.id}"  tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div th:replace="seting/imageType/_showModal :: showModal"></div>
+                        </div>
+                        <a th:href="@{'/imageType/edit/' + ${imgTyp.id}}" class="btn btn-sm btn-primary" style="font-size: 10px" >EDIT</a>
+<!--                        <a th:href="@{'/imageType/delete/' + ${imgTyp.id}}" class="btn btn-sm btn-danger" style="font-size: 10px">Delete</a>-->
                     </td>
                 </tr>
             </Block>

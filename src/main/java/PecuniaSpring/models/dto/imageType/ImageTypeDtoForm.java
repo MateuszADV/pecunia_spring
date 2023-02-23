@@ -2,6 +2,7 @@ package PecuniaSpring.models.dto.imageType;
 
 import lombok.*;
 
+import javax.validation.constraints.NotEmpty;
 import java.sql.Timestamp;
 
 @Getter
@@ -13,6 +14,7 @@ import java.sql.Timestamp;
 public class ImageTypeDtoForm {
 
     private Long id;
+    @NotEmpty(message = "Pole nie może być puste")
     private String type;
     private String typePl;
     private String description;
