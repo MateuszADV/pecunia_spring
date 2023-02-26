@@ -87,4 +87,12 @@ public class ImageTypeController {
         imageTypeSevice.saveImageType(imageType);
         return "redirect:/imageType";
     }
+
+    @GetMapping("/imageType/delete/{imageTypeId}")
+    public String getDelete(@PathVariable Long imageTypeId) {
+
+        imageTypeSevice.deleteImageTypeById(imageTypeId);
+
+        return "redirect:/imageType";
+    }
 }
