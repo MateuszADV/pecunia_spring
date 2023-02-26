@@ -66,6 +66,10 @@ public abstract class Common {
     @JoinColumn(name = "status_id")
     private Status statuses;
 
+    @ManyToOne
+    @JoinColumn(name = "image_type_id")
+    private ImageType imageTypes;
+
 
 //    @Override
 //    public String toString() {

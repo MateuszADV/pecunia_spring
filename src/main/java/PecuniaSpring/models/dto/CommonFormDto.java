@@ -1,6 +1,8 @@
 package PecuniaSpring.models.dto;
 
 import PecuniaSpring.models.dto.bought.BoughtDtoSelect;
+import PecuniaSpring.models.dto.imageType.ImageTypeDto;
+import PecuniaSpring.models.dto.imageType.ImageTypeDtoSelect;
 import PecuniaSpring.models.dto.quality.QualityDtoSelect;
 import PecuniaSpring.models.dto.status.StatusDtoSelect;
 import lombok.*;
@@ -64,4 +66,8 @@ public abstract class CommonFormDto {
     @NotNull
     @Valid
     private StatusDtoSelect statuses;
+
+    @NotNull
+    @Valid
+    private ImageTypeDtoSelect imageTypes;
 }

@@ -6,6 +6,7 @@ import PecuniaSpring.models.dto.bought.BoughtDto;
 import PecuniaSpring.models.dto.country.CountryDtoForm;
 import PecuniaSpring.models.dto.currency.CurrencyDto;
 import PecuniaSpring.models.dto.currency.CurrencyDtoByNote;
+import PecuniaSpring.models.dto.imageType.ImageTypeDtoSelect;
 import PecuniaSpring.models.dto.making.MakingDtoSelect;
 import PecuniaSpring.models.dto.note.NoteDto;
 import PecuniaSpring.models.dto.note.NoteDtoByCurrency;
@@ -17,6 +18,7 @@ import PecuniaSpring.services.activeService.ActiveServiceImpl;
 import PecuniaSpring.services.boughtServices.BoughtServicesImpl;
 import PecuniaSpring.services.countryServices.CountryServiceImpl;
 import PecuniaSpring.services.currencyService.CurrencyServiceImpl;
+import PecuniaSpring.services.imageTypeService.ImageTypeSeviceImpl;
 import PecuniaSpring.services.makingServices.MakingServiceImpl;
 import PecuniaSpring.services.noteServices.NoteServiceImpl;
 import PecuniaSpring.services.quality.QualityServiceImpl;
@@ -52,6 +54,7 @@ public class NoteController {
     private MakingServiceImpl makingService;
     private QualityServiceImpl qualityService;
     private StatusServiceImpl statusService;
+    private ImageTypeSeviceImpl imageTypeSevice;
 
     Optional<Note> noteTmp;
 
@@ -313,6 +316,12 @@ public class NoteController {
             statusDtoSelects.add(new ModelMapper().map(status, StatusDtoSelect.class));
         }
 
+        List<ImageType> imageTypes = imageTypeSevice.getAllImageTypes();
+        List<ImageTypeDtoSelect> imageTypeDtoSelects = new ArrayList<>();
+        for (ImageType imageType : imageTypes) {
+            imageTypeDtoSelects.add(new ModelMapper().map(imageType, ImageTypeDtoSelect.class));
+        }
+
         System.out.println("##############################################");
 
         modelMap.addAttribute("currencies", currencyDtos);
@@ -321,6 +330,7 @@ public class NoteController {
         modelMap.addAttribute("makings", makingDtoSelects);
         modelMap.addAttribute("qualities", qualityDtoSelects);
         modelMap.addAttribute("statuses", statusDtoSelects);
+        modelMap.addAttribute("imageTypes", imageTypeDtoSelects);
         modelMap.addAttribute("standartDate", Date.valueOf(LocalDate.now()));
     }
 
@@ -339,5 +349,11 @@ public class NoteController {
 
         Status status = statusService.getStatusById(noteForm.getStatuses().getId());
         note.setStatus(status.getStatus());
+
+        System.out.println("{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{");
+        System.out.println(noteForm.getImageTypes().getId());
+        System.out.println("{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{");
+        ImageType imageType = imageTypeSevice.getImageTypeById(noteForm.getImageTypes().getId());
+        note.setImgType(imageType.getType());
     }
 }

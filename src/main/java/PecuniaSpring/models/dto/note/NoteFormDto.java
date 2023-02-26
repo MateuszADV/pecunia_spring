@@ -4,6 +4,7 @@ import PecuniaSpring.models.dto.active.ActiveDtoSelect;
 import PecuniaSpring.models.dto.bought.BoughtDtoSelect;
 import PecuniaSpring.models.dto.currency.CurrencyDto;
 import PecuniaSpring.models.dto.CommonFormDto;
+import PecuniaSpring.models.dto.imageType.ImageTypeDtoSelect;
 import PecuniaSpring.models.dto.making.MakingDtoSelect;
 import PecuniaSpring.models.dto.quality.QualityDtoSelect;
 import PecuniaSpring.models.dto.status.StatusDto;
@@ -28,9 +29,11 @@ public class NoteFormDto extends CommonFormDto {
     public NoteFormDto(String bought, String itemDate, Date dateBuy, String nameCurrency, Integer signatureCode, Double priceBuy, Double priceSell,
                        Integer quantity, String status, String statusSell, String description, String imgType, String aversPath, String reversePath,
                        Double denomination, String quality, String series, String making, Integer width, Integer height, Timestamp created_at, Timestamp updated_at,
-                       Boolean visible, String unitCurrency, String unitQuantity, BoughtDtoSelect boughts, QualityDtoSelect qualities, StatusDtoSelect statuses) {
+                       Boolean visible, String unitCurrency, String unitQuantity, BoughtDtoSelect boughts, QualityDtoSelect qualities, StatusDtoSelect statuses,
+                       ImageTypeDtoSelect imageTypes) {
         super(bought, itemDate, dateBuy, nameCurrency, signatureCode, priceBuy, priceSell, quantity, quality, status, statusSell, description,
-                imgType, unitQuantity, visible, unitCurrency, aversPath, reversePath, created_at, updated_at, boughts, qualities, statuses);
+                imgType, unitQuantity, visible, unitCurrency, aversPath, reversePath, created_at, updated_at, boughts, qualities, statuses,
+                imageTypes);
         this.denomination = denomination;
         this.series = series;
         this.making = making;

@@ -177,11 +177,17 @@
         <!--        TODO Dodać seleckta do making utwożć nową tabele Imaget Type   -->
         <div class="col-auto">
             <label class="m-0">Image Typ</label>
-            <select class="form-control form-control-sm mb-2" th:field="*{imgType}">
-                <option th:value="'Będzei rodzaj obrazka SELECT'" th:text="SCAN"></option>
+            <select class="form-control form-control-sm mb-2" th:field="*{imageTypes.id}">
+                    <span th:if="*{imageTypes.id == null}">
+                        <option value="">SELECT IMAGE TYPE</option>
+                    </span>
+                <option th:each="imageType : ${imageTypes}"
+                        th:value="${imageType.id}"
+                        th:text="${imageType.type}">
+                </option>
             </select>
-            <div th:if="${#fields.hasErrors('imgType')}" class="alert alert-danger alert-sm" role="alert" style="padding: 0px 10px 0px 10px" >
-                <span th:errors="*{imgType}" ></span>
+            <div th:if="${#fields.hasErrors('imageTypes.id')}" class="alert alert-danger alert-sm" role="alert" style="padding: 0px 10px 0px 10px" >
+                <span th:errors="*{imageTypes.id}" ></span>
             </div>
         </div>
         <div class="col-auto">

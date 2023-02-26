@@ -1,6 +1,8 @@
 package PecuniaSpring.models.dto;
 
+import PecuniaSpring.models.ImageType;
 import PecuniaSpring.models.dto.bought.BoughtDto;
+import PecuniaSpring.models.dto.imageType.ImageTypeDto;
 import PecuniaSpring.models.dto.quality.QualityDto;
 import PecuniaSpring.models.dto.status.StatusDto;
 import lombok.*;
@@ -42,5 +44,6 @@ public abstract class CommonDto {
     private BoughtDto boughts;
     private QualityDto qualities;
     private StatusDto statuses;
+    private ImageTypeDto imageTypes;
 
 }

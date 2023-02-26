@@ -36,6 +36,6 @@ public class ImageType {
     @Column(name = "updated_at")
     private Timestamp updated_at;
 
-//    @OneToMany(mappedBy = "image_types", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-//    private List<Note> notes;
+    @OneToMany(mappedBy = "imageTypes", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    private List<Note> notes;
 }
