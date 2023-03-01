@@ -210,7 +210,13 @@ public class CurrencyController {
 
     @GetMapping("/currency/delete/{currencyId}/{countryId}")
     public String getDelete(@PathVariable Long currencyId, @PathVariable Long countryId, ModelMap modelMap) {
-        currencyService.deleteCurrencyById(currencyId);
+        try {
+            currencyService.deleteCurrencyById(currencyId);
+        }catch (Exception e) {
+            System.out.println(e.getMessage());
+            modelMap.addAttribute("error", e.getMessage());
+//            return "error";
+        }
         return "redirect:/currency/list/" + countryId;
     }
 }
