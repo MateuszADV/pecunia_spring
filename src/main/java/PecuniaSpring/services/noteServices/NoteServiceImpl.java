@@ -2,9 +2,12 @@ package PecuniaSpring.services.noteServices;
 
 import PecuniaSpring.models.Note;
 import PecuniaSpring.models.repositories.NoteRepository;
+import PecuniaSpring.models.sqlClass.CountryByStatus;
 import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,5 +39,20 @@ public class NoteServiceImpl implements NoteService {
     @Override
     public void deleteNoteById(Long id) {
         this.noteRepository.deleteById(id);
+    }
+
+    //    *****************************************
+    //    ******Query związane z Note *************
+    //    *****************************************
+
+
+    @Override
+    public List<CountryByStatus> getCountryByStatus(String continent, String status) {
+        List<Object[]> objects = noteRepository.countryByStatus(status, continent);
+        List<CountryByStatus> countryByStatusList = new ArrayList<>();
+        for (Object[] object : objects) {
+            countryByStatusList.add(new ModelMapper().map(object[0], CountryByStatus.class));
+        }
+        return countryByStatusList;
     }
 }
