@@ -30,4 +30,18 @@ public interface NoteRepository extends JpaRepository<Note, Long> {
                    " ORDER BY cou.countryEn")
     List<Object[]> countryByStatus(String status, String continent);
 
+    @Query(value = "SELECT new map(cou.id AS countryId, cou.countryEn AS countryEn, cou.countryPl AS countryPl, " +
+            "cur.currencySeries AS currencySeries, COUNT(cur.currencySeries) AS total) " +
+            "  FROM Note note" +
+            "  LEFT JOIN Status stat" +
+            "    ON stat.status = ?1" +
+            "  LEFT JOIN Currency cur" +
+            "    ON cur.id = note.currencies" +
+            "  LEFT JOIN Country cou" +
+            "    ON cou.id = cur.countries" +
+            " WHERE stat.id = note.statuses AND cou.id = ?2" +
+            " GROUP BY cou.countryEn, cou.countryPl, cou.id, cur.currencySeries, cur.id" +
+            " ORDER BY cur.currencySeries")
+    List<Object[]> currencyByStatus(String status, Long countryId);
+
 }

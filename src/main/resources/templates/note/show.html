@@ -17,7 +17,9 @@
                     <strong>Date Buy: </strong>
                     <span th:text="${note.dateBuy}"></span><br>
                     <strong>Bought: </strong>
-                    <span th:text="${note.boughts.name}"></span><br>
+                    <span th:if=" ${note.boughts} != null">
+                        <span th:text="${note.boughts.name}"></span>
+                    </span><br>
                     <strong>Visible: </strong>
                     <span th:text="${note.visible}"></span><br>
                     <strong>Created: </strong>

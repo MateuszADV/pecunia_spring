@@ -14,7 +14,7 @@
                 <Block th:each="continent : ${continents}">
                     <div class="col-sm-2" style="text-align: center; max-width: 100%">
                         <div calss="container" style="margin: 15px">
-                            <a th:href="@{'/note/colection/country/?selectContinent=' + ${continent.continentEn}}">
+                            <a th:href="@{'/note/collection/country/?selectContinent=' + ${continent.continentEn}}">
                                 <img th:src="@{'/images/continents/' + ${continent.code} + '.png'}" style="width: 150px"/>
                             </a><br>
 <!--                            <span th:text="${continent.total}"></span>-->

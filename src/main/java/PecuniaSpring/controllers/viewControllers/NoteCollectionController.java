@@ -25,15 +25,17 @@ public class NoteCollectionController {
     private NoteServiceImpl noteService;
     private CountryServiceImpl countryService;
 
+    private NoteRepository noteRepository;
 
-    @GetMapping("/note/colection")
+
+    @GetMapping("/note/collection")
     public String getIndex(ModelMap modelMap) {
 
         modelMap.addAttribute("continents", countryService.countryCounts());
-        return "note/colection/index";
+        return "note/collection/index";
     }
 
-    @GetMapping("/note/colection/country")
+    @GetMapping("/note/collection/country")
     public String getCountry(@RequestParam("selectContinent") String continentEn,
                              ModelMap modelMap) {
         System.out.println(continentEn);
@@ -42,6 +44,15 @@ public class NoteCollectionController {
         modelMap.addAttribute("countryByStatusList", countryByStatusList);
         System.out.println(JsonUtils.gsonPretty(countryByStatusList));
 
-        return "note/colection/country";
+        return "note/collection/country";
+    }
+
+    @GetMapping("/note/collection/currency")
+    public String getCurrency(@RequestParam("selectCountryId") Long countryId, ModelMap modelMap) {
+        System.out.println(countryId);
+        List<Object[]> objects = noteRepository.currencyByStatus("KOLEKCJA", countryId);
+
+        System.out.println(JsonUtils.gsonPretty(objects));
+        return "note/collection/currency";
     }
 }
