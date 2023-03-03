@@ -1,0 +1,9 @@
+.currency-box
+{
+    width: 250px;
+    min-height: 80px;
+    margin: 10px;
+    text-align: center;
+    background: darkgrey;
+    color: black;
+}
