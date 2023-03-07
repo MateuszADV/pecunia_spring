@@ -72,6 +72,8 @@ public class NoteCollectionController {
             noteDtos.add(new ModelMapper().map(note, NoteDto.class));
         }
         System.out.println(JsonUtils.gsonPretty(noteDtos));
+
+        modelMap.addAttribute("notes", noteDtos);
         return "note/collection/notes";
     }
 }

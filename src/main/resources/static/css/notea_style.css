@@ -7,3 +7,12 @@
     background: darkgrey;
     color: black;
 }
+.note-box
+{
+    width: 250px;
+    min-height: 80px;
+    margin: 10px;
+    text-align: center;
+    background: white;
+    color: black;
+}
