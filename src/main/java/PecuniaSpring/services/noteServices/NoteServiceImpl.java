@@ -47,11 +47,22 @@ public class NoteServiceImpl implements NoteService {
 
 
     @Override
-    public List<CountryByStatus> getCountryByStatus(String continent, String status) {
-        List<Object[]> objects = noteRepository.countryByStatus(status, continent);
+    public List<CountryByStatus> getCountryByStatus(String continent, String status, String role) {
+        List<Object[]> objects = new ArrayList<>();
+
         List<CountryByStatus> countryByStatusList = new ArrayList<>();
-        for (Object[] object : objects) {
-            countryByStatusList.add(new ModelMapper().map(object[0], CountryByStatus.class));
+
+
+        if (role == "ADMIN") {
+            objects = noteRepository.countryByStatus(status, continent);
+            for (Object[] object : objects) {
+                countryByStatusList.add(new ModelMapper().map(object[0], CountryByStatus.class));
+            }
+        } else {
+            objects = noteRepository.countryByStatus(status, continent, true);
+            for (Object[] object : objects) {
+                countryByStatusList.add(new ModelMapper().map(object[0], CountryByStatus.class));
+            }
         }
         return countryByStatusList;
     }

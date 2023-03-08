@@ -34,15 +34,18 @@ public class WebSecurityConfig  {
                 .antMatchers("/api/v*/country")
                 .permitAll()
                 .antMatchers("/api/v*/count_country")
+                .permitAll()
 //                        ***********************************
 //                        *************VIEW******************
 //                        ***********************************
-                .permitAll()
+
                 .antMatchers("/", "/registration", "/about")
                 .permitAll()
                 .antMatchers("/country", "/country/show/**")
                 .permitAll()
 //                .antMatchers("/continent").hasAnyAuthority("USER", "ADMIN")
+//                ********************NOTE COLLECTOIN*****************************************
+                .antMatchers("/note/collection/**").hasAnyAuthority("ADMIN", "USER")
 //                ********************CONTINENT*****************************************
                 .antMatchers("/continent/**")
                 .permitAll()

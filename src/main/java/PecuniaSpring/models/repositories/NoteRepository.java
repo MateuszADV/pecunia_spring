@@ -15,6 +15,11 @@ public interface NoteRepository extends JpaRepository<Note, Long> {
     List<Note> getNoteByCurrencyId(Long currencyId);
 
 
+    /**
+     * @param status
+     * @param continent
+     * @return
+     */
     @Query(value = "SELECT new map(con.continentEn AS continent, con.continentCode AS continentCode, cou.id AS countryId, cou.countryEn AS countryEn, cou.countryPl AS countryPl, COUNT(cou.countryEn) AS total) " +
                    "  FROM Note note" +
                    "  LEFT JOIN Status stat" +
@@ -29,6 +34,21 @@ public interface NoteRepository extends JpaRepository<Note, Long> {
                    " GROUP BY cou.countryEn, cou.countryPl, cou.id, con.continentEn, con.continentCode" +
                    " ORDER BY cou.countryEn")
     List<Object[]> countryByStatus(String status, String continent);
+
+    @Query(value = "SELECT new map(con.continentEn AS continent, con.continentCode AS continentCode, cou.id AS countryId, cou.countryEn AS countryEn, cou.countryPl AS countryPl, COUNT(cou.countryEn) AS total) " +
+            "  FROM Note note" +
+            "  LEFT JOIN Status stat" +
+            "    ON stat.status = ?1" +
+            "  LEFT JOIN Currency cur" +
+            "    ON cur.id = note.currencies" +
+            "  LEFT JOIN Country cou" +
+            "    ON cou.id = cur.countries" +
+            "  LEFT JOIN Continent con" +
+            "    ON con.id = cou.continents" +
+            " WHERE stat.id = note.statuses AND con.continentEn = ?2 AND note.visible = ?3" +
+            " GROUP BY cou.countryEn, cou.countryPl, cou.id, con.continentEn, con.continentCode" +
+            " ORDER BY cou.countryEn")
+    List<Object[]> countryByStatus(String status, String continent, Boolean visible);
 
     @Query(value = "SELECT new map(cou.id AS countryId, cou.countryEn AS countryEn, cou.countryPl AS countryPl, cur.id AS currencyId, " +
             "cur.currencySeries AS currencySeries, COUNT(cur.currencySeries) AS total) " +

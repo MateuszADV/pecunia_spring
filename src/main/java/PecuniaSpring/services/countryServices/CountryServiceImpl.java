@@ -106,7 +106,7 @@ public class CountryServiceImpl implements CountryService {
         for (Object[] object : objects) {
             countryCounts.add(new ModelMapper().map(object[0], CountryCount.class));
         }
-        System.out.println(JsonUtils.gsonPretty(countryCounts));
+//        System.out.println(JsonUtils.gsonPretty(countryCounts));
 
         return countryCounts;
     }

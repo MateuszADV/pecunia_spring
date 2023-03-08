@@ -16,5 +16,5 @@ public interface NoteService {
     //    ******Query związane z Note *************
     //    *****************************************
 
-    List<CountryByStatus> getCountryByStatus(String continent, String status);
+    List<CountryByStatus> getCountryByStatus(String continent, String status, String role);
 }
