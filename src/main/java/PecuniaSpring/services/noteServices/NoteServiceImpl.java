@@ -1,8 +1,10 @@
 package PecuniaSpring.services.noteServices;
 
 import PecuniaSpring.models.Note;
+import PecuniaSpring.models.dto.note.NoteDto;
 import PecuniaSpring.models.repositories.NoteRepository;
 import PecuniaSpring.models.sqlClass.CountryByStatus;
+import PecuniaSpring.models.sqlClass.CurrencyByStatus;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -37,6 +39,19 @@ public class NoteServiceImpl implements NoteService {
     }
 
     @Override
+    public List<Note> getNoteByCurrencyId(Long currencyId, String role) {
+        List<Note> notes = new ArrayList<>();
+//        List<NoteDto> noteDtoList = new ArrayList<>();
+        if (role == "ADMIN") {
+            notes = noteRepository.getNoteByCurrencyId(currencyId);
+        } else {
+            notes = noteRepository.getNoteByCurrencyId(currencyId, true);
+
+        }
+        return notes;
+    }
+
+    @Override
     public void deleteNoteById(Long id) {
         this.noteRepository.deleteById(id);
     }
@@ -49,9 +64,7 @@ public class NoteServiceImpl implements NoteService {
     @Override
     public List<CountryByStatus> getCountryByStatus(String continent, String status, String role) {
         List<Object[]> objects = new ArrayList<>();
-
         List<CountryByStatus> countryByStatusList = new ArrayList<>();
-
 
         if (role == "ADMIN") {
             objects = noteRepository.countryByStatus(status, continent);
@@ -65,5 +78,24 @@ public class NoteServiceImpl implements NoteService {
             }
         }
         return countryByStatusList;
+    }
+
+    @Override
+    public List<CurrencyByStatus> getCurrencyByStatus(Long countryId, String status, String role) {
+        List<Object[]> objects = new ArrayList<>();
+        List<CurrencyByStatus> currencyByStatusList = new ArrayList<>();
+
+        if (role == "ADMIN") {
+            objects = noteRepository.currencyByStatus(status, countryId);
+            for (Object[] object : objects) {
+                currencyByStatusList.add(new ModelMapper().map(object[0], CurrencyByStatus.class));
+            }
+        } else {
+            objects = noteRepository.currencyByStatus(status, countryId, true);
+            for (Object[] object : objects) {
+                currencyByStatusList.add(new ModelMapper().map(object[0], CurrencyByStatus.class));
+            }
+        }
+        return currencyByStatusList;
     }
 }

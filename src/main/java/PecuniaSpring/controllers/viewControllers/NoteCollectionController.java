@@ -40,12 +40,11 @@ public class NoteCollectionController {
         this.noteRepository = noteRepository;
     }
 
-    private String role = "";
-
 
     @GetMapping("/note/collection")
     public String getIndex(ModelMap modelMap) {
-        role = userCheckLoged.UserCheckLoged().getAuthorities().toArray()[0].toString();
+        String role = userCheckLoged.UserCheckLoged().getAuthorities().toArray()[0].toString();
+        System.out.println(JsonUtils.gsonPretty(userCheckLoged.UserCheckLoged()));
         System.out.println(role);
             modelMap.addAttribute("continents", countryService.countryCounts());
 
@@ -55,12 +54,14 @@ public class NoteCollectionController {
     @GetMapping("/note/collection/country")
     public String getCountry(@RequestParam("selectContinent") String continentEn,
                              ModelMap modelMap) {
+        String role = userCheckLoged.UserCheckLoged().getAuthorities().toArray()[0].toString();
+
         System.out.println(continentEn);
         List<CountryByStatus> countryByStatusList = new ArrayList<>();
         if (role == "ADMIN") {
-            countryByStatusList = noteService.getCountryByStatus(continentEn, "KOLEKCJA", "ADMIN");
+            countryByStatusList = noteService.getCountryByStatus(continentEn, "KOLEKCJA", role);
         } else {
-            countryByStatusList = noteService.getCountryByStatus(continentEn, "KOLEKCJA", "USER");
+            countryByStatusList = noteService.getCountryByStatus(continentEn, "KOLEKCJA", role);
             System.out.println("Brak uprawnień");
         }
         modelMap.addAttribute("countryByStatusList", countryByStatusList);
@@ -73,11 +74,15 @@ public class NoteCollectionController {
 
     @GetMapping("/note/collection/currency")
     public String getCurrency(@RequestParam("selectCountryId") Long countryId, ModelMap modelMap) {
+        String role = userCheckLoged.UserCheckLoged().getAuthorities().toArray()[0].toString();
+
         System.out.println(countryId);
-        List<Object[]> objects = noteRepository.currencyByStatus("KOLEKCJA", countryId);
+//        List<Object[]> objects = noteRepository.currencyByStatus("KOLEKCJA", countryId);
         List<CurrencyByStatus> currencyByStatusList = new ArrayList<>();
-        for (Object[] object : objects) {
-            currencyByStatusList.add(new ModelMapper().map(object[0], CurrencyByStatus.class));
+        if (role == "ADMIN") {
+            currencyByStatusList = noteService.getCurrencyByStatus(countryId, "KOLEKCJA", role);
+        } else {
+            currencyByStatusList = noteService.getCurrencyByStatus(countryId, "KOLEKCJA", role);
         }
         modelMap.addAttribute("currencyByStatusList", currencyByStatusList);
         System.out.println(JsonUtils.gsonPretty(currencyByStatusList));
@@ -86,11 +91,26 @@ public class NoteCollectionController {
 
     @GetMapping("/note/collection/notes")
     public String getNote(@RequestParam("selectCurrencyId") Long currencyId, ModelMap modelMap) {
-        System.out.println(currencyId);
-        List<Note> notes = noteService.getNoteByCurrencyId(currencyId);
+        String role = userCheckLoged.UserCheckLoged().getAuthorities().toArray()[0].toString();
+        List<Note> notes = new ArrayList<>();
         List<NoteDto> noteDtos = new ArrayList<>();
-        for (Note note : notes) {
-            noteDtos.add(new ModelMapper().map(note, NoteDto.class));
+
+        if (role == "ADMIN") {
+            notes = noteService.getNoteByCurrencyId(currencyId, role);
+            for (Note note : notes) {
+                noteDtos.add(new ModelMapper().map(note, NoteDto.class));
+            }
+        } else {
+            notes = noteService.getNoteByCurrencyId(currencyId, role);
+            if (notes.size() > 0) {
+                for (Note note : notes) {
+                    noteDtos.add(new ModelMapper().map(note, NoteDto.class));
+                }
+            } else {
+                modelMap.addAttribute("error" , "Brak danych do wyświetlenia!!!");
+                return "error";
+            }
+
         }
         System.out.println(JsonUtils.gsonPretty(noteDtos));
 

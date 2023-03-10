@@ -14,6 +14,10 @@ public interface NoteRepository extends JpaRepository<Note, Long> {
                    "WHERE note.currencies.id = ?1")
     List<Note> getNoteByCurrencyId(Long currencyId);
 
+    @Query(value = "SELECT note FROM Note note " +
+            "WHERE note.currencies.id = ?1 AND note.visible = ?2")
+    List<Note> getNoteByCurrencyId(Long currencyId, Boolean visible);
+
 
     /**
      * @param status
@@ -63,5 +67,19 @@ public interface NoteRepository extends JpaRepository<Note, Long> {
             " GROUP BY cou.countryEn, cou.countryPl, cou.id, cur.currencySeries, cur.id" +
             " ORDER BY cur.currencySeries")
     List<Object[]> currencyByStatus(String status, Long countryId);
+
+    @Query(value = "SELECT new map(cou.id AS countryId, cou.countryEn AS countryEn, cou.countryPl AS countryPl, cur.id AS currencyId, " +
+            "cur.currencySeries AS currencySeries, COUNT(cur.currencySeries) AS total) " +
+            "  FROM Note note" +
+            "  LEFT JOIN Status stat" +
+            "    ON stat.status = ?1" +
+            "  LEFT JOIN Currency cur" +
+            "    ON cur.id = note.currencies" +
+            "  LEFT JOIN Country cou" +
+            "    ON cou.id = cur.countries" +
+            " WHERE stat.id = note.statuses AND cou.id = ?2 AND note.visible = ?3" +
+            " GROUP BY cou.countryEn, cou.countryPl, cou.id, cur.currencySeries, cur.id" +
+            " ORDER BY cur.currencySeries")
+    List<Object[]> currencyByStatus(String status, Long countryId, Boolean visible);
 
 }

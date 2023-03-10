@@ -2,6 +2,7 @@ package PecuniaSpring.services.noteServices;
 
 import PecuniaSpring.models.Note;
 import PecuniaSpring.models.sqlClass.CountryByStatus;
+import PecuniaSpring.models.sqlClass.CurrencyByStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.List;
 public interface NoteService {
     Note getNoteById(Long id);
     List<Note> getNoteByCurrencyId(Long currencyId);
+    List<Note> getNoteByCurrencyId(Long currencyId, String role);
     void deleteNoteById(Long id);
 
     //    *****************************************
@@ -17,4 +19,6 @@ public interface NoteService {
     //    *****************************************
 
     List<CountryByStatus> getCountryByStatus(String continent, String status, String role);
+
+    List<CurrencyByStatus> getCurrencyByStatus(Long countryId, String status, String role);
 }
