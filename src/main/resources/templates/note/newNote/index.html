@@ -1,0 +1,17 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      layout:decorate="~{layouts/layout}">
+<head>
+    <title>New Notes</title>
+</head>
+<body>
+    <div layout:fragment="content" class="container">
+        <h1 style="text-align: center">New Notes</h1>
+
+        <a th:href="@{'/note/newNotes/loc/'}" class="btn btn-sm btn-info" style="font-size: 10px">LOC</a>
+    </div>
+
+</body>
+</html>
