@@ -13,6 +13,7 @@ public class GetNotesByStatus {
     private String countryPl;
     private Long currencyId;
     private String currencySeries;
+    private String bought;
     private Double denomination;
     private String nameCurrency;
     private String itemDate;
