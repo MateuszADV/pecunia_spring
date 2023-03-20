@@ -95,7 +95,7 @@ public interface NoteRepository extends JpaRepository<Note, Long> {
             "    ON cur.id = note.currencies" +
             "  LEFT JOIN Country cou" +
             "    ON cou.id = cur.countries" +
-            " WHERE stat.id = note.statuses" +
+            " WHERE stat.id = note.statuses AND bou.name = 'LOC'" +
             " GROUP BY cou.id, cou.countryEn, cou.countryPl, cur.id, cur.currencySeries, bou.name, note.denomination, note.nameCurrency, note.itemDate, " +
             "          note.priceBuy, note.quantity, note.description, note.aversPath, note.reversePath " +
             " ORDER BY cou.countryEn, note.denomination")

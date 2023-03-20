@@ -11,7 +11,7 @@
     <h1 style="text-align: center">Note</h1>
 
         <div class="container">
-            <table class="table table-striped table-bordered table-hover table-sm" th:with="totalPrice=0">
+            <table class="table table-striped table-bordered table-hover table-sm">
                 <thead class="thead-dark">
                 <tr>
                     <!--                <th>CON</th>-->
@@ -27,7 +27,7 @@
 <!--                    <th style="width: 156px">Akcja</th>-->
                 </tr>
                 </thead>
-                <tbody>
+                <tbody th:with="totalPrice=0">
                 <Block th:each="note, i : ${newNotesList}">
                     <p th:with="totalPrice=${totalPrice + (note.priceBuy * note.quantity)}"></p>
                     <tr>
