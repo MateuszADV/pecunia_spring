@@ -17,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import utils.JsonUtils;
 
@@ -110,11 +111,24 @@ public class NoteCollectionController {
                 modelMap.addAttribute("error" , "Brak danych do wyświetlenia!!!");
                 return "error";
             }
-
         }
         System.out.println(JsonUtils.gsonPretty(noteDtos));
 
         modelMap.addAttribute("notes", noteDtos);
         return "note/collection/notes";
+    }
+
+    @GetMapping("/note/collection/show/{noteId}")
+    public String getShow(@PathVariable Long noteId, ModelMap modelMap) {
+        System.out.println("pppppppppppppppppppppppppppppppppppppppppppp");
+        System.out.println(noteId);
+        System.out.println("pppppppppppppppppppppppppppppppppppppppppppp");
+
+        Note note = noteService.getNoteById(noteId);
+        NoteDto noteDto = new ModelMapper().map(note, NoteDto.class);
+        modelMap.addAttribute("note", noteDto);
+        System.out.println(noteDto.getCurrencies().getId());
+
+        return "note/collection/show";
     }
 }

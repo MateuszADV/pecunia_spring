@@ -16,7 +16,7 @@
         <div class="form-row align-items-center">
             <div class="form-row align-items-center">
                 <th:block th:each="note : ${notes}">
-<!--                    <a th:href="@{'/note/collection/notes/?selectCurrencyId=' + ${note.id}}">-->
+
                         <div class="col-auto note-box">
                             <div style="display: flex; justify-content: center">
                                 <div th:replace="fragments/_image-midle :: image-midle(image = ${note.aversPath})"></div>
@@ -29,9 +29,13 @@
 <!--                                    This content is only shown to ADMIN.-->
                                     <p th:text="${'Visible: ' + note.visible}"></p>
                                 </div>
+                                <a th:replace="fragments/button/_button-show :: show(show = '/note/collection/show/' + ${note.id})"></a>
                             </div>
+<!--                            <a th:href="@{'/note/collection/show/' + ${note.id}}" class="btn btn-sm btn-info" style="font-size: 10px">SHOW</a>-->
+
                         </div>
-                    </a>
+
+
                 </th:block>
             </div>
         </div>
