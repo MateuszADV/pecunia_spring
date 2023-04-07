@@ -1,9 +1,11 @@
 package PecuniaSpring.controllers.viewControllers;
 
 import PecuniaSpring.models.Continent;
+import PecuniaSpring.models.Currency;
 import PecuniaSpring.models.Note;
 import PecuniaSpring.models.dto.continent.ContinentCountriesDto;
 import PecuniaSpring.models.dto.note.NoteDto;
+import PecuniaSpring.models.repositories.CurrencyRepository;
 import PecuniaSpring.models.repositories.NoteRepository;
 import PecuniaSpring.models.sqlClass.CountryByStatus;
 import PecuniaSpring.models.sqlClass.CurrencyByStatus;
@@ -13,6 +15,9 @@ import PecuniaSpring.services.noteServices.NoteServiceImpl;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +28,7 @@ import utils.JsonUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class NoteCollectionController {
@@ -32,6 +38,7 @@ public class NoteCollectionController {
     private UserCheckLoged userCheckLoged;
 
     private NoteRepository noteRepository;
+    private CurrencyRepository currencyRepository;
 
     @Autowired
     public NoteCollectionController(NoteServiceImpl noteService, CountryServiceImpl countryService, UserCheckLoged userCheckLoged, NoteRepository noteRepository) {
@@ -64,6 +71,8 @@ public class NoteCollectionController {
         } else {
             countryByStatusList = noteService.getCountryByStatus(continentEn, "KOLEKCJA", role);
             System.out.println("Brak uprawnień");
+            modelMap.addAttribute("error", "Brak Uprawnień");
+            return "error";
         }
         modelMap.addAttribute("countryByStatusList", countryByStatusList);
 
@@ -92,29 +101,68 @@ public class NoteCollectionController {
 
     @GetMapping("/note/collection/notes")
     public String getNote(@RequestParam("selectCurrencyId") Long currencyId, ModelMap modelMap) {
+//        String role = userCheckLoged.UserCheckLoged().getAuthorities().toArray()[0].toString();
+//        List<Note> notes = new ArrayList<>();
+//        List<NoteDto> noteDtos = new ArrayList<>();
+//
+//        if (role == "ADMIN") {
+//            notes = noteService.getNoteByCurrencyId(currencyId, role);
+//            for (Note note : notes) {
+//                noteDtos.add(new ModelMapper().map(note, NoteDto.class));
+//            }
+//        } else {
+//            notes = noteService.getNoteByCurrencyId(currencyId, role);
+//            if (notes.size() > 0) {
+//                for (Note note : notes) {
+//                    noteDtos.add(new ModelMapper().map(note, NoteDto.class));
+//                }
+//            } else {
+//                modelMap.addAttribute("error" , "Brak danych do wyświetlenia!!!");
+//                return "error";
+//            }
+//        }
+//        System.out.println(JsonUtils.gsonPretty(noteDtos));
+//
+//        modelMap.addAttribute("notes", noteDtos);
+
+
+//        return "note/collection/notes";
+        return findPaginated(1, currencyId, modelMap);
+    }
+
+    @GetMapping("/pageNote/{pageNo}")
+    public String findPaginated(@PathVariable(value = "pageNo") int pageNo,
+                                @RequestParam("currencyId") Long currencyId, ModelMap modelMap) {
         String role = userCheckLoged.UserCheckLoged().getAuthorities().toArray()[0].toString();
-        List<Note> notes = new ArrayList<>();
-        List<NoteDto> noteDtos = new ArrayList<>();
+//        Integer pageNo = 1;
+        Integer pageSize =10;
+//        Long currencyId = 226l;
 
-        if (role == "ADMIN") {
-            notes = noteService.getNoteByCurrencyId(currencyId, role);
-            for (Note note : notes) {
-                noteDtos.add(new ModelMapper().map(note, NoteDto.class));
-            }
-        } else {
-            notes = noteService.getNoteByCurrencyId(currencyId, role);
-            if (notes.size() > 0) {
-                for (Note note : notes) {
-                    noteDtos.add(new ModelMapper().map(note, NoteDto.class));
-                }
-            } else {
-                modelMap.addAttribute("error" , "Brak danych do wyświetlenia!!!");
-                return "error";
-            }
+        Page<Note> page = noteService.findNotePaginated(pageNo, pageSize, currencyId, role);
+        List<NoteDto> noteDtoList = new ArrayList<>();
+
+        for (Note note : page.getContent()) {
+            noteDtoList.add(new ModelMapper().map(note, NoteDto.class));
         }
-        System.out.println(JsonUtils.gsonPretty(noteDtos));
 
-        modelMap.addAttribute("notes", noteDtos);
+        String pathPage = "/pageNote/";
+        modelMap.addAttribute("currentPage", pageNo);
+        modelMap.addAttribute("totalPages", page.getTotalPages());
+        modelMap.addAttribute("totalItems", page.getTotalElements());
+        modelMap.addAttribute("pageSize", pageSize);
+        modelMap.addAttribute("pathPage", pathPage);
+
+        System.out.println("PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP");
+        System.out.println(page.getTotalElements());
+        System.out.println(page.getTotalPages());
+        System.out.println(page.getSize());
+
+        for (NoteDto noteDto : noteDtoList) {
+            System.out.println(noteDto.getId() + " - " + noteDto.getDenomination());
+        }
+
+        modelMap.addAttribute("notes", noteDtoList);
+        System.out.println("PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP");
         return "note/collection/notes";
     }
 

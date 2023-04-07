@@ -7,6 +7,9 @@ import PecuniaSpring.models.sqlClass.CountryByStatus;
 import PecuniaSpring.models.sqlClass.CurrencyByStatus;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -98,4 +101,17 @@ public class NoteServiceImpl implements NoteService {
         }
         return currencyByStatusList;
     }
+
+    @Override
+    public Page<Note> findNotePaginated(Integer pageNo, Integer pageSize, Long currencyId, String role) {
+        List<Note> notes = new ArrayList<>();
+        if (role == "ADMIN") {
+            Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
+            return this.noteRepository.notePageable(currencyId, pageable);
+        } else {
+            Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
+            return this.noteRepository.notePageable(currencyId, true, pageable);
+        }
+    }
+
 }

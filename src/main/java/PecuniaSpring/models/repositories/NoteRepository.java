@@ -1,6 +1,9 @@
 package PecuniaSpring.models.repositories;
 
+import PecuniaSpring.models.Currency;
 import PecuniaSpring.models.Note;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -100,5 +103,15 @@ public interface NoteRepository extends JpaRepository<Note, Long> {
             "          note.priceBuy, note.quantity, note.description, note.aversPath, note.reversePath " +
             " ORDER BY cou.countryEn, note.denomination")
     List<Object[]> getNotesByStatus(String status);
+
+    @Query(value = "SELECT note FROM Note note " +
+                   "WHERE note.currencies.id = ?1 " +
+                   "ORDER BY note.denomination")
+    Page<Note> notePageable(Long currencyId, final Pageable pageable);
+
+    @Query(value = "SELECT note FROM Note note " +
+            "WHERE note.currencies.id = ?1 AND note.visible = ?2 " +
+            "ORDER BY note.denomination")
+    Page<Note> notePageable(Long currencyId, Boolean visible, final Pageable pageable);
 
 }

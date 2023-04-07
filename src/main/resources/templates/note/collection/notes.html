@@ -34,10 +34,12 @@
 <!--                            <a th:href="@{'/note/collection/show/' + ${note.id}}" class="btn btn-sm btn-info" style="font-size: 10px">SHOW</a>-->
 
                         </div>
-
-
                 </th:block>
             </div>
+
+        </div>
+        <div th:if="${totalPages} > 1">
+            <div th:replace="fragments/_pagination-new :: pagination(currencyId = ${notes[0].currencies.id})"></div>
         </div>
     </div>
 
