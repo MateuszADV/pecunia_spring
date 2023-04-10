@@ -110,8 +110,8 @@ public interface NoteRepository extends JpaRepository<Note, Long> {
     Page<Note> notePageable(Long currencyId, final Pageable pageable);
 
     @Query(value = "SELECT note FROM Note note " +
-            "WHERE note.currencies.id = ?1 AND note.visible = ?2 " +
-            "ORDER BY note.denomination")
+                   "WHERE note.currencies.id = ?1 AND note.visible = ?2 " +
+                   "ORDER BY note.denomination")
     Page<Note> notePageable(Long currencyId, Boolean visible, final Pageable pageable);
 
 }

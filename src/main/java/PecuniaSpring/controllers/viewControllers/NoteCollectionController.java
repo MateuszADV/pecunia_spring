@@ -70,9 +70,9 @@ public class NoteCollectionController {
             countryByStatusList = noteService.getCountryByStatus(continentEn, "KOLEKCJA", role);
         } else {
             countryByStatusList = noteService.getCountryByStatus(continentEn, "KOLEKCJA", role);
-            System.out.println("Brak uprawnień");
+            System.out.println("Brak uprawnień to tu");
             modelMap.addAttribute("error", "Brak Uprawnień");
-            return "error";
+//            return "error";
         }
         modelMap.addAttribute("countryByStatusList", countryByStatusList);
 
@@ -130,7 +130,7 @@ public class NoteCollectionController {
         return findPaginated(1, currencyId, modelMap);
     }
 
-    @GetMapping("/pageNote/{pageNo}")
+    @GetMapping("/note/collection/notes/page/{pageNo}")
     public String findPaginated(@PathVariable(value = "pageNo") int pageNo,
                                 @RequestParam("currencyId") Long currencyId, ModelMap modelMap) {
         String role = userCheckLoged.UserCheckLoged().getAuthorities().toArray()[0].toString();
@@ -145,7 +145,7 @@ public class NoteCollectionController {
             noteDtoList.add(new ModelMapper().map(note, NoteDto.class));
         }
 
-        String pathPage = "/pageNote/";
+        String pathPage = "/note/collection/notes/page/";
         modelMap.addAttribute("currentPage", pageNo);
         modelMap.addAttribute("totalPages", page.getTotalPages());
         modelMap.addAttribute("totalItems", page.getTotalElements());
@@ -162,6 +162,7 @@ public class NoteCollectionController {
         }
 
         modelMap.addAttribute("notes", noteDtoList);
+        System.out.println(role);
         System.out.println("PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP");
         return "note/collection/notes";
     }
