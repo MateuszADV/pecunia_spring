@@ -22,7 +22,7 @@
                                 <div th:replace="fragments/_image-midle :: image-midle(image = ${note.aversPath})"></div>
                                 <div th:replace="fragments/_image-midle :: image-midle(image = ${note.reversePath})"></div>
                             </div>
-                            <div style="text-align: left">
+                            <div style="text-align: left; font-size: small">
                                 <span th:text="${note.denomination >= 1 ? #numbers.formatDecimal(note.denomination,1,0,'COMMA') :  #numbers.formatDecimal(note.denomination,1,2,'COMMA')} + ' ' + ${note.nameCurrency}"></span><br>
                                 <span th:text="${'Year: ' + note.itemDate}"></span>
                                 <div sec:authorize="hasAuthority('ADMIN')">
