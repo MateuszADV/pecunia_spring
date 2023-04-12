@@ -7,17 +7,17 @@
                 <span class="page-link" style="background: black"> Total Rows: [[${totalItems}]]</span>
             </li>
             <li class="page-item">
-                <a class="page-link" style="background: black"  th:if="${currentPage > 1}" th:href="@{${pathPage}  + ${currentPage - 1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}} ">PREV</a>
+                <a class="page-link" style="background: black"  th:if="${currentPage > 1}" th:href="@{${pathPage}  + ${currentPage - 1} + '?currencyId=' + ${currencyId}} ">PREV</a>
                 <span class="page-link" aria-current="page" style="background: darkgray" th:unless="${currentPage > 1}">Prev</span>
             </li>
             <block th:each="i: ${#numbers.sequence(1, totalPages)}">
                 <li class="page-item">
-                    <a class="page-link active" th:if="${currentPage != i}" th:href="@{${pathPage} + ${i} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}} ">[[${i}]]</a>
+                    <a class="page-link active" th:if="${currentPage != i}" th:href="@{${pathPage} + ${i} + '?currencyId=' + ${currencyId}} ">[[${i}]]</a>
                     <span class="page-link" aria-current="page" style="background: aqua" th:unless="${currentPage != i}">[[${i}]]</span>
                 </li>
             </block>
             <li class="page-item">
-                <a class="page-link" style="background: black"  th:if="${currentPage < totalPages}" th:href="@{${pathPage}  + ${currentPage + 1} + '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}} ">NEXT</a>
+                <a class="page-link" style="background: black"  th:if="${currentPage < totalPages}" th:href="@{${pathPage}  + ${currentPage + 1} + '?currencyId=' + ${currencyId}} ">NEXT</a>
                 <span class="page-link" aria-current="page" style="background: darkgray" th:unless="${currentPage < totalPages}">Next</span>
             </li>
         </ul>

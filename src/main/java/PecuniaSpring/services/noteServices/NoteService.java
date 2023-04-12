@@ -23,5 +23,5 @@ public interface NoteService {
 
     List<CurrencyByStatus> getCurrencyByStatus(Long countryId, String status, String role);
 
-    Page<Note> findNotePaginated(Integer pageNo, Integer pageSize, Long currencyId, String role);
+    Page<Note> findNotePaginated(Integer pageNo, Integer pageSize, Long currencyId, String status, String role);
 }

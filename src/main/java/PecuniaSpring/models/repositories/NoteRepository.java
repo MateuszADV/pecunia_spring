@@ -105,13 +105,17 @@ public interface NoteRepository extends JpaRepository<Note, Long> {
     List<Object[]> getNotesByStatus(String status);
 
     @Query(value = "SELECT note FROM Note note " +
-                   "WHERE note.currencies.id = ?1 " +
+                   "  LEFT JOIN Status stat " +
+                   "    ON stat.status = ?2 " +
+                   "WHERE note.currencies.id = ?1 AND stat.id = note.statuses " +
                    "ORDER BY note.denomination")
-    Page<Note> notePageable(Long currencyId, final Pageable pageable);
+    Page<Note> notePageable(Long currencyId, String status, final Pageable pageable);
 
     @Query(value = "SELECT note FROM Note note " +
-                   "WHERE note.currencies.id = ?1 AND note.visible = ?2 " +
+                   "  LEFT JOIN Status stat " +
+                   "    ON stat.status = ?2" +
+                   "WHERE note.currencies.id = ?1 AND stat.id = note.statuses  AND note.visible = ?3 " +
                    "ORDER BY note.denomination")
-    Page<Note> notePageable(Long currencyId, Boolean visible, final Pageable pageable);
+    Page<Note> notePageable(Long currencyId, String status, Boolean visible, final Pageable pageable);
 
 }

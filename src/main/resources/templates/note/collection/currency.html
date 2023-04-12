@@ -13,7 +13,7 @@
 
         <div class="form-row align-items-center">
             <th:block th:each="currency : ${currencyByStatusList}">
-                <a th:href="@{'/note/collection/notes/?selectCurrencyId=' + ${currency.currencyId}}">
+                <a th:href="@{'/note/collection/notes/?selectCurrencyId=' + ${currency.currencyId} + '&status=KOLEKCJA'}">
                     <div class="col-auto currency-box ">
                         <span th:text="${currency.currencySeries}"></span><br>
                         <span>[[${'(' + currency.total + ')'}]]</span>

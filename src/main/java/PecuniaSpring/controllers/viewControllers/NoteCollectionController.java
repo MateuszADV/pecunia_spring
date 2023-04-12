@@ -127,18 +127,19 @@ public class NoteCollectionController {
 
 
 //        return "note/collection/notes";
-        return findPaginated(1, currencyId, modelMap);
+        return findPaginated(1, currencyId, "KOLEKCJA", modelMap);
     }
 
     @GetMapping("/note/collection/notes/page/{pageNo}")
     public String findPaginated(@PathVariable(value = "pageNo") int pageNo,
-                                @RequestParam("currencyId") Long currencyId, ModelMap modelMap) {
+                                @RequestParam("currencyId") Long currencyId,
+                                @RequestParam("status") String status, ModelMap modelMap) {
         String role = userCheckLoged.UserCheckLoged().getAuthorities().toArray()[0].toString();
 //        Integer pageNo = 1;
         Integer pageSize =10;
 //        Long currencyId = 226l;
 
-        Page<Note> page = noteService.findNotePaginated(pageNo, pageSize, currencyId, role);
+        Page<Note> page = noteService.findNotePaginated(pageNo, pageSize, currencyId, status, role);
         List<NoteDto> noteDtoList = new ArrayList<>();
 
         for (Note note : page.getContent()) {

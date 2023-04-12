@@ -103,14 +103,14 @@ public class NoteServiceImpl implements NoteService {
     }
 
     @Override
-    public Page<Note> findNotePaginated(Integer pageNo, Integer pageSize, Long currencyId, String role) {
+    public Page<Note> findNotePaginated(Integer pageNo, Integer pageSize, Long currencyId, String status, String role) {
         List<Note> notes = new ArrayList<>();
         if (role == "ADMIN") {
             Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
-            return this.noteRepository.notePageable(currencyId, pageable);
+            return this.noteRepository.notePageable(currencyId, status, pageable);
         } else {
             Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
-            return this.noteRepository.notePageable(currencyId, true, pageable);
+            return this.noteRepository.notePageable(currencyId, status, true, pageable);
         }
     }
 
