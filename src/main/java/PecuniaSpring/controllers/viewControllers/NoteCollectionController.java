@@ -135,9 +135,7 @@ public class NoteCollectionController {
                                 @RequestParam("currencyId") Long currencyId,
                                 @RequestParam("status") String status, ModelMap modelMap) {
         String role = userCheckLoged.UserCheckLoged().getAuthorities().toArray()[0].toString();
-//        Integer pageNo = 1;
         Integer pageSize =10;
-//        Long currencyId = 226l;
 
         Page<Note> page = noteService.findNotePaginated(pageNo, pageSize, currencyId, status, role);
         List<NoteDto> noteDtoList = new ArrayList<>();
@@ -157,10 +155,6 @@ public class NoteCollectionController {
         System.out.println(page.getTotalElements());
         System.out.println(page.getTotalPages());
         System.out.println(page.getSize());
-
-        for (NoteDto noteDto : noteDtoList) {
-            System.out.println(noteDto.getId() + " - " + noteDto.getDenomination());
-        }
 
         modelMap.addAttribute("notes", noteDtoList);
         System.out.println(role);

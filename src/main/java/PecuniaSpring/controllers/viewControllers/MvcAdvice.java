@@ -5,13 +5,12 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 @ControllerAdvice
 public class MvcAdvice {
     @ModelAttribute
     public void addRateMetal(ModelMap modelMap) {
-
-        modelMap.addAttribute("testB", LocalDateTime.now());
+        modelMap.addAttribute("standardDate", new Date());
     }
 }
