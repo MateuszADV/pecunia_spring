@@ -1,6 +1,11 @@
 <header th:fragment="metalRate"
         xmlns:th="http://www.thymeleaf.org">
-    <div style="text-align: center; background-color: #b0c8db">
-        <span th:text="${#dates.format(standardDate, 'yyyy-MM-dd HH:mm')}"></span>
+    <div th:if="${apiMetal.responseStatusInfo.statusCode} == 200" style="text-align: center; background-color: #b0c8db">
+        <span th:text="${apiMetal.responseStatusInfo.statusCode}"></span>
+        <span th:text="*{#calendars.format(apiMetal.date,'yyyy-MM-dd HH:mm:ss')}"></span>
+        <block th:each=" metal : ${apiMetal.apiMetals}">
+            <span>[[${metal.metal}]]: [[${metal.price}]] |</span>
+        </block>
+
     </div>
 </header>
