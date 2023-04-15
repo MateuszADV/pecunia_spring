@@ -8,6 +8,7 @@ import PecuniaSpring.registration.EmailValidator;
 import PecuniaSpring.registration.RegistrationRequest;
 import PecuniaSpring.registration.RegistrationService;
 import PecuniaSpring.security.config.UserCheckLoged;
+import PecuniaSpring.services.apiService.ApiServiceImpl;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.core.Authentication;

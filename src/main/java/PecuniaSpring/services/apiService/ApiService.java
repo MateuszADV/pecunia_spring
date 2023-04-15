@@ -1,5 +1,6 @@
 package PecuniaSpring.services.apiService;
 
+import PecuniaSpring.models.other.GetApiMetal;
 import com.sun.jersey.api.client.ClientResponse;
 import org.springframework.stereotype.Service;
 
@@ -8,4 +9,5 @@ import org.springframework.stereotype.Service;
 public interface ApiService {
 
     ClientResponse clientResponse(String url);
+    GetApiMetal getApiMetal(String url);
 }
