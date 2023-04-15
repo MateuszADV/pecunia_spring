@@ -12,12 +12,8 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class ApiMetalData {
+public class ApiResponseInfo {
     private Date date;
-//    private Integer responseStatus;
     private Response.StatusType responseStatusInfo;
-    private List<ApiMetal> apiMetals = new ArrayList<>();
-
-    public void getResponseStatusInfo(Response.StatusType statusInfo) {
-    }
+//    private List<ApiMetal> apiMetals = new ArrayList<>();
 }
