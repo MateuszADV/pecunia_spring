@@ -15,5 +15,5 @@ public class Exchange {
     private String table;
     private String no;
     private String effectiveDate;
-    private List<Rates> rates;
+    private List<Rate> rates;
 }

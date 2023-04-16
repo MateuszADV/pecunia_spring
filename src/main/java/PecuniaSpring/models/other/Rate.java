@@ -14,7 +14,7 @@ import lombok.ToString;
 @ToString
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder()
-public class Rates {
+public class Rate {
     @JsonProperty("currency")
     private String currency;
     @JsonProperty("cod")

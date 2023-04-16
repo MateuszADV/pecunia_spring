@@ -6,6 +6,7 @@ import PecuniaSpring.models.Country;
 import PecuniaSpring.models.other.ApiResponseInfo;
 import PecuniaSpring.models.other.Exchange;
 import PecuniaSpring.models.other.GetRateCurrencyTableA;
+import PecuniaSpring.models.other.Rate;
 import PecuniaSpring.models.repositories.CountryRepository;
 import PecuniaSpring.registration.EmailValidator;
 import PecuniaSpring.registration.RegistrationRequest;
@@ -15,7 +16,6 @@ import PecuniaSpring.services.apiService.ApiServiceImpl;
 import com.sun.jersey.api.client.ClientResponse;
 import lombok.AllArgsConstructor;
 import org.json.JSONArray;
-import org.json.JSONObject;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -32,14 +32,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 @Controller
 @AllArgsConstructor
@@ -58,22 +54,16 @@ public class HomeControler {
                            HttpServletResponse response) throws ParseException {
         GetRateCurrencyTableA getRateCurrencyTableA = new GetRateCurrencyTableA();
         Exchange exchange = new Exchange();
+        Rate rate = new Rate();
+        List<Rate> rates = new ArrayList<>();
         ApiResponseInfo apiResponseInfo = new ApiResponseInfo();
-
 
         ClientResponse clientResponse = apiService.clientResponse("https://api.nbp.pl/api/exchangerates/tables/A/?format=json");
         String stringJson = clientResponse.getEntity(String.class);
         JSONArray jsonArray = new JSONArray(stringJson);
-//        System.out.println(clientResponse.getHeaders());
-//        System.out.println(JsonUtils.gsonPretty(jsonArray.getJSONObject(0).get("table")));
-//        System.out.println(JsonUtils.gsonPretty(jsonArray.getJSONObject(0).get("no")));
-//        System.out.println(JsonUtils.gsonPretty(jsonArray.getJSONObject(0).get("effectiveDate")));
-
-
 
         String startDate = jsonArray.getJSONObject(0).get("effectiveDate").toString();
         java.sql.Date date = java.sql.Date.valueOf(startDate);
-        System.out.println(date);
 
         apiResponseInfo.setResponseStatusInfo(clientResponse.getStatusInfo());
         apiResponseInfo.setDate(date);
@@ -81,18 +71,22 @@ public class HomeControler {
         exchange.setNo(jsonArray.getJSONObject(0).get("no").toString());
         exchange.setTable(jsonArray.getJSONObject(0).get("table").toString());
         exchange.setEffectiveDate(jsonArray.getJSONObject(0).get("effectiveDate").toString());
-//        getRateCurrencyTableA.getExchange().setNo(jsonArray.getJSONObject(0).get("no"));
-//        getRateCurrencyTableA.getExchange().setTable(jsonArray.getJSONObject(0).get("table").toString());
-//        getRateCurrencyTableA.getExchange().setEffectiveDate(jsonArray.getJSONObject(0).get("effectiveDate").toString());
-
-        System.out.println(JsonUtils.gsonPretty(jsonArray.getJSONObject(0).getJSONArray("rates").getJSONObject(0).get("code")));
         JSONArray jsonArray1 = new JSONArray(jsonArray.getJSONObject(0).getJSONArray("rates"));
 
+        String[] codes = {"EUR", "USD", "GBP", "CHF"};
+        String code;
         for (int i = 0; i < jsonArray1.length(); i++) {
-            System.out.println(jsonArray1.getJSONObject(i));
+            code = jsonArray1.getJSONObject(i).get("code").toString();
+            if (Arrays.stream(codes).anyMatch(code::equals)) {
+                rate.setCod(jsonArray1.getJSONObject(i).getString("code"));
+                rate.setCurrency(jsonArray1.getJSONObject(i).getString("currency"));
+                rate.setMid(jsonArray1.getJSONObject(i).getDouble("mid"));
+                rates.add(rate);
+            }
         }
 
         getRateCurrencyTableA.setExchange(exchange);
+        getRateCurrencyTableA.getExchange().setRates(rates);
         getRateCurrencyTableA.setApiResponseInfo(apiResponseInfo);
         System.out.println(JsonUtils.gsonPretty(getRateCurrencyTableA));
 
