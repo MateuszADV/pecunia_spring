@@ -22,6 +22,21 @@ public interface NoteRepository extends JpaRepository<Note, Long> {
     List<Note> getNoteByCurrencyId(Long currencyId, Boolean visible);
 
 
+    @Query(value = "SELECT new map(con.continentEn AS continent, con.continentCode AS continentCode, cou.id AS countryId, cou.countryEn AS countryEn, cou.countryPl AS countryPl, COUNT(cou.countryEn) AS total) " +
+            "  FROM Note note" +
+            "  LEFT JOIN Status stat" +
+            "    ON stat.status = ?1" +
+            "  LEFT JOIN Currency cur" +
+            "    ON cur.id = note.currencies" +
+            "  LEFT JOIN Country cou" +
+            "    ON cou.id = cur.countries" +
+            "  LEFT JOIN Continent con" +
+            "    ON con.id = cou.continents" +
+            " WHERE stat.id = note.statuses" +
+            " GROUP BY cou.countryEn, cou.countryPl, cou.id, con.continentEn, con.continentCode" +
+            " ORDER BY cou.countryEn")
+    List<Object[]> countryByStatus(String status);
+
     /**
      * @param status
      * @param continent
@@ -103,6 +118,25 @@ public interface NoteRepository extends JpaRepository<Note, Long> {
             "          note.priceBuy, note.quantity, note.description, note.aversPath, note.reversePath " +
             " ORDER BY cou.countryEn, note.denomination")
     List<Object[]> getNotesByStatus(String status);
+
+    @Query(value = "SELECT new map(cou.id AS countryId, cou.countryEn AS countryEn, cou.countryPl AS countryPl, cur.id AS currencyId, " +
+            "cur.currencySeries AS currencySeries, bou.name AS bought, note.denomination AS denomination, note.nameCurrency AS nameCurrency, note.itemDate AS itemDate, " +
+            "note.priceBuy AS priceBuy, note.quantity AS quantity, note.description AS descryption, " +
+            "note.aversPath AS aversPath, note.reversePath AS reversePath ) " +
+            "  FROM Note note" +
+            "  LEFT JOIN Status stat" +
+            "    ON stat.status = ?1" +
+            "  LEFT JOIN Bought bou" +
+            "    ON bou.id = note.boughts" +
+            "  LEFT JOIN Currency cur" +
+            "    ON cur.id = note.currencies" +
+            "  LEFT JOIN Country cou" +
+            "    ON cou.id = cur.countries" +
+            " WHERE stat.id = note.statuses AND cou.id = ?2" +
+            " GROUP BY cou.id, cou.countryEn, cou.countryPl, cur.id, cur.currencySeries, bou.name, note.denomination, note.nameCurrency, note.itemDate, " +
+            "          note.priceBuy, note.quantity, note.description, note.aversPath, note.reversePath " +
+            " ORDER BY cou.countryEn, note.denomination")
+    List<Object[]> getNotesByStatus(String status, Long countrtyId);
 
     @Query(value = "SELECT note FROM Note note " +
                    "  LEFT JOIN Status stat " +
