@@ -71,7 +71,6 @@ public class ApiServiceImpl implements ApiService {
     public GetRateCurrencyTableA getRateCurrencyTableA(String url, String[] codes) {
         GetRateCurrencyTableA getRateCurrencyTableA = new GetRateCurrencyTableA();
         Exchange exchange = new Exchange();
-        Rate rate = new Rate();
         List<Rate> rates = new ArrayList<>();
         ApiResponseInfo apiResponseInfo = new ApiResponseInfo();
 
@@ -95,13 +94,13 @@ public class ApiServiceImpl implements ApiService {
             for (int i = 0; i < jsonArray1.length(); i++) {
                 code = jsonArray1.getJSONObject(i).get("code").toString();
                 if (Arrays.stream(codes).anyMatch(code::equals)) {
+                    Rate rate = new Rate();
                     rate.setCod(jsonArray1.getJSONObject(i).getString("code"));
                     rate.setCurrency(jsonArray1.getJSONObject(i).getString("currency"));
                     rate.setMid(jsonArray1.getJSONObject(i).getDouble("mid"));
                     rates.add(rate);
                 }
             }
-
             getRateCurrencyTableA.setExchange(exchange);
             getRateCurrencyTableA.getExchange().setRates(rates);
             getRateCurrencyTableA.setApiResponseInfo(apiResponseInfo);

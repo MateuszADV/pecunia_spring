@@ -8,7 +8,11 @@
 </head>
 <body>
     <div layout:fragment="content" class="container">
-
+        <div th:if="${rateCurrencyTableA.exchange} != null" style="background: aquamarine; text-align: center">
+            <block th:each=" rate : ${rateCurrencyTableA.exchange.rates}">
+                <span>[[${rate.cod}]]: [[${rate.mid}]] </span>
+            </block>
+        </div>
         <div class="row row-cols-1 row-cols-sm-2">
             <div class="col field" style="float: left; padding: 10px 10px 10px 10px">
                 <img src="https://pehkkw.ch.files.1drv.com/y4muxeaNpoJz-ILuHG-1AwPz2sUN-zN6vmaoPHFwe24M0ZgZ5xrxfU8XxpR7ANJ1Lom-p8XP_bCIeoRib6qacOJzBA1ZOQkX0WlbBNOccJD7V38GjEizFoiqAR1CzqbL_OtiXJmWz5TWjCmQvqMAto6IDPwWpsZNf0xBAfEBC-kwrPqVvVr6DR4um6oROlMjnPwSVUD7xhgtRPOb6pBhZJJ9A/Poland_20_Zlotych_201a_2018.jpg?psid=1" style="max-width: 100%; max-height: 350px"/>
@@ -18,8 +22,16 @@
             </div>
         </div>
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3">
-            <div class="col field" style="float: left; padding: 10px 10px 10px 10px">
+            <div class="col field" style="float: left; padding: 10px 10px 10px 10px" >
                 <h3>Note</h3>
+                <div class="row row-cols-1 row-cols-sm-2" style="text-align: center">
+                    <div class="col field" style="float: left; padding: 10px 10px 10px 10px">
+                        <img src="https://pehkkw.ch.files.1drv.com/y4mNVXrG_-x12nbIvGKJ2ms8SpGIi3w8QBwgx08L4UQFM7PdqrMwBo_0pUKIX6MA83PmhkU37U1eH4FofvuRnzBPseFf5TBbY82mZ0jnnfh4sK4N6m6B3Q24WTHS-c3W35WA5RFR1mUNr2xlXvocd220LpsypSF6JUdGi0IQAx5koLMpnxVvQ0RqB4t8WiDuEPvlMibKOTmRZXCVxXhaVkxfw/Poland_19_Zlotych_201a_2019.jpg?psid=1" style="max-width: 100%; max-height: 100px"/>
+                    </div>
+                    <div class="col field" style="float: left; padding: 10px 10px 10px 10px">
+                        <img src="https://pehkkw.ch.files.1drv.com/y4mTdJBUd72VW2oPVKt6N_UNoV0g0lyGf7Qo9jz8-B9cf8zbYvhse1DYfEAT2Q8HLqdp7zyqPzXuo4LowxfxHRPekKShPTYfweOPADCm-LsyKwR_WUosk3PPZP9nKQK1PtECJWcyybofzDR5su-19-BDPryHNQTFV7y3PV0dD7Ya5ur1uTUsksIbYlOs3VJMFQhLzn0vYma8zCJ5-xVgKX9Qg/Poland_19_Zlotych_201b_2019.jpg?psid=1" style="max-width: 100%; max-height: 100px"/>
+                    </div>
+                </div>
                <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                    Vestibulum turpis enim, tempus venenatis sodales a, auctor ut lorem.
                    Cras maximus ornare condimentum. Aenean vehicula, leo eu feugiat vehicula,

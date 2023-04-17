@@ -47,9 +47,16 @@ public class HomeControler {
     public String getIndex(ModelMap modelMap,
                            HttpServletRequest request,
                            HttpServletResponse response) throws ParseException {
+        GetRateCurrencyTableA getRateCurrencyTableA = new GetRateCurrencyTableA();
         String[] codes = {"EUR", "USD", "GBP", "CHF"};
-        GetRateCurrencyTableA getRateCurrencyTableA = apiService.getRateCurrencyTableA("https://api.nbp.pl/api/exchangerates/tables/A/h?format=json", codes);
-        System.out.println(JsonUtils.gsonPretty(getRateCurrencyTableA));
+        try {
+            getRateCurrencyTableA= apiService.getRateCurrencyTableA("https://api.nbp.pl/api/exchangerates/tables/A/?format=json", codes);
+            modelMap.addAttribute("rateCurrencyTableA", getRateCurrencyTableA);
+            System.out.println(JsonUtils.gsonPretty(getRateCurrencyTableA));
+        }catch (Exception e) {
+            modelMap.addAttribute("rateCurrencyTableA", getRateCurrencyTableA);
+        }
+
 
         return "home/index";
     }
