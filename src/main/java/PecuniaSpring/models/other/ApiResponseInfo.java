@@ -15,5 +15,4 @@ import java.util.List;
 public class ApiResponseInfo {
     private Date date;
     private Response.StatusType responseStatusInfo;
-//    private List<ApiMetal> apiMetals = new ArrayList<>();
 }

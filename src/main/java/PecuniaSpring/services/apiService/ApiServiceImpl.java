@@ -1,17 +1,17 @@
 package PecuniaSpring.services.apiService;
 
-import PecuniaSpring.models.other.ApiMetal;
-import PecuniaSpring.models.other.ApiResponseInfo;
-import PecuniaSpring.models.other.GetApiMetal;
+import PecuniaSpring.models.other.*;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 import org.json.JSONArray;
 import org.springframework.stereotype.Service;
+import utils.JsonUtils;
 
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -65,5 +65,50 @@ public class ApiServiceImpl implements ApiService {
             System.out.println(e.getMessage());
         }
         return getApiMetal;
+    }
+
+    @Override
+    public GetRateCurrencyTableA getRateCurrencyTableA(String url, String[] codes) {
+        GetRateCurrencyTableA getRateCurrencyTableA = new GetRateCurrencyTableA();
+        Exchange exchange = new Exchange();
+        Rate rate = new Rate();
+        List<Rate> rates = new ArrayList<>();
+        ApiResponseInfo apiResponseInfo = new ApiResponseInfo();
+
+        try {
+            ClientResponse clientResponse = clientResponse(url);
+            String stringJson = clientResponse.getEntity(String.class);
+            JSONArray jsonArray = new JSONArray(stringJson);
+
+            String startDate = jsonArray.getJSONObject(0).get("effectiveDate").toString();
+            java.sql.Date date = java.sql.Date.valueOf(startDate);
+
+            apiResponseInfo.setResponseStatusInfo(clientResponse.getStatusInfo());
+            apiResponseInfo.setDate(date);
+
+            exchange.setNo(jsonArray.getJSONObject(0).get("no").toString());
+            exchange.setTable(jsonArray.getJSONObject(0).get("table").toString());
+            exchange.setEffectiveDate(jsonArray.getJSONObject(0).get("effectiveDate").toString());
+            JSONArray jsonArray1 = new JSONArray(jsonArray.getJSONObject(0).getJSONArray("rates"));
+
+            String code;
+            for (int i = 0; i < jsonArray1.length(); i++) {
+                code = jsonArray1.getJSONObject(i).get("code").toString();
+                if (Arrays.stream(codes).anyMatch(code::equals)) {
+                    rate.setCod(jsonArray1.getJSONObject(i).getString("code"));
+                    rate.setCurrency(jsonArray1.getJSONObject(i).getString("currency"));
+                    rate.setMid(jsonArray1.getJSONObject(i).getDouble("mid"));
+                    rates.add(rate);
+                }
+            }
+
+            getRateCurrencyTableA.setExchange(exchange);
+            getRateCurrencyTableA.getExchange().setRates(rates);
+            getRateCurrencyTableA.setApiResponseInfo(apiResponseInfo);
+        }catch (Exception e) {
+            System.out.println(e.getMessage());
+
+        }
+        return getRateCurrencyTableA;
     }
 }

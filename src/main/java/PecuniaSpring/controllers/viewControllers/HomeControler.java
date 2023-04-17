@@ -3,19 +3,14 @@ package PecuniaSpring.controllers.viewControllers;
 import PecuniaSpring.models.dto.UserRegistration;
 import PecuniaSpring.models.dto.country.CountryDtoForm;
 import PecuniaSpring.models.Country;
-import PecuniaSpring.models.other.ApiResponseInfo;
-import PecuniaSpring.models.other.Exchange;
 import PecuniaSpring.models.other.GetRateCurrencyTableA;
-import PecuniaSpring.models.other.Rate;
 import PecuniaSpring.models.repositories.CountryRepository;
 import PecuniaSpring.registration.EmailValidator;
 import PecuniaSpring.registration.RegistrationRequest;
 import PecuniaSpring.registration.RegistrationService;
 import PecuniaSpring.security.config.UserCheckLoged;
 import PecuniaSpring.services.apiService.ApiServiceImpl;
-import com.sun.jersey.api.client.ClientResponse;
 import lombok.AllArgsConstructor;
-import org.json.JSONArray;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -52,44 +47,9 @@ public class HomeControler {
     public String getIndex(ModelMap modelMap,
                            HttpServletRequest request,
                            HttpServletResponse response) throws ParseException {
-        GetRateCurrencyTableA getRateCurrencyTableA = new GetRateCurrencyTableA();
-        Exchange exchange = new Exchange();
-        Rate rate = new Rate();
-        List<Rate> rates = new ArrayList<>();
-        ApiResponseInfo apiResponseInfo = new ApiResponseInfo();
-
-        ClientResponse clientResponse = apiService.clientResponse("https://api.nbp.pl/api/exchangerates/tables/A/?format=json");
-        String stringJson = clientResponse.getEntity(String.class);
-        JSONArray jsonArray = new JSONArray(stringJson);
-
-        String startDate = jsonArray.getJSONObject(0).get("effectiveDate").toString();
-        java.sql.Date date = java.sql.Date.valueOf(startDate);
-
-        apiResponseInfo.setResponseStatusInfo(clientResponse.getStatusInfo());
-        apiResponseInfo.setDate(date);
-
-        exchange.setNo(jsonArray.getJSONObject(0).get("no").toString());
-        exchange.setTable(jsonArray.getJSONObject(0).get("table").toString());
-        exchange.setEffectiveDate(jsonArray.getJSONObject(0).get("effectiveDate").toString());
-        JSONArray jsonArray1 = new JSONArray(jsonArray.getJSONObject(0).getJSONArray("rates"));
-
         String[] codes = {"EUR", "USD", "GBP", "CHF"};
-        String code;
-        for (int i = 0; i < jsonArray1.length(); i++) {
-            code = jsonArray1.getJSONObject(i).get("code").toString();
-            if (Arrays.stream(codes).anyMatch(code::equals)) {
-                rate.setCod(jsonArray1.getJSONObject(i).getString("code"));
-                rate.setCurrency(jsonArray1.getJSONObject(i).getString("currency"));
-                rate.setMid(jsonArray1.getJSONObject(i).getDouble("mid"));
-                rates.add(rate);
-            }
-        }
-
-        getRateCurrencyTableA.setExchange(exchange);
-        getRateCurrencyTableA.getExchange().setRates(rates);
-        getRateCurrencyTableA.setApiResponseInfo(apiResponseInfo);
+        GetRateCurrencyTableA getRateCurrencyTableA = apiService.getRateCurrencyTableA("https://api.nbp.pl/api/exchangerates/tables/A/h?format=json", codes);
         System.out.println(JsonUtils.gsonPretty(getRateCurrencyTableA));
-
 
         return "home/index";
     }
