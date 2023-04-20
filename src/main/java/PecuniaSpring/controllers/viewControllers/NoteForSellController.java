@@ -2,11 +2,13 @@ package PecuniaSpring.controllers.viewControllers;
 
 import PecuniaSpring.models.repositories.NoteRepository;
 import PecuniaSpring.models.sqlClass.CountryByStatus;
+import PecuniaSpring.models.sqlClass.GetNotesByStatus;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import utils.JsonUtils;
 
 import java.util.ArrayList;
@@ -20,7 +22,7 @@ public class NoteForSellController {
 
     @GetMapping("/note/forSell")
     public String getindex(ModelMap modelMap) {
-        List<Object[]> objects = new ArrayList<>();
+        List<Object[]> objects;
         List<CountryByStatus> countryByStatusList = new ArrayList<>();
         objects = noteRepository.countryByStatus("FOR SELL");
         try {
@@ -34,5 +36,23 @@ public class NoteForSellController {
             System.out.println(e.getMessage());
         }
         return "note/forSell/index";
+    }
+
+    @GetMapping("/note/forSell/country/notes/{countryId}")
+    public String getCountryNotes(@PathVariable("countryId") Long countryId, ModelMap modelMap) {
+        System.out.println("[[[[[[[[[[[[[[[[[[[[]]]]]]]]]]]]]]]]]]]]]]]]]]]C");
+        System.out.println(countryId);
+        System.out.println("[[[[[[[[[[[[[[[[[[[[]]]]]]]]]]]]]]]]]]]]]]]]]]]C");
+
+        List<Object[]> objects;
+        objects = noteRepository.getNotesByStatus("FOR SELL", countryId);
+        List<GetNotesByStatus> getNotesByStatusList = new ArrayList<>();
+        for (Object[] object : objects) {
+            getNotesByStatusList.add(new ModelMapper().map(object[0],GetNotesByStatus.class));
+        }
+
+        modelMap.addAttribute("forSellNotesList", getNotesByStatusList);
+        System.out.println(JsonUtils.gsonPretty(getNotesByStatusList));
+        return "note/forSell/notes";
     }
 }

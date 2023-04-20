@@ -100,9 +100,9 @@ public interface NoteRepository extends JpaRepository<Note, Long> {
             " ORDER BY cur.currencySeries")
     List<Object[]> currencyByStatus(String status, Long countryId, Boolean visible);
 
-    @Query(value = "SELECT new map(cou.id AS countryId, cou.countryEn AS countryEn, cou.countryPl AS countryPl, cur.id AS currencyId, " +
+    @Query(value = "SELECT new map(note.qualities AS qualities, note.id AS noteId, cou.id AS countryId, cou.countryEn AS countryEn, cou.countryPl AS countryPl, cur.id AS currencyId, " +
             "cur.currencySeries AS currencySeries, bou.name AS bought, note.denomination AS denomination, note.nameCurrency AS nameCurrency, note.itemDate AS itemDate, " +
-            "note.priceBuy AS priceBuy, note.quantity AS quantity, note.description AS descryption, " +
+            "note.priceBuy AS priceBuy, note.priceSell AS priceSell, note.quantity AS quantity, note.description AS descryption, " +
             "note.aversPath AS aversPath, note.reversePath AS reversePath ) " +
             "  FROM Note note" +
             "  LEFT JOIN Status stat" +
@@ -114,14 +114,14 @@ public interface NoteRepository extends JpaRepository<Note, Long> {
             "  LEFT JOIN Country cou" +
             "    ON cou.id = cur.countries" +
             " WHERE stat.id = note.statuses AND bou.name = 'LOC'" +
-            " GROUP BY cou.id, cou.countryEn, cou.countryPl, cur.id, cur.currencySeries, bou.name, note.denomination, note.nameCurrency, note.itemDate, " +
-            "          note.priceBuy, note.quantity, note.description, note.aversPath, note.reversePath " +
+            " GROUP BY note.qualities, note.id, cou.id, cou.countryEn, cou.countryPl, cur.id, cur.currencySeries, bou.name, note.denomination, note.nameCurrency, note.itemDate, " +
+            "          note.priceBuy, note.priceSell, note.quantity, note.description, note.aversPath, note.reversePath " +
             " ORDER BY cou.countryEn, note.denomination")
     List<Object[]> getNotesByStatus(String status);
 
-    @Query(value = "SELECT new map(cou.id AS countryId, cou.countryEn AS countryEn, cou.countryPl AS countryPl, cur.id AS currencyId, " +
+    @Query(value = "SELECT new map(note.qualities AS qualities, note.id AS noteId, cou.id AS countryId, cou.countryEn AS countryEn, cou.countryPl AS countryPl, cur.id AS currencyId, " +
             "cur.currencySeries AS currencySeries, bou.name AS bought, note.denomination AS denomination, note.nameCurrency AS nameCurrency, note.itemDate AS itemDate, " +
-            "note.priceBuy AS priceBuy, note.quantity AS quantity, note.description AS descryption, " +
+            "note.priceBuy AS priceBuy, note.priceSell AS priceSell, note.quantity AS quantity, note.description AS descryption, " +
             "note.aversPath AS aversPath, note.reversePath AS reversePath ) " +
             "  FROM Note note" +
             "  LEFT JOIN Status stat" +
@@ -132,9 +132,11 @@ public interface NoteRepository extends JpaRepository<Note, Long> {
             "    ON cur.id = note.currencies" +
             "  LEFT JOIN Country cou" +
             "    ON cou.id = cur.countries" +
+            "  LEFT JOIN Quality qua" +
+            "    ON qua.id = note.qualities" +
             " WHERE stat.id = note.statuses AND cou.id = ?2" +
-            " GROUP BY cou.id, cou.countryEn, cou.countryPl, cur.id, cur.currencySeries, bou.name, note.denomination, note.nameCurrency, note.itemDate, " +
-            "          note.priceBuy, note.quantity, note.description, note.aversPath, note.reversePath " +
+            " GROUP BY note.qualities, note.id, cou.id, cou.countryEn, cou.countryPl, cur.id, cur.currencySeries, bou.name, note.denomination, note.nameCurrency, note.itemDate, " +
+            "          note.priceBuy, note.priceSell, note.quantity, note.description, note.aversPath, note.reversePath " +
             " ORDER BY cou.countryEn, note.denomination")
     List<Object[]> getNotesByStatus(String status, Long countrtyId);
 

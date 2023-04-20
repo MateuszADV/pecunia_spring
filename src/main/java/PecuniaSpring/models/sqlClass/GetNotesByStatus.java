@@ -1,5 +1,6 @@
 package PecuniaSpring.models.sqlClass;
 
+import PecuniaSpring.models.dto.quality.QualityDto;
 import lombok.*;
 
 @Getter
@@ -8,6 +9,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class GetNotesByStatus {
+    private Long noteId;
     private Long countryId;
     private String countryEn;
     private String countryPl;
@@ -18,8 +20,9 @@ public class GetNotesByStatus {
     private String nameCurrency;
     private String itemDate;
     private Double priceBuy;
+    private Double priceSell;
     private Integer quantity;
-//    private String quality;
+    private QualityDto qualities;
     private String description;
     private String aversPath;
     private String  reversePath;

@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      layout:decorate="~{layouts/layout}">
+<head>
+    <title>Note For Sell</title>
+</head>
+<body>
+    <div layout:fragment="content" class="container">
+        <h1 style="text-align: center">Notes</h1>
+        <div class="container">
+            <Block th:each="note : ${forSellNotesList}">
+                <div class="container row bg-sell" style="background: lightgray; border-bottom: solid;border-color: darkgray;">
+                    <div class="page-header col-md-1" style="border-right: solid;border-color: darkgray;">
+                        <B>Id: [[${note.noteId}]] </B>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="modal-body row" style=" margin: 0px;">
+                            <div style="float: left; text-align: center; padding: 10px 10px 10px 10px">
+                                <img th:src="${note.aversPath}" style="max-width: 100%; max-height: 150px"/>
+                            </div>
+                            <hr class="my-2" style="border-color: black; width: 100%">
+                            <div style="float: left;  text-align: center; padding: 10px 10px 10px 10px">
+                                <img th:src="${note.reversePath}" style="max-width: 100%; max-height: 150px"/>
+                            </div>
+                            <hr class="my-2" style="border-color: black; width: 100%">
+                        </div>
+
+                        Wymiary banknotu
+                    </div>
+                    <div class="page-header col-md-6" >
+                      OPIS BANKNOTU
+                    </div>
+                    <div class="page-header col-md-2" style="border-left: solid;border-color: darkgray;">
+                        przycis EDYTUJ
+                        <div style="background: orange">
+                            czy banknot Widoczny czy nie
+                        </div>
+                    </div>
+                </div>
+            </Block>
+        </div>
+
+    </div>
+
+</body>
+</html>
