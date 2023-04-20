@@ -46,6 +46,9 @@ public class WebSecurityConfig  {
 //                .antMatchers("/continent").hasAnyAuthority("USER", "ADMIN")
 //                ********************NOTE COLLECTOIN*****************************************
                 .antMatchers("/note/collection/**").hasAnyAuthority("ADMIN", "USER")
+//                ********************NOTE FOR SELL ******************************************
+                .antMatchers("/note/forSell/**")
+                .permitAll()
 //                ********************CONTINENT*****************************************
                 .antMatchers("/continent/**")
                 .permitAll()

@@ -22,7 +22,11 @@ public class GetNotesByStatus {
     private Double priceBuy;
     private Double priceSell;
     private Integer quantity;
+    private String unitQuantity;
+    private Integer width;
+    private Integer height;
     private QualityDto qualities;
+    private Boolean visible;
     private String description;
     private String aversPath;
     private String  reversePath;

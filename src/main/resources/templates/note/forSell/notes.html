@@ -26,23 +26,56 @@
                             </div>
                             <hr class="my-2" style="border-color: black; width: 100%">
                         </div>
-
-                        Wymiary banknotu
+                        <div th:if="${note.width} != null">
+                            <strong>Dimension: </strong>
+                            <span th:text="${#numbers.formatDecimal(note.width,1,0)}"></span>
+                            <span> x </span>
+                            <span th:text="${#numbers.formatDecimal(note.height,1,0)}"></span>
+                            <span>mm</span>
+                        </div>
                     </div>
                     <div class="page-header col-md-6" >
-                      OPIS BANKNOTU
+                        <h4>Opis Banknotu</h4>
+                        <strong th:text="${note.countryEn} + ':'"> </strong>
+                        <span th:text="${note.denomination >= 1 ? #numbers.formatDecimal(note.denomination,1,0,'COMMA') :  #numbers.formatDecimal(note.denomination,1,2,'COMMA')} + ' ' + ${note.nameCurrency}"></span><br>
+                        <strong>Date: </strong>
+                        <span th:text="${note.itemDate}"></span><br>
+                        <strong>Quality: </strong>
+                        <span th:text="${note.qualities.quality}"></span>
+                        <a class="btn btn-sm btn-info" href="#" data-toggle="tooltip" data-placement="left" th:title="${note.qualities.description}" >?</a>
+                        <br>
+                        <strong>Quantity: </strong>
+                        <span th:text="${note.quantity} + ${note.unitQuantity}"></span><br>
+                        <span sec:authorize="hasAuthority('ADMIN')">
+                            <strong >Price Buy: </strong>
+                            <span th:text="${#numbers.formatDecimal(note.priceBuy,1,2)} + 'zł'"></span><br>
+                        </span>
+                        <strong>Price Sell: </strong>
+                        <span th:text="${#numbers.formatDecimal(note.priceSell,1,2)} + 'zł'"></span><br>
+
+                        <strong>Description:</strong><br>
+                        <textarea th:readonly=true th:text="${note.description}" rows="5" style="resize: none; text-decoration: none; width: 100%; font-size: x-small; max-height: 250px"></textarea>
                     </div>
                     <div class="page-header col-md-2" style="border-left: solid;border-color: darkgray;">
-                        przycis EDYTUJ
-                        <div style="background: orange">
-                            czy banknot Widoczny czy nie
+                        <div sec:authorize="hasAuthority('ADMIN')">
+                            przycis EDYTUJ
+                            <div style="background: orange">
+                                <strong>Visible: </strong>
+                                <span th:text="${note.visible}"></span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </Block>
         </div>
+        <script>
+            $(document).ready(function(){
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+        </script>
 
     </div>
+
 
 </body>
 </html>
