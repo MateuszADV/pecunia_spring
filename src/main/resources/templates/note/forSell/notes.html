@@ -42,7 +42,8 @@
                         <span th:text="${note.itemDate}"></span><br>
                         <strong>Quality: </strong>
                         <span th:text="${note.qualities.quality}"></span>
-                        <a class="btn btn-sm btn-info" href="#" data-toggle="tooltip" data-placement="left" th:title="${note.qualities.description}" >?</a>
+                        <span data-toggle="tooltip" data-placement="left" th:title="${note.qualities.description}"
+                        style="background: red; color: black; padding: 0px 2px 0px 2px; text-decoration: none; cursor: help;"  >?</span>
                         <br>
                         <strong>Quantity: </strong>
                         <span th:text="${note.quantity} + ${note.unitQuantity}"></span><br>
