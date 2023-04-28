@@ -26,14 +26,14 @@ public class NoteDto extends CommonDto {
 
 
     public NoteDto(String itemDate, Date dateBuy, String nameCurrency, Double priceBuy, Double priceSell,
-                   Integer quantity, String status, String statusSell, String description, String imgType, String aversPath, String reversePath,
-                   Double denomination, String quality, String series, String making, Integer width, Integer height, Timestamp created_at, Timestamp updated_at,
-                   Boolean visible, String unitCurrency, String unitQuantity, BoughtDto boughts, QualityDto qualities, StatusDto statuses, ImageTypeDto imageTypes) {
-        super(itemDate, dateBuy, nameCurrency, priceBuy, priceSell, quantity, quality, status, statusSell, description,
-                imgType, unitQuantity, visible, unitCurrency, aversPath, reversePath, created_at, updated_at, boughts, qualities, statuses, imageTypes);
+                   Integer quantity, String statusSell, String description, String aversPath, String reversePath,
+                   Double denomination, String series, Integer width, Integer height, Timestamp created_at, Timestamp updated_at,
+                   Boolean visible, String unitCurrency, String unitQuantity, BoughtDto boughts, QualityDto qualities, StatusDto statuses, ActiveDto actives, ImageTypeDto imageTypes) {
+        super(itemDate, dateBuy, nameCurrency, priceBuy, priceSell, quantity, statusSell, description,
+                unitQuantity, visible, unitCurrency, aversPath, reversePath, created_at, updated_at, boughts, qualities, statuses, actives, imageTypes);
         this.denomination = denomination;
         this.series = series;
-        this.making = making;
+//        this.making = making;
         this.width = width;
         this.height = height;
     }
@@ -41,13 +41,13 @@ public class NoteDto extends CommonDto {
     }
 
     private CurrencyDto currencies;
-    private ActiveDto actives;
+//    private ActiveDto actives;
     private MakingDto makings;
 
     private Long id;
     private Double denomination;
     private String series;
-    private String making;
+//    private String making;
     private Integer width;
     private Integer height;
 

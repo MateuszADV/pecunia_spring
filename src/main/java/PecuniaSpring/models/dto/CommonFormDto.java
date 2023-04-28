@@ -1,5 +1,6 @@
 package PecuniaSpring.models.dto;
 
+import PecuniaSpring.models.dto.active.ActiveDtoSelect;
 import PecuniaSpring.models.dto.bought.BoughtDtoSelect;
 import PecuniaSpring.models.dto.imageType.ImageTypeDto;
 import PecuniaSpring.models.dto.imageType.ImageTypeDtoSelect;
@@ -22,12 +23,12 @@ import java.sql.Timestamp;
 @MappedSuperclass
 public abstract class CommonFormDto {
 
-    private String bought;          //Miejsce Zakupu
+//    private String bought;          //Miejsce Zakupu
     @Pattern(regexp="([0-9]{4}|[0-9]{4}.[0-9]{2}|[0-9]{4}.[0-9]{2}.[0-9]{2})", message = "Podaj poprawną datę 2000; 2000.01 ;2000.01.01")
     private String itemDate;
     private Date dateBuy;           //Data  zakupu/ Data utworzenia seta banknotów
     private String nameCurrency;        //Nazwa waluty/ Nazwa Seta
-    private Integer signatureCode;      // Sygnatura banknotu/ oznaczenie Seta (Opcjonalne narazie - 999 kod doseta określający różne banknoty)
+//    private Integer signatureCode;      // Sygnatura banknotu/ oznaczenie Seta (Opcjonalne narazie - 999 kod doseta określający różne banknoty)
 //    @Pattern(regexp = "(^[0-9]*\\.[0-9]{2}$)", message = "To nie jest liczba")
     @Digits(integer=6, fraction = 2, message = "Podaj poprawną cenę (1.23)")
     @DecimalMin(value = "0.00", message = "Wartość nie może być ujemna")
@@ -43,11 +44,11 @@ public abstract class CommonFormDto {
     private String unitQuantity;       //Określa rodzaj ilości(szt, set...)
 //    @NotNull
 //    @NotEmpty
-    private String quality;             //Stan Itemu
-    private String status;              // Status (kolekcja, na sprzedaż, sprzedane
+//    private String quality;             //Stan Itemu
+//    private String status;              // Status (kolekcja, na sprzedaż, sprzedane
     private String statusSell;          //StatusSell odpowiada za to czy dany banknot został wystawiony na sprzedaż
     private String description;         //Opis
-    private String imgType;             //Typ obrazka(skan, foto, ze strony)
+//    private String imgType;             //Typ obrazka(skan, foto, ze strony)
     private Boolean visible;            //Określa czy dany element jest widoczny dla wszystkich
     private String unitCurrency;
     private String aversPath;
@@ -66,6 +67,10 @@ public abstract class CommonFormDto {
     @NotNull
     @Valid
     private StatusDtoSelect statuses;
+
+    @NotNull
+    @Valid
+    private ActiveDtoSelect actives;
 
     @NotNull
     @Valid

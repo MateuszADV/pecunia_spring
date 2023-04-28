@@ -26,8 +26,8 @@
                             <div style="text-align: left; font-size: small">
                                 <span th:text="${note.denomination >= 1 ? #numbers.formatDecimal(note.denomination,1,0,'COMMA') :  #numbers.formatDecimal(note.denomination,1,2,'COMMA')} + ' ' + ${note.nameCurrency}"></span><br>
                                 <span th:text="${'Year: ' + note.itemDate}"></span><br>
-                                <span th:text="${'Quality: ' + note.quality}"></span><br>
-                                <span th:text="${'Status: ' + note.status}"></span>
+                                <span th:text="${'Quality: ' + note.qualities.quality}"></span><br>
+                                <span th:text="${'Status: ' + note.statuses.status}"></span>
                                 <div sec:authorize="hasAuthority('ADMIN')">
 <!--                                    This content is only shown to ADMIN.-->
                                     <p th:text="${'Visible: ' + note.visible}"></p>

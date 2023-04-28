@@ -25,7 +25,7 @@
                 <strong>Height: </strong>
                 <span th:text="${#numbers.formatDecimal(note.height,1,0)} + 'mm'"></span><br>
                 <strong>Quality: </strong>
-                <span th:text="${note.quality}"></span><br>
+                <span th:text="${note.qualities.quality}"></span><br>
             </div>
             <div class="modal-footer" style="background: lightgray">
                 <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>

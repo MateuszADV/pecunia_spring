@@ -18,12 +18,12 @@ import java.sql.Timestamp;
 public class Note extends Common {
 
 
-    public Note(String bought, String itemDate, Date dateBuy, String nameCurrency, Integer signatureCode, Double priceBuy, Double priceSell,
-                Integer quantity, String status, String statusSell, String description, String imgType, String aversPath, String reversePath,
-                Double denomination, String quality, String series, Integer width, Integer height, Timestamp created_at, Timestamp updated_at,
-                Boolean visible, String unitCurrency, String unitQuantity, Bought boughts, Quality qualities, Status statuses, ImageType imageTypes) {
-        super(bought, itemDate, dateBuy, nameCurrency, signatureCode, priceBuy, priceSell, quantity, quality, status, statusSell, description,
-                imgType, unitQuantity, visible, unitCurrency, aversPath, reversePath, created_at, updated_at, boughts, qualities, statuses, imageTypes);
+    public Note(String itemDate, Date dateBuy, String nameCurrency, Double priceBuy, Double priceSell,
+                Integer quantity, String statusSell, String description,  String aversPath, String reversePath,
+                Double denomination, String series, Integer width, Integer height, Timestamp created_at, Timestamp updated_at,
+                Boolean visible, String unitCurrency, String unitQuantity, Bought boughts, Quality qualities, Status statuses, Active actives, ImageType imageTypes) {
+        super( itemDate, dateBuy, nameCurrency, priceBuy, priceSell, quantity, statusSell, description,
+                unitQuantity, visible, unitCurrency, aversPath, reversePath, created_at, updated_at, boughts, qualities, statuses, actives, imageTypes);
         this.denomination = denomination;
         this.series = series;
 //        this.making = making;
@@ -48,8 +48,8 @@ public class Note extends Common {
     private Double denomination;
     @Column(name = "series")
     private String series;
-    @Column(name = "making")
-    private String making;
+//    @Column(name = "making")
+//    private String making;
     @Column(name = "width")
     private Integer width;
     @Column(name = "height")
@@ -58,10 +58,6 @@ public class Note extends Common {
     @ManyToOne
     @JoinColumn(name = "currency_id")
     private Currency currencies;
-
-    @ManyToOne
-    @JoinColumn(name = "active_id")
-    private Active actives;
 
     @ManyToOne
     @JoinColumn(name = "making_id")

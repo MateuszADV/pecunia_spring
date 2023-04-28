@@ -1,6 +1,7 @@
 package PecuniaSpring.models.dto;
 
 import PecuniaSpring.models.ImageType;
+import PecuniaSpring.models.dto.active.ActiveDto;
 import PecuniaSpring.models.dto.bought.BoughtDto;
 import PecuniaSpring.models.dto.imageType.ImageTypeDto;
 import PecuniaSpring.models.dto.quality.QualityDto;
@@ -29,11 +30,11 @@ public abstract class CommonDto {
     private Double priceSell;           //Cena Sprzedaży (sugerowana)
     private Integer quantity;           //ilość
     private String unitQuantity;       //Określa rodzaj ilości(szt, set...)
-    private String quality;             //Stan Itemu
-    private String status;              // Status (kolekcja, na sprzedaż, sprzedane
+//    private String quality;             //Stan Itemu
+//    private String status;              // Status (kolekcja, na sprzedaż, sprzedane
     private String statusSell;          //StatusSell odpowiada za to czy dany banknot został wystawiony na sprzedaż
     private String description;         //Opis
-    private String imgType;             //Typ obrazka(skan, foto, ze strony)
+//    private String imgType;             //Typ obrazka(skan, foto, ze strony)
     private Boolean visible;            //Określa czy dany element jest widoczny dla wszystkich
     private String unitCurrency;
     private String aversPath;
@@ -44,6 +45,7 @@ public abstract class CommonDto {
     private BoughtDto boughts;
     private QualityDto qualities;
     private StatusDto statuses;
+    private ActiveDto actives;
     private ImageTypeDto imageTypes;
 
 }

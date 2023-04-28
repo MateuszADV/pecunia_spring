@@ -188,7 +188,7 @@ public class NoteController {
 //        *****Kolumny do usunięcia z tabeli NOte*******
 //        **********************************************
 
-        columnToDelete(noteForm, note);
+//        columnToDelete(noteForm, note);
 
 //        **********************************************
 
@@ -248,7 +248,7 @@ public class NoteController {
 //        *****Kolumny do usunięcia z tabeli NOte*******
 //        **********************************************
 
-        columnToDelete(noteForm, note);
+//        columnToDelete(noteForm, note);
 
 //        **********************************************
 
@@ -334,26 +334,26 @@ public class NoteController {
         modelMap.addAttribute("standartDate", Date.valueOf(LocalDate.now()));
     }
 
-    private void columnToDelete(@ModelAttribute("noteForm") @Valid NoteFormDto noteForm, Note note) {
-        Bought bought = boughtServices.getBoughtById(noteForm.getBoughts().getId());
-        note.setBought(bought.getName());
-
-        Active active = activeService.getActiveById(noteForm.getActives().getId());
-        note.setSignatureCode(active.getActiveCod());
-
-        Making making = makingService.getMakingById(noteForm.getMakings().getId());
-        note.setMaking(making.getMaking());
-
-        Quality quality = qualityService.getQualityById(noteForm.getQualities().getId());
-        note.setQuality(quality.getQuality());
-
-        Status status = statusService.getStatusById(noteForm.getStatuses().getId());
-        note.setStatus(status.getStatus());
-
-        System.out.println("{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{");
-        System.out.println(noteForm.getImageTypes().getId());
-        System.out.println("{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{");
-        ImageType imageType = imageTypeSevice.getImageTypeById(noteForm.getImageTypes().getId());
-        note.setImgType(imageType.getType());
-    }
+//    private void columnToDelete(@ModelAttribute("noteForm") @Valid NoteFormDto noteForm, Note note) {
+//        Bought bought = boughtServices.getBoughtById(noteForm.getBoughts().getId());
+//        note.setBought(bought.getName());
+//
+//        Active active = activeService.getActiveById(noteForm.getActives().getId());
+//        note.setSignatureCode(active.getActiveCod());
+//
+//        Making making = makingService.getMakingById(noteForm.getMakings().getId());
+//        note.setMaking(making.getMaking());
+//
+//        Quality quality = qualityService.getQualityById(noteForm.getQualities().getId());
+//        note.setQuality(quality.getQuality());
+//
+//        Status status = statusService.getStatusById(noteForm.getStatuses().getId());
+//        note.setStatus(status.getStatus());
+//
+//        System.out.println("{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{");
+//        System.out.println(noteForm.getImageTypes().getId());
+//        System.out.println("{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{");
+//        ImageType imageType = imageTypeSevice.getImageTypeById(noteForm.getImageTypes().getId());
+//        note.setImgType(imageType.getType());
+//    }
 }
