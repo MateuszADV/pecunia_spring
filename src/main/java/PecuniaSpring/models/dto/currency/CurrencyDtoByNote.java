@@ -1,5 +1,6 @@
 package PecuniaSpring.models.dto.currency;
 
+import PecuniaSpring.models.dto.coin.CoinDtoByCurrency;
 import PecuniaSpring.models.dto.country.CountryDto;
 import PecuniaSpring.models.dto.note.NoteDto;
 import PecuniaSpring.models.dto.note.NoteDtoByCurrency;
@@ -32,4 +33,5 @@ public class CurrencyDtoByNote {
 
     private CountryDto countries;
     private List<NoteDtoByCurrency> notes;
+    private List<CoinDtoByCurrency> coins;
 }
