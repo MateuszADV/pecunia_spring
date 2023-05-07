@@ -32,14 +32,11 @@
                             <td th:text="${i.index +1}" class="pt-1 pb-1"></td>
                             <td th:text="${currency.id}" class="pt-1 pb-1"></td>
                             <td class="pt-1 pb-1">
-<!--                                <a th:href="@{'/note/note_list/?currencySeries=' + ${currency.currencySeries} + '&curId=' + ${currency.id}}" style="color: black">-->
+                                <a th:href="@{'/coin/coin_list/?currencySeries=' + ${currency.currencySeries} + '&curId=' + ${currency.id}}" style="color: black">
                                     [[${currency.currencySeries}]]
-<!--                                </a>-->
+                                </a>
                             </td>
                             <td th:text="${currency.coins.size}"></td>
-<!--                            <td class="pt-1 pb-1">-->
-<!--                                <a th:href="@{'/note/note_list/?currencySeries=' + ${currency.currencySeries} + '&curId=' + ${currency.id}}">SHOW</a>-->
-<!--                            </td>-->
                         </tr>
                     </Block>
                     </tbody>

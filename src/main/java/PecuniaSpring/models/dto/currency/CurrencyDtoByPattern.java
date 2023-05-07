@@ -1,6 +1,9 @@
 package PecuniaSpring.models.dto.currency;
 
+import PecuniaSpring.models.dto.coin.CoinDtoByCurrency;
+import PecuniaSpring.models.dto.country.CountryDto;
 import PecuniaSpring.models.dto.note.NoteDto;
+import PecuniaSpring.models.dto.note.NoteDtoByCurrency;
 import lombok.*;
 
 import java.sql.Timestamp;
@@ -28,5 +31,11 @@ public class CurrencyDtoByPattern {
     private Timestamp created_at;
     private Timestamp updated_at;
 
-    private NoteDto notes;
+    private CountryDto countries;
+
+    /*
+    Wyświetlanie walut według rodzaju (Pattern)
+     */
+    private List<NoteDtoByCurrency> notes;
+    private List<CoinDtoByCurrency> coins;
 }
