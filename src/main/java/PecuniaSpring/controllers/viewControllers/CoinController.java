@@ -57,7 +57,6 @@ public class CoinController {
 
     @GetMapping("/coin")
     public String getIndex(ModelMap modelMap) {
-
         return getSearch("", modelMap);
     }
 
@@ -70,17 +69,6 @@ public class CoinController {
         for (Currency currency : currencies) {
             currencyDtoByPatterns.add(new ModelMapper().map(currency, CurrencyDtoByPattern.class));
         }
-
-        System.out.println("=======================START===========================");
-        System.out.println(countryEn);
-        System.out.println(JsonUtils.gsonPretty(countryDto));
-        System.out.println("---------------------------------------------------------");
-        System.out.println(currencyDtoByPatterns.size());
-        for (CurrencyDtoByPattern currencyDtoByPattern : currencyDtoByPatterns) {
-            System.out.println(currencyDtoByPattern.getCurrencySeries());
-        }
-        System.out.println(JsonUtils.gsonPretty(currencyDtoByPatterns));
-        System.out.println("=======================STOP===========================");
         modelMap.addAttribute("currencies", currencyDtoByPatterns);
         return "coin/currency";
     }
@@ -89,7 +77,6 @@ public class CoinController {
     @PostMapping("/coin/search")
     public String getSearch(@RequestParam(value = "keyword") String keyword, ModelMap modelMap) {
         Search.searchCountry(keyword, modelMap, countryService);
-//        System.out.println(JsonUtils.gsonPretty(countryGetDtos));
         return "coin/index";
     }
 
@@ -107,9 +94,6 @@ public class CoinController {
             coinDtoByCurrencies.add(new ModelMapper().map(coin, CoinDtoByCurrency.class));
         }
 
-//        System.out.println(coins.size());
-//        System.out.println(JsonUtils.gsonPretty(coinpluDtoByCurrencies));
-
         modelMap.addAttribute("currency", currencyDtoByPattern);
         modelMap.addAttribute("coins", coinDtoByCurrencies);
         return "/coin/coin_list";
@@ -118,13 +102,10 @@ public class CoinController {
     @GetMapping("/coin/new")
     public String getNew(@RequestParam(value = "curId") Long currencyId,
                          ModelMap modelMap) {
-        System.out.println("================================BEGIN===============================");
         Currency currency = currencyService.getCurrencyById(currencyId);
         CurrencyDto currencyDto = new ModelMapper().map(currency, CurrencyDto.class);
 
         formVariable(modelMap, currency);
-
-        System.out.println("================================END===============================");
 
         CoinFormDto coinFormDto = new CoinFormDto();
         coinFormDto.setCurrencies(currencyDto);
@@ -146,9 +127,6 @@ public class CoinController {
             System.out.println(result.resolveMessageCodes("test błedu", "dateBuy").toString());
 
             if (result.hasFieldErrors("dateBuy")) {
-                System.out.println(result.getFieldError("dateBuy").getDefaultMessage());
-                System.out.println(result.getFieldError("dateBuy").getCode());
-//                result.rejectValue("dateBuy", "typeMismatch", "Błąd Testowy????");
                 modelMap.addAttribute("errorDateBuy", "Podaj porawną datę");
             }
             System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&ERROR END&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
@@ -158,9 +136,6 @@ public class CoinController {
         }
 
         Currency currency = currencyService.getCurrencyById(coinForm.getCurrencies().getId());
-        System.out.println("++++++++++++++++++++++++++++++START++++++++++++++++++++++++++++++");
-        System.out.println(JsonUtils.gsonPretty(coinForm));
-        System.out.println("++++++++++++++++++++++++++++++STOP+++++++++++++++++++++++++++++++");
         Coin coin = new ModelMapper().map(coinForm, Coin.class);
         coinService.saveCoin(coin);
 
@@ -172,7 +147,6 @@ public class CoinController {
     public String getEdit(@PathVariable Long coinId, ModelMap modelMap) {
         coinTmp = Optional.ofNullable(coinService.getCoinById(coinId));
         CoinFormDto coinFormDto = new ModelMapper().map(coinTmp, CoinFormDto.class);
-        System.out.println(JsonUtils.gsonPretty(coinFormDto));
         modelMap.addAttribute("coinForm", coinFormDto);
         formVariable(modelMap, coinTmp.get().getCurrencies());
         return "coin/edit";
@@ -191,7 +165,6 @@ public class CoinController {
             if (result.hasFieldErrors("dateBuy")) {
                 System.out.println(result.getFieldError("dateBuy").getDefaultMessage());
                 System.out.println(result.getFieldError("dateBuy").getCode());
-//                result.rejectValue("dateBuy", "typeMismatch", "Błąd Testowy????");
                 modelMap.addAttribute("errorDateBuy", "Podaj porawną datę");
             }
             System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&ERROR END&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
@@ -202,25 +175,15 @@ public class CoinController {
             return "coin/edit";
         }
 
-
         Currency currency = currencyService.getCurrencyById(coinForm.getCurrencies().getId());
-        System.out.println("++++++++++++++++++++++++++++++START++++++++++++++++++++++++++++++");
-        System.out.println(JsonUtils.gsonPretty(coinForm));
-        System.out.println("------------------------------------------------------------------");
         coinForm.setId(coinTmp.get().getId());
         coinForm.setCreated_at(coinTmp.get().getCreated_at());
         System.out.println(JsonUtils.gsonPretty(coinForm));
         System.out.println("++++++++++++++++++++++++++++++STOP+++++++++++++++++++++++++++++++");
 
-
-
         Coin coin = new ModelMapper().map(coinForm, Coin.class);
 
-        System.out.println("######################################################");
-        System.out.println("!!!!!!!!!!!!!MONETA ZOSTAŁA ZAPISANA!!!!!!!!!!");
         coinService.saveCoin(coin);
-        System.out.println("######################################################");
-
 
 //        return getcoinList(currency.getCurrencySeries(), currency.getId(), request, modelMap);
         return "redirect:/coin/coin_list/?currencySeries='" + currency.getCurrencySeries() + "&curId=" + currency.getId();
@@ -233,14 +196,12 @@ public class CoinController {
         for (Currency currency1 : currenciesList) {
             currencyDtos.add(new ModelMapper().map(currency1, CurrencyDto.class));
         }
-//        System.out.println(JsonUtils.gsonPretty(currencyDtos));
 
         List<Bought> boughts = boughtServices.getAllBought();
         List<BoughtDto> boughtDtos = new ArrayList<>();
         for (Bought bought : boughts) {
             boughtDtos.add(new ModelMapper().map(bought, BoughtDto.class));
         }
-//        System.out.println(JsonUtils.gsonPretty(boughtDtos));
 
         List<Active> actives = activeService.getAllActive();
         List<ActiveDtoSelect> activeDtoSelects = new ArrayList<>();
@@ -271,8 +232,6 @@ public class CoinController {
         for (ImageType imageType : imageTypes) {
             imageTypeDtoSelects.add(new ModelMapper().map(imageType, ImageTypeDtoSelect.class));
         }
-
-        System.out.println("##############################################");
 
         modelMap.addAttribute("currencies", currencyDtos);
         modelMap.addAttribute("boughts", boughtDtos);
