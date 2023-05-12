@@ -187,7 +187,20 @@ public class CoinController {
 
 //        return getcoinList(currency.getCurrencySeries(), currency.getId(), request, modelMap);
         return "redirect:/coin/coin_list/?currencySeries='" + currency.getCurrencySeries() + "&curId=" + currency.getId();
+    }
 
+    @GetMapping("/coin/delete/{noteId}")
+    public String getDelete(@PathVariable Long noteId, HttpServletRequest request, ModelMap modelMap) {
+        Coin coin = coinService.getCoinById(noteId);
+        System.out.println("^^^^^^^^^^^^^^^^^^^^^^^BEGIN^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+        System.out.println(coin.getCurrencies().getCurrencySeries());
+        System.out.println(coin.getCurrencies().getId());
+        System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^END^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+
+        coinService.deleteCoinById(noteId);
+
+//        return getNoteList(note.getCurrencies().getCurrencySeries(), note.getCurrencies().getId(), request, modelMap);
+        return "redirect:/coin/coin_list/?currencySeries='" + coin.getCurrencies().getCurrencySeries() + "&curId=" + coin.getCurrencies().getId();
     }
 
     private void formVariable(ModelMap modelMap, Currency currency) {
