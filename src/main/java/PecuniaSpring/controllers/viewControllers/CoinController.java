@@ -190,14 +190,14 @@ public class CoinController {
     }
 
     @GetMapping("/coin/delete/{noteId}")
-    public String getDelete(@PathVariable Long noteId, HttpServletRequest request, ModelMap modelMap) {
-        Coin coin = coinService.getCoinById(noteId);
+    public String getDelete(@PathVariable Long coinId, HttpServletRequest request, ModelMap modelMap) {
+        Coin coin = coinService.getCoinById(coinId);
         System.out.println("^^^^^^^^^^^^^^^^^^^^^^^BEGIN^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
         System.out.println(coin.getCurrencies().getCurrencySeries());
         System.out.println(coin.getCurrencies().getId());
         System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^END^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
 
-        coinService.deleteCoinById(noteId);
+        coinService.deleteCoinById(coinId);
 
 //        return getNoteList(note.getCurrencies().getCurrencySeries(), note.getCurrencies().getId(), request, modelMap);
         return "redirect:/coin/coin_list/?currencySeries='" + coin.getCurrencies().getCurrencySeries() + "&curId=" + coin.getCurrencies().getId();
