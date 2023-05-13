@@ -3,6 +3,7 @@ package PecuniaSpring.controllers.viewControllers;
 import PecuniaSpring.models.*;
 import PecuniaSpring.models.dto.active.ActiveDtoSelect;
 import PecuniaSpring.models.dto.bought.BoughtDto;
+import PecuniaSpring.models.dto.coin.CoinDto;
 import PecuniaSpring.models.dto.coin.CoinDtoByCurrency;
 import PecuniaSpring.models.dto.coin.CoinFormDto;
 import PecuniaSpring.models.dto.country.CountryDtoForm;
@@ -201,6 +202,18 @@ public class CoinController {
 
 //        return getNoteList(note.getCurrencies().getCurrencySeries(), note.getCurrencies().getId(), request, modelMap);
         return "redirect:/coin/coin_list/?currencySeries='" + coin.getCurrencies().getCurrencySeries() + "&curId=" + coin.getCurrencies().getId();
+    }
+
+    @GetMapping("/coin/show/{coinId}")
+    public String getShowCoin(@PathVariable Long coinId, ModelMap modelMap) {
+        System.out.println(coinId);
+        Coin coin = coinService.getCoinById(coinId);
+        CoinDto coinDto = new ModelMapper().map(coin, CoinDto.class);
+        System.out.println(JsonUtils.gsonPretty(coinDto));
+
+        modelMap.addAttribute("coin", coinDto);
+        modelMap.addAttribute("json", JsonUtils.gsonPretty(coinDto));
+        return "/coin/show";
     }
 
     private void formVariable(ModelMap modelMap, Currency currency) {
