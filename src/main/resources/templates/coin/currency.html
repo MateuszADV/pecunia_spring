@@ -12,7 +12,9 @@
         <div th:if="${currencies.size} > 0">
 <!--            <h2 th:text="${currencies[0].countries.countryEn}"></h2>-->
             <div th:replace="fragments/_flag :: flag(country = ${currencies[0].countries.countryEn})"></div>
-
+            <div class="container">
+                <a th:replace="fragments/button/_button-back :: back(back = '/coin')"></a>
+            </div>
             <div class="container">
                 <table class="table table-striped table-bordered table-hover table-sm">
                     <thead class="thead-dark">
