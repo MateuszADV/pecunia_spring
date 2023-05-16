@@ -13,6 +13,7 @@
         <H3>Ilość monet - [[${coins.size}]]</H3>
         <div class="container">
             <a th:href="@{'/coin/new/?curId=' + ${currency.id}}" class="btn btn-sm btn-primary">Add new Coin</a>
+            <a th:replace="fragments/button/_button-back :: back(back = '/coin/currency/' + ${currency.countries.countryEn})"></a>
         </div>
         <div class="container">
             <table class="table table-striped table-bordered table-hover table-sm">

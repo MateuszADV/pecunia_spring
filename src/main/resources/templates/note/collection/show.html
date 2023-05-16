@@ -10,10 +10,7 @@
     <div layout:fragment="content" class="container">
         <div th:replace="note/fragments/_note-show :: note-show"></div>
         <div>
-            <a th:replace="fragments/button/_button-back :: back(back = '/note/collection/notes/?selectCurrencyId=' + ${note.currencies.id})">
-
-
-            </a>
+            <a th:replace="fragments/button/_button-back :: back(back = '/note/collection/notes/?selectCurrencyId=' + ${note.currencies.id})"></a>
         </div>
     </div>
 </body>
