@@ -141,7 +141,6 @@ public class NoteController {
 
         System.out.println("================================END===============================");
 
-
         NoteFormDto noteFormDto = new NoteFormDto();
         noteFormDto.setCurrencies(currencyDto);
 
@@ -183,17 +182,12 @@ public class NoteController {
         System.out.println("++++++++++++++++++++++++++++++STOP+++++++++++++++++++++++++++++++");
 
         Note note = new ModelMapper().map(noteForm, Note.class);
-//        **********************************************
-//        *****Kolumny do usunięcia z tabeli NOte*******
-//        **********************************************
-
-//        columnToDelete(noteForm, note);
-
-//        **********************************************
 
         noteRepository.save(note);
 
-        return getNoteList(currency.getCurrencySeries(), currency.getId(), request, modelMap);
+//        return getNoteList(currency.getCurrencySeries(), currency.getId(), request, modelMap);
+        return "redirect:/note/note_list/?currencySeries=" + currency.getCurrencySeries() + "&curId=" + currency.getId();
+
     }
 
     @GetMapping("/note/edit/{noteId}")
@@ -230,7 +224,6 @@ public class NoteController {
             return "note/edit";
         }
 
-
         Currency currency = currencyService.getCurrencyById(noteForm.getCurrencies().getId());
         System.out.println("++++++++++++++++++++++++++++++START++++++++++++++++++++++++++++++");
         System.out.println(JsonUtils.gsonPretty(noteForm));
@@ -240,24 +233,11 @@ public class NoteController {
         System.out.println(JsonUtils.gsonPretty(noteForm));
         System.out.println("++++++++++++++++++++++++++++++STOP+++++++++++++++++++++++++++++++");
 
-
-
         Note note = new ModelMapper().map(noteForm, Note.class);
-//        **********************************************
-//        *****Kolumny do usunięcia z tabeli NOte*******
-//        **********************************************
-
-//        columnToDelete(noteForm, note);
-
-//        **********************************************
-
-        System.out.println("######################################################");
-        System.out.println("BANKNOT ZOSTAŁ ZAPISANY!!!!!!!!!!");
         noteRepository.save(note);
-        System.out.println("######################################################");
 
-
-        return getNoteList(currency.getCurrencySeries(), currency.getId(), request, modelMap);
+//        return getNoteList(currency.getCurrencySeries(), currency.getId(), request, modelMap);
+        return "redirect:/note/note_list/?currencySeries=" + currency.getCurrencySeries() + "&curId=" + currency.getId();
 
     }
 
@@ -272,7 +252,9 @@ public class NoteController {
 
         noteService.deleteNoteById(noteId);
 
-        return getNoteList(note.getCurrencies().getCurrencySeries(), note.getCurrencies().getId(), request, modelMap);
+//        return getNoteList(note.getCurrencies().getCurrencySeries(), note.getCurrencies().getId(), request, modelMap);
+        return "redirect:/note/note_list/?currencySeries=" + note.getCurrencies().getCurrencySeries() + "&curId=" + note.getCurrencies().getId();
+
     }
 
 

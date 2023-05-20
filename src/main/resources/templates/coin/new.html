@@ -14,7 +14,7 @@
             <div th:replace="coin/_form :: form"></div>
             <p> <input type="submit" value="Dodaj" class="btn btn-sm btn-primary"></p>
         </form>
-
+        <a th:replace="fragments/button/_button-back :: back(back = '/coin/coin_list/?currencySeries=' + ${coinForm.currencies.currencySeries} + '&curId=' + ${coinForm.currencies.id})"></a>
     </div>
 </body>
 </html>

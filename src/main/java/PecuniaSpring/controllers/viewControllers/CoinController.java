@@ -74,7 +74,6 @@ public class CoinController {
         return "coin/currency";
     }
 
-
     @PostMapping("/coin/search")
     public String getSearch(@RequestParam(value = "keyword") String keyword, ModelMap modelMap) {
         Search.searchCountry(keyword, modelMap, countryService);
@@ -141,7 +140,7 @@ public class CoinController {
         coinService.saveCoin(coin);
 
 //        return getCoinList(currency.getCurrencySeries(), currency.getId(), request, modelMap);
-        return "redirect:/coin/coin_list/?currencySeries='" + currency.getCurrencySeries() + "&curId=" + currency.getId();
+        return "redirect:/coin/coin_list/?currencySeries=" + currency.getCurrencySeries() + "&curId=" + currency.getId();
     }
 
     @GetMapping("/coin/edit/{coinId}")
@@ -187,7 +186,7 @@ public class CoinController {
         coinService.saveCoin(coin);
 
 //        return getcoinList(currency.getCurrencySeries(), currency.getId(), request, modelMap);
-        return "redirect:/coin/coin_list/?currencySeries='" + currency.getCurrencySeries() + "&curId=" + currency.getId();
+        return "redirect:/coin/coin_list/?currencySeries=" + currency.getCurrencySeries() + "&curId=" + currency.getId();
     }
 
     @GetMapping("/coin/delete/{noteId}")
@@ -201,7 +200,7 @@ public class CoinController {
         coinService.deleteCoinById(coinId);
 
 //        return getNoteList(note.getCurrencies().getCurrencySeries(), note.getCurrencies().getId(), request, modelMap);
-        return "redirect:/coin/coin_list/?currencySeries='" + coin.getCurrencies().getCurrencySeries() + "&curId=" + coin.getCurrencies().getId();
+        return "redirect:/coin/coin_list/?currencySeries=" + coin.getCurrencies().getCurrencySeries() + "&curId=" + coin.getCurrencies().getId();
     }
 
     @GetMapping("/coin/show/{coinId}")

@@ -43,9 +43,13 @@
                             </div>
                         </td>
                         <td class="pt-1 pb-1">
-                            <a th:href="@{'/coin/show/' + ${coin.id}}" class="btn btn-sm btn-info" style="font-size: 10px">SHOW</a>
-                            <a th:href="@{'/coin/edit/' + ${coin.id}}" class="btn btn-sm btn-primary" style="font-size: 10px">EDIT</a>
-                            <a th:href="@{'/coin/delete/' + ${coin.id}}" class="btn btn-sm btn-danger" style="font-size: 10px">DELETE</a>
+<!--                            <a th:href="@{'/coin/show/' + ${coin.id}}" class="btn btn-sm btn-info" style="font-size: 10px">SHOW</a>-->
+                            <a th:replace="fragments/button/_button-show_icon_small :: show_icon_small(show = '/coin/show/' + ${coin.id})"></a>
+<!--                            <a th:href="@{'/coin/edit/' + ${coin.id}}" class="btn btn-sm btn-primary" style="font-size: 10px">EDIT</a>-->
+                            <a th:replace="fragments/button/_button-edit_icon_small :: edit_icon_small(edit = '/coin/edit/' + ${coin.id})"></a>
+<!--                            <a th:href="@{'/coin/delete/' + ${coin.id}}" class="btn btn-sm btn-danger" style="font-size: 10px">DELETE</a>-->
+                            <a th:replace="fragments/button/_button-delete_icon_small :: delete_icon_small(delete = '/coin/delete/' + ${coin.id})"></a>
+
                         </td>
                     </tr>
                 </Block>
