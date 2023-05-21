@@ -9,8 +9,12 @@
 <body>
     <div layout:fragment="content" class="container">
         <h1 style="text-align: center">NOTE SHOW</h1>
-        <div class="container">
-            <a th:replace="fragments/button/_button-back :: back(back = '/note/note_list/?currencySeries=' + ${note.currencies.currencySeries} + '&curId=' + ${note.currencies.id})"></a>
+        <div class="container" style="display: inline-block">
+
+            <a th:replace="fragments/button/_button-back :: back(back = '/note/coin_list/?currencySeries=' + ${note.currencies.currencySeries} + '&curId=' + ${note.currencies.id})"></a>
+
+            <a th:replace="fragments/button/_button-edit :: edit(edit = '/note/edit/' + ${note.id})"></a>
+
         </div>
         <div class="container">
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3">

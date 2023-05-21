@@ -11,8 +11,8 @@
     <h1 style="text-align: center">Coin</h1>
         <div th:replace="fragments/_flag :: flag(country = ${currency.countries.countryEn})"></div>
         <H3>Ilość monet - [[${coins.size}]]</H3>
-        <div class="container">
-            <a th:href="@{'/coin/new/?curId=' + ${currency.id}}" class="btn btn-sm btn-primary">Add new Coin</a>
+        <div class="container" style="display: inline-block">
+            <a th:href="@{'/coin/new/?curId=' + ${currency.id}}" class="btn btn-sm btn-primary" style="float: left">Add new Coin</a>
             <a th:replace="fragments/button/_button-back :: back(back = '/coin/currency/' + ${currency.countries.countryEn})"></a>
         </div>
         <div class="container">

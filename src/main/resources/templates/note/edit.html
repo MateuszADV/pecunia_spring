@@ -25,9 +25,10 @@
         <div class="container col field" style="padding: 10px 10px 10px 10px">
         </div>
     </div>
-    <a th:replace="fragments/button/_button-show :: show(show = '/note/show/' + ${noteForm.id})"></a>
-    <a th:replace="fragments/button/_button-back :: back(back = '/note/note_list/?currencySeries=' + ${noteForm.currencies.currencySeries} + '&curId=' + ${noteForm.currencies.id})"></a>
-
+    <div class="container" style="display: inline-block">
+        <a th:replace="fragments/button/_button-show :: show(show = '/note/show/' + ${noteForm.id})"></a>
+        <a th:replace="fragments/button/_button-back :: back(back = '/note/note_list/?currencySeries=' + ${noteForm.currencies.currencySeries} + '&curId=' + ${noteForm.currencies.id})"></a>
+    </div>
 
 </div>
 </body>

@@ -8,9 +8,15 @@
 </head>
 <body>
     <div layout:fragment="content" class="container">
-        <h1 style="text-align: center">COIN SHOW</h1>
         <div class="container">
-            <a th:replace="fragments/button/_button-back :: back(back = '/coin/coin_list/?currencySeries=' + ${coin.currencies.currencySeries} + '&curId=' + ${coin.currencies.id})"></a>
+            <h1 style="text-align: center">COIN SHOW</h1>
+        </div>
+        <div class="container" style="display: inline-block">
+
+                <a th:replace="fragments/button/_button-back :: back(back = '/coin/coin_list/?currencySeries=' + ${coin.currencies.currencySeries} + '&curId=' + ${coin.currencies.id})"></a>
+
+                <a th:replace="fragments/button/_button-edit :: edit(edit = '/coin/edit/' + ${coin.id})"></a>
+
         </div>
         <div class="container">
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3">

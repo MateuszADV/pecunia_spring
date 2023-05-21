@@ -22,7 +22,14 @@ public class NoteNewController {
     @GetMapping("/note/newNotes")
     public String getIndex(ModelMap modelMap) {
         List<Object[]> objects = noteRepository.getNotesByStatus("NEW");
-        System.out.println(JsonUtils.gsonPretty(objects));
+        List<GetNotesByStatus> getNotesByStatuses = new ArrayList<>();
+        for (Object[] object : objects) {
+            getNotesByStatuses.add(new ModelMapper().map(object[0],GetNotesByStatus.class));
+        }
+        System.out.println("PPPPPPPPPPPPPPPPPPPPPPPPPPP");
+        System.out.println(objects.size());
+        System.out.println(JsonUtils.gsonPretty(getNotesByStatuses));
+        System.out.println("PPPPPPPPPPPPPPPPPPPPPPPPPPP");
 
         return "note/newNote/index";
     }

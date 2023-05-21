@@ -12,8 +12,8 @@
 <!--        <h3 th:text="${currency.countries.countryEn}"></h3>-->
         <div th:replace="fragments/_flag :: flag(country = ${currency.countries.countryEn})"></div>
         <H3>Ilość banknotów - [[${notes.size}]]</H3>
-        <div class="container">
-            <a th:href="@{'/note/new/?curId=' + ${currency.id}}" class="btn btn-sm btn-primary">Add new Note</a>
+        <div class="container" style="display: inline-block">
+            <a th:href="@{'/note/new/?curId=' + ${currency.id}}" class="btn btn-sm btn-primary" style="float: left">Add new Note</a>
             <a th:replace="fragments/button/_button-back :: back(back = '/note/currency/' + ${currency.countries.countryEn})"></a>
         </div>
         <div class="container">
