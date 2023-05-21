@@ -1,6 +1,8 @@
 package PecuniaSpring.services.coinServices;
 
 import PecuniaSpring.models.Coin;
+import PecuniaSpring.models.sqlClass.CountryByStatus;
+import PecuniaSpring.models.sqlClass.CurrencyByStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,4 +16,6 @@ public interface CoinService {
 
     List<Coin> getCoinByCurrencyId(Long currencyId);
     List<Coin> getCoinByCurrencyId(Long currencyId, String role);
+    List<CountryByStatus> getCountryByStatus(String status, String role);
+    List<CurrencyByStatus> getCurrencyByStatus(Long countryId, String status, String role);
 }

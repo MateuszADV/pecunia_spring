@@ -2,6 +2,9 @@ package PecuniaSpring.services.coinServices;
 
 import PecuniaSpring.models.Coin;
 import PecuniaSpring.models.repositories.CoinRepository;
+import PecuniaSpring.models.sqlClass.CountryByStatus;
+import PecuniaSpring.models.sqlClass.CurrencyByStatus;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -59,5 +62,43 @@ public class CoinServiceImpl implements CoinService {
             coins = coinRepository.getCoinByCurrencyId(currencyId, true);
         }
         return coins;
+    }
+
+    @Override
+    public List<CountryByStatus> getCountryByStatus(String status, String role) {
+        List<Object[]> objects = new ArrayList<>();
+        List<CountryByStatus> countryByStatusList = new ArrayList<>();
+
+        if (role == "ADMIN") {
+            objects = coinRepository.countryByStatus(status);
+            for (Object[] object : objects) {
+                countryByStatusList.add(new ModelMapper().map(object[0], CountryByStatus.class));
+            }
+        } else {
+            objects = coinRepository.countryByStatus(status, true);
+            for (Object[] object : objects) {
+                countryByStatusList.add(new ModelMapper().map(object[0], CountryByStatus.class));
+            }
+        }
+        return countryByStatusList;
+    }
+
+    @Override
+    public List<CurrencyByStatus> getCurrencyByStatus(Long countryId, String status, String role) {
+        List<Object[]> objects = new ArrayList<>();
+        List<CurrencyByStatus> currencyByStatusList = new ArrayList<>();
+
+        if (role == "ADMIN") {
+            objects = coinRepository.currencyByStatus(status, countryId);
+            for (Object[] object : objects) {
+                currencyByStatusList.add(new ModelMapper().map(object[0], CurrencyByStatus.class));
+            }
+        } else {
+            objects = coinRepository.currencyByStatus(status, countryId, true);
+            for (Object[] object : objects) {
+                currencyByStatusList.add(new ModelMapper().map(object[0], CurrencyByStatus.class));
+            }
+        }
+        return currencyByStatusList;
     }
 }
