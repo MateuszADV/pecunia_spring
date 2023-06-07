@@ -6,6 +6,9 @@ import PecuniaSpring.models.sqlClass.CountryByStatus;
 import PecuniaSpring.models.sqlClass.CurrencyByStatus;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -100,5 +103,17 @@ public class CoinServiceImpl implements CoinService {
             }
         }
         return currencyByStatusList;
+    }
+
+    @Override
+    public Page<Coin> findCoinPaginated(Integer pageNo, Integer pageSize, Long currencyId, String status, String role) {
+        List<Coin> coins = new ArrayList<>();
+        if (role == "ADMIN") {
+            Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
+            return this.coinRepository.coinPageable(currencyId, status, pageable);
+        } else {
+            Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
+            return this.coinRepository.coinPageable(currencyId, status, true, pageable);
+        }
     }
 }

@@ -1,6 +1,8 @@
 package PecuniaSpring.models.repositories;
 
 import PecuniaSpring.models.Coin;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -75,4 +77,18 @@ public interface CoinRepository extends JpaRepository<Coin, Long> {
             " GROUP BY cou.countryEn, cou.countryPl, cou.id, cur.currencySeries, cur.id" +
             " ORDER BY cur.currencySeries")
     List<Object[]> currencyByStatus(String status, Long countryId, Boolean visible);
+
+    @Query(value = "SELECT coin FROM Coin coin " +
+            "  LEFT JOIN Status stat " +
+            "    ON stat.status = ?2 " +
+            "WHERE coin.currencies.id = ?1 AND stat.id = coin.statuses " +
+            "ORDER BY coin.denomination")
+    Page<Coin> coinPageable(Long currencyId, String status, final Pageable pageable);
+
+    @Query(value = "SELECT coin FROM Coin coin " +
+            "  LEFT JOIN Status stat " +
+            "    ON stat.status = ?2" +
+            "WHERE coin.currencies.id = ?1 AND stat.id = coin.statuses  AND coin.visible = ?3 " +
+            "ORDER BY coin.denomination")
+    Page<Coin> coinPageable(Long currencyId, String status, Boolean visible, final Pageable pageable);
 }

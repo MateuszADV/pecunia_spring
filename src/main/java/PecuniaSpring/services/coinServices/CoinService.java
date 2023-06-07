@@ -3,6 +3,7 @@ package PecuniaSpring.services.coinServices;
 import PecuniaSpring.models.Coin;
 import PecuniaSpring.models.sqlClass.CountryByStatus;
 import PecuniaSpring.models.sqlClass.CurrencyByStatus;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,4 +19,5 @@ public interface CoinService {
     List<Coin> getCoinByCurrencyId(Long currencyId, String role);
     List<CountryByStatus> getCountryByStatus(String status, String role);
     List<CurrencyByStatus> getCurrencyByStatus(Long countryId, String status, String role);
+    Page<Coin> findCoinPaginated(Integer pageNo, Integer pageSize, Long currencyId, String status, String role);
 }
