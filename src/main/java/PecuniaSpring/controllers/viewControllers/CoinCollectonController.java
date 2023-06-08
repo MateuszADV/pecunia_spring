@@ -108,4 +108,18 @@ public class CoinCollectonController {
         }
 
     }
+
+    @GetMapping("/coin/collection/show/{coinId}")
+    public String getShow(@PathVariable Long coinId, ModelMap modelMap) {
+        System.out.println("pppppppppppppppppppppppppppppppppppppppppppp");
+        System.out.println(coinId);
+        System.out.println("pppppppppppppppppppppppppppppppppppppppppppp");
+
+        Coin coin = coinService.getCoinById(coinId);
+        CoinDto coinDto = new ModelMapper().map(coin, CoinDto.class);
+        modelMap.addAttribute("coin", coinDto);
+        System.out.println(coinDto.getCurrencies().getId());
+
+        return "coin/collection/show";
+    }
 }

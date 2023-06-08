@@ -29,6 +29,6 @@ public class CurrencyDto {
     private Timestamp created_at;
     private Timestamp updated_at;
 
-//    private CountryDto countries;
+    private CountryDto countries;
 //    private List<NoteDto> notes;
 }
