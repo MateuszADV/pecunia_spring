@@ -42,4 +42,14 @@ public interface CountryRepository extends JpaRepository<Country, Long> {
             "GROUP BY con.id, con.continentPl, continentEn, con.continentCode")
     List<Object[]> countCountry();
 
+    //    *****************************************
+    //    ******** Query Dane do Wykresów *********
+    //    *****************************************
+
+    @Query(value = "SELECT con.continentEn, COUNT(cou.continent) FROM Country cou " +
+            "LEFT JOIN Continent con " +
+            "ON cou.continents = con.id " +
+            "GROUP BY con.continentEn")
+    List<Object[]> reportCountCountry();
+
 }

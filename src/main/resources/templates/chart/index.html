@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      layout:decorate="~{layouts/layout}">
+<head>
+    <title>Pecunia Chart</title>
+<!--    <script src="/webjars/chartjs/2.9.4/Chart.min.js"></script>-->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div layout:fragment="content" class="container">
+        <h1 style="text-align: center">CHART TEST</h1>
+        <canvas id="myChart" style="max-width: 800px; max-height: 400px; background: lightgray"></canvas>
+        <script th:inline="javascript">
+            var ctx = document.getElementById('myChart').getContext('2d');
+            // var data =  th:text="${chartData}";
+            var chartData = /*[[${chartData}]]*/
+            var data = /*[[${data}]]*/
+                var labels = /*[[${labels}]]*/
+                var json = /*[[${json}]]*/
+                    var datasets  = chartData.chart.datasets
+                    var options = chartData.options
+                console.log(chartData.chart);
+                console.log(chartData.chart.datasets);
+                console.log(chartData.chart.datasets.data);
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [datasets]
+
+                    // datasets: [
+                    //     {
+                    //     label: 'Countries',
+                    //     data: data,
+                    //     backgroundColor: 'rgba(75, 192, 192, 0.5)',
+                    //     borderColor: 'rgba(75, 192, 192, 1)',
+                    //     borderWidth : 1
+                    // }]
+                },
+                options: options
+                //     {
+                //     scales: {
+                //         y: {
+                //             beginAtZero: true
+                //         }
+                //     }
+                // }
+            });
+        </script>
+
+    </div>
+</body>
+</html>
