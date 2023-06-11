@@ -10,10 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.yaml.snakeyaml.Yaml;
 import utils.JsonUtils;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
+import java.io.*;;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -29,7 +26,7 @@ public class ChartController {
     }
 
     @GetMapping("/chart")
-    public String getIndex(ModelMap modelMap) throws FileNotFoundException {
+    public String getIndex(ModelMap modelMap) throws IOException {
         List<Object[]> objects = countryRepository.reportCountCountry();
 //        System.out.println(JsonUtils.gsonPretty(objects));
         List<String> labels = new ArrayList<>();
@@ -52,8 +49,7 @@ public class ChartController {
                 .getClassLoader()
                 .getResourceAsStream("static/reportsChart/reports/my_report.yml");
         Map<String, Object> obj = yaml.load(inputStream);
-        System.out.println(inputStream.toString());
-        System.out.println(obj);
+        System.out.println();
 
 //        System.out.println(JsonUtils.gsonPretty(obj));
         System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
@@ -65,7 +61,12 @@ public class ChartController {
         Object object2 = new Gson().fromJson(String.valueOf(jsonObject), Object.class);
         modelMap.addAttribute("chartData", object2);
         System.out.println(object2);
-//        System.out.println(JsonUtils.gsonPretty(jsonObject));
+        System.out.println(JsonUtils.gsonPretty(object2));
+
+        System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&& test YAML 2 &&&&&&&&&&&&&&&&&&&&&&&&&&");
+
         return "chart/index";
     }
+
+
 }
