@@ -35,6 +35,8 @@ public class WebSecurityConfig  {
                 .permitAll()
                 .antMatchers("/api/v*/count_country")
                 .permitAll()
+                .antMatchers("/api/v*/report")
+                .permitAll()
 //                        ***********************************
 //                        *************VIEW******************
 //                        ***********************************
