@@ -7,6 +7,7 @@ import org.json.JSONObject;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.yaml.snakeyaml.Yaml;
 import utils.JsonUtils;
@@ -24,9 +25,8 @@ public class ChartApiController {
     private CountryRepository countryRepository;
 
     @GetMapping("/report")
-    public ResponseEntity<Object> yamlToJson() {
+    public ResponseEntity<Object> yamlToJson(@RequestParam("report") String report) {
         List<Object[]> objects = countryRepository.reportCountCountry();
-        System.out.println(JsonUtils.gsonPretty(objects));
         List<String> labels = new ArrayList();
         List<Integer> data = new ArrayList();
         for (Object[] object : objects) {
@@ -34,16 +34,14 @@ public class ChartApiController {
             data.add(Integer.valueOf(object[1].toString()));
         }
 
-
         System.out.println(data.toString());
         System.out.println(labels);
 
         System.out.println("********************* TES YAML FILE************************");
-
         Yaml yaml = new Yaml();
         InputStream inputStream = this.getClass()
                 .getClassLoader()
-                .getResourceAsStream("static/reportsChart/reports/my_report.yml");
+                .getResourceAsStream("static/reportsChart/reports/" + report + ".yml");
         Map<String, Object> obj = yaml.load(inputStream);
         System.out.println();
 
