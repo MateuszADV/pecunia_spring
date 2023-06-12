@@ -24,12 +24,12 @@ public class ChartApiController {
     private CountryRepository countryRepository;
 
     @GetMapping("/report")
-    public ResponseEntity<Object> getAllCountry() {
+    public ResponseEntity<Object> yamlToJson() {
         List<Object[]> objects = countryRepository.reportCountCountry();
         System.out.println(JsonUtils.gsonPretty(objects));
         List<String> labels = new ArrayList();
         List<Integer> data = new ArrayList();
-        for (Object[] object,  objects) {
+        for (Object[] object : objects) {
             labels.add(object[0].toString());
             data.add(Integer.valueOf(object[1].toString()));
         }
@@ -48,7 +48,7 @@ public class ChartApiController {
         System.out.println();
 
         System.out.println(JsonUtils.gsonPretty(obj));
-        System.out.println(++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++);
+        System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
         JSONObject jsonObject = new JSONObject(obj);
 
         jsonObject.getJSONObject("chart").put("labels", labels);
@@ -57,6 +57,6 @@ public class ChartApiController {
         Object object2 = new Gson().fromJson(String.valueOf(jsonObject), Object.class);
         System.out.println(object2);
         System.out.println(JsonUtils.gsonPretty(object2));
-        return ResponseEntity.ok().body(object);
+        return ResponseEntity.ok().body(object2);
     }
 }
