@@ -47,7 +47,7 @@ public class ChartController {
         Yaml yaml = new Yaml();
         InputStream inputStream = this.getClass()
                 .getClassLoader()
-                .getResourceAsStream("static/reportsChart/reports/my_report.yml");
+                .getResourceAsStream("static/reportsChart/reports/my_report3.yml");
         Map<String, Object> obj = yaml.load(inputStream);
         System.out.println();
 

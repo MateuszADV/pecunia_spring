@@ -5,20 +5,24 @@
       layout:decorate="~{layouts/layout}">
 <head>
     <title>Pecunia Chart</title>
-<!--    <script src="/webjars/chartjs/2.9.4/Chart.min.js"></script>-->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="/webjars/chartjs/2.9.4/Chart.min.js"></script>
+<!--    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>-->
 </head>
 <body>
     <div layout:fragment="content" class="container">
         <h1 style="text-align: center">CHART TEST</h1>
         <canvas id="myChart" style="max-width: 800px; max-height: 400px; background: lightgray"></canvas>
         <script th:inline="javascript">
+
+            const chartUrl = "http://localhost:8080/api/v1/report/?report=my_report";
+
             var ctx = document.getElementById('myChart').getContext('2d');
             // var data =  th:text="${chartData}";
             var chartData = /*[[${chartData}]]*/
             var data = /*[[${data}]]*/
-                var labels = /*[[${labels}]]*/
+                // var labels = /*[[${labels}]]*/
                 var json = /*[[${json}]]*/
+                    var labels = chartData.chart.labels
                     var datasets  = chartData.chart.datasets
                     var options = chartData.options
                 console.log(chartData.chart);
@@ -30,24 +34,17 @@
                 data: {
                     labels: labels,
                     datasets: [datasets]
-
-                    // datasets: [
-                    //     {
-                    //     label: 'Countries',
-                    //     data: data,
-                    //     backgroundColor: 'rgba(75, 192, 192, 0.5)',
-                    //     borderColor: 'rgba(75, 192, 192, 1)',
-                    //     borderWidth : 1
-                    // }]
                 },
-                options: options
-                //     {
-                //     scales: {
-                //         y: {
-                //             beginAtZero: true
-                //         }
-                //     }
-                // }
+                options:
+                    {
+                        legend: {
+                            labels: {
+                                // This more specific font property overrides the global property
+                                fontColor: 'red'
+                            }
+                        }
+
+                    }
             });
         </script>
 
