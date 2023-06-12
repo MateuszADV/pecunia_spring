@@ -14,8 +14,7 @@ import utils.JsonUtils;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.fasterxml.jackson.databind.type.LogicalType.Map;
+import java.util.Map;
 
 @RestController
 @RequestMapping(path = "/api/v1")
@@ -30,7 +29,7 @@ public class ChartApiController {
         System.out.println(JsonUtils.gsonPretty(objects));
         List<String> labels = new ArrayList();
         List<Integer> data = new ArrayList();
-        for (Object[] object  objects) {
+        for (Object[] object,  objects) {
             labels.add(object[0].toString());
             data.add(Integer.valueOf(object[1].toString()));
         }
@@ -45,7 +44,7 @@ public class ChartApiController {
         InputStream inputStream = this.getClass()
                 .getClassLoader()
                 .getResourceAsStream("static/reportsChart/reports/my_report.yml");
-        Map(String, Object) obj = yaml.load(inputStream);
+        Map<String, Object> obj = yaml.load(inputStream);
         System.out.println();
 
         System.out.println(JsonUtils.gsonPretty(obj));
@@ -56,7 +55,6 @@ public class ChartApiController {
         jsonObject.getJSONObject("chart").getJSONObject("datasets").put("data", data);
 
         Object object2 = new Gson().fromJson(String.valueOf(jsonObject), Object.class);
-        modelMap.addAttribute(chartData, object2);
         System.out.println(object2);
         System.out.println(JsonUtils.gsonPretty(object2));
         return ResponseEntity.ok().body(object);
