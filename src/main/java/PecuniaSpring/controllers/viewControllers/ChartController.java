@@ -58,10 +58,13 @@ public class ChartController {
         jsonObject.getJSONObject("chart").put("labels",labels);
         jsonObject.getJSONObject("chart").getJSONObject("datasets").put("data", data);
 
+        System.out.println(JsonUtils.gsonPretty(jsonObject.getJSONObject("chart").getJSONObject("options")));
+        Object jsonObj = new Gson().fromJson(String.valueOf(jsonObject.getJSONObject("chart").getJSONObject("options")), Object.class);
+        modelMap.addAttribute("jsonOpt",jsonObj);
         Object object2 = new Gson().fromJson(String.valueOf(jsonObject), Object.class);
         modelMap.addAttribute("chartData", object2);
-        System.out.println(object2);
-        System.out.println(JsonUtils.gsonPretty(object2));
+//        System.out.println(object2);
+//        System.out.println(JsonUtils.gsonPretty(object2));
 
         System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&& test YAML 2 &&&&&&&&&&&&&&&&&&&&&&&&&&");
 

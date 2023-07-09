@@ -12,6 +12,11 @@ chart:
     hover:
       mode: 'index'
     plugins:
+      elements:
+        bar:
+          backgroundColor: colorize(false)
+          borderColor: colorize(true)
+          borderWidth: 5
       legend:
         display: true
         labels:
