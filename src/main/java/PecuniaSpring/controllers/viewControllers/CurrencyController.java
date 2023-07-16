@@ -4,6 +4,7 @@ import PecuniaSpring.models.Pattern;
 import PecuniaSpring.models.dto.active.ActiveDtoSelect;
 import PecuniaSpring.models.dto.country.CountryGetCurrencyDto;
 import PecuniaSpring.models.dto.country.CountryGetDto;
+import PecuniaSpring.models.dto.currency.CurrencyDto;
 import PecuniaSpring.models.dto.currency.CurrencyDtoForm;
 import PecuniaSpring.models.Active;
 import PecuniaSpring.models.Country;
@@ -17,6 +18,7 @@ import PecuniaSpring.services.patternService.PatternServiceImpl;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -49,12 +51,24 @@ public class CurrencyController {
 
     @GetMapping("/currency/list/{countryId}")
     public String getCountryCurrency(@PathVariable(value = "countryId") Long countryId, ModelMap modelMap) {
-        System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+        System.out.println("%%%%%%%%%%%%%%%%%%%%%%% START %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
         System.out.println("Country Id - " + countryId);
         Country country = countryService.getCountryById(countryId);
+
+        List<CurrencyDto> currencyDtos = new ArrayList<>();
+        for (Currency currency : country.getCurrencies()) {
+            currencyDtos.add(new ModelMapper().map(currency, CurrencyDto.class));
+        }
+//        System.out.println(JsonUtils.gsonPretty(currencyDtos));
+//        System.out.println(country.getCurrencies().size());
+
+        //TODO Do sprawdzenia to mapowanie
         CountryGetCurrencyDto countryGetCurrencyDto = new ModelMapper().map(country, CountryGetCurrencyDto.class);
+
+        countryGetCurrencyDto.setCurrencyDtos(currencyDtos);
+        System.out.println(countryGetCurrencyDto.getCurrencyDtos().size());
         System.out.println(JsonUtils.gsonPretty(countryGetCurrencyDto));
-        System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+        System.out.println("%%%%%%%%%%%%%%%%%%%%%%% END %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
         modelMap.addAttribute("country", countryGetCurrencyDto);
         return "currency/list";
     }

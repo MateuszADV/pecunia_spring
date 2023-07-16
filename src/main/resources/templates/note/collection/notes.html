@@ -12,6 +12,7 @@
        <H2 style="text-align: center" >NOTES COLECTION</H2>
         <H4 th:text="${notes[0].currencies.currencySeries}" style="text-align: center" ></H4>
 <!--        <div th:replace="fragments/_flag :: flag(country = ${currencyByStatusList[0].countryEn})"></div>-->
+        <div th:replace="fragments/_flag :: flag(country = ${notes[0].currencies.countries.countryEn})"></div>
 
         <div class="form-row align-items-center">
             <div class="form-row align-items-center">
