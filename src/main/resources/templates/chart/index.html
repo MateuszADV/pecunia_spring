@@ -16,84 +16,49 @@
 
             const chartUrl = "http://localhost:8080/api/v1/report/?report=my_report";
 
-            fetch(chartUrl)
-                .then(function(response) {
-                    response.json().then(data => {
-                        // do something with your data
-                        var chartData = data;
-                    //var datasets = chartData.datasets;
-                    // var labels = chartData.labels;
-                    // var options = chartData.options;
-                    console.log("-----------------------------------------------");
-                    console.log(data);
+            var ctx = document.getElementById('myChart').getContext('2d');
+            // var data =  th:text="${chartData}";
+            var chartData = /*[[${chartData}]]*/;
+            var data = /*[[${data}]]*/;
+                // var labels = /*[[${labels}]]*/;
+                var json = /*[[${jsonOpt}]]*/;
+                    var labels = chartData.chart.labels;
+                    var datasets  = chartData.chart.datasets;
+                    var options1 = chartData.chart.options;
+                console.log(chartData.chart);
+                console.log(chartData.chart.datasets);
+                console.log(chartData.chart.datasets.data);
+                console.log(options1);
+                console.log(json)
 
-                    console.log("===============================================");
-                    console.log(chartData.chart);
-                    console.log("===============================================");
-                    console.log(chartData.chart.options.plugins);
-                    console.log("-----------------------------------------------");
-                    var options = chartData.options;
-
-                    const ctx = document.getElementById('myChart').getContext('2d');
-                    const myChart = new Chart(ctx, {
-                        type: 'bar',
-                        // type: typeChart,
-                        data: {
-                            labels: chartData.chart.labels,
-                            datasets: [chartData.chart.datasets]
-                        },
-                        options: {
-                            plugins: {
-                                legend: {
-                                    display: true,
-                                    labels: {
-                                        color: "red"
-                                    }
-                                },
-
-                            }
-                        }
-                    });
-
-                });
-                })
-
-                .catch(function() {
-                    // This is where you run code if the server returns any errors
-                });
-
-            // var ctx = document.getElementById('myChart').getContext('2d');
-            // // var data =  th:text="${chartData}";
-            // var chartData = /*[[${chartData}]]*/;
-            // var data = /*[[${data}]]*/;
-            //     // var labels = /*[[${labels}]]*/;
-            //     var json = /*[[${jsonOpt}]]*/;
-            //         var labels = chartData.chart.labels;
-            //         var datasets  = chartData.chart.datasets;
-            //         var options1 = chartData.chart.options;
-            //     console.log(chartData.chart);
-            //     console.log(chartData.chart.datasets);
-            //     console.log(chartData.chart.datasets.data);
-            //     console.log(options1);
-            //     console.log(json)
-            //
-            // new Chart(ctx, {
-            //     type: 'bar',
-            //     data: {
-            //         labels: labels,
-            //         datasets: [datasets]
-            //     },
-            //     options: json
-            //         // {
-            //         //     legend: {
-            //         //         labels: {
-            //         //             // This more specific font property overrides the global property
-            //         //             fontColor: 'red'
-            //         //         }
-            //         //     }
-            //         //
-            //         // }
-            // });
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [datasets]
+                },
+                options: {
+                    scales: {
+                        xAxes: [{
+                            type: 'category',
+                            labels: ['January', 'February', 'March', 'April', 'May', 'June']
+                        }]
+                    }
+                }
+                    // {
+                    //     title: {
+                    //         display: true,
+                    //         text: 'Custom Chart Title'
+                    //     },
+                    //     legend: {
+                    //         labels:
+                    //             {
+                    //             fontColor: 'red',
+                    //                 size: 20
+                    //         }
+                    //     }
+                    // }
+            });
         </script>
 
     </div>
