@@ -29,5 +29,5 @@ public class CountryGetCurrencyDto {
     private Timestamp updated_at;
 
     private ContinentDto continents;
-    private List<CurrencyDto> currencies;
+    private List<CurrencyDto> currencyDtos;
 }
