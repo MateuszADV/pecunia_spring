@@ -28,17 +28,12 @@ public class ChartController {
     @GetMapping("/chart")
     public String getIndex(ModelMap modelMap) throws IOException {
         List<Object[]> objects = countryRepository.reportCountCountry();
-//        System.out.println(JsonUtils.gsonPretty(objects));
         List<String> labels = new ArrayList<>();
         List<Integer> data = new ArrayList<>();
         for (Object[] object : objects) {
             labels.add(object[0].toString());
             data.add(Integer.valueOf(object[1].toString()));
         }
-
-        modelMap.addAttribute("data", data);
-        modelMap.addAttribute("labels", labels);
-
 
         Yaml yaml = new Yaml();
         InputStream inputStream = this.getClass()
@@ -55,16 +50,13 @@ public class ChartController {
         jsonObject.getJSONObject("chart").put("labels",labels);
         jsonObject.getJSONObject("chart").getJSONObject("datasets").put("data", data);
 
-//        System.out.println(JsonUtils.gsonPretty(jsonObject.getJSONObject("chart").getJSONObject("options")));
-//        Object jsonObj = new Gson().fromJson(String.valueOf(jsonObject.getJSONObject("chart").getJSONObject("options")), Object.class);
-//        modelMap.addAttribute("jsonOpt",jsonObj);
         Object object = new Gson().fromJson(String.valueOf(jsonObject), Object.class);
         modelMap.addAttribute("chartData", object);
-//        System.out.println(object2);
         System.out.println(JsonUtils.gsonPretty(object));
 
         System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&& test YAML 2 &&&&&&&&&&&&&&&&&&&&&&&&&&");
 
+        modelMap.addAttribute("test", "NAPIS testowy 2023");
         return "chart/index";
     }
 

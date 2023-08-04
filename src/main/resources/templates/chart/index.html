@@ -7,7 +7,6 @@
     <title>Pecunia Chart</title>
 <!--    <script src="/webjars/chartjs/2.9.4/Chart.min.js"></script>-->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<!--    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>-->
 </head>
 <body>
     <div layout:fragment="content" class="container">
@@ -16,15 +15,11 @@
         <script th:inline="javascript">
 
             var ctx = document.getElementById('myChart').getContext('2d');
-            var chartData = /*[[${chartData}]]*/;
-            // var data = /*[[${data}]]*/;
-            // var labels = /*[[${labels}]]*/;
-            // var json = /*[[${jsonOpt}]]*/;
-                    var labels = chartData.chart.labels;
-                    var datasets  = chartData.chart.datasets;
-                    var options = chartData.chart.options;
+            var chartData = [[${chartData}]];
+            var labels = chartData.chart.labels;
+            var datasets  = chartData.chart.datasets;
+            var options = chartData.chart.options;
                 console.log(chartData)
-
             new Chart(ctx, {
                 type: 'bar',
                 data: {
@@ -34,6 +29,8 @@
                 options: options
             });
         </script>
+        <p th:text="${test}"></p>
+        <script th:inline="javascript" id="test" th:value="${chartData}" src="js/test.js"></script>
     </div>
 </body>
 </html>
