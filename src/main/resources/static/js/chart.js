@@ -2,6 +2,8 @@
 const reportName = document.getElementById('chart').getAttribute('value');
 // console.log(val);
 
+const root = location.protocol + '//' + location.host;
+console.log(root);
 const chartUrl = "http://localhost:8080/api/v1/report/?report=" + reportName;
 
 fetch(chartUrl)
