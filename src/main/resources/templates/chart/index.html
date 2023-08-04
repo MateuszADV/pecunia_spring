@@ -12,25 +12,25 @@
     <div layout:fragment="content" class="container">
         <h1 style="text-align: center">CHART TEST</h1>
         <canvas id="myChart" style="max-width: 800px; max-height: 400px; background: lightgray"></canvas>
-        <script th:inline="javascript">
+        <script id="chart" th:value="${reportName}" src="js/chart.js">
 
-            var ctx = document.getElementById('myChart').getContext('2d');
-            var chartData = [[${chartData}]];
-            var labels = chartData.chart.labels;
-            var datasets  = chartData.chart.datasets;
-            var options = chartData.chart.options;
-                console.log(chartData)
-            new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: labels,
-                    datasets: [datasets]
-                },
-                options: options
-            });
+            // var ctx = document.getElementById('myChart').getContext('2d');
+            // var chartData = [[${chartData}]];
+            // var labels = chartData.chart.labels;
+            // var datasets  = chartData.chart.datasets;
+            // var options = chartData.chart.options;
+            //     console.log(chartData)
+            // new Chart(ctx, {
+            //     type: 'bar',
+            //     data: {
+            //         labels: labels,
+            //         datasets: [datasets]
+            //     },
+            //     options: options
+            // });
         </script>
         <p th:text="${test}"></p>
-        <script th:inline="javascript" id="test" th:value="${chartData}" src="js/test.js"></script>
+<!--        <script id="reportName" th:value="${reportName}" src="js/test.js"></script>-->
     </div>
 </body>
 </html>
