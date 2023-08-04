@@ -1,6 +1,7 @@
 #CHartJS 3.6.0
 chart:
   datasets:
+    label: 'Państwa'
     backgroundColor: ['rgb(39, 122, 205, 0.5)', 'rgb(0, 0, 0, 0.5)', 'rgb(243, 248, 98, 0.5)', 'rgb(221, 12, 23, 0.5)', 'rgb(229, 184, 70, 0.5)', 'rgb(30, 201, 27, 0.5)', 'rgb(160, 160, 160, 0.5)']
     borderWidth: 1
     borderColor: 'black'
@@ -29,14 +30,12 @@ chart:
         labels:
           color: 'red'
           font:
-            size: 20
+            size: 10
             family: 'Helvetica Neue'
     scales:
       y:
         min: 0
         beginAtZero: true
-        ticks:
-          color: 'green'
         title:
           display: true
           text: 'Liczba Państw'
@@ -45,6 +44,13 @@ chart:
             size: 20
             weight: 'bold'
             lineHeight: 1.2
+        ticks:
+          color: 'green'
+        grid:
+#          color: 'black'   # Kolor lini siatki 'y'
+          tickColor: 'red'
+#          borderColor: 'red'
+          offset: true
       x:
         title:
           display: true
@@ -57,5 +63,7 @@ chart:
         ticks:
           color: 'brown'
         grid:
-          borderColor: 'red'
-          offset: false
+#          color: 'black'    # Kolor lini siatki 'x'
+          tickColor: 'red'
+#          borderColor: 'red'
+          offset: true

@@ -15,22 +15,15 @@
         <canvas id="myChart" style="max-width: 800px; max-height: 400px; background: lightgray"></canvas>
         <script th:inline="javascript">
 
-            const chartUrl = "http://localhost:8080/api/v1/report/?report=my_report";
-
             var ctx = document.getElementById('myChart').getContext('2d');
-            // var data =  th:text="${chartData}";
             var chartData = /*[[${chartData}]]*/;
-            var data = /*[[${data}]]*/;
-                // var labels = /*[[${labels}]]*/;
-                var json = /*[[${jsonOpt}]]*/;
+            // var data = /*[[${data}]]*/;
+            // var labels = /*[[${labels}]]*/;
+            // var json = /*[[${jsonOpt}]]*/;
                     var labels = chartData.chart.labels;
                     var datasets  = chartData.chart.datasets;
-                    var options1 = chartData.chart.options;
-                console.log(chartData.chart);
-                console.log(chartData.chart.datasets);
-                console.log(chartData.chart.datasets.data);
-                console.log(options1);
-                console.log(json)
+                    var options = chartData.chart.options;
+                console.log(chartData)
 
             new Chart(ctx, {
                 type: 'bar',
@@ -38,31 +31,9 @@
                     labels: labels,
                     datasets: [datasets]
                 },
-                options: options1
-                //     {
-                //     scales: {
-                //         xAxes: [{
-                //             type: 'category',
-                //             labels: ['January', 'February', 'March', 'April', 'May', 'June']
-                //         }]
-                //     }
-                // }
-                    // {
-                    //     title: {
-                    //         display: true,
-                    //         text: 'Custom Chart Title'
-                    //     },
-                    //     legend: {
-                    //         labels:
-                    //             {
-                    //             fontColor: 'red',
-                    //                 size: 20
-                    //         }
-                    //     }
-                    // }
+                options: options
             });
         </script>
-
     </div>
 </body>
 </html>

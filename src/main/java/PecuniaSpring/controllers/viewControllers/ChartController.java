@@ -39,32 +39,29 @@ public class ChartController {
         modelMap.addAttribute("data", data);
         modelMap.addAttribute("labels", labels);
 
-        System.out.println(data.toString());
-        System.out.println(labels);
-
-        System.out.println("*******************TES YAML FILE*********************************");
 
         Yaml yaml = new Yaml();
         InputStream inputStream = this.getClass()
                 .getClassLoader()
-                .getResourceAsStream("static/reportsChart/reports/my_report_continents.yml");
+                .getResourceAsStream("static/reportsChart/reports/my_report_continents_test.yml");
         Map<String, Object> obj = yaml.load(inputStream);
-        System.out.println();
 
-//        System.out.println(JsonUtils.gsonPretty(obj));
-        System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
         JSONObject jsonObject = new JSONObject(obj);
 
+        /**
+         * Dodawanie danych z bazy do wyświetlenia na wykresie
+         **/
         jsonObject.getJSONObject("chart").put("labels",labels);
         jsonObject.getJSONObject("chart").getJSONObject("datasets").put("data", data);
 
-        System.out.println(JsonUtils.gsonPretty(jsonObject.getJSONObject("chart").getJSONObject("options")));
-        Object jsonObj = new Gson().fromJson(String.valueOf(jsonObject.getJSONObject("chart").getJSONObject("options")), Object.class);
-        modelMap.addAttribute("jsonOpt",jsonObj);
-        Object object2 = new Gson().fromJson(String.valueOf(jsonObject), Object.class);
-        modelMap.addAttribute("chartData", object2);
+//        System.out.println(JsonUtils.gsonPretty(jsonObject.getJSONObject("chart").getJSONObject("options")));
+//        Object jsonObj = new Gson().fromJson(String.valueOf(jsonObject.getJSONObject("chart").getJSONObject("options")), Object.class);
+//        modelMap.addAttribute("jsonOpt",jsonObj);
+        Object object = new Gson().fromJson(String.valueOf(jsonObject), Object.class);
+        modelMap.addAttribute("chartData", object);
 //        System.out.println(object2);
-//        System.out.println(JsonUtils.gsonPretty(object2));
+        System.out.println(JsonUtils.gsonPretty(object));
 
         System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&& test YAML 2 &&&&&&&&&&&&&&&&&&&&&&&&&&");
 
