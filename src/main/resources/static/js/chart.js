@@ -26,5 +26,6 @@ fetch(chartUrl)
                 options: options
             });
         })
+            .catch(error => console.log("Błąd: ", error));
     });
 

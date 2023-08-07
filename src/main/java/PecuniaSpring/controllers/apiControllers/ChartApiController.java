@@ -1,10 +1,12 @@
 package PecuniaSpring.controllers.apiControllers;
 
 import PecuniaSpring.models.repositories.CountryRepository;
+import PecuniaSpring.services.chartServices.ChartServiceImpl;
 import com.google.gson.Gson;
 import lombok.AllArgsConstructor;
 import org.json.JSONObject;
 import org.springframework.http.ResponseEntity;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.yaml.snakeyaml.Yaml;
 import utils.JsonUtils;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -23,9 +24,13 @@ import java.util.Map;
 public class ChartApiController {
 
     private CountryRepository countryRepository;
+    private ChartServiceImpl chartService;
+
+    private JdbcTemplate jdbcTemplate;
 
     @GetMapping("/report")
     public ResponseEntity<Object> yamlToJson(@RequestParam("report") String report) {
+
         /**
          * Dane pobrane z bazy danych
          */
@@ -38,23 +43,32 @@ public class ChartApiController {
             data.add(Integer.valueOf(object[1].toString()));
         }
 
-        Yaml yaml = new Yaml();
-        InputStream inputStream = this.getClass()
-                .getClassLoader()
-                .getResourceAsStream("static/reportsChart/reports/" + report + ".yml");
-        Map<String, Object> obj = yaml.load(inputStream);
+//        Yaml yaml = new Yaml();
+//        InputStream inputStream = this.getClass()
+//                .getClassLoader()
+//                .getResourceAsStream("static/reportsChart/reports/" + report + ".yml");
+//        Map<String, Object> obj = yaml.load(inputStream);
 
-        JSONObject jsonObject = new JSONObject(obj);
+        Map<String, Object> mapObject = chartService.getYamlToObj(report);
+        JSONObject jsonObject = new JSONObject(mapObject);
 
-        /**
-        * Dodawanie danych z bazy do wyświetlenia na wykresie
-        **/
-        //TODO dodać funkcje która zwraca object z już dodanymi wartościami do wyswietlenia
-        jsonObject.getJSONObject("chart").put("labels", labels);
-        jsonObject.getJSONObject("chart").getJSONObject("datasets").put("data", data);
+        try {
 
-        Object object = new Gson().fromJson(String.valueOf(jsonObject), Object.class);
-        System.out.println(JsonUtils.gsonPretty(object));
-        return ResponseEntity.ok().body(object);
+            /**
+             * Dodawanie danych z bazy do wyświetlenia na wykresie
+             **/
+            //TODO dodać funkcje która zwraca object z już dodanymi wartościami do wyswietlenia
+            jsonObject.getJSONObject("chart").put("labels", labels);
+            jsonObject.getJSONObject("chart").getJSONObject("datasets").put("data", data);
+
+            Object object = new Gson().fromJson(String.valueOf(jsonObject), Object.class);
+            System.out.println(JsonUtils.gsonPretty(object));
+            return ResponseEntity.ok().body(object);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.ok().body(e.getMessage());
+        }
+
+
     }
 }
