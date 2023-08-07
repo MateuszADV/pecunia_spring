@@ -1,9 +1,9 @@
 #CHartJS 3.6.0
 report:
-  name: "my_report_continents_test"
+  name: "my_report_note_currency_country"
 chart:
   datasets:
-    label: 'Państwa Świata'
+    label: 'Ilość Banknotow w walutach'
     backgroundColor: ['rgb(39, 122, 205, 0.5)', 'rgb(0, 0, 0, 0.5)', 'rgb(243, 248, 98, 0.5)', 'rgb(221, 12, 23, 0.5)', 'rgb(229, 184, 70, 0.5)', 'rgb(30, 201, 27, 0.5)', 'rgb(160, 160, 160, 0.5)']
     borderWidth: 1
     borderColor: 'black'
@@ -14,14 +14,14 @@ chart:
         color: 'red'
       title:
         display: true
-        text: 'Przykładowy wykres'
+        text: 'Wykres Estowy'
         color: 'blue'
         font:
           weight: 'bold'
           size: 20
       subtitle:
         display: true
-        text: 'Ilość państw'
+        text: 'Ilość Banknotów'
         color: 'green'
         font:
           weight: 'bold'
@@ -40,7 +40,7 @@ chart:
         beginAtZero: true
         title:
           display: true
-          text: 'Liczba Państw'
+          text: 'Liczba Banknotów'
           color: 'blue'
           font:
             size: 20
@@ -56,7 +56,7 @@ chart:
       x:
         title:
           display: true
-          text: 'Kontynenty'
+          text: 'Waluty'
           color: 'green'
           font:
             size: 20
