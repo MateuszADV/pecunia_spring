@@ -35,37 +35,53 @@ public class ChartApiController {
 
 //        chartRepository.testOne();
 //        chartRepository.my_report_continents_test();
-        chartRepository.my_report_note_currency_country("England");
+//        chartRepository.my_report_note_currency_country("England");
 
 
 //        Method printTest = classObj.getDeclaredMethod(report, null);
         System.out.println("7777777777777777777777777777777777777777777");
+        try {
 //        Class<ChartRepository> c = ChartRepository.class;
-        Class c = ChartRepository.class;
+            Class c = ChartRepository.class;
 //        Method[] methods = c.getMethods();
-        Method[] methods = c.getDeclaredMethods();
-        for (Method method : methods) {
-            System.out.println(method.getName() + " == " + method.getParameters().length);
-            if (method.getParameters().length > 0) {
-                System.out.println((method.getParameters()[0]).getType().getName());
-                System.out.println((method.getParameters()[0]).getName());
+            Method[] methods = c.getDeclaredMethods();
+            for (Method method : methods) {
+                System.out.println(method.getName() + " == " + method.getParameters().length);
+                if (method.getParameters().length > 0) {
+                    System.out.println((method.getParameters()[0]).getType().getName());
+                    System.out.println((method.getParameters()[0]).getName());
+                }
+                TypeVariable[] tp = method.getTypeParameters();
+                for (TypeVariable t : tp) {
+                    System.out.println("Type variable for Method Name "
+                            + method.getName() + " is "
+                            + t.getName());
+                }
             }
-            TypeVariable[] tp = method.getTypeParameters();
-            for (TypeVariable t : tp) {
-                System.out.println("Type variable for Method Name "
-                        + method.getName() + " is "
-                        + t.getName());
-            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.ok().body(e.getMessage());
         }
 
         System.out.println("7777777777777777777777777777777777777777777");
 
-        Class<?> classObj = chartRepository.getClass();
-        Method printTest = classObj.getDeclaredMethod(report, String.class);
+
         try {
+            Class<?> classObj = chartRepository.getClass();
+            Method printTest = classObj.getDeclaredMethod(report, String.class);
             printTest.invoke(chartRepository, "Poland");
         } catch (InvocationTargetException e) {
-            System.out.println(e.getCause());
+            System.out.println(e.getMessage());
+            System.out.println(" catch 01");
+            return ResponseEntity.ok().body(e.getCause());
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            System.out.println(" catch 02");
+            return ResponseEntity.ok().body(e.getCause());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println(" catch 03");
+            return ResponseEntity.ok().body(e.getMessage() +"\ncatch 03");
         }
 
 
@@ -107,7 +123,9 @@ public class ChartApiController {
             return ResponseEntity.ok().body(object);
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            return ResponseEntity.ok().body(e.getMessage());
+            System.out.println("Napis testowy");
+            System.out.println(e.getCause());
+            return ResponseEntity.ok().body(e.getMessage() + "\n" + e.getCause() + "\nNApis testowy");
         }
 
 

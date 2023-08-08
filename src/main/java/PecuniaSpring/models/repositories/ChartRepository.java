@@ -52,13 +52,14 @@ public class ChartRepository {
                                                    "    ON cou.countryEn = '" + country + "'" +
                                                    " WHERE cou.id = cur.countries" +
                                                    " GROUP BY cur.currencySeries");
-        System.out.println("88888888888888888888888888888888888888");
-        System.out.println(query.getHints());
-        System.out.println("88888888888888888888888888888888888888");
+//        System.out.println("88888888888888888888888888888888888888");
+//        System.out.println(query.getHints());
+//        System.out.println(JsonUtils.gsonPretty(query.getHints()));
+//        System.out.println("88888888888888888888888888888888888888");
 
         List<Object[]> objects = query.getResultList();
 
-        System.out.println(JsonUtils.gsonPretty(objects));
+//        System.out.println(JsonUtils.gsonPretty(objects));
         return objects;
     }
 }
