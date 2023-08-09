@@ -51,12 +51,12 @@ public class ChartApiController {
                     System.out.println((method.getParameters()[0]).getType().getName());
                     System.out.println((method.getParameters()[0]).getName());
                 }
-                TypeVariable[] tp = method.getTypeParameters();
-                for (TypeVariable t : tp) {
-                    System.out.println("Type variable for Method Name "
-                            + method.getName() + " is "
-                            + t.getName());
-                }
+//                TypeVariable[] tp = method.getTypeParameters();
+//                for (TypeVariable t : tp) {
+//                    System.out.println("Type variable for Method Name "
+//                            + method.getName() + " is "
+//                            + t.getName());
+//                }
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
