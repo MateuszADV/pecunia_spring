@@ -57,7 +57,7 @@ public class ChartController {
 //        System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&& test YAML 2 &&&&&&&&&&&&&&&&&&&&&&&&&&");
 
 //        modelMap.addAttribute("reportName", "my_report_continents_test");
-        modelMap.addAttribute("reportName", "my_report_note_currency_country");
+        modelMap.addAttribute("reportName", "my_report_continents_test");
         return "chart/index";
     }
 
