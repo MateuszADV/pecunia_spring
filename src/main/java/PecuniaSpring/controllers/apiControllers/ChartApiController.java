@@ -105,7 +105,7 @@ public class ChartApiController {
                     jsonObject.getJSONObject("chart").getJSONObject("datasets").put("data", data);
 
                     Object object = new Gson().fromJson(String.valueOf(jsonObject), Object.class);
-                    System.out.println(JsonUtils.gsonPretty(object));
+//                    System.out.println(JsonUtils.gsonPretty(object));
                     return ResponseEntity.ok().body(object);
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
@@ -158,7 +158,7 @@ public class ChartApiController {
                     jsonObject.getJSONObject("chart").getJSONObject("datasets").put("data", data);
 
                     Object object = new Gson().fromJson(String.valueOf(jsonObject), Object.class);
-                    System.out.println(JsonUtils.gsonPretty(object));
+//                    System.out.println(JsonUtils.gsonPretty(object));
                     return ResponseEntity.ok().body(object);
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
@@ -256,7 +256,7 @@ public class ChartApiController {
                     jsonObject.getJSONObject("chart").getJSONObject("datasets").put("data", data);
 
                     Object object = new Gson().fromJson(String.valueOf(jsonObject), Object.class);
-                    System.out.println(JsonUtils.gsonPretty(object));
+//                    System.out.println(JsonUtils.gsonPretty(object));
                     return ResponseEntity.ok().body(object);
                 } catch (Exception e) {
                     System.out.println(e.getMessage());

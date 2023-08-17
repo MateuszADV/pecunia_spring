@@ -28,10 +28,10 @@ public class MvcAdvice {
 
     @ModelAttribute
     public void addRateMetal(ModelMap modelMap) {
-//       GetApiMetal getApiMetal = apiService.getApiMetal("https://api.metals.live/v1/spot");
-//       modelMap.addAttribute("getApiMetal", getApiMetal);
-       modelMap.addAttribute("getApiMetal", null);
-//        System.out.println(JsonUtils.gsonPretty(getApiMetal));
+       GetApiMetal getApiMetal = apiService.getApiMetal("https://api.metals.live/v1/spot");
+       modelMap.addAttribute("getApiMetal", getApiMetal);
+//       modelMap.addAttribute("getApiMetal", null);
+        System.out.println(JsonUtils.gsonPretty(getApiMetal));
     }
 
     @ModelAttribute
