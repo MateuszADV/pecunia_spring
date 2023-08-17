@@ -1,5 +1,7 @@
 package PecuniaSpring.controllers.apiControllers;
 
+import PecuniaSpring.chartClass.ReportMethod;
+import PecuniaSpring.chartClass.Variable;
 import PecuniaSpring.models.repositories.ChartRepository;
 import PecuniaSpring.models.repositories.CountryRepository;
 import PecuniaSpring.services.chartServices.ChartServiceImpl;
@@ -11,13 +13,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import utils.JsonUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.lang.reflect.Type;
-import java.lang.reflect.TypeVariable;
+import java.lang.reflect.Parameter;
 import java.util.*;
 
 @RestController
@@ -280,5 +280,21 @@ public class ChartApiController {
             }
         }
 //        return ResponseEntity.ok().body(report);
+    }
+
+    @GetMapping("/report/method")
+    public ResponseEntity<Object> getReportMethod() {
+        try {
+            System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+            List<ReportMethod> reportMethods = chartService.reportMethodList(ChartRepository.class);
+            System.out.println(reportMethods);
+            System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+            return ResponseEntity.ok().body(reportMethods);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.ok().body(e.getMessage());
+        }
+
+
     }
 }
