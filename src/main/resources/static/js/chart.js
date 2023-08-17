@@ -1,10 +1,21 @@
 
 const reportName = document.getElementById('chart').getAttribute('value');
-// console.log(val);
+// const param = document.getElementById('param').getAttribute('value');
 
+console.log(reportName);
+
+const param = document.querySelector("#parametr").getAttribute('value');
+console.log(param);
 const root = location.protocol + '//' + location.host;
 console.log(root);
-const chartUrl = "http://localhost:8080/api/v1/report/?report=" + reportName;
+
+if (param) {
+    les = chartUrl = "http://localhost:8080/api/v1/report/?report=" + reportName + "&param=" + param
+    console.log("param nie jest pusty - " + param)
+} else {
+    les = chartUrl = "http://localhost:8080/api/v1/report/?report=" + reportName;
+    console.log("parametr jest pusty")
+}
 
 fetch(chartUrl)
     .then(function(response) {
@@ -16,6 +27,7 @@ fetch(chartUrl)
             var datasets  = chartData.chart.datasets;
             var options = chartData.chart.options;
             console.log("Report Name - " + reportName);
+            console.log("PRZYKLADOWY TEKST test testu 6789123456");
             console.log(chartData)
             new Chart(ctx, {
                 type: 'bar',

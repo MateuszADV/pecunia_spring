@@ -11,8 +11,9 @@
 <body>
     <div layout:fragment="content" class="container">
         <h1 style="text-align: center">CHART TEST</h1>
-        <canvas id="myChart" style="max-width: 100%; max-height: 600px; background: lightgray"></canvas>
-        <script id="chart" th:value="${reportName}" src="js/chart.js">
+
+        <div id="parametr" th:value="${parametr}" ></div>
+        <script id="chart" th:value="${reportName}" src="js/chart.js" async type="text/javascript">
 
             // var ctx = document.getElementById('myChart').getContext('2d');
             // var chartData = [[${chartData}]];
@@ -29,6 +30,8 @@
             //     options: options
             // });
         </script>
+
+        <canvas id="myChart" style="max-width: 100%; max-height: 600px; background: lightgray"></canvas>
         <p th:text="${test}"></p>
 <!--        <script id="reportName" th:value="${reportName}" src="js/test.js"></script>-->
     </div>
