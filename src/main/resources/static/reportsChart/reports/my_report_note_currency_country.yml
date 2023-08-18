@@ -14,7 +14,7 @@ chart:
         color: 'red'
       title:
         display: true
-        text: 'Wykres Estowy'
+        text: 'Wykres Tstowy'
         color: 'blue'
         font:
           weight: 'bold'
@@ -28,7 +28,7 @@ chart:
           size: 30
       legend:
 #        Wyświetlanie legeny
-        display: true
+        display: false
         labels:
           color: 'black'
           font:

@@ -35,12 +35,7 @@ public class ChartRepository {
                 "LEFT JOIN Continent con " +
                 "ON cou.continents = con.id " +
                 "GROUP BY con.continentEn");
-
         List<Object[]> objects = query.getResultList();
-
-        System.out.println("99999999999999999999999999999999999999999999");
-        System.out.println("my_report_continents_test");
-        System.out.println("99999999999999999999999999999999999999999999");
         return objects;
     }
 
@@ -52,14 +47,7 @@ public class ChartRepository {
                                                    "    ON cou.countryEn = '" + country + "'" +
                                                    " WHERE cou.id = cur.countries" +
                                                    " GROUP BY cur.currencySeries");
-//        System.out.println("88888888888888888888888888888888888888");
-//        System.out.println(query.getHints());
-//        System.out.println(JsonUtils.gsonPretty(query.getHints()));
-//        System.out.println("88888888888888888888888888888888888888");
-
         List<Object[]> objects = query.getResultList();
-
-//        System.out.println(JsonUtils.gsonPretty(objects));
         return objects;
     }
 }

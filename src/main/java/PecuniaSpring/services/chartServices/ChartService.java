@@ -14,4 +14,6 @@ public interface ChartService {
     List<DeclaredMethod> declaredMethodList (Class c);
     List<ReportMethod> reportMethodList(Class c);
 
+    Object dataToChart(String report, List<Object[]> data);
+
 }
