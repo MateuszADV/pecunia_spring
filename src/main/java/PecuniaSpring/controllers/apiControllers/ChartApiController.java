@@ -83,15 +83,15 @@ public class ChartApiController {
 
             } catch (InvocationTargetException e) {
                 System.out.println(e.getMessage());
-                System.out.println(" catch 01");
+                System.out.println(" catch 04");
                 return ResponseEntity.ok().body(e.getCause());
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
-                System.out.println(" catch 02");
+                System.out.println(" catch 05");
                 return ResponseEntity.ok().body(e.getCause());
             } catch (Exception e) {
                 System.out.println(e.getMessage());
-                System.out.println(" catch 03");
+                System.out.println(" catch 06");
                 return ResponseEntity.ok().body(e.getMessage() + "\ncatch 03");
             }
         }

@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.yaml.snakeyaml.Yaml;
 import utils.JsonUtils;
 
@@ -36,8 +37,11 @@ public class ChartController {
 
     @GetMapping("/chart")
     public String getIndex(ModelMap modelMap) throws IOException {
-        modelMap.addAttribute("reportName", "my_report_note_currency_country");
-        modelMap.addAttribute("parametr", "England");
+        modelMap.addAttribute("typeChart","polarArea");
+        modelMap.addAttribute("reportName", "my_report_continents_test");
+//        modelMap.addAttribute("reportName", "my_report_note_currency_country");
+//        modelMap.addAttribute("reportName", "my_report_object_status");
+//        modelMap.addAttribute("parametr", "England");
 
         try {
             List<ReportMethod> reportMethods = chartService.reportMethodList(ChartRepository.class);
@@ -49,5 +53,10 @@ public class ChartController {
         return "chart/index";
     }
 
+    @PostMapping("/chart")
+    public String postIndex(ModelMap modelMap) {
+
+        return null;
+    }
 
 }

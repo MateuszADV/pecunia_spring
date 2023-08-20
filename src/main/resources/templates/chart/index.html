@@ -12,7 +12,17 @@
     <div layout:fragment="content" class="container">
         <h1 style="text-align: center">CHART TEST</h1>
 
+        <form th:action="@{/chart}" method="post">
+            <input type="text" th:name="participant"/>
+            <select th:name="country">
+                <option value="de">Germany</option>
+                <option value="nl">Netherlands</option>
+                <option value="pl">Poland</option>
+                <option value="lv">Latvia</option>
+            </select>
+        </form>
         <div id="parametr" th:value="${parametr}" ></div>
+        <div id="typeChart" th:value="${typeChart}" ></div>
         <script id="chart" th:value="${reportName}" src="js/chart.js" async type="text/javascript">
 
             // var ctx = document.getElementById('myChart').getContext('2d');

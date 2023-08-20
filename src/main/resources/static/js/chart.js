@@ -5,7 +5,10 @@ const reportName = document.getElementById('chart').getAttribute('value');
 console.log(reportName);
 
 const param = document.querySelector("#parametr").getAttribute('value');
+const typeChart = document.querySelector("#typeChart").getAttribute('value');
 console.log(param);
+console.log(typeChart);
+
 const root = location.protocol + '//' + location.host;
 console.log(root);
 
@@ -30,7 +33,7 @@ fetch(chartUrl)
             console.log("PRZYKLADOWY TEKST test testu 6789123456");
             console.log(chartData)
             new Chart(ctx, {
-                type: 'bar',
+                type: typeChart,
                 data: {
                     labels: labels,
                     datasets: [datasets]
