@@ -37,6 +37,8 @@ public class WebSecurityConfig  {
                 .permitAll()
                 .antMatchers("/api/v*/report/**")
                 .permitAll()
+                .antMatchers("/api/v*/report/method**")
+                .permitAll()
                 .antMatchers("/api/v*/reportTest/**")
                 .permitAll()
 //                        ***********************************
