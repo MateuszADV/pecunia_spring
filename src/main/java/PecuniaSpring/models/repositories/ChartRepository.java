@@ -17,19 +17,6 @@ public class ChartRepository {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public void testOne() {
-        Query query = entityManager.createQuery("Select cou FROM Country cou ");
-        List<Country> countries = query.getResultList();
-
-        List<CountryDto> countryDtos = new ArrayList<>();
-        for (Country country : countries) {
-            countryDtos.add(new ModelMapper().map(country, CountryDto.class));
-        }
-        System.out.println("000000000START0000000000000000");
-        System.out.println("NAPIS TESTOWY");
-        System.out.println("000000000STOP0000000000000000");
-    }
-
     public List<Object[]> my_report_continents_test() {
         Query query = entityManager.createQuery("SELECT con.continentEn, COUNT(cou.continent) FROM Country cou " +
                 "LEFT JOIN Continent con " +

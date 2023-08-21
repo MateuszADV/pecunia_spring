@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.yaml.snakeyaml.Yaml;
 import utils.JsonUtils;
 
@@ -37,26 +38,46 @@ public class ChartController {
 
     @GetMapping("/chart")
     public String getIndex(ModelMap modelMap) throws IOException {
-        modelMap.addAttribute("typeChart","polarArea");
-        modelMap.addAttribute("reportName", "my_report_continents_test");
-//        modelMap.addAttribute("reportName", "my_report_note_currency_country");
-//        modelMap.addAttribute("reportName", "my_report_object_status");
-//        modelMap.addAttribute("parametr", "England");
+//        modelMap.addAttribute("typeChart","bar");
+//        modelMap.addAttribute("reportName", "my_report_continents_test");
+////        modelMap.addAttribute("reportName", "my_report_note_currency_country");
+////        modelMap.addAttribute("reportName", "my_report_object_status");
+////        modelMap.addAttribute("parametr", "England");
+//
+//        try {
+//            List<ReportMethod> reportMethods = chartService.reportMethodList(ChartRepository.class);
+//            System.out.println(JsonUtils.gsonPretty(reportMethods));
+//        } catch (Exception e) {
+//            System.out.println(e.getMessage());
+//        }
 
+//        return "chart/index";
+        return postIndex("bar", "my_report_continents_test", modelMap);
+    }
+
+    @PostMapping("/chart")
+    public String postIndex(@RequestParam("typeChart") String typeChart,
+                            @RequestParam("report") String report,
+                            ModelMap modelMap) {
+
+        System.out.println("=================================================");
+        System.out.println(typeChart);
+        System.out.println("=================================================");
         try {
             List<ReportMethod> reportMethods = chartService.reportMethodList(ChartRepository.class);
+            modelMap.addAttribute("reports",reportMethods);
             System.out.println(JsonUtils.gsonPretty(reportMethods));
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
 
+        modelMap.addAttribute("typeChart", typeChart);
+        modelMap.addAttribute("reportName", report);
+//        modelMap.addAttribute("reportName", "my_report_note_currency_country");
+//        modelMap.addAttribute("reportName", "my_report_object_status");
+//        modelMap.addAttribute("parametr", "England");
+
         return "chart/index";
-    }
-
-    @PostMapping("/chart")
-    public String postIndex(ModelMap modelMap) {
-
-        return null;
     }
 
 }
