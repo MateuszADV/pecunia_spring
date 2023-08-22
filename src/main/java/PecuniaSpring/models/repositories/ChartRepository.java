@@ -46,4 +46,12 @@ public class ChartRepository {
         List<Object[]> objects = query.getResultList();
         return objects;
     }
+
+    public List<Object[]> my_report_coins_composition() {
+        Query query = entityManager.createQuery("SELECT coin.composition, COUNT(coin.composition) FROM Coin coin" +
+                                                    " GROUP BY coin.composition" +
+                                                    " ORDER BY coin.composition DESC ");
+        List<Object[]> objects = query.getResultList();
+        return objects;
+    }
 }
