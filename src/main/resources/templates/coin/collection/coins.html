@@ -35,7 +35,7 @@
 <!--                                    This content is only shown to ADMIN.-->
                                     <p th:text="${'Visible: ' + coin.visible}"></p>
                                 </div>
-                                <div style="margin: 5px">
+                                <div style="margin-bottom: 5px">
                                     <a th:href="@{'/coin/collection/show/' + ${coin.id}}" class="btn btn-sm btn-info" style="font-size: 10px" data-toggle="modal" th:attr="data-target='#Coin-' + ${coin.id}" >SHOW</a>
                                 </div>
                                 <div class="modal fade" th:attr="id= 'Coin-' + ${coin.id}"  tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

@@ -34,7 +34,9 @@
                                     <p th:text="${'Visible: ' + note.visible}"></p>
                                 </div>
 <!--                                <a th:replace="fragments/button/_button-show :: show(show = '/note/collection/show/' + ${note.id})"></a>-->
-                                <a th:href="@{'/note/collection/show/' + ${note.id}}" class="btn btn-sm btn-info" style="font-size: 10px" data-toggle="modal" th:attr="data-target='#Note-' + ${note.id}" >SHOW</a>
+                                <div style="margin-bottom: 5px">
+                                    <a th:href="@{'/note/collection/show/' + ${note.id}}" class="btn btn-sm btn-info" style="font-size: 10px" data-toggle="modal" th:attr="data-target='#Note-' + ${note.id}" >SHOW</a>
+                                </div>
                                 <div class="modal fade" th:attr="id= 'Note-' + ${note.id}"  tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div th:replace="note/collection/_showModal :: showModal"></div>
                                 </div>
@@ -46,7 +48,7 @@
             </div>
 
         </div>
-        <div th:if="${totalPages} > 1">
+        <div th:if="${totalPages} > 1" style="padding-bottom: 1px">
             <div th:replace="fragments/_pagination :: pagination(currencyId = ${notes[0].currencies.id})"></div>
         </div>
     </div>
