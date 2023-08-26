@@ -7,14 +7,16 @@
     <title>Country</title>
 </head>
 <body>
-    <div layout:fragment="content" class="container">
+    <div layout:fragment="content" class="container" style="background: aliceblue">
 <!--       <H2>COUNTRIES COLECTION</H2>-->
         <div class="container" style="text-align: center; margin-top: 15px">
             <img th:src="@{'/images/continents/' + ${countryByStatusList[0].continentCode} + '.png'}" style="width: 100px"/><br>
 <!--            <span th:text="${countryByStatusList[0].continent}"></span>-->
             <h1>country</h1>
         </div>
-
+        <div class= "container" style="display: flex;">
+            <a th:replace="fragments/button/_button-back :: back(back = '/note/collection')"></a>
+        </div>
         <div class="container">
             <div class="row">
                 <Block th:each="country : ${countryByStatusList}">
