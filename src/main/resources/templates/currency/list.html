@@ -45,7 +45,10 @@
                     <td th:text="${currency.pattern}" class="pt-1 pb-1"></td>
                     <td th:text="${currency.currencySeries}" class="pt-1 pb-1" style="font-size: 12px"></td>
                     <td class="pt-1 pb-1">
-                        <a th:href="@{'/currency/show/' + ${currency.id}}" class="btn btn-sm btn-info" style="font-size: 10px">SHOW</a>
+                        <a th:href="@{'/currency/show/' + ${currency.id}}" class="btn btn-sm btn-info" style="font-size: 10px" data-toggle="modal" th:attr="data-target='#currency-' + ${currency.id}" >SHOW</a>
+                        <div class="modal fade" th:attr="id= 'currency-' + ${currency.id}"  tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div th:replace="currency/_showModal :: showModal"></div>
+                        </div>
                         <a th:href="@{'/currency/edit/' + ${currency.id}}" class="btn btn-sm btn-primary" style="font-size: 10px">EDIT</a>
                         <a th:href="@{'/currency/delete/' + ${currency.id} + '/' + ${country.id}}" class="btn btn-sm btn-danger" style="font-size: 10px">DELETE</a>
                     </td>

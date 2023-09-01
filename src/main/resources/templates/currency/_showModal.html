@@ -1,0 +1,28 @@
+<header th:fragment="showModal"
+    xmlns:th="http://www.thymeleaf.org">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="background: lightgray">
+                <h1 class="modal-title" id="exampleModalLabel">Currency</h1>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="background: antiquewhite">
+                <b>Id: </b><span th:text="${currency.id}"></span><br>
+                <b>Cod: </b><span th:text="${currency.cod}"></span><br>
+                <b>Patern: </b><span th:text="${currency.pattern}"></span><br>
+                <b>Currency: </b><span th:text="${currency.currency}"></span><br>
+                <b>Change: </b><span th:text="${currency.change}"></span><br>
+                <b>Active:</b><br>
+                <b>- Active Code:</b><span th:text="${currency}"></span>
+                <b><label>Description:</label></b><br>
+                <span th:text="${currency.description}"></span>
+            </div>
+            <div class="modal-footer" style="background: lightgray">
+                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+                <!--                    <button type="button" class="btn btn-primary">Save changes</button>-->
+            </div>
+        </div>
+    </div>
+</header>
