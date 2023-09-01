@@ -9,6 +9,7 @@ import lombok.*;
 @NoArgsConstructor
 public class CurrencyByStatus {
     private Long countryId;
+    private String continentEn;
     private String countryEn;
     private String countryPl;
     private Long currencyId;

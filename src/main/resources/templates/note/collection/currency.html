@@ -10,7 +10,9 @@
     <div layout:fragment="content" class="container">
        <H2 style="text-align: center">CURRENCY COLECTION</H2>
         <div th:replace="fragments/_flag :: flag(country = ${currencyByStatusList[0].countryEn})"></div>
-
+        <div style="display: flex;">
+            <a th:replace="fragments/button/_button-back :: back(back = '/note/collection/country/?selectContinent=' + ${currencyByStatusList[0].continentEn})"></a>
+        </div>
         <div class="form-row align-items-center">
             <th:block th:each="currency : ${currencyByStatusList}">
                 <a th:href="@{'/note/collection/notes/?selectCurrencyId=' + ${currency.currencyId} + '&status=KOLEKCJA'}">
