@@ -167,7 +167,7 @@ public class CountryController {
                                 @RequestParam("sortField") String sortField,
                                 @RequestParam("sortDir") String sortDir,
                                 ModelMap modelMap) {
-        int pageSize = 10;
+        int pageSize = 20;
         modelMap.addAttribute("pageSize", pageSize);
         String pathPage = "/page/";
         modelMap.addAttribute("pathPage", pathPage);
