@@ -15,7 +15,9 @@
                 <b>Currency: </b><span th:text="${currency.currency}"></span><br>
                 <b>Change: </b><span th:text="${currency.change}"></span><br>
                 <b>Active:</b><br>
-                <b>- Active Code:</b><span th:text="${currency}"></span>
+                <b>- Active Code: </b><span th:text="${currency.actives.activeCod}"></span><br>
+                <b>- Name: </b><span th:text="${currency.actives.name}"></span><br>
+                <b>Currency Series: </b><span th:text="${currency.currencySeries}"></span><br>
                 <b><label>Description:</label></b><br>
                 <span th:text="${currency.description}"></span>
             </div>
