@@ -1,7 +1,9 @@
 package PecuniaSpring.models.dto.currency;
 
+import PecuniaSpring.models.dto.active.ActiveDtoSelect;
 import PecuniaSpring.models.dto.country.CountryDto;
 import PecuniaSpring.models.dto.note.NoteDto;
+import PecuniaSpring.models.dto.pattern.PatternDtoCurrency;
 import lombok.*;
 
 import java.sql.Timestamp;
@@ -29,6 +31,8 @@ public class CurrencyDto {
     private Timestamp created_at;
     private Timestamp updated_at;
 
+    private ActiveDtoSelect actives;
+    private PatternDtoCurrency patterns;
     private CountryDto countries;   // Musi byc zakomentowane bo w wyświetlaniu currency dla danego kraju występuje błąd!!!
 //    private List<NoteDto> notes;
 }

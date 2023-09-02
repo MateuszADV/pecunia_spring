@@ -13,6 +13,9 @@
             <img th:src="@{'/images/flags/' + ${country.countryEn} + '.png'}" style="width: 100px"/><br>
             <h5 th:text="${country.countryEn}"></h5>
         </div>
+        <div style="display: flex;">
+            <a th:replace="fragments/button/_button-back :: back(back = '/currency')"></a>
+        </div>
         <a th:href="@{'/currency/new/' + '?countryId=' + ${country.id}}" class="btn btn-sm btn-primary">Add Currency to [[${country.countryEn}]]</a>
         <div th:if="${country.getCurrencyDtos.size} == 0">
             <h3>Brak Dodanych walut do państwa - [[${country.getCurrencyDtos.size}]]</h3>
@@ -45,7 +48,10 @@
                     <td th:text="${currency.pattern}" class="pt-1 pb-1"></td>
                     <td th:text="${currency.currencySeries}" class="pt-1 pb-1" style="font-size: 12px"></td>
                     <td class="pt-1 pb-1">
-                        <a th:href="@{'/currency/show/' + ${currency.id}}" class="btn btn-sm btn-info" style="font-size: 10px">SHOW</a>
+                        <a th:href="@{'/currency/show/' + ${currency.id}}" class="btn btn-sm btn-info" style="font-size: 10px" data-toggle="modal" th:attr="data-target='#currency-' + ${currency.id}" >SHOW</a>
+                        <div class="modal fade" th:attr="id= 'currency-' + ${currency.id}"  tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div th:replace="currency/_showModal :: showModal"></div>
+                        </div>
                         <a th:href="@{'/currency/edit/' + ${currency.id}}" class="btn btn-sm btn-primary" style="font-size: 10px">EDIT</a>
                         <a th:href="@{'/currency/delete/' + ${currency.id} + '/' + ${country.id}}" class="btn btn-sm btn-danger" style="font-size: 10px">DELETE</a>
                     </td>

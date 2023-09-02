@@ -213,13 +213,13 @@ public class CurrencyController {
     @GetMapping("/currency/show/{currencyId}")
     public String getShow(@PathVariable Long currencyId, ModelMap modelMap) {
         Currency currency = currencyService.getCurrencyById(currencyId);
-        CurrencyDtoForm currencyDtoForm = new ModelMapper().map(currency, CurrencyDtoForm.class);
+        CurrencyDto currencyDto = new ModelMapper().map(currency, CurrencyDto.class);
         System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++");
         System.out.println(currencyId);
-        System.out.println(JsonUtils.gsonPretty(currencyDtoForm));
+        System.out.println(JsonUtils.gsonPretty(currencyDto));
 
-        modelMap.addAttribute("currency", currencyDtoForm);
-        modelMap.addAttribute("json", JsonUtils.gsonPretty(currencyDtoForm));
+        modelMap.addAttribute("currency", currencyDto);
+        modelMap.addAttribute("json", JsonUtils.gsonPretty(currencyDto));
         return "currency/show";
     }
 
