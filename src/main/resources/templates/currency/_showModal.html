@@ -9,6 +9,10 @@
                 </button>
             </div>
             <div class="modal-body" style="background: antiquewhite">
+                <div class="container" style="text-align: center; margin-top: 15px">
+                    <img th:src="@{'/images/flags/' + ${currency.countries.countryEn} + '.png'}" style="width: 100px"/><br>
+                    <h5 th:text="${country.countryEn}"></h5>
+                </div>
                 <b>Id: </b><span th:text="${currency.id}"></span><br>
                 <b>Cod: </b><span th:text="${currency.cod}"></span><br>
                 <b>Patern: </b><span th:text="${currency.pattern}"></span><br>
@@ -18,6 +22,9 @@
                 <b>- Active Code: </b><span th:text="${currency.actives.activeCod}"></span><br>
                 <b>- Name: </b><span th:text="${currency.actives.name}"></span><br>
                 <b>Currency Series: </b><span th:text="${currency.currencySeries}"></span><br>
+                <b>Pattern:</b><br>
+                <b>- Pattern: </b><span th:text="${currency.patterns.pattern}"></span><br>
+                <b>- Name: </b><span th:text="${currency.patterns.name}"></span><br>
                 <b><label>Description:</label></b><br>
                 <span th:text="${currency.description}"></span>
             </div>

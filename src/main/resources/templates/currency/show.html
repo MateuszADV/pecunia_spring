@@ -9,7 +9,9 @@
 <body>
 <div layout:fragment="content" class="container">
     <h1 style="text-align: center">CURRENCY SHOW</h1>
-
+    <div style="display: flex;">
+        <a th:replace="fragments/button/_button-back :: back(back = '/currency/list/' + ${currency.countries.id})"></a>
+    </div>
 <!--    <p th:text="${country}"></p>-->
     <h2 th:text="${currency.countries.getCountryEn}"></h2>
     <div style="float: left">
