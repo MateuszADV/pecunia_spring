@@ -55,6 +55,9 @@ public class WebSecurityConfig  {
 //                ********************NOTE FOR SELL ******************************************
                 .antMatchers("/note/forSell/**")
                 .permitAll()
+//                ********************Coin FOR SELL ******************************************
+                .antMatchers("/coin/forSell/**")
+                .permitAll()
 //                ********************CONTINENT*****************************************
                 .antMatchers("/continent/**")
                 .permitAll()
