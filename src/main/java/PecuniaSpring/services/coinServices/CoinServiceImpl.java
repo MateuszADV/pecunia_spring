@@ -4,12 +4,14 @@ import PecuniaSpring.models.Coin;
 import PecuniaSpring.models.repositories.CoinRepository;
 import PecuniaSpring.models.sqlClass.CountryByStatus;
 import PecuniaSpring.models.sqlClass.CurrencyByStatus;
+import PecuniaSpring.models.sqlClass.GetCoinsByStatus;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import utils.JsonUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -115,5 +117,31 @@ public class CoinServiceImpl implements CoinService {
             Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
             return this.coinRepository.coinPageable(currencyId, status, true, pageable);
         }
+    }
+
+    @Override
+    public List<CountryByStatus> getCountryByStatus(String status) {
+
+        List<Object[]> objects;
+        List<CountryByStatus> countryByStatusList = new ArrayList<>();
+        objects = coinRepository.countryByStatus("NEW");
+
+            System.out.println(JsonUtils.gsonPretty(objects));
+            for (Object[] object : objects) {
+                countryByStatusList.add(new ModelMapper().map(object[0], CountryByStatus.class));
+            }
+        return countryByStatusList;
+    }
+
+    @Override
+    public List<GetCoinsByStatus> getCoinsByStatus(String status, Long countryId) {
+        List<Object[]> objects;
+        objects = coinRepository.getCoinsByStatus("NEW", countryId);
+        List<GetCoinsByStatus> getCoinsByStatusList = new ArrayList<>();
+        for (Object[] object : objects) {
+            getCoinsByStatusList.add(new ModelMapper().map(object[0],GetCoinsByStatus.class));
+        }
+        System.out.println(JsonUtils.gsonPretty(getCoinsByStatusList));
+        return getCoinsByStatusList;
     }
 }
