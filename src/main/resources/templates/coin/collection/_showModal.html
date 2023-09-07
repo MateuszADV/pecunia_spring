@@ -25,7 +25,7 @@
                 <strong>Thickness: </strong>
                 <span th:text="${#numbers.formatDecimal(coin.thickness,1,0)} + 'mm'"></span><br>
                 <strong>Weight: </strong>
-                <span th:text="${#numbers.formatDecimal(coin.weight,1,0)} + 'mm'"></span><br>
+                <span th:text="${#numbers.formatDecimal(coin.weight,1,2)} + 'g'"></span><br>
                 <strong>Quality: </strong>
                 <span th:text="${coin.qualities.quality}"></span><br>
             </div>
