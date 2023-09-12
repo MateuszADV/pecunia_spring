@@ -11,8 +11,38 @@
 <body>
     <div layout:fragment="content" class="container">
         <h1 style="text-align: center">CHART TEST</h1>
-        <div id="parametr" th:value="${parametr}" ></div>
+        <div id="parametr" th:value="${countryParam}" ></div>
         <div id="typeChart" th:value="${typeChart}" ></div>
+
+        <form th:action="@{/chart}" method="post" th:name="typeChart">
+            <div style="float: left">
+                <select th:name="typeChart" th:value="${typeChart}">
+                    <option th:value="bar" th:text="Bar" th:selected ="${typeChart} == 'bar'"></option>
+                    <option th:value="line" th:text="Line" th:selected ="${typeChart} == 'line'"></option>
+                    <option th:value="polarArea" th:text="'Polar Area'" th:selected ="${typeChart} == 'polarArea'"></option>
+                    <option th:value="doughnut" th:text="'Doughnut'" th:selected ="${typeChart} == 'doughnut'"></option>
+                    <option th:value="pie" th:text="'Pie'" th:selected ="${typeChart} == 'pie'"></option>
+                    <option th:value="scatter" th:text="'Scatter'" th:selected ="${typeChart} == 'scatter'"></option>
+                </select>
+                <select th:name="report">
+                    <option th:each="report : ${reports}"
+                            th:value="${report.name}"
+                            th:text="${(report.name.replace('_', ' ')).replace('my report ', '')}"
+                            th:selected="${report.name} == ${reportName}">
+                    </option>
+                </select>
+                <select th:name="countryParam">
+                    <option th:each="country : ${countries}"
+                            th:value="${country.countryEn}"
+                            th:text="${country.countryEn}"
+                            th:selected="${country.countryEn} == ${countryParam}">
+                    </option>
+                </select>
+            </div>
+            <div style="float: left; margin-left: 10px">
+                <p> <input type="submit" value="Select" class="btn btn-sm btn-primary"></p>
+            </div>
+        </form>
         <script id="chart" th:value="${reportName}" src="js/chart.js" async type="text/javascript">
 
             // var ctx = document.getElementById('myChart').getContext('2d');
