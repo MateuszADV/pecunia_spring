@@ -16,6 +16,7 @@
                 <tr>
                     <!--                <th>CON</th>-->
                     <th>Lp:</th>
+                    <th>Id</th>
                     <th>Country</th>
                     <th>Denomination</th>
                     <th>Currency</th>
@@ -33,6 +34,7 @@
                     <tr>
                         <!--                    <td th:text="${country.getContinents().getContinentCode()}"></td>-->
                         <td th:text="${i.index +1}"></td>
+                        <td th:text="${note.noteId}"></td>
                         <td th:text="${note.countryEn}"></td>
                         <td th:text="${#numbers.formatDecimal(note.denomination,1,2)}"></td>
                         <td th:text="${note.nameCurrency}"></td>
