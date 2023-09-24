@@ -115,8 +115,11 @@ public class CurrencyController {
         System.out.println(JsonUtils.gsonPretty(currencyForm));
 
         Currency currency = new ModelMapper().map(currencyForm, Currency.class);
+
         currencyService.saveCurrency(currency);
-        return getSearch("", modelMap);
+        return getCountryCurrency(currencyForm.getCountries().getId(), modelMap);
+
+//        return getSearch("", modelMap);
     }
 
     private void currencyParameters(@ModelAttribute("currencyForm") @Valid CurrencyDtoForm currencyForm, ModelMap modelMap) {

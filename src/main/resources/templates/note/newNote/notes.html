@@ -49,7 +49,8 @@
                             <span th:text="${note.itemDate}"></span><br>
                         </td>
                         <td>
-                            <b class="btn btn-sm btn-primary">EDIT</b>
+                            <a th:replace="fragments/button/_button-edit :: edit(edit = '/note/edit/' + ${note.noteId})"></a>
+<!--                            <b class="btn btn-sm btn-primary">EDIT</b>-->
                         </td>
                     </tr>
                 </Block>
