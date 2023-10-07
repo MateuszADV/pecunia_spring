@@ -8,17 +8,22 @@
     <title>Country</title>
 </head>
 <body>
-    <div layout:fragment="content"  class="container" style="background: aliceblue">
-       <H2 style="text-align: center" >NOTES COLECTION</H2>
-        <H4 th:text="${notes[0].currencies.currencySeries}" style="text-align: center" ></H4>
-<!--        <div th:replace="fragments/_flag :: flag(country = ${currencyByStatusList[0].countryEn})"></div>-->
-        <div th:replace="fragments/_flag :: flag(country = ${notes[0].currencies.countries.countryEn})"></div>
-        <div style="display: flex;">
-            <a th:replace="fragments/button/_button-back :: back(back = '/note/collection/currency/?selectCountryId=' + ${notes[0].currencies.countries.id})"></a>
-        </div>
-        <div class="form-row align-items-center">
+    <div layout:fragment="content"  class="container">
+
+        <div class="jumbotron">
+            <h2 class="display-4" style="text-align: center" >NOTES COLECTION</H2>
+            <hr class="my-2">
+            <H4 th:text="${notes[0].currencies.currencySeries}" style="text-align: center" ></H4>
+            <hr class="my-2">
+            <div th:replace="fragments/_flag :: flag(country = ${notes[0].currencies.countries.countryEn})"></div>
+            <hr class="my-2">
+            <div style="display: flex;">
+                <a th:replace="fragments/button/_button-back :: back(back = '/note/collection/currency/?selectCountryId=' + ${notes[0].currencies.countries.id})"></a>
+            </div>
+            <hr class="my-2">
             <div class="form-row align-items-center">
-                <th:block th:each="note : ${notes}">
+                <div class="form-row align-items-center">
+                    <th:block th:each="note : ${notes}">
 
                         <div class="col-auto note-box">
 
@@ -32,10 +37,10 @@
                                 <span th:text="${'Quality: ' + note.qualities.quality}"></span><br>
                                 <span th:text="${'Status: ' + note.statuses.status}"></span>
                                 <div sec:authorize="hasAuthority('ADMIN')">
-<!--                                    This content is only shown to ADMIN.-->
+                                    <!--                                    This content is only shown to ADMIN.-->
                                     <p th:text="${'Visible: ' + note.visible}"></p>
                                 </div>
-<!--                                <a th:replace="fragments/button/_button-show :: show(show = '/note/collection/show/' + ${note.id})"></a>-->
+                                <!--                                <a th:replace="fragments/button/_button-show :: show(show = '/note/collection/show/' + ${note.id})"></a>-->
                                 <div style="margin-bottom: 5px">
                                     <a th:href="@{'/note/collection/show/' + ${note.id}}" class="btn btn-sm btn-info" style="font-size: 10px" data-toggle="modal" th:attr="data-target='#Note-' + ${note.id}" >SHOW</a>
                                 </div>
@@ -43,17 +48,16 @@
                                     <div th:replace="note/collection/_showModal :: showModal"></div>
                                 </div>
                             </div>
-<!--                            <a th:href="@{'/note/collection/show/' + ${note.id}}" class="btn btn-sm btn-info" style="font-size: 10px">SHOW</a>-->
-
+                            <!--                            <a th:href="@{'/note/collection/show/' + ${note.id}}" class="btn btn-sm btn-info" style="font-size: 10px">SHOW</a>-->
                         </div>
-                </th:block>
+                    </th:block>
+                </div>
             </div>
-
-        </div>
-        <div th:if="${totalPages} > 1" style="padding-bottom: 1px">
-            <div th:replace="fragments/_pagination :: pagination(currencyId = ${notes[0].currencies.id})"></div>
+            <hr class="my-2">
+            <div th:if="${totalPages} > 1" style="padding-bottom: 1px">
+                <div th:replace="fragments/_pagination :: pagination(currencyId = ${notes[0].currencies.id})"></div>
+            </div>
         </div>
     </div>
-
 </body>
 </html>

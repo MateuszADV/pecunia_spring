@@ -1,15 +1,16 @@
 .currency-box
 {
-    width: 250px;
+    width: 240px;
     min-height: 80px;
     margin: 10px;
     text-align: center;
+    font-size: small;
     background: darkgrey;
     color: black;
 }
 .note-box
 {
-    width: 250px;
+    width: 240px;
     min-height: 80px;
     margin: 10px;
     text-align: center;
