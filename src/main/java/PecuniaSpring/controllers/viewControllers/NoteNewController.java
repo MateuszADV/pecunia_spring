@@ -68,6 +68,14 @@ public class NoteNewController {
 
         modelMap.addAttribute("newNotesList", getNotesByStatusList);
 
+        Double sum = getNotesByStatusList.stream()
+                .mapToDouble(i -> i.getQuantity() * i.getPriceBuy())
+                .sum();
+
+        modelMap.addAttribute("totalSum", sum);
+        System.out.println("((((((((((((((((((((((((((((((SUM)))))))))))))))))))))))))))))))))))))))))))");
+        System.out.println(sum);
+        System.out.println("((((((((((((((((((((((((((((((SUM)))))))))))))))))))))))))))))))))))))))))))");
 
         return "note/newNote/loc";
     }
