@@ -1,30 +1,27 @@
 <header th:fragment="form"
     xmlns:th="http://www.thymeleaf.org">
-    <table>
-        <tr>
-
-            <td>
+    <div class="form-row align-items-center">
+            <div class="col-md-4">
                 <label>Name</label><br>
-                <input class="input" type="text" th:field="*{name}" placeholder="Name"/>
+                <input class="form-control form-control-sm mb-2" type="text"th:field="*{name}" placeholder="Name"/>
                 <div th:if="${#fields.hasErrors('name')}" class="alert alert-danger alert-sm" role="alert" style="padding: 0px 10px 0px 10px" >
                     <span th:errors="*{name}" ></span>
                 </div>
-            </td>
-            <td>
+            </div>
+            <div class="col-md-6">
                 <label>Full NAme</label><br>
                 <!--                <b th:if="${checkActive == true}" style="color: red; font-size: 15px">Podana wartość już istnieje w bazie<br></b>-->
-                <input class="input" type="text" th:field="*{fullName}" placeholder="Full Name" />
+                <input class="form-control form-control-sm mb-2" type="text" th:field="*{fullName}" placeholder="Full Name" />
 <!--                <div th:if="${#fields.hasErrors('activeCod')}" class="alert alert-danger alert-sm" role="alert" style="padding: 0px 10px 0px 10px" >-->
 <!--                    <span th:errors="*{activeCod}" ></span>-->
 <!--                </div>-->
-            </td>
-        <tr>
-            <td>
-                <label>Description</label><br>
-                <div>
-                    <textarea class="input" th:field="*{description}" placeholder="Description"></textarea>
+            </div>
+    </div>
+            <div class="form-row align-items-center">
+                <div class="col">
+                    <label>Description</label><br>
+                    <textarea class="input form-control form-control-sm mb-4" rows="6" style="max-width: 400px; resize: none" th:field="*{description}" placeholder="Description"></textarea>
                 </div>
-            </td>
-        </tr>
-    </table>
+            </div>
+    <hr class="my-2">
 </header>

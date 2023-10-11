@@ -7,14 +7,22 @@
     <title>Edit Bought</title>
 </head>
 <body>
-<div layout:fragment="content" class="container">
-    <h1 style="text-align: center">EDIT BOUGHT</h1>
-
-    <form th:action="@{/bought/edit}" method="post" th:object="${boughtForm}">
-        <div th:replace="bought/_form :: form"></div>
-        <p> <input type="submit" value="Zapisz Zmiany" class="btn btn-sm btn-primary"></p>
-    </form>
-
-</div>
+    <div layout:fragment="content" class="container">
+        <div class="jumbotron">
+            <h1 class="display-4" style="text-align: center">EDIT BOUGHT</h1>
+            <hr class="my-2">
+            <div class="container">
+                <div>
+                    <form th:action="@{/bought/edit}" method="post" th:object="${boughtForm}">
+                        <div th:replace="bought/_form :: form"></div>
+                        <p> <input type="submit" value="Zapisz Zmiany" class="btn btn-sm btn-primary"></p>
+                    </form>
+                </div>
+                <div>
+                    <a th:replace="fragments/button/_button-back :: back(back = '/bought')"></a>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

@@ -233,7 +233,7 @@ public class CurrencyController {
         }catch (Exception e) {
             System.out.println(e.getMessage());
             modelMap.addAttribute("error", e.getMessage());
-//            return "error";
+            return "error";
         }
         return "redirect:/currency/list/" + countryId;
     }
