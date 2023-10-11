@@ -145,6 +145,8 @@ public class NoteController {
         noteFormDto.setCurrencies(currencyDto);
 
         noteFormDto.setDateBuy(Date.valueOf(LocalDate.now()));
+        noteFormDto.setPriceBuy(0.00);
+        noteFormDto.setPriceSell(0.00);
         modelMap.addAttribute("noteForm", noteFormDto);
          return "note/new";
     }
