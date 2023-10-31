@@ -13,6 +13,10 @@
             <hr class="my-2">
             <div th:replace="fragments/_flag :: flag(country = ${currency.countries.countryEn})"></div>
             <hr class="my-2">
+            <div style="text-align: center">
+                <h3 th:text="${currency.currencySeries}"></h3>
+            </div>
+            <hr class="my-2">
             <H3>Ilość banknotów - [[${notes.size}]]</H3>
             <div class="container" style="display: inline-block">
                 <a th:href="@{'/note/new/?curId=' + ${currency.id}}" class="btn btn-sm btn-primary" style="float: left">Add new Note</a>
