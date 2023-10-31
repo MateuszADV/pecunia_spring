@@ -37,6 +37,17 @@ body
 {
     text-align: center;
 }
+
+.NOTE
+{
+    background: #2fff50d9;
+}
+
+.COIN
+{
+    background: #53b2ff87;
+}
+
 /*.stopka*/
 /*{*/
 /*    background-color: #bfbfbf;*/
