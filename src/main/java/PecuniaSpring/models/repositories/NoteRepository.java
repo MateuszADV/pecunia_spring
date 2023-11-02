@@ -118,7 +118,27 @@ public interface NoteRepository extends JpaRepository<Note, Long> {
             "    ON cur.id = note.currencies" +
             "  LEFT JOIN Country cou" +
             "    ON cou.id = cur.countries" +
-            " WHERE stat.id = note.statuses AND bou.name = 'LOC'" +
+            " WHERE stat.id = note.statuses AND bou.name = ?2" +
+            " GROUP BY note.qualities, note.id, cou.id, cou.countryEn, cou.countryPl, cur.id, cur.currencySeries, bou.name, note.denomination, note.nameCurrency, note.itemDate, " +
+            "          note.priceBuy, note.priceSell, note.quantity, note.unitQuantity, note.width, note.height, note.visible, note.description, note.aversPath, note.reversePath " +
+            " ORDER BY cou.countryEn, note.denomination")
+    List<Object[]> getNotesByStatus(String status, String bought);
+
+    @Query(value = "SELECT new map(note.qualities AS qualities, note.id AS noteId, cou.id AS countryId, cou.countryEn AS countryEn, cou.countryPl AS countryPl, cur.id AS currencyId, " +
+            "cur.currencySeries AS currencySeries, bou.name AS bought, note.denomination AS denomination, note.nameCurrency AS nameCurrency, note.itemDate AS itemDate, " +
+            "note.priceBuy AS priceBuy, note.priceSell AS priceSell, note.quantity AS quantity, note.unitQuantity AS unitQuantity, " +
+            "note.width AS width, note.height AS height, note.visible AS visible, note.description AS description, " +
+            "note.aversPath AS aversPath, note.reversePath AS reversePath ) " +
+            "  FROM Note note" +
+            "  LEFT JOIN Status stat" +
+            "    ON stat.status = ?1" +
+            "  LEFT JOIN Bought bou" +
+            "    ON bou.id = note.boughts" +
+            "  LEFT JOIN Currency cur" +
+            "    ON cur.id = note.currencies" +
+            "  LEFT JOIN Country cou" +
+            "    ON cou.id = cur.countries" +
+            " WHERE stat.id = note.statuses" +
             " GROUP BY note.qualities, note.id, cou.id, cou.countryEn, cou.countryPl, cur.id, cur.currencySeries, bou.name, note.denomination, note.nameCurrency, note.itemDate, " +
             "          note.priceBuy, note.priceSell, note.quantity, note.unitQuantity, note.width, note.height, note.visible, note.description, note.aversPath, note.reversePath " +
             " ORDER BY cou.countryEn, note.denomination")

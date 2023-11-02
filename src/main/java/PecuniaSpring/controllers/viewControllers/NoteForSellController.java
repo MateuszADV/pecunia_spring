@@ -55,4 +55,15 @@ public class NoteForSellController {
         System.out.println(JsonUtils.gsonPretty(getNotesByStatusList));
         return "note/forSell/notes";
     }
+    @GetMapping("/note/forSell/list")
+    private String getNoteForSellList(ModelMap modelMap) {
+        List<Object[]> objects = noteRepository.getNotesByStatus("FOR SELL");
+        List<GetNotesByStatus> getNotesByStatusList = new ArrayList<>();
+        for (Object[] object : objects) {
+            getNotesByStatusList.add(new ModelMapper().map(object[0],GetNotesByStatus.class));
+        }
+
+        modelMap.addAttribute("forSellNotesList", getNotesByStatusList);
+        return "note/forSell/list";
+    }
 }
