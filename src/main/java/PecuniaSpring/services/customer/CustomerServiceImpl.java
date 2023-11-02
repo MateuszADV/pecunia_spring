@@ -1,0 +1,50 @@
+package PecuniaSpring.services.customer;
+
+import PecuniaSpring.models.Customer;
+import PecuniaSpring.models.repositories.CustomerRepository;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
+@Service
+@AllArgsConstructor
+public class CustomerServiceImpl implements CustomerService {
+
+    private CustomerRepository customerRepository;
+
+    @Override
+    public List<Customer> getAllCustomer() {
+        return this.customerRepository.findAll();
+    }
+
+    @Override
+    public Customer getCustomerById(Long id) {
+        Optional<Customer> customer = customerRepository.findById(id);
+        if (customer.isPresent()) {
+            return customer.get();
+        } else  {
+            throw new RuntimeException("Customer Not Found For Id :: " + id);
+        }
+    }
+
+    @Override
+    public Customer saveCustomer(Customer customer) {
+        return this.customerRepository.save(customer);
+    }
+
+    @Override
+    public void updateCustomer(Customer customer) {
+
+    }
+
+    @Override
+    public void deleteCustomerById(Long id) {
+        if (customerRepository.existsById(id)) {
+            this.customerRepository.deleteById(id);
+        } else {
+            throw new RuntimeException("Record o id - " + id + " Który chcesz usuąć nie istnieje");
+        }
+    }
+}
