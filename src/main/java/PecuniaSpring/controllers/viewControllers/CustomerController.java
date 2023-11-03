@@ -35,6 +35,8 @@ public class CustomerController {
 
         modelMap.addAttribute("customerDtos", customerDtos);
 
+        System.out.println(JsonUtils.gsonPretty(customerDtos));
+
         UUID uuid = UUID.randomUUID();
         System.out.println(uuid);
         return "customer/index";

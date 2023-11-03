@@ -24,21 +24,21 @@
                         <th style="min-width: 105px">Action</th>
                     </tr>
                 </thead>
-<!--                <tbody>-->
-<!--                    <Block th:each="customer, i : ${costomerDtos}">-->
-<!--                        <tr>-->
-<!--                            <td th:text="${customer.id}" class="pt-1 pb-1"></td>-->
-<!--                            <td th:text="${customer.uniiqueId}" class="pt-1 pb-1"></td>-->
-<!--                            <td th:text="${customer.name}" class="pt-1 pb-1"></td>-->
-<!--                            <td th:text="${bought.lastName}" class="pt-1 pb-1"></td>-->
-<!--                            <td th:text="${bought.description}" class="pt-1 pb-1"></td>-->
-<!--                            <td class="pt-1 pb-1">-->
+                <tbody>
+                    <Block th:each="customer, i : ${customerDtos}">
+                        <tr style="font-size: smaller">
+                            <td th:text="${customer.id}" class="pt-1 pb-1"></td>
+                            <td th:text="${customer.uniqueId}" class="pt-1 pb-1"></td>
+                            <td th:text="${customer.name}" class="pt-1 pb-1"></td>
+                            <td th:text="${customer.lastName}" class="pt-1 pb-1"></td>
+                            <td th:text="${customer.description}" class="pt-1 pb-1"></td>
+                            <td class="pt-1 pb-1">
 <!--                                <a th:href="@{'/customer/edit/' + ${customer.id}}" class="btn btn-sm btn-primary" style="font-size: 10px">EDIT</a>-->
 <!--                                <a th:href="@{'/customer/delete/' + ${customer.id}}" class="btn btn-sm btn-danger" style="font-size: 10px">Delete</a>-->
-<!--                            </td>-->
-<!--                        </tr>-->
-<!--                    </Block>-->
-<!--                </tbody>-->
+                            </td>
+                        </tr>
+                    </Block>
+                </tbody>
             </table>
         </div>
     </div>
