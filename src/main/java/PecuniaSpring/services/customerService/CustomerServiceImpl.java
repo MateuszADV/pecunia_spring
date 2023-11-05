@@ -1,4 +1,4 @@
-package PecuniaSpring.services.customer;
+package PecuniaSpring.services.customerService;
 
 import PecuniaSpring.models.Customer;
 import PecuniaSpring.models.repositories.CustomerRepository;
@@ -20,6 +20,11 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    public List<Customer> getAllCustomerOrderByID() {
+        return  this.customerRepository.getAllCustomerOrderById();
+    }
+
+    @Override
     public Customer getCustomerById(Long id) {
         Optional<Customer> customer = customerRepository.findById(id);
         if (customer.isPresent()) {
@@ -36,7 +41,11 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public void updateCustomer(Customer customer) {
-
+        if (customerRepository.existsById(customer.getId())) {
+            customerRepository.updateCustomer(customer.getName(), customer.getLastName(), customer.getCity(), customer.getZipCode(), customer.getStreet(), customer.getNumber(), customer.getEmail(), customer.getNick(), customer.getPhone(), customer.getDescription(), customer.getId());
+        }else   {
+            throw new RuntimeException("Podczas aktualizacji danych wystąpił bład (id - " + customer.getId() + " nie istnieje)");
+        }
     }
 
     @Override
