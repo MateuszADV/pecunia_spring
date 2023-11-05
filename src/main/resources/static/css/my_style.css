@@ -48,6 +48,8 @@ body
     background: #53b2ff87;
 }
 
+/**************************MODAL CONFIRM DELETE**************************
+
 /* Float cancel and delete buttons and add an equal width */
 .cancelbtn, .deletebtn {
     float: left;
@@ -72,6 +74,7 @@ body
     display: table;
 }
 
+/***************************END MODAL***********************************************
 /*.stopka*/
 /*{*/
 /*    background-color: #bfbfbf;*/

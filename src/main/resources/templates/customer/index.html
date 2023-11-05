@@ -33,9 +33,12 @@
                             <td th:text="${customer.lastName}" class="pt-1 pb-1"></td>
                             <td th:text="${customer.description}" class="pt-1 pb-1"></td>
                             <td class="pt-1 pb-1">
+                                <a th:href="@{'/customer/show/' + ${customer.id}}" class="btn btn-sm btn-info" style="font-size: 10px" data-toggle="modal" th:attr="data-target='#customer-' + ${customer.id}" >SHOW</a>
+                                <div class="modal fade" th:attr="id= 'customer-' + ${customer.id}"  tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div th:replace="customer/_showModal :: showModal"></div>
+                                </div>
                                 <a th:href="@{'/customer/edit/' + ${customer.id}}" class="btn btn-sm btn-primary" style="font-size: 10px">EDIT</a>
 <!--                                <a th:href="@{'/customer/delete/' + ${customer.id}}" class="btn btn-sm btn-danger" style="font-size: 10px">Delete</a>-->
-
                                 <a th:href="@{'/customer/delete/' + ${customer.id}}" class="btn btn-sm btn-danger" style="font-size: 10px; float: right" data-toggle="modal" th:attr="data-target='#customer' + ${customer.id}" >DELETE</a>
                                 <div class="modal fade" th:attr="id= 'customer' + ${customer.id}"  tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div th:replace="customer/_confirmDeleteModal :: confirmDeleteModal"></div>
