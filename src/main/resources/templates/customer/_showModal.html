@@ -3,16 +3,26 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header" style="background: lightgray">
-                <h1 class="modal-title" id="exampleModalLabel">Customer</h1>
+                <h1 class="modal-title" id="exampleModalLabel" style="margin-left: auto">Customer</h1>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body" style="background: antiquewhite">
+                <H3 style="text-align: center">[[${customer.name}]] [[${customer.lastName}]]</H3>
+                <hr class="my-2">
                 <b>Id: </b><span th:text="${customer.id}"></span><br>
                 <b>UUID: </b><span th:text="${customer.uniqueId}"></span><br>
-                <b>Name</b><span th:text="${customer.name}"></span><br>
-                <b><label>Description:</label></b><br>
+                <hr class="my-2">
+                <b>Adres:</b><br>
+                <span>[[${customer.zipCode}]] [[${customer.city}]]</span><br>
+                <span>[[${customer.street}]] [[${customer.number}]]</span><br>
+                <hr class="my-2">
+                <b>Phone: </b><span th:text="${customer.phone}"></span><br>
+                <b>Email: </b><span th:text="${customer.email}"></span><br>
+                <b>Nick: </b><span th:text="${customer.nick}"></span><br>
+                <hr class="my-2">
+                <b>Description:</b><br>
                 <span th:text="${customer.description}"></span>
             </div>
             <div class="modal-footer" style="background: lightgray">

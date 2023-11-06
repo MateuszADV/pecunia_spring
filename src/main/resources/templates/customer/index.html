@@ -20,6 +20,7 @@
                         <th>UUID:</th>
                         <th>Name</th>
                         <th>Last Name</th>
+                        <th>City</th>
                         <th>Desctiption</th>
                         <th style="min-width: 105px">Action</th>
                     </tr>
@@ -31,6 +32,7 @@
                             <td th:text="${customer.uniqueId}" class="pt-1 pb-1"></td>
                             <td th:text="${customer.name}" class="pt-1 pb-1"></td>
                             <td th:text="${customer.lastName}" class="pt-1 pb-1"></td>
+                            <td th:text="${customer.city}" class="pt-1 pb-1"></td>
                             <td th:text="${customer.description}" class="pt-1 pb-1"></td>
                             <td class="pt-1 pb-1">
                                 <a th:href="@{'/customer/show/' + ${customer.id}}" class="btn btn-sm btn-info" style="font-size: 10px" data-toggle="modal" th:attr="data-target='#customer-' + ${customer.id}" >SHOW</a>
