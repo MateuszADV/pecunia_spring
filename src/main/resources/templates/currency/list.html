@@ -39,11 +39,11 @@
                 </thead>
                 <tbody>
                 <Block th:each="currency, i : ${country.getCurrencyDtos}">
-                    <tr th:class="${currency.pattern}">
+                    <tr th:class="${currency.patterns.pattern}">
                         <!--                    <td th:text="${country.getContinents().getContinentCode()}"></td>-->
                         <td th:text="${(i.index + 1)}" class="pt-1 pb-1"></td>
                         <td th:text="${currency.id}" class="pt-1 pb-1"></td>
-                        <td th:text="${currency.pattern}" class="pt-1 pb-1"></td>
+                        <td th:text="${currency.patterns.pattern}" class="pt-1 pb-1"></td>
                         <td class="pt-1 pb-1" style="font-size: 12px">
                             [[${currency.currencySeries}]]  ([[${currency.id}]])
                         </td>
