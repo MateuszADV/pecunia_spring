@@ -2,10 +2,14 @@ package PecuniaSpring.controllers.viewControllers;
 
 import PecuniaSpring.models.Country;
 import PecuniaSpring.models.Currency;
+import PecuniaSpring.models.Security;
 import PecuniaSpring.models.dto.country.CountryDtoForm;
+import PecuniaSpring.models.dto.currency.CurrencyDto;
 import PecuniaSpring.models.dto.currency.CurrencyDtoByPattern;
+import PecuniaSpring.models.dto.security.SecurityDto;
 import PecuniaSpring.services.countryServices.CountryServiceImpl;
 import PecuniaSpring.services.currencyService.CurrencyServiceImpl;
+import PecuniaSpring.services.securityService.SecurityServiceImpl;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
@@ -17,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import utils.JsonUtils;
 import utils.Search;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +31,7 @@ public class SecurityController {
 
     private CountryServiceImpl countryService;
     private CurrencyServiceImpl currencyService;
+    private SecurityServiceImpl securityService;
 
     @GetMapping("/security")
     public String getIndex(ModelMap modelMap) {
@@ -65,5 +71,29 @@ public class SecurityController {
         System.out.println("=======================STOP===========================");
         modelMap.addAttribute("currencies", currencyDtoByPatterns);
         return "security/currency";
+    }
+
+    @GetMapping("/security/security_list")
+    public String getNoteList(@RequestParam(value = "currencySeries") String currencySeries,
+                              @RequestParam(value = "curId") Long  currencyId,
+                              HttpServletRequest request,
+                              ModelMap modelMap) {
+
+        System.out.println("=======================START003++++++++++++++++++++++++++");
+        System.out.println(request.getPathInfo());
+        Currency currency = currencyService.getCurrencyById(currencyId);
+        CurrencyDto currencyDto = new ModelMapper().map(currency, CurrencyDto.class);
+        List<Security> securities = securityService.getSecurityByCurrencyId(currencyId);
+        List<SecurityDto> securityDtos = new ArrayList();
+        for (Security security : securities) {
+            securityDtos.add(new ModelMapper().map(security, SecurityDto.class));
+        }
+
+        System.out.println(securities.size());
+        System.out.println(JsonUtils.gsonPretty(securityDtos));
+
+        modelMap.addAttribute("currency", currencyDto);
+        modelMap.addAttribute("securities", securityDtos);
+        return "/security/security_list";
     }
 }

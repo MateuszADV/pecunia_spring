@@ -13,4 +13,6 @@ public interface SecurityService {
     Security getSecurityById(Long id);
     Security saveSecurity(Security security);
     void deleteSecurityById(Long id);
+
+    List<Security> getSecurityByCurrencyId(Long currencyId);
 }

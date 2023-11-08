@@ -41,9 +41,9 @@
                                     <td th:text="${i.index +1}" class="pt-1 pb-1"></td>
                                     <td th:text="${currency.id}" class="pt-1 pb-1"></td>
                                     <td class="pt-1 pb-1">
-<!--                                        <a th:href="@{'/security/security_list/?currencySeries=' + ${currency.currencySeries} + '&curId=' + ${currency.id}}" style="color: black">-->
+                                        <a th:href="@{'/security/security_list/?currencySeries=' + ${currency.currencySeries} + '&curId=' + ${currency.id}}" style="color: black">
                                             [[${currency.currencySeries}]]  ([[${currency.id}]])
-<!--                                        </a>-->
+                                        </a>
                                     </td>
                                     <td th:text="${currency.securities.size}"></td>
                                     <!--                            <td class="pt-1 pb-1">-->

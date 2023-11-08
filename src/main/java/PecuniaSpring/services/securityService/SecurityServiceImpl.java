@@ -2,12 +2,14 @@ package PecuniaSpring.services.securityService;
 
 import PecuniaSpring.models.Security;
 import PecuniaSpring.models.repositories.SecurityRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@AllArgsConstructor
 public class SecurityServiceImpl implements SecurityService {
 
     private SecurityRepository securityRepository;
@@ -44,5 +46,11 @@ public class SecurityServiceImpl implements SecurityService {
         } else {
             throw new RuntimeException("Record by Id - " + id + " not exist");
         }
+    }
+
+    @Override
+    public List<Security> getSecurityByCurrencyId(Long currencyId) {
+        List<Security> securities = securityRepository.getSecurityByCurrencyId(currencyId);
+        return securities;
     }
 }

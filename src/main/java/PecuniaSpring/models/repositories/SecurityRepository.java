@@ -12,4 +12,8 @@ public interface SecurityRepository extends JpaRepository<Security, Long> {
 
     @Query(value = "SELECT sec FROM Security sec ORDER BY sec.id")
     List<Security> getAllSecurityOrderById();
+
+    @Query(value = "SELECT sec FROM Security sec " +
+            "WHERE sec.currencies.id = ?1")
+    List<Security> getSecurityByCurrencyId(Long currencyId);
 }
