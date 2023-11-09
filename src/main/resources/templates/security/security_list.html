@@ -11,7 +11,6 @@
         <div class="jumbotron" style="padding-top: 10px">
             <h1 class="display-4" style="text-align: center">Security</h1>
             <hr class="my-2">
-            <span th:text="${currency.countries.countryEn}"></span>
                 <div th:replace="fragments/_flag :: flag(country = ${currency.countries.countryEn})"></div>
                 <hr class="my-2">
             <div th:if="${securities.size} > 0">
@@ -24,7 +23,7 @@
                 <hr class="my-2">
             </div>
                 <div class="container" style="display: inline-block">
-    <!--                <a th:href="@{'/security/new/?curId=' + ${currency.id}}" class="btn btn-sm btn-primary" style="float: left">Add new Security</a>-->
+                    <a th:href="@{'/security/new/?curId=' + ${currency.id}}" class="btn btn-sm btn-primary" style="float: left">Add new Security</a>
                     <a th:replace="fragments/button/_button-back :: back(back = '/security/currency/' + ${currency.countries.countryEn})"></a>
                 </div>
 

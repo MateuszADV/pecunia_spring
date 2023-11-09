@@ -33,14 +33,14 @@ public class Security extends Common {
     }
 
     @SequenceGenerator(
-            name = "notes_sequence",
-            sequenceName = "notes_sequence",
+            name = "securities_sequence",
+            sequenceName = "securities_sequence",
             allocationSize = 1
     )
     @Id
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "notes_sequence"
+            generator = "securities_sequence"
     )
     private Long id;
     @Column(name = "denomination")
