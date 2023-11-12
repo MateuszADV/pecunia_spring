@@ -23,7 +23,7 @@
                 <hr class="my-2">
             </div>
                 <div class="container" style="display: inline-block">
-                    <a th:href="@{'/security/new/?curId=' + ${currency.id}}" class="btn btn-sm btn-primary" style="float: left">Add new Security</a>
+                    <a th:href="@{'/security/new/?curId=' + ${currency.id}}" class="btn btn-sm btn-primary mr-1" style="float: left">Add new Security</a>
                     <a th:replace="fragments/button/_button-back :: back(back = '/security/currency/' + ${currency.countries.countryEn})"></a>
                 </div>
 
@@ -58,9 +58,13 @@
                                 </div>
                             </td>
                             <td class="pt-1 pb-1">
-<!--                                <a th:replace="fragments/button/_button-show_icon_small :: show_icon_small(show = '/security/show/' + ${security.id})"></a>-->
-<!--                                <a th:replace="fragments/button/_button-edit_icon_small :: edit_icon_small(edit = '/security/edit/' + ${security.id})"></a>-->
+                                <a th:replace="fragments/button/_button-show_icon_small :: show_icon_small(show = '/security/show/' + ${security.id})"></a>
+                                <a th:replace="fragments/button/_button-edit_icon_small :: edit_icon_small(edit = '/security/edit/' + ${security.id})"></a>
 <!--                                <a th:replace="fragments/button/_button-delete_icon_small :: delete_icon_small(delete = '/security/delete/' + ${security.id})"></a>-->
+                                <a th:href="@{'/security/delete/' + ${security.id}}" class="btn btn-sm btn-danger" style="font-size: 10px; float: right" data-toggle="modal" th:attr="data-target='#security' + ${security.id}" >DELETE</a>
+                                <div class="modal fade" th:attr="id= 'security' + ${security.id}"  tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div th:replace="security/_confirmDeleteModal :: confirmDeleteModal"></div>
+                                </div>
                             </td>
                         </tr>
                     </Block>

@@ -14,6 +14,10 @@
             <hr class="my-2">
             <form th:action="@{/security/edit}" method="post" th:object="${securityForm}">
                 <div th:replace="security/_form :: form"></div>
+                <div class="form-row align-items-center">
+                    <input class="form-control form-control-sm mb-2" type="text" th:field="*{id}" placeholder="Id" readonly th:type="hidden" />
+                    <input class="form-control form-control-sm mb-2" type="text" th:field="*{created_at}" placeholder="created At" readonly th:type="hidden" />
+                </div>
                 <p> <input type="submit" value="Zapisz Zmiany" class="btn btn-sm btn-primary"></p>
             </form>
             <hr class="my-2">
