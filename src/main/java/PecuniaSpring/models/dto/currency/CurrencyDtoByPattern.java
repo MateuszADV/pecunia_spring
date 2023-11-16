@@ -4,6 +4,7 @@ import PecuniaSpring.models.dto.coin.CoinDtoByCurrency;
 import PecuniaSpring.models.dto.country.CountryDto;
 import PecuniaSpring.models.dto.note.NoteDto;
 import PecuniaSpring.models.dto.note.NoteDtoByCurrency;
+import PecuniaSpring.models.dto.security.SecurityDtoByCurrency;
 import lombok.*;
 
 import java.sql.Timestamp;
@@ -38,4 +39,5 @@ public class CurrencyDtoByPattern {
      */
     private List<NoteDtoByCurrency> notes;
     private List<CoinDtoByCurrency> coins;
+    private List<SecurityDtoByCurrency> securities;
 }

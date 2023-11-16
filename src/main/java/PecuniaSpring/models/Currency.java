@@ -61,4 +61,7 @@ public class Currency {
 
     @OneToMany(mappedBy = "currencies", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private List<Coin> coins;
+
+    @OneToMany(mappedBy = "currencies", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    private List<Security> securities;
 }

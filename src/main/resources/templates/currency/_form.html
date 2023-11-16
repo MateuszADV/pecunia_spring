@@ -1,5 +1,6 @@
 <header th:fragment="form"
     xmlns:th="http://www.thymeleaf.org">
+    <label >[[${currencyForm.countries.countryEn}]]</label>
     <input class="input" type="text" th:field="*{countries.id}" th:readonly="id"/>
 
 <!--    <input class="input" type="text" th:field="*{created_at}" th:readonly="created_at" th:type="hidden"/>-->

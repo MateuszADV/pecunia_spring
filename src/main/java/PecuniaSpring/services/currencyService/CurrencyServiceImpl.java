@@ -44,4 +44,10 @@ public class CurrencyServiceImpl implements CurrencyService {
         List<Currency> currencies = currencyRepository.getCurrencyByCountryByPattern(countryId, pattern);
         return currencies;
     }
+
+    @Override
+    public List<Currency> getCurrencyByCountryByPattern(String countryEn, String pattern) {
+        List<Currency> currencies = currencyRepository.getCurrencyByCountryByPattern(countryEn, pattern);
+        return currencies;
+    }
 }
