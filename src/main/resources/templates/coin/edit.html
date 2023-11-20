@@ -8,26 +8,30 @@
 </head>
 <body>
 <div layout:fragment="content" class="container">
-    <h1 style="text-align: center">COIN EDIT</h1>
+    <div class="jumbotron">
+        <h1 style="text-align: center">COIN EDIT</h1>
+        <hr class="my-2">
+        <form th:action="@{/coin/edit}" method="post" th:object="${coinForm}">
+            <div th:replace="coin/_form :: form"></div>
+            <p> <input type="submit" value="Zapisz Zmiany" class="btn btn-sm btn-primary"></p>
+        </form>
+        <hr class="my-2">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3">
+            <div class="col field" style="float: left; padding: 10px 10px 10px 10px">
+                <img th:src="${coinForm.aversPath}" style="max-width: 100%; max-height: 350px"/>
+            </div>
+            <div class="col field" style="float: left; padding: 10px 10px 10px 10px">
+                <img th:src="${coinForm.reversePath}" style="max-width: 100%; max-height: 350px"/>
+            </div>
 
-    <form th:action="@{/coin/edit}" method="post" th:object="${coinForm}">
-        <div th:replace="coin/_form :: form"></div>
-        <p> <input type="submit" value="Zapisz Zmiany" class="btn btn-sm btn-primary"></p>
-    </form>
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3">
-        <div class="col field" style="float: left; padding: 10px 10px 10px 10px">
-            <img th:src="${coinForm.aversPath}" style="max-width: 100%; max-height: 350px"/>
+            <div class="container col field" style="padding: 10px 10px 10px 10px">
+            </div>
         </div>
-        <div class="col field" style="float: left; padding: 10px 10px 10px 10px">
-            <img th:src="${coinForm.reversePath}" style="max-width: 100%; max-height: 350px"/>
+        <hr class="my-2">
+        <div class="container" style="display: inline-block">
+            <a th:replace="fragments/button/_button-show :: show(show = '/coin/show/' + ${coinForm.id})"></a>
+            <a th:replace="fragments/button/_button-back :: back(back = '/coin/coin_list/?currencySeries=' + ${coinForm.currencies.currencySeries} + '&curId=' + ${coinForm.currencies.id})"></a>
         </div>
-
-        <div class="container col field" style="padding: 10px 10px 10px 10px">
-        </div>
-    </div>
-    <div class="container" style="display: inline-block">
-        <a th:replace="fragments/button/_button-show :: show(show = '/coin/show/' + ${coinForm.id})"></a>
-        <a th:replace="fragments/button/_button-back :: back(back = '/coin/coin_list/?currencySeries=' + ${coinForm.currencies.currencySeries} + '&curId=' + ${coinForm.currencies.id})"></a>
     </div>
 </div>
 </body>

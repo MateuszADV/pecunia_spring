@@ -16,6 +16,7 @@
             </select>
         </div>
     </div>
+    <hr class="my-2">
     <div class="form-row align-items-center">
         <div class="col-auto">
             <label class="m-0">Date Buy</label>
@@ -42,7 +43,7 @@
         </div>
 
     </div>
-
+    <hr class="my-2">
     <div class="form-row align-items-center">
         <div class="col-auto">
             <label class="m-0" for="denomination">Denomination</label>
@@ -96,7 +97,7 @@
             </div>
         </div>
     </div>
-
+    <hr class="my-2">
     <div class="form-row align-items-center">
         <div class="col-auto">
             <label class="m-0">Price Buy</label>
@@ -128,8 +129,8 @@
             </div>
         </div>
     </div>
+    <hr class="my-2">
     <div class="form-row align-items-center">
-<!--        TODO: dodać średnice, grubość i wagę monety-->
         <div class="col-auto">
             <label class="m-0">Diameter(mm)</label>
             <input class="form-control form-control-sm mb-2" type="number" step="0.01" min="0"  th:field="*{diameter}">
@@ -166,7 +167,6 @@
                 <span th:errors="*{statuses.id}" ></span>
             </div>
         </div>
-        <!--        TODO Dodać seleckta do making utwożć nową tabele Imaget Type   -->
         <div class="col-auto">
             <label class="m-0">Image Typ</label>
             <select class="form-control form-control-sm mb-2" th:field="*{imageTypes.id}">
@@ -191,7 +191,7 @@
             <input lass="form-control form-control-sm mb-2" type="checkbox" th:field="*{visible}" placeholder="visible"/>
         </div>
     </div>
-
+    <hr class="my-2">
     <div class="form-row align-items-center">
         <div class="col">
             <label class="m-0">Composition</label>
