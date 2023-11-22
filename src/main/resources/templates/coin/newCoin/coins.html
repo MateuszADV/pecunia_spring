@@ -49,7 +49,7 @@
                             <span th:text="${coin.itemDate}"></span><br>
                         </td>
                         <td>
-                            <b class="btn btn-sm btn-primary">EDIT</b>
+                            <a th:replace="fragments/button/_button-edit :: edit(edit = '/coin/edit/' + ${coin.coinId})"></a>
                         </td>
                     </tr>
                 </Block>
