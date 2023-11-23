@@ -111,6 +111,8 @@ public class CoinController {
         coinFormDto.setCurrencies(currencyDto);
 
         coinFormDto.setDateBuy(Date.valueOf(LocalDate.now()));
+        coinFormDto.setPriceBuy(0.00);
+        coinFormDto.setPriceSell(0.00);
         modelMap.addAttribute("coinForm", coinFormDto);
         return "coin/new";
     }
