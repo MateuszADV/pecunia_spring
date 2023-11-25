@@ -22,15 +22,15 @@ public class CountryDtoForm {
     private String continent;
     @NotNull
     @NotEmpty
-    @Size(min=3, max=30)
+    @Size(min=3, max=60)
     private String countryEn;
     @NotNull
     @NotEmpty
-    @Size(min=3, max=30)
+    @Size(min=3, max=60)
     private String countryPl;
     @NotNull
     @NotEmpty
-    @Size(min=3, max=30)
+    @Size(min=3, max=60)
     private String capital_city;
     @Pattern(regexp="([A-Z]{2})|^$", message = "Pole moze być puste lub zawierać kod alpha 2(np: AB)")
     private String alfa_2;
