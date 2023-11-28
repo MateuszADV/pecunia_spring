@@ -26,9 +26,9 @@ public class ShippingType {
     )
     private Long id;
     @Column(name = "shipping_type_en")
-    private String shippingTypesEn;
+    private String shippingTypeEn;
     @Column(name = "shipping_type_pl")
-    private String shippingTypesPl;
+    private String shippingTypePl;
     @Column(name = "shipping_cost")
     private Double shippingCost;
     private String description;

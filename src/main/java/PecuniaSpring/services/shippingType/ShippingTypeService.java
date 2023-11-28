@@ -9,8 +9,8 @@ import java.util.List;
 @Service
 public interface ShippingTypeService {
     List<ShippingType> getAllShippingType();
-    void saveShipping(ShippingType shippingType);
-    ShippingType saveShippingType(ShippingType shippingType);
-    ShippingType getShippingTypeById(Long id);
+    void saveShippingType(ShippingType shippingType);
+    ShippingType saveShippingTypeGet(ShippingType shippingType);
+    ShippingType getShippingTypeFindById(Long id);
     void deleteShippingTypeById(Long id);
 }

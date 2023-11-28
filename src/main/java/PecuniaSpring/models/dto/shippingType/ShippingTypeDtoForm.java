@@ -2,7 +2,7 @@ package PecuniaSpring.models.dto.shippingType;
 
 import lombok.*;
 
-import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.sql.Timestamp;
 
 @Getter
@@ -11,10 +11,11 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
-public class ShippingTypeDto {
+public class ShippingTypeDtoForm {
 
     private Long id;
     private String shippingTypeEn;
+    @NotEmpty(message = "Rodzaj przesyłki musi być podany")
     private String shippingTypePl;
     private Double shippingCost;
     private String description;

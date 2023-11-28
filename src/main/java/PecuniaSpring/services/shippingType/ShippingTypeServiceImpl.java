@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -19,22 +20,32 @@ public class ShippingTypeServiceImpl implements ShippingTypeService {
     }
 
     @Override
-    public void saveShipping(ShippingType shippingType) {
-
+    public void saveShippingType(ShippingType shippingType) {
+        this.shippingTypeRepository.save(shippingType);
     }
 
     @Override
-    public ShippingType saveShippingType(ShippingType shippingType) {
-        return null;
+    public ShippingType saveShippingTypeGet(ShippingType shippingType) {
+        return this.shippingTypeRepository.save(shippingType);
     }
 
     @Override
-    public ShippingType getShippingTypeById(Long id) {
-        return null;
+    public ShippingType getShippingTypeFindById(Long id) {
+        Optional<ShippingType> optional = shippingTypeRepository.findById(id);
+        if (optional.isPresent()) {
+            return optional.get();
+        } else {
+            throw new RuntimeException("Shipping Type Not Found For Id :: " + id);
+        }
     }
 
     @Override
     public void deleteShippingTypeById(Long id) {
-
+        Optional<ShippingType> optional = shippingTypeRepository.findById(id);
+        if (optional.isPresent()) {
+            shippingTypeRepository.deleteById(id);
+        } else {
+            throw new RuntimeException("Element O podamyn id - " + id + " ,który chcesz usunąć nie istnieje");
+        }
     }
 }
