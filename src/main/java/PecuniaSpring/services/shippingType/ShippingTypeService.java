@@ -1,6 +1,5 @@
 package PecuniaSpring.services.shippingType;
 
-import PecuniaSpring.models.Pattern;
 import PecuniaSpring.models.ShippingType;
 import org.springframework.stereotype.Service;
 
