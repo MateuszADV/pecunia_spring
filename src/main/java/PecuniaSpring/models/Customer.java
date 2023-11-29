@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Getter
 @Setter
@@ -44,5 +45,8 @@ public class Customer {
     private Timestamp created_at;
     @Column(name = "updated_at")
     private Timestamp updated_at;
+
+    @OneToMany(mappedBy = "customers", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    private List<Order> orders;
 
 }

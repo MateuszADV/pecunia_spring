@@ -5,7 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Timestamp;
-import java.util.List;
+
 
 @Getter
 @Setter
@@ -33,11 +33,8 @@ public class Order {
     private Date dateOrder;
     @Column(name = "date_send_order")
     private Date dateSendOrder;
-    @Column(name = "status_order")
-    private String statusOrder;
     @Column(name = "tracking_number")
     private String trackingNumber;
-//    private String shippingType;   //Oobna klasa z rodzajami wysyłki;
     @Column(name = "shipping_cost")
     private Double shippingCost;
     private String description;
