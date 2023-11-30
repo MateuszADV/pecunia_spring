@@ -24,10 +24,10 @@ public class OrderServiceImpl implements OrderService {
         this.orderRepository.save(order);
     }
 
-//    @Override
-//    public Order saveOrderGet(Order order) {
-//        return (Order) this.orderRepository.save(order);
-//    }
+    @Override
+    public Order saveOrderGet(Order order) {
+        return (Order) this.orderRepository.save(order);
+    }
 
     @Override
     public Order getOrderFindById(Long id) {
@@ -47,5 +47,11 @@ public class OrderServiceImpl implements OrderService {
         } else {
             throw new RuntimeException("Element O podamyn id - " + id + " ,który chcesz usunąć nie istnieje");
         }
+    }
+
+    @Override
+    public List<Order> getOrderBycustomer(String customerUUID) {
+        List<Order> orders = orderRepository.getOrderbyCustomerUUID(customerUUID);
+        return orders;
     }
 }

@@ -12,7 +12,8 @@
         <div class="jumbotron">
             <h1 class="display-4" style="text-align: center">Order</h1>
             <hr class="my-2">
-<!--            <a th:href="@{/order/new}" class="btn btn-sm btn-primary">Add new Order</a>-->
+            <span th:text="${customerOrder.customer.uniqueId}"></span>
+<!--            <a th:href="@{'/order/new/' + ${customerOrder.customers.uniqueId}}" class="btn btn-sm btn-primary">Add new Order</a>-->
             <hr class="my-2">
             <table class="table table-striped table-bordered table-hover table-sm">
                 <thead class="thead-dark">

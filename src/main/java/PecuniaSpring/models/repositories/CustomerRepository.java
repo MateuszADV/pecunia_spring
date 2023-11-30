@@ -33,4 +33,8 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
                            @Param("phone") String phone,
                            @Param("description") String description,
                            @Param("id") Long id);
+
+    @Query(value = "SELECT cus FROM Customer cus " +
+                   " WHERE cus.uniqueId = ?1 ")
+    Customer getCustomerByUUID(String UUID);
 }

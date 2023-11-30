@@ -9,8 +9,10 @@ import java.util.List;
 public interface OrderService {
     List<Order> getAllOrder();
     void saveOrder(Order order);
-//    Order saveOrderGet(Order order);
+    Order saveOrderGet(Order order);
     Order getOrderFindById(Long id);
     void deleteOrderById(Long id);
+
+    List<Order> getOrderBycustomer(String customerUUID);
 }
 
