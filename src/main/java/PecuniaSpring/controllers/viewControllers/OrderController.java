@@ -19,11 +19,11 @@ import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import utils.JsonUtils;
 
+import javax.validation.Valid;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -65,12 +65,51 @@ public class OrderController {
         return "order/index";
     }
 
-    @GetMapping("/order/new")
-    public String getNew(@RequestParam("customerId") Long customerId, ModelMap modelMap) {
-        System.out.println("===================Country ID===================");
-        Customer customer = customerService.getCustomerById(customerId);
+    @GetMapping("/order/new/{customerUUID}")
+    public String getNew(@PathVariable("customerUUID") String customerUUID, ModelMap modelMap) {
+        System.out.println("===================Order START===================");
+        System.out.println(customerUUID);
+        Customer customer = customerService.getCustomerByUUID(customerUUID);
         CustomerGetDto customerGetDto = new ModelMapper().map(customer, CustomerGetDto.class);
 
+        orderParameters(modelMap);
+
+        OrderDtoForm orderDtoForm = new OrderDtoForm();
+        orderDtoForm.setDateOrder(Date.valueOf(LocalDate.now()));
+        orderDtoForm.setDateSendOrder(Date.valueOf(LocalDate.now()));
+        orderDtoForm.setShippingCost(0.00);
+        orderDtoForm.setCustomers(customerGetDto);
+        modelMap.addAttribute("orderForm", orderDtoForm);
+
+        System.out.println("================================================");
+        return "order/new";
+    }
+
+    @PostMapping("/order/new")
+    public String postNew(@ModelAttribute("orderForm")@Valid OrderDtoForm orderDtoForm, BindingResult result, ModelMap modelMap) {
+
+        System.out.println(JsonUtils.gsonPretty(orderDtoForm));
+        Customer customer = customerService.getCustomerById(orderDtoForm.getCustomers().getId());
+        CustomerGetDto customerGetDto = new ModelMapper().map(customer, CustomerGetDto.class);
+        orderDtoForm.setCustomers(customerGetDto);
+
+        System.out.println("=============================");
+        System.out.println(orderDtoForm.getDateSendOrder());
+        System.out.println("=============================");
+
+        System.out.println(result.toString());
+
+        if (result.hasErrors()) {
+            orderParameters(modelMap);
+            return "order/new";
+        }
+        Order order = new ModelMapper().map(orderDtoForm, Order.class);
+        orderService.saveOrder(order);
+//        return "redirect:/order";
+        return getIndex(customer.getUniqueId(), modelMap);
+    }
+
+    private void orderParameters(ModelMap modelMap) {
         List<ShippingType> shippingTypes = shippingTypeService.getAllShippingType();
         List<ShippingTypeDtoSelect> shippingTypeDtoSelects = new ArrayList<>();
         for (ShippingType shippingType : shippingTypes) {
@@ -83,15 +122,9 @@ public class OrderController {
             statusOrderDtoSelects.add(new ModelMapper().map(statusOrder, StatusOrderDtoSelect.class));
         }
 
-        modelMap.addAttribute("shippmentSelect", shippingTypeDtoSelects);
-        modelMap.addAttribute("statusOrderSelect", statusOrderDtoSelects);
+        modelMap.addAttribute("shippingTypes", shippingTypeDtoSelects);
+        modelMap.addAttribute("statusOrders", statusOrderDtoSelects);
 
-        OrderDtoForm orderDtoForm = new OrderDtoForm();
-        orderDtoForm.setDateOrder(Date.valueOf(LocalDate.now()));
-        orderDtoForm.setCustomers(customerGetDto);
-        modelMap.addAttribute("orderForm", orderDtoForm);
-
-        System.out.println("================================================");
-        return "order/new";
+        modelMap.addAttribute("standartDate", Date.valueOf(LocalDate.now()));
     }
 }

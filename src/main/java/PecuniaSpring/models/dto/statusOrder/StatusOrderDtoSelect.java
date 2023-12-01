@@ -12,7 +12,7 @@ import java.sql.Timestamp;
 @ToString
 @EqualsAndHashCode
 public class StatusOrderDtoSelect {
-    @NotNull(message = "Status Order Active")
+    @NotNull(message = "Status Order")
     private Long id;
     private String statusEn;
     private String statusPl;
