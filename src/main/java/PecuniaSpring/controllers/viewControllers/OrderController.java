@@ -105,8 +105,33 @@ public class OrderController {
         }
         Order order = new ModelMapper().map(orderDtoForm, Order.class);
         orderService.saveOrder(order);
-//        return "redirect:/order";
-        return getIndex(customer.getUniqueId(), modelMap);
+        return "redirect:/order/" + customer.getUniqueId();
+//        return getIndex(customer.getUniqueId(), modelMap);
+    }
+
+    @GetMapping("/order/edit/{orderId}")
+    public String getEdit(@PathVariable Long orderId, ModelMap modelMap) {
+        Order order = orderService.getOrderFindById(orderId);
+        OrderDtoForm orderDtoForm = new ModelMapper().map(order, OrderDtoForm.class);
+        orderParameters(modelMap);
+        modelMap.addAttribute("orderForm", orderDtoForm);
+        return "order/edit";
+    }
+
+    @PostMapping("/order/edit")
+    public String postEdit(@ModelAttribute("orderForm")@Valid OrderDtoForm orderDtoForm, BindingResult result, ModelMap modelMap ){
+        Customer customer = customerService.getCustomerById(orderDtoForm.getCustomers().getId());
+        CustomerGetDto customerGetDto = new ModelMapper().map(customer, CustomerGetDto.class);
+        if(result.hasErrors()) {
+            return "order/edit";
+        }
+        Order order = new ModelMapper().map(orderDtoForm, Order.class);
+        System.out.println("--------------------------------------");
+        System.out.println(JsonUtils.gsonPretty(order));
+        System.out.println("---------------------------------------");
+        Order orderGetr = orderService.saveOrderGet(order);
+        return "redirect:/order/" + customer.getUniqueId();
+//        return getIndex(customer.getUniqueId(), modelMap);
     }
 
     private void orderParameters(ModelMap modelMap) {
@@ -124,7 +149,13 @@ public class OrderController {
 
         modelMap.addAttribute("shippingTypes", shippingTypeDtoSelects);
         modelMap.addAttribute("statusOrders", statusOrderDtoSelects);
-
         modelMap.addAttribute("standartDate", Date.valueOf(LocalDate.now()));
+    }
+
+    @GetMapping("/order/delete/{orderId}")
+    public String delete(@PathVariable Long orderId, ModelMap modelMap) {
+        Order order = orderService.getOrderFindById(orderId);
+        orderService.deleteOrderById(orderId);
+        return getIndex(order.getCustomers().getUniqueId(), modelMap);
     }
 }
