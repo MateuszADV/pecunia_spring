@@ -56,4 +56,10 @@ public class CustomerServiceImpl implements CustomerService {
             throw new RuntimeException("Record o id - " + id + " Który chcesz usuąć nie istnieje");
         }
     }
+
+    @Override
+    public Customer getCustomerByUUID(String customerUUID) {
+        Customer customer = customerRepository.getCustomerByUUID(customerUUID);
+        return customer;
+    }
 }

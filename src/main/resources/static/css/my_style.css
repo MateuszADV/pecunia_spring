@@ -53,6 +53,31 @@ body
     background: #f90b0b57;
 }
 
+
+/*
+*****************STATUS ORDER
+ */
+
+.Open
+{
+    background-color: lightgreen;
+}
+
+.Close
+{
+    background-color: lightcoral;
+}
+.Reservation
+{
+    background-color: yellow;
+}
+
+.Other
+{
+    background-color: gray;
+}
+
+
 /**************************MODAL CONFIRM DELETE**************************
 
 /* Float cancel and delete buttons and add an equal width */
