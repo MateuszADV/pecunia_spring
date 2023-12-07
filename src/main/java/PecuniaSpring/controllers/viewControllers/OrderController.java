@@ -41,11 +41,6 @@ public class OrderController {
     @GetMapping("/order/{customerUUID}")
     public String getIndex(@PathVariable String customerUUID, ModelMap modelMap) {
 
-        System.out.println("=================================== NUMBER ORDER===============================");
-        System.out.println(orderService.getLastNumberOrder());
-        System.out.println(orderService.getNextNumberOrder(orderService.getLastNumberOrder()));
-        System.out.println("=================================== NUMBER ORDER===============================");
-
         CustomerOrder customerOrder = new CustomerOrder();
         System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
         System.out.println(customerUUID);
