@@ -14,4 +14,8 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
                    " WHERE ord.customers.uniqueId = ?1 " +
                    " ORDER By ord.id")
     List<Order>getOrderbyCustomerUUID(String customerUUID);
+
+    @Query(value = "SELECT * FROM orders  " +
+                   " ORDER BY id DESC Limit 1", nativeQuery = true)
+    Order getLastOrder();
 }
