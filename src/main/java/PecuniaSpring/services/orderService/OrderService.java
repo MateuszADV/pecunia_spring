@@ -17,6 +17,10 @@ public interface OrderService {
 
     String getLastNumberOrder();
     Boolean checkLastNumberOrder(String lastNumberOrder);
+    String returnFirstNumberOrder();
+    String getNextNumber(String number);
+    Boolean checkYearOrder(String lastNumberOrder);
+    String getNextNumberOrder(String lastNumberOrder);
 
     String getDateOrder();
 }

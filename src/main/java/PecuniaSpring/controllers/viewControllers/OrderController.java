@@ -43,6 +43,7 @@ public class OrderController {
 
         System.out.println("=================================== NUMBER ORDER===============================");
         System.out.println(orderService.getLastNumberOrder());
+        System.out.println(orderService.getNextNumberOrder(orderService.getLastNumberOrder()));
         System.out.println("=================================== NUMBER ORDER===============================");
 
         CustomerOrder customerOrder = new CustomerOrder();
@@ -80,6 +81,7 @@ public class OrderController {
         orderParameters(modelMap);
 
         OrderDtoForm orderDtoForm = new OrderDtoForm();
+        orderDtoForm.setNumberOrder(orderService.getNextNumberOrder(orderService.getLastNumberOrder()));
         orderDtoForm.setDateOrder(Date.valueOf(LocalDate.now()));
         orderDtoForm.setDateSendOrder(Date.valueOf(LocalDate.now()));
         orderDtoForm.setShippingCost(0.00);

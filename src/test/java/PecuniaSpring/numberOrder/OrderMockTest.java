@@ -12,12 +12,12 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Pattern;
 
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.mock;
+
 
 @RunWith(MockitoJUnitRunner.class)
 public class OrderMockTest {
@@ -46,14 +46,11 @@ public class OrderMockTest {
 
     @Test
     public void should_check_numberOrder() {
-
-        String lastNumberOrder = lastNumberOrder(prpareMockData());
         //when
+        String lastNumberOrder = lastNumberOrder(prpareMockData());
 
         //then
-        Pattern pattern = Pattern.compile("\\d{4}/\\d{2}/\\d{3,5}/\\d{3,5}");
-        System.out.println(pattern.toString());
-        Assert.assertTrue(orderService.checkLastNumberOrder(lastNumberOrder));
+        Assert.assertTrue("Błędny numer zamówienia",orderService.checkLastNumberOrder(lastNumberOrder));
     }
 
     private String lastNumberOrder(List<Order> orders) {
@@ -65,15 +62,49 @@ public class OrderMockTest {
         List<Order> orders = new ArrayList<>();
         Order order = new Order();
         order.setId(1l);
-        order.setNumberOrder("2023/12/00012/00010");
+        order.setNumberOrder("2023/12/0012/0010");
 
         Order order1 = new Order();
         order1.setId(1l);
-        order1.setNumberOrder("2023/12/00013/00011");
+        order1.setNumberOrder("2023/12/0013/0011");
 
         orders.add(order);
         orders.add(order1);
 
         return orders;
+    }
+
+    @Test
+    public void should_first_number_order() {
+        LocalDate localDate = LocalDate.now();
+        Integer year = localDate.getYear();
+        Integer month = localDate.getMonthValue();
+
+        String dateOrder = year.toString() + '/' + month.toString();
+        Assert.assertEquals(orderService.returnFirstNumberOrder(), dateOrder + "/0000/0000");
+    }
+
+    @Test
+    public void should_get_next_number() {
+        System.out.println(orderService.getNextNumber("0000"));
+        Assert.assertEquals(orderService.getNextNumber("0000"), "0001");
+
+        System.out.println(orderService.getNextNumber("0010"));
+        Assert.assertEquals(orderService.getNextNumber("0010"), "0011");
+
+        System.out.println(orderService.getNextNumber("0210"));
+        Assert.assertEquals(orderService.getNextNumber("0210"), "0211");
+
+        System.out.println(orderService.getNextNumber("3210"));
+        Assert.assertEquals(orderService.getNextNumber("3210"), "3211");
+    }
+
+    @Test
+    public void should_get_next_number_order() {
+        Assert.assertEquals(orderService.getNextNumberOrder("2023/12/0015/0009"), "2023/12/0016/0010");
+        System.out.println("2023/12/0015/0009 > " + orderService.getNextNumberOrder("2023/12/0015/0009"));
+        Assert.assertEquals(orderService.getNextNumberOrder("2022/10/0018/0015"), "2023/12/0019/0001");
+        System.out.println("2022/10/0018/0015 > " + orderService.getNextNumberOrder("2022/10/0018/0015"));
+
     }
 }
