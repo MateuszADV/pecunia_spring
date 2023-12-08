@@ -64,7 +64,14 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public String getLastNumberOrder() {
         Order order = orderRepository.getLastOrder();
+        System.out.println("++++++++++++++ZAMOWIENIE START+++++++++++++++++++++++++++++++");
+        if (order == null) {
+            return "";
+        }
         String lastNumberOrder = order.getNumberOrder();
+        System.out.println(lastNumberOrder);
+        System.out.println("++++++++++++++ZAMOWIENIE STOP+++++++++++++++++++++++++++++++");
+
         return lastNumberOrder;
     }
 
