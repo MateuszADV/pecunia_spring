@@ -40,6 +40,7 @@ public class OrderController {
 
     @GetMapping("/order/{customerUUID}")
     public String getIndex(@PathVariable String customerUUID, ModelMap modelMap) {
+
         CustomerOrder customerOrder = new CustomerOrder();
         System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
         System.out.println(customerUUID);
@@ -60,7 +61,7 @@ public class OrderController {
         }
         customerOrder.setOrders(orderDtos);
 
-        System.out.println(JsonUtils.gsonPretty(customerOrder));
+//        System.out.println(JsonUtils.gsonPretty(customerOrder));
         modelMap.addAttribute("customerOrder", customerOrder);
         return "order/index";
     }
@@ -75,6 +76,7 @@ public class OrderController {
         orderParameters(modelMap);
 
         OrderDtoForm orderDtoForm = new OrderDtoForm();
+        orderDtoForm.setNumberOrder(orderService.getNextNumberOrder(orderService.getLastNumberOrder()));
         orderDtoForm.setDateOrder(Date.valueOf(LocalDate.now()));
         orderDtoForm.setDateSendOrder(Date.valueOf(LocalDate.now()));
         orderDtoForm.setShippingCost(0.00);

@@ -3,15 +3,21 @@ package PecuniaSpring.services.orderService;
 import PecuniaSpring.models.Order;
 import PecuniaSpring.models.repositories.OrderRepository;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Pattern;
 
 @Service
+@NoArgsConstructor
 @AllArgsConstructor
 public class OrderServiceImpl implements OrderService {
 
+    @Autowired
     private OrderRepository orderRepository;
 
     @Override
@@ -53,5 +59,84 @@ public class OrderServiceImpl implements OrderService {
     public List<Order> getOrderBycustomer(String customerUUID) {
         List<Order> orders = orderRepository.getOrderbyCustomerUUID(customerUUID);
         return orders;
+    }
+
+    @Override
+    public String getLastNumberOrder() {
+        Order order = orderRepository.getLastOrder();
+        System.out.println("++++++++++++++ZAMOWIENIE START+++++++++++++++++++++++++++++++");
+        if (order == null) {
+            return "";
+        }
+        String lastNumberOrder = order.getNumberOrder();
+        System.out.println(lastNumberOrder);
+        System.out.println("++++++++++++++ZAMOWIENIE STOP+++++++++++++++++++++++++++++++");
+
+        return lastNumberOrder;
+    }
+
+    @Override
+    public Boolean checkLastNumberOrder(String lastNumberOrder) {
+        Pattern pattern = Pattern.compile("\\d{4}/\\d{2}/\\d{3,5}/\\d{3,5}");
+        return pattern.matcher(lastNumberOrder).matches();
+    }
+
+    @Override
+    public String returnFirstNumberOrder() {
+        String firstNumberOrder = getDateOrder() + "/0001/0001";
+        return firstNumberOrder;
+    }
+
+    @Override
+    public String getDateOrder() {
+        LocalDate localDate = LocalDate.now();
+        Integer year = localDate.getYear();
+        Integer month = localDate.getMonthValue();
+
+        String dateOrder = year.toString() + '/' + month.toString();
+        return dateOrder;
+    }
+
+    @Override
+    public String getNextNumber(String number) {
+        Integer lenght;
+        Integer nextNumber = Integer.valueOf(number) + 1;
+        String nextNumberStr = nextNumber.toString();
+        lenght = number.length() - nextNumberStr.length();
+        for (int i = 0; i <= lenght-1; i++  ) {
+            nextNumberStr = "0" + nextNumberStr;
+        }
+        return nextNumberStr;
+    }
+
+    @Override
+    public Boolean checkYearOrder(String lastNumberOrder) {
+        LocalDate localDate = LocalDate.now();
+        Integer year = localDate.getYear();
+        String NumberOrder = lastNumberOrder;
+        String[] elementsOrder = lastNumberOrder.split("/");
+
+//        System.out.println(elementsOrder[0].equals(year.toString()));
+        return elementsOrder[0].equals(year.toString());
+    }
+
+    @Override
+    public String getNextNumberOrder(String lastNumberOrder) {
+        if (checkLastNumberOrder(lastNumberOrder)) {
+            LocalDate localDate = LocalDate.now();
+            Integer year = localDate.getYear();
+            Integer month = localDate.getMonthValue();
+            String nextNumberOrder = "";
+            String NumberOrder = lastNumberOrder;
+            String[] elementsOrder = lastNumberOrder.split("/");
+            if (checkYearOrder(lastNumberOrder)) {
+                nextNumberOrder = year + "/" + month.toString() + "/" + getNextNumber(elementsOrder[2]) + "/" + getNextNumber(elementsOrder[3]);
+            } else {
+                nextNumberOrder = year + "/"  + month.toString() + "/" + getNextNumber(elementsOrder[2]) + "/0001";
+            }
+            return nextNumberOrder;
+        } else {
+            return returnFirstNumberOrder();
+        }
     }
 }

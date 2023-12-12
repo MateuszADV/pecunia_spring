@@ -117,8 +117,8 @@ public class CurrencyController {
         Currency currency = new ModelMapper().map(currencyForm, Currency.class);
 
         currencyService.saveCurrency(currency);
-        return getCountryCurrency(currencyForm.getCountries().getId(), modelMap);
-
+//        return getCountryCurrency(currencyForm.getCountries().getId(), modelMap);
+        return "redirect:/currency/list/" + currencyForm.getCountries().getId();
 //        return getSearch("", modelMap);
     }
 
@@ -210,7 +210,9 @@ public class CurrencyController {
         System.out.println(JsonUtils.gsonPretty(currencyForm));
         System.out.println("%%%%%%%%%%%%%%%%%%%%%%STOP EDIT%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
 
-        return getCountryCurrency(currencyForm.getCountries().getId(), modelMap);
+//        return getCountryCurrency(currencyForm.getCountries().getId(), modelMap);
+        return "redirect:/currency/list/" + currencyForm.getCountries().getId();
+
     }
 
     @GetMapping("/currency/show/{currencyId}")

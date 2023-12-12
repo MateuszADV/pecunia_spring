@@ -29,7 +29,7 @@
                 <Block th:each="statusOrder, i : ${statusOrderDtos}">
                     <tr>
                         <td th:text="${i.index + 1}" class="pt-1 pb-1"></td>
-                        <td th:text="${statusOrder.statusEn}" class="pt-1 pb-1"></td>
+                        <td th:text="${statusOrder.statusEn}" th:class="${statusOrder.statusEn}" class="pt-1 pb-1"></td>
                         <td th:text="${statusOrder.statusPl}" class="pt-1 pb-1"></td>
                         <td th:text="${statusOrder.description}" class="pt-1 pb-1" style="text-align: right"></td>
                         <td class="pt-1 pb-1">
