@@ -14,6 +14,7 @@ public interface OrderService {
     void deleteOrderById(Long id);
 
     List<Order> getOrderBycustomer(String customerUUID);
+    Order getOrderByNumberOrder(String numberOrder);
 
     String getLastNumberOrder();
     Boolean checkLastNumberOrder(String lastNumberOrder);

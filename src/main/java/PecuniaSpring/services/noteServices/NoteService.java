@@ -3,6 +3,7 @@ package PecuniaSpring.services.noteServices;
 import PecuniaSpring.models.Note;
 import PecuniaSpring.models.sqlClass.CountryByStatus;
 import PecuniaSpring.models.sqlClass.CurrencyByStatus;
+import PecuniaSpring.models.sqlClass.GetNotesByStatus;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
@@ -24,4 +25,6 @@ public interface NoteService {
     List<CurrencyByStatus> getCurrencyByStatus(Long countryId, String status, String role);
 
     Page<Note> findNotePaginated(Integer pageNo, Integer pageSize, Long currencyId, String status, String role);
+
+    List<GetNotesByStatus> getNoteByStatus(String status);
 }

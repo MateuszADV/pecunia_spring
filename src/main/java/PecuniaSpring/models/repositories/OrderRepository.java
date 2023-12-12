@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Long> {
@@ -14,6 +15,11 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
                    " WHERE ord.customers.uniqueId = ?1 " +
                    " ORDER By ord.id")
     List<Order>getOrderbyCustomerUUID(String customerUUID);
+
+    @Query(value = "SELECT ord FROM Order ord " +
+            " WHERE ord.numberOrder = ?1 " +
+            " ORDER By ord.id")
+    Optional<Order> getOrderByNumberOrder(String numberOrder);
 
     @Query(value = "SELECT * FROM orders  " +
                    " ORDER BY id DESC Limit 1", nativeQuery = true)
