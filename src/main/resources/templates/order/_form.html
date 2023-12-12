@@ -9,7 +9,7 @@
     <div class="form-row align-items-center">
         <div class="col-md-2">
             <label class="m-0">Order Number</label><br>
-            <input class="form-control form-control-sm mb-2" type="text" th:field="*{numberOrder}" placeholder="Number Order"  />
+            <input class="form-control form-control-sm mb-2" type="text" th:field="*{numberOrder}" th:readonly="numberOrder"  placeholder="Number Order"  />
         </div>
         <div class="col-auto">
             <label class="m-0">Data Order</label>
