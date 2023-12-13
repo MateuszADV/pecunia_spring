@@ -1,6 +1,7 @@
 package PecuniaSpring.services.securityService;
 
 import PecuniaSpring.models.Security;
+import PecuniaSpring.models.sqlClass.GetSecuritiesByStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,4 +16,6 @@ public interface SecurityService {
     void deleteSecurityById(Long id);
 
     List<Security> getSecurityByCurrencyId(Long currencyId);
+
+    List<GetSecuritiesByStatus> getSecurityByStatus(String status);
 }

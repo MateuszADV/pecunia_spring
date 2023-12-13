@@ -89,6 +89,16 @@ public class CoinServiceImpl implements CoinService {
     }
 
     @Override
+    public List<GetCoinsByStatus> getCoinsByStatus(String status) {
+        List<Object[]> objects = coinRepository.getCoinsByStatus(status);
+        List<GetCoinsByStatus> getCoinsByStatusList = new ArrayList<>();
+        for (Object[] object : objects) {
+            getCoinsByStatusList.add(new ModelMapper().map(object[0], GetCoinsByStatus.class));
+        }
+        return getCoinsByStatusList;
+    }
+
+    @Override
     public List<CurrencyByStatus> getCurrencyByStatus(Long countryId, String status, String role) {
         List<Object[]> objects = new ArrayList<>();
         List<CurrencyByStatus> currencyByStatusList = new ArrayList<>();

@@ -21,32 +21,32 @@
             </tr>
             </thead>
             <tbody>
-                <Block th:each="note, i : ${notesForSell}">
+                <Block th:each="security, i : ${securitiesForSell}">
                     <tr style="text-align: right; font-size: smaller">
                         <!--                    <td th:text="${country.getContinents().getContinentCode()}"></td>-->
                         <td th:text="${i.index +1}"></td>
-                        <td th:text="${note.noteId}"></td>
-                        <td th:text="${note.countryEn.replace('_', ' ')}"></td>
+                        <td th:text="${security.securityId}"></td>
+                        <td th:text="${security.countryEn.replace('_', ' ')}"></td>
                         <td >
-                            <span th:text="${#numbers.formatDecimal(note.denomination,1,0)}"></span>
-                            <span th:text="${note.nameCurrency}"></span>
+                            <span th:text="${#numbers.formatDecimal(security.denomination,1,0)}"></span>
+                            <span th:text="${security.nameCurrency}"></span>
                         </td>
                         <td >
-                            <span th:text="${note.itemDate}"></span>
+                            <span th:text="${security.itemDate}"></span>
                         </td>
                         <td>
-                            <span th:text="${#numbers.formatDecimal(note.priceBuy,1,2)}"></span>
+                            <span th:text="${#numbers.formatDecimal(security.priceBuy,1,2)}"></span>
                             <span>zł</span>
                         </td>
                         <td>
-                            <span th:text="${note.quantity}"></span>
-                            <span th:text="${note.unitQuantity}"></span>
+                            <span th:text="${security.quantity}"></span>
+                            <span th:text="${security.unitQuantity}"></span>
                         </td>
                         <td>
-                            <span th:text="${#numbers.formatDecimal((note.priceSell),1,2) }"></span>
+                            <span th:text="${#numbers.formatDecimal((security.priceSell),1,2) }"></span>
                             <span>zł</span>
                         </td>
-                        <td th:text="${note.bought}"></td>
+                        <td th:text="${security.bought}"></td>
 <!--                        <td class="p-0 m-0" style="width: 100px">-->
 <!--                            <div style="display: flex; justify-content: center" data-toggle="modal" th:attr="data-target='#NoteAvers' + ${note.noteId}">-->
 <!--                                <div th:replace="fragments/_image-small :: image-small(image = ${note.aversPath})"></div>-->

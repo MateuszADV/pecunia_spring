@@ -24,7 +24,7 @@
                         <a class="nav-link" data-toggle="tab" href="#bond" role="tab">Bonds</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#settings" role="tab">Settings</a>
+                        <a class="nav-link" data-toggle="tab" href="#settings" role="tab">Other</a>
                     </li>
                 </ul>
             </div>
@@ -35,12 +35,14 @@
                     <div th:replace="orderItem/_noteForSell :: forSell"></div>
                 </div>
                 <div class="tab-pane shadow" id="coin" role="tabpanel">
-                    COIN
+                    <div th:replace="orderItem/_coinForSell :: forSell"></div>
                 </div>
                 <div class="tab-pane shadow" id="bond" role="tabpanel">
-                    SECURITY
+                    <div th:replace="orderItem/_securityForSell :: forSell"></div>
                 </div>
-                <div class="tab-pane" id="settings" role="tabpanel">pane 4</div>
+                <div class="tab-pane" id="settings" role="tabpanel">
+                    <h3 style="text-align: center"> BRAK ELEMENTÓW DO WYśWITLENIA</h3>
+                </div>
             </div>
         </div>
     </div>

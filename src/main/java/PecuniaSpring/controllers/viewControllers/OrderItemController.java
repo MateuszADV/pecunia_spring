@@ -5,10 +5,14 @@ import PecuniaSpring.models.OrderItem;
 import PecuniaSpring.models.dto.order.OrderDto;
 import PecuniaSpring.models.dto.orderItem.OrderItemDto;
 import PecuniaSpring.models.response.orderResponse.OrderItemResp;
+import PecuniaSpring.models.sqlClass.GetCoinsByStatus;
 import PecuniaSpring.models.sqlClass.GetNotesByStatus;
+import PecuniaSpring.models.sqlClass.GetSecuritiesByStatus;
+import PecuniaSpring.services.coinServices.CoinServiceImpl;
 import PecuniaSpring.services.noteServices.NoteServiceImpl;
 import PecuniaSpring.services.orderItemService.OrderItemServiceImpl;
 import PecuniaSpring.services.orderService.OrderServiceImpl;
+import PecuniaSpring.services.securityService.SecurityServiceImpl;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -28,13 +32,16 @@ public class OrderItemController {
     private OrderItemServiceImpl orderItemService;
     private OrderServiceImpl orderService;
     private NoteServiceImpl noteService;
-
+    private CoinServiceImpl coinService;
+    private SecurityServiceImpl securityService;
 
     @Autowired
-    public OrderItemController(OrderItemServiceImpl orderItemService, OrderServiceImpl orderService, NoteServiceImpl noteService) {
+    public OrderItemController(OrderItemServiceImpl orderItemService, OrderServiceImpl orderService, NoteServiceImpl noteService, CoinServiceImpl coinService, SecurityServiceImpl securityService) {
         this.orderItemService = orderItemService;
         this.orderService = orderService;
         this.noteService = noteService;
+        this.coinService = coinService;
+        this.securityService = securityService;
     }
 
     @GetMapping("/orderItem/{orderId}")
@@ -69,9 +76,14 @@ public class OrderItemController {
     @GetMapping("/orderItem/forSell")
     public String getItemForSell(ModelMap modelMap) {
         List<GetNotesByStatus> getNotesByStatusList = noteService.getNoteByStatus("FOR SELL");
+        List<GetCoinsByStatus> getCoinsByStatusList = coinService.getCoinsByStatus("FOR SELL");
+        List<GetSecuritiesByStatus> getSecuritiesByStatusList = securityService.getSecurityByStatus("FOR SELL");
 
+        System.out.println(JsonUtils.gsonPretty(getCoinsByStatusList));
 
         modelMap.addAttribute("notesForSell", getNotesByStatusList);
+        modelMap.addAttribute("coinsForSell", getCoinsByStatusList);
+        modelMap.addAttribute("securitiesForSell", getSecuritiesByStatusList);
 
         return "orderItem/itemForSell";
     }
