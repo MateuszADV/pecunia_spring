@@ -26,7 +26,7 @@
                         <!--                    <td th:text="${country.getContinents().getContinentCode()}"></td>-->
                         <td th:text="${i.index +1}"></td>
                         <td th:text="${coin.coinId}"></td>
-                        <td th:text="${coin.countryEn}"></td>
+                        <td th:text="${coin.countryEn.replace('_', ' ')}"></td>
                         <td >
                             <span th:text="${#numbers.formatDecimal(coin.denomination,1,0)}"></span>
                             <span th:text="${coin.nameCurrency}"></span>

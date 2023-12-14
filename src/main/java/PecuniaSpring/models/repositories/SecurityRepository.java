@@ -17,8 +17,8 @@ public interface SecurityRepository extends JpaRepository<Security, Long> {
             "WHERE sec.currencies.id = ?1")
     List<Security> getSecurityByCurrencyId(Long currencyId);
 
-    @Query(value = "SELECT new map(sec.qualities AS qualities, sec.id AS securityId, cou.id AS countryId, cou.countryEn AS countryEn, cou.countryPl AS countryPl, cur.id AS currencyId, " +
-            "cur.currencySeries AS currencySeries, bou.name AS bought, sec.denomination AS denomination, sec.nameCurrency AS nameCurrency, sec.itemDate AS itemDate, " +
+    @Query(value = "SELECT new map(sec.qualities AS qualities, sec.makings AS makings, sec.id AS securityId, cou.id AS countryId, cou.countryEn AS countryEn, cou.countryPl AS countryPl, cur.id AS currencyId, " +
+            "cur.currencySeries AS currencySeries, cur.patterns AS patterns, bou.name AS bought, sec.denomination AS denomination, sec.nameCurrency AS nameCurrency, sec.itemDate AS itemDate, " +
             "sec.priceBuy AS priceBuy, sec.priceSell AS priceSell, sec.quantity AS quantity, sec.unitQuantity AS unitQuantity, " +
             "sec.width AS width, sec.height AS height, sec.visible AS visible, sec.description AS description, " +
             "sec.aversPath AS aversPath, sec.reversePath AS reversePath ) " +
@@ -32,7 +32,7 @@ public interface SecurityRepository extends JpaRepository<Security, Long> {
             "  LEFT JOIN Country cou" +
             "    ON cou.id = cur.countries" +
             " WHERE stat.id = sec.statuses" +
-            " GROUP BY sec.qualities, sec.id, cou.id, cou.countryEn, cou.countryPl, cur.id, cur.currencySeries, bou.name, sec.denomination, sec.nameCurrency, sec.itemDate, " +
+            " GROUP BY sec.qualities, sec.makings, sec.id, cou.id, cou.countryEn, cou.countryPl, cur.id, cur.currencySeries, cur.patterns, bou.name, sec.denomination, sec.nameCurrency, sec.itemDate, " +
             "          sec.priceBuy, sec.priceSell, sec.quantity, sec.unitQuantity, sec.width, sec.height, sec.visible, sec.description, sec.aversPath, sec.reversePath " +
             " ORDER BY cou.countryEn, sec.denomination")
     List<Object[]> getSecuritiesByStatus(String status);

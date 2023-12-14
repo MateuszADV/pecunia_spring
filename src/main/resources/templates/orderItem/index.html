@@ -16,7 +16,7 @@
             <span th:text="${orderItem.Orders.customers.name}"></span>
             <hr class="my-2">
             <div style="display: inline-flex;">
-                <a th:href="@{/orderItem/forSell}" class="btn btn-sm btn-primary mr-1" >Add new Item</a>
+                <a th:href="@{'/orderItem/forSell/?orderId=' + ${orderItem.Orders.id}}" class="btn btn-sm btn-primary mr-1" >Add new Item</a>
 <!--                <a th:replace="fragments/button/_button-back :: back(back = '/customer')"></a>-->
             </div>
             <hr class="my-2">
