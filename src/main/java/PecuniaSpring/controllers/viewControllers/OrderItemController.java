@@ -22,11 +22,11 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import utils.JsonUtils;
 
+import javax.validation.Valid;
 import java.time.temporal.JulianFields;
 import java.util.ArrayList;
 import java.util.List;
@@ -123,17 +123,31 @@ public class OrderItemController {
         if (pattern.equals("NOTE")) {
             Note note = noteService.getNoteById(itemId);
             NoteDto noteDto = new ModelMapper().map(note, NoteDto.class);
-            System.out.println(JsonUtils.gsonPretty(noteDto));
             orderItemDtoForm.setNotes(noteDto);
-            orderItemDtoForm.setQuantity(noteDto.getQuantity());
+            orderItemDtoForm.setPattern(noteDto.getCurrencies().getPatterns().getPattern());
+            orderItemDtoForm.setQuantity(1);
             orderItemDtoForm.setUnitQuantity(noteDto.getUnitQuantity());
+            orderItemDtoForm.setFinalPrice(noteDto.getPriceSell());
+
+            modelMap.addAttribute("orderItemForm", orderItemDtoForm);
         }
-
-        System.out.println(JsonUtils.gsonPretty(orderItemDtoForm));
-        modelMap.addAttribute("orderItemForm", orderItemDtoForm);
-
-
-
         return "orderItem/new";
+    }
+
+    @PostMapping("/orderItem/new")
+    public String postNew(@ModelAttribute("orderItemForm")@Valid OrderItemDtoForm orderItemDtoForm, BindingResult result, ModelMap modelMap) {
+
+
+        if (result.hasErrors()) {
+            if (orderItemDtoForm.getPattern().equals("NOTE")) {
+                Note note = noteService.getNoteById(orderItemDtoForm.getNotes().getId());
+                NoteDto noteDto = new ModelMapper().map(note, NoteDto.class);
+                orderItemDtoForm.setNotes(noteDto);
+            }
+            System.out.println(result.toString());
+            return "orderItem/new";
+        }
+        System.out.println(JsonUtils.gsonPretty(orderItemDtoForm));
+        return "redirect:/orderItem/" + orderItemDtoForm.getOrders().getId();
     }
 }

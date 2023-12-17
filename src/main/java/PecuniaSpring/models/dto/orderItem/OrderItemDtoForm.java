@@ -20,6 +20,8 @@ import java.sql.Timestamp;
 public class OrderItemDtoForm {
     private Long id;
     private String pattern;
+    @DecimalMin(value = "0", message = "Wartość nie może być mniejsza niż 1")
+    @NotNull(message = "Wartość nie może być pusta")
     private Integer quantity;
     private String unitQuantity;
     @Digits(integer=6, fraction = 2, message = "Podaj poprawną cenę (1.23)")
