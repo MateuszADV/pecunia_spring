@@ -23,12 +23,20 @@
             <label class="m-0">Pattern</label><br>
             <input class="form-control form-control-sm mb-2" type="text" th:field="*{pattern}" th:readonly="pattern"  placeholder="Pattern"  />
         </div>
+        <div class="col-auto">
+            <label class="m-0">Id country</label><br>
+            <input class="form-control form-control-sm mb-2" type="text" th:field="*{countries.id}" th:readonly="note.id"  placeholder="Country"  />
+        </div>
+        <div class="col-auto">
+            <label class="m-0">Country</label><br>
+            <b class="form-control form-control-sm mb-2" type="text" th:text="${orderItemForm.notes.currencies.countries.countryEn}" th:readonly="pattern"></b>
+        </div>
     </div>
     <hr class="my-2">
         <div class="form-row align-items-center">
             <div class="col-auto">
                 <label class="m-0">Country</label><br>
-                <b th:text="${orderItemForm.notes.currencies.countries.countryEn}" class="form-control form-control-sm mb-1" style="width: auto"></b>
+                <b th:text="${orderItemForm.notes.currencies.countries.id} + ${orderItemForm.notes.currencies.countries.countryEn}" class="form-control form-control-sm mb-1" style="width: auto"></b>
             </div>
             <div class="col-auto">
                 <label class="m-0">Currency</label><br>

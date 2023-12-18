@@ -2,6 +2,7 @@ CREATE SEQUENCE order_items_sequence;
 CREATE TABLE order_items(
     id BIGINT PRIMARY KEY NOT NULL DEFAULT nextval('order_items_sequence'),
 	order_id BIGINT NOT NULL REFERENCES orders(id),
+	country_id BIGINT NOT NULL REFERENCES countries(id),
     pattern VARCHAR NOT NULL,
 	quantity INTEGER NOT NULL,
 	unit_quantity VARCHAR NOT NULL,
@@ -14,8 +15,10 @@ CREATE TABLE order_items(
     updated_at TIMESTAMP NOT NULL
 
 );
-COMMENT ON TABLE order_items IS 'Rodzaje przesyłki';
+COMMENT ON TABLE order_items IS 'Element Zamówienia';
 COMMENT ON COLUMN order_items.id IS 'Klucz główny';
+COMMENT ON COLUMN order_items.order_id IS 'klucz obcy id Order';
+COMMENT ON COLUMN order_items.country_id IS 'Klucz obcy id Country';
 COMMENT ON COLUMN order_items.pattern IS 'Określa rosdzaj elementu, NOTE, COIN...';
 COMMENT ON COLUMN order_items.quantity IS 'Ilość sprzedawanych elementów';
 COMMENT ON COLUMN order_items.unit_quantity IS 'Szt Set';

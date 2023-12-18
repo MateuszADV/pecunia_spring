@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.List;
 
 
 @Getter
@@ -54,5 +55,8 @@ public class Order {
     @ManyToOne
     @JoinColumn(name = "customer_id")
     private Customer customers;
+
+    @OneToMany(mappedBy = "orders", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    private List<OrderItem> orderItems;
 
 }

@@ -14,7 +14,6 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "order_items")
 public class OrderItem {
-
     @SequenceGenerator(
             name = "order_items_sequence",
             sequenceName = "order_items_sequence",
@@ -37,6 +36,10 @@ public class OrderItem {
     private Timestamp created_at;
     @Column(name = "updated_at")
     private Timestamp updated_at;
+
+    @ManyToOne
+    @JoinColumn(name = "country_id")
+    private Country countries;
 
     @ManyToOne
     @JoinColumn(name = "order_id")

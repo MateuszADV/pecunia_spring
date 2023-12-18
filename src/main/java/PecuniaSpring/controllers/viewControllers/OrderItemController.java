@@ -1,12 +1,11 @@
 package PecuniaSpring.controllers.viewControllers;
 
-import PecuniaSpring.models.Note;
-import PecuniaSpring.models.Order;
-import PecuniaSpring.models.OrderItem;
+import PecuniaSpring.models.*;
 import PecuniaSpring.models.dto.note.NoteDto;
 import PecuniaSpring.models.dto.order.OrderDto;
 import PecuniaSpring.models.dto.orderItem.OrderItemDto;
 import PecuniaSpring.models.dto.orderItem.OrderItemDtoForm;
+import PecuniaSpring.models.repositories.OrderItemRepository;
 import PecuniaSpring.models.response.orderResponse.OrderItemResp;
 import PecuniaSpring.models.sqlClass.GetCoinsByStatus;
 import PecuniaSpring.models.sqlClass.GetNotesByStatus;
@@ -27,7 +26,6 @@ import org.springframework.web.bind.annotation.*;
 import utils.JsonUtils;
 
 import javax.validation.Valid;
-import java.time.temporal.JulianFields;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -75,6 +73,8 @@ public class OrderItemController {
         System.out.println(JsonUtils.gsonPretty(orderItemResp));
         System.out.println("OOOOOOOOOOOOOOOOOOOOOO STOP OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
         modelMap.addAttribute("orderItem", orderItemResp);
+
+//        System.out.println(orderItemResp.getOrderItems().get(0).getNotes().getCurrencies().getCountries().getCountryEn());
         return "orderItem/index";
     }
 
@@ -123,6 +123,7 @@ public class OrderItemController {
         if (pattern.equals("NOTE")) {
             Note note = noteService.getNoteById(itemId);
             NoteDto noteDto = new ModelMapper().map(note, NoteDto.class);
+            orderItemDtoForm.setCountries(noteDto.getCurrencies().getCountries());
             orderItemDtoForm.setNotes(noteDto);
             orderItemDtoForm.setPattern(noteDto.getCurrencies().getPatterns().getPattern());
             orderItemDtoForm.setQuantity(1);
@@ -136,18 +137,35 @@ public class OrderItemController {
 
     @PostMapping("/orderItem/new")
     public String postNew(@ModelAttribute("orderItemForm")@Valid OrderItemDtoForm orderItemDtoForm, BindingResult result, ModelMap modelMap) {
-
-
+        Note note = new Note();
         if (result.hasErrors()) {
             if (orderItemDtoForm.getPattern().equals("NOTE")) {
-                Note note = noteService.getNoteById(orderItemDtoForm.getNotes().getId());
+                note = noteService.getNoteById(orderItemDtoForm.getNotes().getId());
                 NoteDto noteDto = new ModelMapper().map(note, NoteDto.class);
                 orderItemDtoForm.setNotes(noteDto);
             }
-            System.out.println(result.toString());
+//            System.out.println(result.toString());
             return "orderItem/new";
         }
         System.out.println(JsonUtils.gsonPretty(orderItemDtoForm));
+        OrderItem orderItem = new ModelMapper().map(orderItemDtoForm, OrderItem.class);
+//        Coin coin = new Coin();
+//        coin.setId(1l);
+//        Security security = new Security();
+//        security.setId(1l);
+//        orderItem.setCoins(coin);
+//        orderItem.setSecurities(security);
+//        orderItem.setNotes(note);
+//        orderItem.setId(1l);
+        System.out.println(JsonUtils.gsonPretty(orderItem));
+        try {
+            orderItemService.saveOrderItem(orderItem);
+//            orderItemRepository.save(orderItem);
+            System.out.println("Dodanie elementu do bazy");
+        } catch (Exception e) {
+            System.out.println("Jakiś błąd!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            System.out.println(e.getMessage());
+        }
         return "redirect:/orderItem/" + orderItemDtoForm.getOrders().getId();
     }
 }

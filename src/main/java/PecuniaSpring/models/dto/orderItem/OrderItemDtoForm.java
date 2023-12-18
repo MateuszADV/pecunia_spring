@@ -1,6 +1,7 @@
 package PecuniaSpring.models.dto.orderItem;
 
 import PecuniaSpring.models.dto.coin.CoinDto;
+import PecuniaSpring.models.dto.country.CountryDto;
 import PecuniaSpring.models.dto.note.NoteDto;
 import PecuniaSpring.models.dto.order.OrderDto;
 import PecuniaSpring.models.dto.security.SecurityDto;
@@ -32,6 +33,7 @@ public class OrderItemDtoForm {
     private Timestamp created_at;
     private Timestamp updated_at;
 
+    private CountryDto countries;
     private OrderDto orders;
     private NoteDto notes;
     private CoinDto coins;
