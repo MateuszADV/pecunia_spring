@@ -1,6 +1,7 @@
 package PecuniaSpring.controllers.viewControllers;
 
 import PecuniaSpring.models.*;
+import PecuniaSpring.models.dto.coin.CoinDto;
 import PecuniaSpring.models.dto.note.NoteDto;
 import PecuniaSpring.models.dto.order.OrderDto;
 import PecuniaSpring.models.dto.orderItem.OrderItemDto;
@@ -119,16 +120,28 @@ public class OrderItemController {
         OrderItemDtoForm orderItemDtoForm = new OrderItemDtoForm();
         orderItemDtoForm.setOrders(orderDto);
         orderItemDtoForm.setPattern(pattern);
+        orderItemDtoForm.setQuantity(1);
 
         if (pattern.equals("NOTE")) {
             Note note = noteService.getNoteById(itemId);
             NoteDto noteDto = new ModelMapper().map(note, NoteDto.class);
             orderItemDtoForm.setCountries(noteDto.getCurrencies().getCountries());
             orderItemDtoForm.setNotes(noteDto);
-            orderItemDtoForm.setPattern(noteDto.getCurrencies().getPatterns().getPattern());
-            orderItemDtoForm.setQuantity(1);
             orderItemDtoForm.setUnitQuantity(noteDto.getUnitQuantity());
             orderItemDtoForm.setFinalPrice(noteDto.getPriceSell());
+
+            modelMap.addAttribute("orderItemForm", orderItemDtoForm);
+        } else if (pattern.equals("COIN")) {
+            Coin coin = coinService.getCoinById(itemId);
+            CoinDto coinDto = new ModelMapper().map(coin, CoinDto.class);
+            orderItemDtoForm.setCountries(coinDto.getCurrencies().getCountries());
+            orderItemDtoForm.setCoins(coinDto);
+            orderItemDtoForm.setUnitQuantity(coinDto.getUnitQuantity());
+            orderItemDtoForm.setFinalPrice(coinDto.getPriceSell());
+
+            System.out.println("5555555555555555555555555555555555555555555555555555555555");
+            System.out.println(JsonUtils.gsonPretty(orderItemDtoForm));
+            System.out.println("5555555555555555555555555555555555555555555555555555555555");
 
             modelMap.addAttribute("orderItemForm", orderItemDtoForm);
         }
@@ -137,30 +150,24 @@ public class OrderItemController {
 
     @PostMapping("/orderItem/new")
     public String postNew(@ModelAttribute("orderItemForm")@Valid OrderItemDtoForm orderItemDtoForm, BindingResult result, ModelMap modelMap) {
-        Note note = new Note();
         if (result.hasErrors()) {
             if (orderItemDtoForm.getPattern().equals("NOTE")) {
-                note = noteService.getNoteById(orderItemDtoForm.getNotes().getId());
+                Note note = noteService.getNoteById(orderItemDtoForm.getNotes().getId());
                 NoteDto noteDto = new ModelMapper().map(note, NoteDto.class);
                 orderItemDtoForm.setNotes(noteDto);
             }
-//            System.out.println(result.toString());
+            if (orderItemDtoForm.getPattern().equals("COIN")) {
+                Coin coin = coinService.getCoinById(orderItemDtoForm.getCoins().getId());
+                CoinDto coinDto = new ModelMapper().map(coin, CoinDto.class);
+                orderItemDtoForm.setCoins(coinDto);
+            }
             return "orderItem/new";
         }
         System.out.println(JsonUtils.gsonPretty(orderItemDtoForm));
         OrderItem orderItem = new ModelMapper().map(orderItemDtoForm, OrderItem.class);
-//        Coin coin = new Coin();
-//        coin.setId(1l);
-//        Security security = new Security();
-//        security.setId(1l);
-//        orderItem.setCoins(coin);
-//        orderItem.setSecurities(security);
-//        orderItem.setNotes(note);
-//        orderItem.setId(1l);
         System.out.println(JsonUtils.gsonPretty(orderItem));
         try {
             orderItemService.saveOrderItem(orderItem);
-//            orderItemRepository.save(orderItem);
             System.out.println("Dodanie elementu do bazy");
         } catch (Exception e) {
             System.out.println("Jakiś błąd!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");

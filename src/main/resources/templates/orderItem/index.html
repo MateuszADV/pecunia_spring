@@ -27,6 +27,7 @@
                     <th>Id:</th>
                     <th>Country</th>
                     <th>Currency</th>
+                    <th>Date</th>
                     <th>Patern</th>
                     <th>Ilość</th>
                     <th>Final Price</th>
@@ -40,14 +41,28 @@
                         <td th:text="${i.index + 1}" class="pt-1 pb-1"></td>
                         <td th:text="${orderItem.id}" class="pt-1 pb-1"></td>
                         <td th:text="${orderItem.countries.countryEn}"></td>
-                        <td th:if="${orderItem.pattern} == 'NOTE'">
-                            <span th:text="${orderItem.notes.denomination}"></span>
-                            <span th:text="${orderItem.notes.nameCurrency}"></span>
-                        </td>
-                        <td th:text="${orderItem.pattern}" class="pt-1 pb-1"></td>
+                        <div th:if="${orderItem.pattern} == 'NOTE'">
+                            <td >
+                                <span th:text="${orderItem.notes.denomination}"></span>
+                                <span th:text="${orderItem.notes.nameCurrency}"></span>
+                            </td>
+                            <td>
+                                <span th:text="${orderItem.notes.itemDate}"></span>
+                            </td>
+                        </div>
+                        <div th:if="${orderItem.pattern} == 'COIN'">
+                            <td >
+                                <span th:text="${orderItem.coins.denomination}"></span>
+                                <span th:text="${orderItem.coins.nameCurrency}"></span>
+                            </td>
+                            <td>
+                                <span th:text="${orderItem.coins.itemDate}"></span>
+                            </td>
+                        </div>
+                        <td th:text="${orderItem.pattern}" th:class="${orderItem.pattern}" class="pt-1 pb-1"></td>
                         <td th:text="${orderItem.quantity} + ${orderItem.unitQuantity}" class="pt-1 pb-1"></td>
                         <td th:text="${orderItem.finalPrice}" class="pt-1 pb-1"></td>
-                        <td th:text="${#numbers.formatDecimal(orderItem.quantity * orderItem.finalPrice,1,2)} " class="pt-1 pb-1"></td>
+                        <td th:text="${#numbers.formatDecimal(orderItem.quantity * orderItem.finalPrice,1,2)}" class="pt-1 pb-1"></td>
                         <td class="pt-1 pb-1">
 <!--                            <a th:href="@{'/order/show/' + ${order.id}}" class="btn btn-sm btn-info" style="font-size: 10px" data-toggle="modal" th:attr="data-target='#order-' + ${order.id}" >SHOW</a>-->
 <!--                            <div class="modal fade" th:attr="id= 'order-' + ${order.id}"  tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">-->
@@ -57,7 +72,7 @@
 <!--                                <a th:href="@{'/order/delete/' + ${order.id}}" class="btn btn-sm btn-danger" style="font-size: 10px; float: right" data-toggle="modal" th:attr="data-target='#order' + ${order.id}" >Delete</a>-->
 <!--                            <div class="modal fade" th:attr="id= 'order' + ${order.id}"  tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">-->
 <!--                                <div th:replace="order/_confirmDeleteModal :: confirmDeleteModal"></div>-->
-                            </div>
+<!--                            </div>-->
                         </td>
                     </tr>
                 </Block>
