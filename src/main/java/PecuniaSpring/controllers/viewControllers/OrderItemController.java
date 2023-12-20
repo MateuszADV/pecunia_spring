@@ -6,6 +6,7 @@ import PecuniaSpring.models.dto.note.NoteDto;
 import PecuniaSpring.models.dto.order.OrderDto;
 import PecuniaSpring.models.dto.orderItem.OrderItemDto;
 import PecuniaSpring.models.dto.orderItem.OrderItemDtoForm;
+import PecuniaSpring.models.dto.security.SecurityDto;
 import PecuniaSpring.models.repositories.OrderItemRepository;
 import PecuniaSpring.models.response.orderResponse.OrderItemResp;
 import PecuniaSpring.models.sqlClass.GetCoinsByStatus;
@@ -75,7 +76,6 @@ public class OrderItemController {
         System.out.println("OOOOOOOOOOOOOOOOOOOOOO STOP OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
         modelMap.addAttribute("orderItem", orderItemResp);
 
-//        System.out.println(orderItemResp.getOrderItems().get(0).getNotes().getCurrencies().getCountries().getCountryEn());
         return "orderItem/index";
     }
 
@@ -89,9 +89,9 @@ public class OrderItemController {
         List<GetSecuritiesByStatus> getSecuritiesByStatusList = securityService.getSecurityByStatus("FOR SELL");
 
 //        System.out.println(JsonUtils.gsonPretty(getCoinsByStatusList));
-        System.out.println(JsonUtils.gsonPretty(getNotesByStatusList.get(1)));
-        System.out.println(JsonUtils.gsonPretty(getCoinsByStatusList.get(1)));
-        System.out.println(JsonUtils.gsonPretty(getSecuritiesByStatusList.get(1)));
+//        System.out.println(JsonUtils.gsonPretty(getNotesByStatusList.get(1)));
+//        System.out.println(JsonUtils.gsonPretty(getCoinsByStatusList.get(1)));
+//        System.out.println(JsonUtils.gsonPretty(getSecuritiesByStatusList.get(1)));
 
         modelMap.addAttribute("orderId", orderId);
 
@@ -144,6 +144,15 @@ public class OrderItemController {
             System.out.println("5555555555555555555555555555555555555555555555555555555555");
 
             modelMap.addAttribute("orderItemForm", orderItemDtoForm);
+        } else if (pattern.equals("SECURITY")) {
+            Security security = securityService.getSecurityById(itemId);
+            SecurityDto securityDto = new ModelMapper().map(security, SecurityDto.class);
+            orderItemDtoForm.setCountries(securityDto.getCurrencies().getCountries());
+            orderItemDtoForm.setSecurities(securityDto);
+            orderItemDtoForm.setUnitQuantity(securityDto.getUnitQuantity());
+            orderItemDtoForm.setFinalPrice(securityDto.getPriceSell());
+
+            modelMap.addAttribute("orderItemForm", orderItemDtoForm);
         }
         return "orderItem/new";
     }
@@ -155,15 +164,17 @@ public class OrderItemController {
                 Note note = noteService.getNoteById(orderItemDtoForm.getNotes().getId());
                 NoteDto noteDto = new ModelMapper().map(note, NoteDto.class);
                 orderItemDtoForm.setNotes(noteDto);
-            }
-            if (orderItemDtoForm.getPattern().equals("COIN")) {
+            } else if (orderItemDtoForm.getPattern().equals("COIN")) {
                 Coin coin = coinService.getCoinById(orderItemDtoForm.getCoins().getId());
                 CoinDto coinDto = new ModelMapper().map(coin, CoinDto.class);
                 orderItemDtoForm.setCoins(coinDto);
+            } else  if (orderItemDtoForm.getPattern().equals("SECURITY")) {
+                Security security = securityService.getSecurityById(orderItemDtoForm.getSecurities().getId());
+                SecurityDto securityDto = new ModelMapper().map(security, SecurityDto.class);
+                orderItemDtoForm.setSecurities(securityDto);
             }
             return "orderItem/new";
         }
-        System.out.println(JsonUtils.gsonPretty(orderItemDtoForm));
         OrderItem orderItem = new ModelMapper().map(orderItemDtoForm, OrderItem.class);
         System.out.println(JsonUtils.gsonPretty(orderItem));
         try {

@@ -59,6 +59,15 @@
                                 <span th:text="${orderItem.coins.itemDate}"></span>
                             </td>
                         </div>
+                        <div th:if="${orderItem.pattern} == 'SECURITY'">
+                            <td >
+                                <span th:text="${orderItem.securities.denomination}"></span>
+                                <span th:text="${orderItem.securities.nameCurrency}"></span>
+                            </td>
+                            <td>
+                                <span th:text="${orderItem.securities.itemDate}"></span>
+                            </td>
+                        </div>
                         <td th:text="${orderItem.pattern}" th:class="${orderItem.pattern}" class="pt-1 pb-1"></td>
                         <td th:text="${orderItem.quantity} + ${orderItem.unitQuantity}" class="pt-1 pb-1"></td>
                         <td th:text="${orderItem.finalPrice}" class="pt-1 pb-1"></td>
