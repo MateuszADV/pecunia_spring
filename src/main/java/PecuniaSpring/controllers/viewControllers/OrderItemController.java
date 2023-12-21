@@ -186,4 +186,19 @@ public class OrderItemController {
         }
         return "redirect:/orderItem/" + orderItemDtoForm.getOrders().getId();
     }
+
+    @GetMapping("/orderItem/edit/")
+    public String Edit(@RequestParam("itemId") Long itemId,
+                         ModelMap modelMap) {
+        OrderItem orderItem = orderItemService.getOrderItemFindById(itemId);
+        OrderItemDtoForm orderItemDtoForm = new ModelMapper().map(orderItem, OrderItemDtoForm.class);
+
+        System.out.println("111111111111111111 -START- 11111111111111111111111111111111");
+        System.out.println(itemId);
+        System.out.println(JsonUtils.gsonPretty(orderItemDtoForm));
+        System.out.println("111111111111111111 -STOP- 11111111111111111111111111111111");
+
+        modelMap.addAttribute("orderItemForm", orderItemDtoForm);
+        return "orderItem/edit";
+    }
 }
