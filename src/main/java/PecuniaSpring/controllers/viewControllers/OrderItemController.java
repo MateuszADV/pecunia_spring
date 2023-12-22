@@ -201,4 +201,45 @@ public class OrderItemController {
         modelMap.addAttribute("orderItemForm", orderItemDtoForm);
         return "orderItem/edit";
     }
+
+    @PostMapping("/orderItem/edit")
+    public String postEdit(@ModelAttribute("orderItemForm")@Valid OrderItemDtoForm orderItemDtoForm, BindingResult result, ModelMap modelMap) {
+
+        if (result.hasErrors()) {
+            if (orderItemDtoForm.getPattern().equals("NOTE")) {
+                Note note = noteService.getNoteById(orderItemDtoForm.getNotes().getId());
+                NoteDto noteDto = new ModelMapper().map(note, NoteDto.class);
+                orderItemDtoForm.setNotes(noteDto);
+            } else if (orderItemDtoForm.getPattern().equals("COIN")) {
+                Coin coin = coinService.getCoinById(orderItemDtoForm.getCoins().getId());
+                CoinDto coinDto = new ModelMapper().map(coin, CoinDto.class);
+                orderItemDtoForm.setCoins(coinDto);
+            } else  if (orderItemDtoForm.getPattern().equals("SECURITY")) {
+                Security security = securityService.getSecurityById(orderItemDtoForm.getSecurities().getId());
+                SecurityDto securityDto = new ModelMapper().map(security, SecurityDto.class);
+                orderItemDtoForm.setSecurities(securityDto);
+            }
+            System.out.println(result.toString());
+            return "orderItem/edit";
+        }
+
+        OrderItem orderItem = new ModelMapper().map(orderItemDtoForm, OrderItem.class);
+        System.out.println(JsonUtils.gsonPretty(orderItem));
+        try {
+            orderItemService.saveOrderItem(orderItem);
+            System.out.println("Dodanie elementu do bazy");
+        } catch (Exception e) {
+            System.out.println("Jakiś błąd!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            System.out.println(e.getMessage());
+        }
+        return "redirect:/orderItem/" + orderItemDtoForm.getOrders().getId();
+    }
+
+    @GetMapping("/orderItem/delete/{orderItemId}")
+    public String delete(@PathVariable Long orderItemId, ModelMap modelMap) {
+        OrderItem orderItem = orderItemService.getOrderItemFindById(orderItemId);
+        OrderItemDto orderItemDto = new ModelMapper().map(orderItem, OrderItemDto.class);
+        orderItemService.deleteOrderItemById(orderItemId);
+        return "redirect:/orderItem/" + orderItemDto.getOrders().getId();
+    }
 }
