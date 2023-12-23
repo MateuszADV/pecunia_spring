@@ -10,6 +10,9 @@
             </div>
             <div class="modal-body" style="background: antiquewhite">
                 <b>Country: </b><span th:text="${orderItem.countries.countryEn}"></span><br>
+                <b>Price Sell: </b>
+                <span th:text="${orderItem.finalPrice}"></span>
+                <span>zł</span>
 <!--                <b>Name: </b><span th:text="${customerOrder.customer.name}"></span><br>-->
 <!--                <b>Last Name: </b><span th:text="${customerOrder.customer.lastName}"></span><br>-->
 <!--                <hr class="my-2">-->
@@ -25,30 +28,13 @@
 <!--                <b>Description:</b><br>-->
 <!--                <span th:text="${order.description}"></span>-->
                 <div th:if="${orderItem.pattern} == 'NOTE'">
-                    <b>Currency: </b>
-                    <span th:text="${orderItem.notes.denomination}"></span>
-                    <span th:text="${orderItem.notes.nameCurrency}"></span>
-                    <div style="text-align: center">
-                        <div class="col field" style="float: left; padding: 10px 10px 10px 10px">
-                            <img th:src="${orderItem.notes.aversPath}" style="max-width: 50%; max-height: 350px"/>
-                        </div>
-                        <div class="col field" style="float: left; padding: 10px 10px 10px 10px">
-                            <img th:src="${orderItem.notes.reversePath}" style="max-width: 50%; max-height: 350px"/>
-                        </div>
-                    </div>
+                    <div th:replace="orderItem/showModalFragments/_showModalNote :: show"></div>
                 </div>
                 <div th:if="${orderItem.pattern} == 'COIN'">
-                    <b>Currency: </b>
-                    <span th:text="${orderItem.coins.denomination}"></span>
-                    <span th:text="${orderItem.coins.nameCurrency}"></span>
-                    <div style="text-align: center">
-                        <div class="col field" style="float: left; padding: 10px 10px 10px 10px">
-                            <img th:src="${orderItem.coins.aversPath}" style="max-width: 50%; max-height: 350px"/>
-                        </div>
-                        <div class="col field" style="float: left; padding: 10px 10px 10px 10px">
-                            <img th:src="${orderItem.coins.reversePath}" style="max-width: 50%; max-height: 350px"/>
-                        </div>
-                    </div>
+                    <div th:replace="orderItem/showModalFragments/_showModalCoin :: show"></div>
+                </div>
+                <div th:if="${orderItem.pattern} == 'SECURITY'">
+                    <div th:replace="orderItem/showModalFragments/_showModalSecurity :: show"></div>
                 </div>
             </div>
             <div class="modal-footer" style="background: lightgray">
