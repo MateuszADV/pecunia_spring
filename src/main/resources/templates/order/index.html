@@ -26,6 +26,7 @@
                     <th>Number Order</th>
                     <th>Status Order</th>
                     <th>Date Order</th>
+                    <th>Date Send</th>
                     <th>Tracking Number</th>
                     <th>Shipping Cost</th>
                     <!--                <th>desctiption</th>-->
@@ -39,6 +40,7 @@
                         <td th:text="${order.numberOrder}" class="pt-1 pb-1"></td>
                         <td th:text="${order.statusOrders.statusPl}" th:class="${order.statusOrders.statusEn}" class="pt-1 pb-1"></td>
                         <td th:text="${order.dateOrder}" class="pt-1 pb-1"></td>
+                        <td th:text="${order.dateSendOrder}" class="pt-1 pb-1"></td>
                         <td th:text="${order.trackingNumber}" class="pt-1 pb-1"></td>
                         <td th:text="${#numbers.formatDecimal(order.shippingCost,1,2)} + 'zł'"class="pt-1 pb-1" style="text-align: right"></td>
                         <td class="pt-1 pb-1">

@@ -71,9 +71,13 @@ public class OrderItemController {
         orderItemResp.setOrders(orderDto);
         orderItemResp.setOrderItems(orderItemDtos);
 
-        System.out.println("OOOOOOOOOOOOOOOOOOOOOO SART OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
-        System.out.println(JsonUtils.gsonPretty(orderItemResp));
-        System.out.println("OOOOOOOOOOOOOOOOOOOOOO STOP OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+        Double sum = orderItemDtos.stream()
+                .mapToDouble(i -> i.getFinalPrice() * i.getQuantity())
+                .sum();
+        System.out.println("############################ START ##################################");
+        System.out.println(sum);
+        System.out.println("############################ STOP ##################################");
+        modelMap.addAttribute("itemTotalSum", sum);
         modelMap.addAttribute("orderItem", orderItemResp);
 
         return "orderItem/index";

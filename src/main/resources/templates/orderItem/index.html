@@ -20,9 +20,9 @@
 <!--                <a th:replace="fragments/button/_button-back :: back(back = '/customer')"></a>-->
             </div>
             <hr class="my-2">
-            <table class="table table-striped table-bordered table-hover table-sm">
+            <table class="table table-striped table-bordered table-hover table-sm" >
                 <thead class="thead-dark">
-                <tr>
+                <tr >
                     <th>Lp:</th>
                     <th>Id:</th>
                     <th>Country</th>
@@ -91,6 +91,12 @@
                     </tr>
                 </Block>
                 </tbody>
+                <tr>
+                    <td colspan="7"></td>
+                    <td style="border: 1px solid black; border-collapse: collapse;">TOTAL</td>
+                    <td th:text="${itemTotalSum}" style="border: 1px solid black; border-collapse: collapse;"></td>
+                    <td></td>
+                </tr>
             </table>
             <hr class="my-2">
         </div>
