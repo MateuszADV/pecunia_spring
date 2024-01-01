@@ -55,4 +55,16 @@ public class CoinForSellController {
         System.out.println(JsonUtils.gsonPretty(getCoinsByStatusList));
         return "coin/forSell/coins";
     }
+
+    @GetMapping("/coin/forSell/list")
+    private String getNoteForSellList(ModelMap modelMap) {
+        List<Object[]> objects = coinRepository.getCoinsByStatus("FOR SELL");
+        List<GetCoinsByStatus> getCoinsByStatusList = new ArrayList<>();
+        for (Object[] object : objects) {
+            getCoinsByStatusList.add(new ModelMapper().map(object[0],GetCoinsByStatus.class));
+        }
+
+        modelMap.addAttribute("forSellCoinsList", getCoinsByStatusList);
+        return "Coin/forSell/list";
+    }
 }

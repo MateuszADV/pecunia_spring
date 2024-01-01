@@ -75,7 +75,10 @@
                         </div>
                         <div class="page-header col-md-2" style="border-left: solid;border-color: darkgray;">
                             <div sec:authorize="hasAuthority('ADMIN')">
-                                przycis EDYTUJ
+                                <div style="display: flex">
+                                    <a th:replace="fragments/button/_button-edit_icon_small :: edit_icon_small(edit = '/note/edit/' + ${note.noteId})"></a>
+                                </div>
+                                <hr class="my-2" style="border-color: black; width: 100%">
                                 <div style="background: orange">
                                     <strong>Visible: </strong>
                                     <span th:text="${note.visible}"></span>

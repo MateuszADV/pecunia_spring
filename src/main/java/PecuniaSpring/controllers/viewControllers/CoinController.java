@@ -32,6 +32,7 @@ import utils.JsonUtils;
 import utils.Search;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.sql.Date;
 import java.time.LocalDate;
@@ -146,8 +147,11 @@ public class CoinController {
     }
 
     @GetMapping("/coin/edit/{coinId}")
-    public String getEdit(@PathVariable Long coinId, ModelMap modelMap) {
-        coinTmp = Optional.ofNullable(coinService.getCoinById(coinId));
+    public String getEdit(@PathVariable Long coinId,
+                          HttpServletRequest request,
+                          HttpServletResponse response,
+                          ModelMap modelMap) {
+            coinTmp = Optional.ofNullable(coinService.getCoinById(coinId));
         CoinFormDto coinFormDto = new ModelMapper().map(coinTmp, CoinFormDto.class);
         modelMap.addAttribute("coinForm", coinFormDto);
         formVariable(modelMap, coinTmp.get().getCurrencies());
