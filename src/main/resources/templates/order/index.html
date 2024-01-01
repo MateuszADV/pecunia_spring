@@ -26,6 +26,7 @@
                     <th>Number Order</th>
                     <th>Status Order</th>
                     <th>Date Order</th>
+                    <th>Date Send</th>
                     <th>Tracking Number</th>
                     <th>Shipping Cost</th>
                     <!--                <th>desctiption</th>-->
@@ -39,9 +40,12 @@
                         <td th:text="${order.numberOrder}" class="pt-1 pb-1"></td>
                         <td th:text="${order.statusOrders.statusPl}" th:class="${order.statusOrders.statusEn}" class="pt-1 pb-1"></td>
                         <td th:text="${order.dateOrder}" class="pt-1 pb-1"></td>
+                        <td th:text="${order.dateSendOrder}" class="pt-1 pb-1"></td>
                         <td th:text="${order.trackingNumber}" class="pt-1 pb-1"></td>
                         <td th:text="${#numbers.formatDecimal(order.shippingCost,1,2)} + 'zł'"class="pt-1 pb-1" style="text-align: right"></td>
                         <td class="pt-1 pb-1">
+                            <a th:href="@{'/orderItem/' + ${order.id}}" class="btn btn-sm btn-info" style="font-size: 10px"  >ITEM</a>
+
                             <a th:href="@{'/order/show/' + ${order.id}}" class="btn btn-sm btn-info" style="font-size: 10px" data-toggle="modal" th:attr="data-target='#order-' + ${order.id}" >SHOW</a>
                             <div class="modal fade" th:attr="id= 'order-' + ${order.id}"  tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div th:replace="order/_showModal :: showModal"></div>

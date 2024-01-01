@@ -62,6 +62,16 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public Order getOrderByNumberOrder(String numberOrder) {
+        Optional<Order> optional = orderRepository.getOrderByNumberOrder(numberOrder);
+        if (optional.isPresent()) {
+            return optional.get();
+        } else {
+         throw new RuntimeException("Zamówienie o podanym numerze: " + numberOrder + " nie istnieje");
+        }
+    }
+
+    @Override
     public String getLastNumberOrder() {
         Order order = orderRepository.getLastOrder();
         System.out.println("++++++++++++++ZAMOWIENIE START+++++++++++++++++++++++++++++++");

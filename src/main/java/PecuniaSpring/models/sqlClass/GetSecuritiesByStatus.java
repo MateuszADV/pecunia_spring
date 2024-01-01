@@ -8,8 +8,8 @@ import lombok.*;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class GetNotesByStatus extends GetByStatus{
-    private Long noteId;
+public class GetSecuritiesByStatus extends GetByStatus {
+    private Long securityId;
     private MakingDto makings;
     private Integer width;
     private Integer height;

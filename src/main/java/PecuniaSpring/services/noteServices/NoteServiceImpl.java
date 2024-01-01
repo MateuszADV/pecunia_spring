@@ -5,6 +5,7 @@ import PecuniaSpring.models.dto.note.NoteDto;
 import PecuniaSpring.models.repositories.NoteRepository;
 import PecuniaSpring.models.sqlClass.CountryByStatus;
 import PecuniaSpring.models.sqlClass.CurrencyByStatus;
+import PecuniaSpring.models.sqlClass.GetNotesByStatus;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -114,4 +115,13 @@ public class NoteServiceImpl implements NoteService {
         }
     }
 
+    @Override
+    public List<GetNotesByStatus> getNoteByStatus(String status) {
+        List<Object[]> objects = noteRepository.getNotesByStatus(status);
+        List<GetNotesByStatus> getNotesByStatusList = new ArrayList<>();
+        for (Object[] object : objects) {
+            getNotesByStatusList.add(new ModelMapper().map(object[0],GetNotesByStatus.class));
+        }
+        return getNotesByStatusList;
+    }
 }

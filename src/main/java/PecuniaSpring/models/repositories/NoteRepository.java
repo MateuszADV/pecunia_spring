@@ -124,8 +124,8 @@ public interface NoteRepository extends JpaRepository<Note, Long> {
             " ORDER BY cou.countryEn, note.denomination")
     List<Object[]> getNotesByStatus(String status, String bought);
 
-    @Query(value = "SELECT new map(note.qualities AS qualities, note.id AS noteId, cou.id AS countryId, cou.countryEn AS countryEn, cou.countryPl AS countryPl, cur.id AS currencyId, " +
-            "cur.currencySeries AS currencySeries, bou.name AS bought, note.denomination AS denomination, note.nameCurrency AS nameCurrency, note.itemDate AS itemDate, " +
+    @Query(value = "SELECT new map(note.qualities AS qualities, note.makings AS makings, note.id AS noteId, cou.id AS countryId, cou.countryEn AS countryEn, cou.countryPl AS countryPl, cur.id AS currencyId, " +
+            "cur.currencySeries AS currencySeries, cur.patterns AS patterns, bou.name AS bought, note.denomination AS denomination, note.nameCurrency AS nameCurrency, note.itemDate AS itemDate, " +
             "note.priceBuy AS priceBuy, note.priceSell AS priceSell, note.quantity AS quantity, note.unitQuantity AS unitQuantity, " +
             "note.width AS width, note.height AS height, note.visible AS visible, note.description AS description, " +
             "note.aversPath AS aversPath, note.reversePath AS reversePath ) " +
@@ -139,7 +139,7 @@ public interface NoteRepository extends JpaRepository<Note, Long> {
             "  LEFT JOIN Country cou" +
             "    ON cou.id = cur.countries" +
             " WHERE stat.id = note.statuses" +
-            " GROUP BY note.qualities, note.id, cou.id, cou.countryEn, cou.countryPl, cur.id, cur.currencySeries, bou.name, note.denomination, note.nameCurrency, note.itemDate, " +
+            " GROUP BY note.qualities, note.makings, note.id, cou.id, cou.countryEn, cou.countryPl, cur.id, cur.currencySeries, cur.patterns, bou.name, note.denomination, note.nameCurrency, note.itemDate, " +
             "          note.priceBuy, note.priceSell, note.quantity, note.unitQuantity, note.width, note.height, note.visible, note.description, note.aversPath, note.reversePath " +
             " ORDER BY cou.countryEn, note.denomination")
     List<Object[]> getNotesByStatus(String status);

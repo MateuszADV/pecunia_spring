@@ -23,6 +23,7 @@ public interface CoinService {
     List<CurrencyByStatus> getCurrencyByStatus(Long countryId, String status, String role);
 
     List<GetCoinsByStatus> getCoinsByStatus(String status, Long countryId);
+    List<GetCoinsByStatus> getCoinsByStatus(String status);
 
     Page<Coin> findCoinPaginated(Integer pageNo, Integer pageSize, Long currencyId, String status, String role);
 
