@@ -124,4 +124,14 @@ public class NoteServiceImpl implements NoteService {
         }
         return getNotesByStatusList;
     }
+
+    @Override
+    public List<GetNotesByStatus> getNoteByStatus(String status, String statusSell) {
+        List<Object[]> objects = noteRepository.getNotesByStatus(status, statusSell);
+        List<GetNotesByStatus> getNotesByStatusList = new ArrayList<>();
+        for (Object[] object : objects) {
+            getNotesByStatusList.add(new ModelMapper().map(object[0],GetNotesByStatus.class));
+        }
+        return getNotesByStatusList;
+    }
 }

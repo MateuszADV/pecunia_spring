@@ -27,4 +27,6 @@ public interface NoteService {
     Page<Note> findNotePaginated(Integer pageNo, Integer pageSize, Long currencyId, String status, String role);
 
     List<GetNotesByStatus> getNoteByStatus(String status);
+    List<GetNotesByStatus> getNoteByStatus(String status, String statusSell);
+
 }

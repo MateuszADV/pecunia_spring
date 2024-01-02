@@ -134,7 +134,7 @@ public class CoinServiceImpl implements CoinService {
 
         List<Object[]> objects;
         List<CountryByStatus> countryByStatusList = new ArrayList<>();
-        objects = coinRepository.countryByStatus("NEW");
+        objects = coinRepository.countryByStatus(status);
 
             System.out.println(JsonUtils.gsonPretty(objects));
             for (Object[] object : objects) {
@@ -146,12 +146,22 @@ public class CoinServiceImpl implements CoinService {
     @Override
     public List<GetCoinsByStatus> getCoinsByStatus(String status, Long countryId) {
         List<Object[]> objects;
-        objects = coinRepository.getCoinsByStatus("NEW", countryId);
+        objects = coinRepository.getCoinsByStatus(status, countryId);
         List<GetCoinsByStatus> getCoinsByStatusList = new ArrayList<>();
         for (Object[] object : objects) {
             getCoinsByStatusList.add(new ModelMapper().map(object[0],GetCoinsByStatus.class));
         }
         System.out.println(JsonUtils.gsonPretty(getCoinsByStatusList));
+        return getCoinsByStatusList;
+    }
+
+    @Override
+    public List<GetCoinsByStatus> getCoinsByStatus(String status, String statusSell) {
+        List<Object[]> objects = coinRepository.getCoinsByStatus(status, statusSell);
+        List<GetCoinsByStatus> getCoinsByStatusList = new ArrayList<>();
+        for (Object[] object : objects) {
+            getCoinsByStatusList.add(new ModelMapper().map(object[0], GetCoinsByStatus.class));
+        }
         return getCoinsByStatusList;
     }
 }
