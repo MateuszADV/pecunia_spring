@@ -61,20 +61,24 @@ body
 .Open
 {
     background-color: lightgreen;
+    padding: 0 5px 0 5px;
 }
 
 .Close
 {
     background-color: lightcoral;
+    padding: 0 5px 0 5px;
 }
 .Reservation
 {
     background-color: yellow;
+    padding: 0 5px 0 5px;
 }
 
 .Other
 {
     background-color: gray;
+    padding: 0 5px 0 5px;
 }
 
 
