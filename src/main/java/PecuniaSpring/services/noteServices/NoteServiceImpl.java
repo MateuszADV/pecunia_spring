@@ -12,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import utils.JsonUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -133,5 +134,32 @@ public class NoteServiceImpl implements NoteService {
             getNotesByStatusList.add(new ModelMapper().map(object[0],GetNotesByStatus.class));
         }
         return getNotesByStatusList;
+    }
+
+
+    @Override
+    public List<GetNotesByStatus> getNoteByStatus(String status, Long countryId) {
+        List<Object[]> objects = noteRepository.getNotesByStatus(status, countryId);
+        List<GetNotesByStatus> getNotesByStatusList = new ArrayList<>();
+        for (Object[] object : objects) {
+            getNotesByStatusList.add(new ModelMapper().map(object[0],GetNotesByStatus.class));
+        }
+        return getNotesByStatusList;
+    }
+
+    @Override
+    public List<CountryByStatus> getCountryByStatusNote(String status) {
+        List<Object[]> objects;
+        List<CountryByStatus> countryByStatusList = new ArrayList<>();
+        objects = noteRepository.countryByStatus(status);
+        try {
+            System.out.println(JsonUtils.gsonPretty(objects));
+            for (Object[] object : objects) {
+                countryByStatusList.add(new ModelMapper().map(object[0], CountryByStatus.class));
+            }
+        }catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return countryByStatusList;
     }
 }

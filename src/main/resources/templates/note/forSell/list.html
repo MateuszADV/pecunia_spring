@@ -30,7 +30,7 @@
                     </tr>
                     </thead>
                     <tbody th:with="totalPrice=0">
-                    <Block th:each="note, i : ${forSellNotesList}">
+                    <Block th:each="note, i : ${noteList}">
                         <p th:with="totalPrice=${totalPrice + (note.priceBuy * note.quantity)}"></p>
                         <tr>
                             <!--                    <td th:text="${country.getContinents().getContinentCode()}"></td>-->
