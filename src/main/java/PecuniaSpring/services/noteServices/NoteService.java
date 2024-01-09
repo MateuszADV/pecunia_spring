@@ -28,5 +28,8 @@ public interface NoteService {
 
     List<GetNotesByStatus> getNoteByStatus(String status);
     List<GetNotesByStatus> getNoteByStatus(String status, String statusSell);
+    List<GetNotesByStatus> getNoteByStatus(String status, Long countryId);
+
+    List<CountryByStatus> getCountryByStatusNote(String status);
 
 }
