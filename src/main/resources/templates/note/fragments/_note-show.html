@@ -1,6 +1,7 @@
 <div th:fragment="note-show"
      xmlns:th="http://www.w3.org/1999/xhtml">
-    <h1 style="text-align: center">NOTE SHOW</h1>
+    <h1 class="display-4" style="text-align: center">NOTE SHOW</h1>
+    <hr class="my-2">
     <div class="container">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3">
             <div class="col field " style="float: left">
@@ -18,6 +19,7 @@
                 <span th:text="*{#calendars.format(note.created_at,'yyyy-MM-dd HH:mm:ss')}"></span><br>
                 <strong>Updated: </strong>
                 <span th:text="*{#calendars.format(note.updated_at,'yyyy-MM-dd HH:mm:ss')}"></span>
+                <hr class="my-2">
             </div>
             <div class="col field" style="float: left">
                 <strong>Denomination: </strong>
@@ -38,6 +40,7 @@
                 <span th:text="${note.unitQuantity}"></span><br>
                 <strong> Actives: </strong>
                 <span th:text="${note.actives.name}"></span>
+                <hr class="my-2">
             </div>
             <div class="col field" style="float: left">
                 <strong>Width: </strong>
@@ -52,19 +55,96 @@
                 <span th:text="${note.statuses.status}"></span><br>
                 <strong>Status Sell: </strong>
                 <span th:text="${note.statusSell}"></span>
+                <hr class="my-2">
             </div>
         </div>
     </div>
+    <hr class="my-2">
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3">
-        <div class="col field" style="float: left; padding: 10px 10px 10px 10px">
-            <img th:src="${note.aversPath}" style="max-width: 100%; max-height: 350px"/>
+        <div class="column" style="float: left; padding: 10px 10px 10px 10px">
+            <img th:src="${note.aversPath}" style="max-width: 100%; max-height: 350px" onclick="openModal();currentSlide(1)" class="hover-shadow cursor">
         </div>
-        <div class="col field" style="float: left; padding: 10px 10px 10px 10px">
-            <img th:src="${note.reversePath}" style="max-width: 100%; max-height: 350px"/>
+        <div class="column" style="float: left; padding: 10px 10px 10px 10px">
+            <img th:src="${note.reversePath}" style="max-width: 100%; max-height: 350px" onclick="openModal();currentSlide(2)" class="hover-shadow cursor">
         </div>
 
         <div class="container col field" style="padding: 10px 10px 10px 10px">
             <textarea th:text="${note.description}" style="width: 100%; height: 100%; background: darkgray;" disable></textarea>
         </div>
     </div>
+
+    <div id="myModal" class="modal-light-box">
+        <span class="close-light-box cursor" onclick="closeModal()">&times;</span>
+        <div class="modal-content-light-box">
+
+            <div class="mySlides" style="text-align: center">
+                <div class="numbertext">1 / 2</div>
+                <img th:src="${note.aversPath}" style="max-width:100%; max-height: 800px">
+            </div>
+
+            <div class="mySlides" style="text-align: center">
+                <div class="numbertext">2 / 2</div>
+                <img th:src="${note.reversePath}" style="max-width:100%; max-height: 800px">
+            </div>
+
+            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+            <a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+            <div class="caption-container">
+                <p id="caption"></p>
+            </div>
+            <div class="row" style="text-align: center">
+                <div class="col field" style="float: left; padding: 10px 10px 10px 10px">
+                    <img class="demo cursor" th:src="${note.aversPath}" style="max-width:100%; max-height: 150px;" onclick="currentSlide(1)" th:alt="${note.denomination} + ' ' + ${note.nameCurrency}">
+                </div>
+                <div class="col field" style="float: left; padding: 10px 10px 10px 10px">
+                    <img class="demo cursor" th:src="${note.reversePath}" style="max-width:100%; max-height: 150px;" onclick="currentSlide(2)"
+                         th:alt="${note.denomination} + ' ' + ${note.nameCurrency}"
+                    th:title="'test Tutułu'">
+                </div>
+                <div class="col field" style="float: left; padding: 10px 10px 10px 10px">
+                    <span>NAPIS TESTOWY</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openModal() {
+            document.getElementById("myModal").style.display = "block";
+        }
+
+        function closeModal() {
+            document.getElementById("myModal").style.display = "none";
+        }
+
+        var slideIndex = 1;
+        showSlides(slideIndex);
+
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
+
+        function showSlides(n) {
+            var i;
+            var slides = document.getElementsByClassName("mySlides");
+            var dots = document.getElementsByClassName("demo");
+            var captionText = document.getElementById("caption");
+            if (n > slides.length) {slideIndex = 1}
+            if (n < 1) {slideIndex = slides.length}
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            slides[slideIndex-1].style.display = "block";
+            dots[slideIndex-1].className += " active";
+            captionText.innerHTML = dots[slideIndex-1].alt;
+        }
+    </script>
 </div>

@@ -8,9 +8,13 @@
 </head>
 <body>
     <div layout:fragment="content" class="container">
-        <div th:replace="note/fragments/_note-show :: note-show"></div>
-        <div>
-            <a th:replace="fragments/button/_button-back :: back(back = '/note/collection/notes/?selectCurrencyId=' + ${note.currencies.id})"></a>
+
+        <div class="jumbotron">
+            <div th:replace="note/fragments/_note-show :: note-show"></div>
+            <hr class="my-2">
+            <div>
+                <a th:replace="fragments/button/_button-back :: back(back = '/note/collection/notes/?selectCurrencyId=' + ${note.currencies.id})"></a>
+            </div>
         </div>
     </div>
 </body>
