@@ -95,7 +95,8 @@
             </div>
             <div class="row" style="text-align: center">
                 <div class="col field" style="float: left; padding: 10px 10px 10px 10px">
-                    <img class="demo cursor" th:src="${note.aversPath}" style="max-width:100%; max-height: 150px;" onclick="currentSlide(1)" th:alt="${note.denomination} + ' ' + ${note.nameCurrency}">
+                    <img class="demo cursor" th:src="${note.aversPath}" style="max-width:100%; max-height: 150px;" onclick="currentSlide(1)"
+                         th:alt="${note.denomination} + ' ' + ${note.nameCurrency}">
                 </div>
                 <div class="col field" style="float: left; padding: 10px 10px 10px 10px">
                     <img class="demo cursor" th:src="${note.reversePath}" style="max-width:100%; max-height: 150px;" onclick="currentSlide(2)"
@@ -103,7 +104,12 @@
                     th:title="'test Tutułu'">
                 </div>
                 <div class="col field" style="float: left; padding: 10px 10px 10px 10px">
-                    <span>NAPIS TESTOWY</span>
+                    <b>OPIS</b>
+                    <div style="text-align: left">
+                        <b>Country: </b><span th:text="${note.currencies.countries.countryEn}"></span><br>
+                        <b>Series: </b><span th:text="${note.currencies.currencySeries}"></span>
+
+                    </div>
                 </div>
             </div>
         </div>

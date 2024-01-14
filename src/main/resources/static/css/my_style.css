@@ -136,7 +136,7 @@ body
     display: none;
     position: fixed;
     z-index: 1;
-    padding-top: 100px;
+    padding-top: 40px;
     left: 0;
     top: 0;
     width: 100%;
@@ -187,7 +187,7 @@ body
     background: #e0dceccc;
     cursor: pointer;
     position: absolute;
-    top: 50%;
+    top: 40%;
     width: auto;
     padding: 16px;
     margin-top: -50px;

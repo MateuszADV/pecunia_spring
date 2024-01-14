@@ -81,7 +81,7 @@ public class OrderMockTest {
         Integer month = localDate.getMonthValue();
 
         String dateOrder = year.toString() + '/' + month.toString();
-        Assert.assertEquals(orderService.returnFirstNumberOrder(), dateOrder + "/0000/0000");
+        Assert.assertEquals(orderService.returnFirstNumberOrder(), dateOrder + "/0001/0001");
     }
 
     @Test
