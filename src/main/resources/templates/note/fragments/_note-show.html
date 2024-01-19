@@ -1,8 +1,11 @@
 <div th:fragment="note-show"
      xmlns:th="http://www.w3.org/1999/xhtml">
-    <h1 class="display-4" style="text-align: center">NOTE SHOW</h1>
     <hr class="my-2">
     <div class="container">
+        <div style="text-align: center">
+            <h3 th:text="${note.currencies.currencySeries}"></h3>
+        </div>
+        <hr class="my-2">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3">
             <div class="col field " style="float: left">
                 <strong>Id: </strong>
@@ -105,10 +108,13 @@
                 </div>
                 <div class="col field" style="float: left; padding: 10px 10px 10px 10px">
                     <b>OPIS</b>
+                    <hr class="my-2">
                     <div style="text-align: left">
                         <b>Country: </b><span th:text="${note.currencies.countries.countryEn}"></span><br>
                         <b>Series: </b><span th:text="${note.currencies.currencySeries}"></span>
-
+                        <div th:if="${note.width}  != null ">
+                            <b>Size: </b> <span>[[${#numbers.formatDecimal(note.width,1,0)}]] x [[${#numbers.formatDecimal(note.height,1,0)}]] </span><br>
+                        </div>
                     </div>
                 </div>
             </div>
