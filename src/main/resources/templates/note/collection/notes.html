@@ -29,7 +29,8 @@
                         <div class="col-auto note-box">
                             <div>
                                 <div>
-                                    <a th:href="@{'/note/collection/show/' + ${note.id}}" data-toggle="modal" th:attr="data-target='#Note-' + ${note.id}" >
+                                    <a th:href="@{'/note/collection/show/' + ${note.id}}" data-toggle="modal" th:attr="data-target='#Note-' + ${note.id}"
+                                       style="display: flex; justify-content: center">
                                         <div th:replace="fragments/_image-midle :: image-midle(image = ${note.aversPath})"></div>
                                         <div th:replace="fragments/_image-midle :: image-midle(image = ${note.reversePath})"></div>
                                     </a>
