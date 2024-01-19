@@ -16,7 +16,7 @@
                     <img th:src="${note.reversePath}" style="max-width: 100%; max-height: 350px"/>
                 </div>
             </div>
-            <div class="container">
+            <div class="container" style="text-align: left">
                 <hr style="margin: 0; border-color: black">
 
                 <span th:text="${note.denomination >= 1 ? #numbers.formatDecimal(note.denomination,1,0,'COMMA') :  #numbers.formatDecimal(note.denomination,1,2,'COMMA')} + ' ' + ${note.nameCurrency}"></span><br>
