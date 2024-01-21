@@ -16,9 +16,8 @@
                     <img th:src="${coin.reversePath}" style="max-width: 100%; max-height: 350px"/>
                 </div>
             </div>
-            <div class="container">
+            <div class="container" style="text-align: left">
                 <hr style="margin: 0; border-color: black">
-
                 <span th:text="${coin.denomination >= 1 ? #numbers.formatDecimal(coin.denomination,1,0,'COMMA') :  #numbers.formatDecimal(coin.denomination,1,2,'COMMA')} + ' ' + ${coin.nameCurrency}"></span><br>
                 <strong>Diameter: </strong>
                 <span th:text="${#numbers.formatDecimal(coin.diameter,1,0)} + 'mm'"></span><br>

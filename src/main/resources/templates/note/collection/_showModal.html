@@ -18,7 +18,6 @@
             </div>
             <div class="container" style="text-align: left">
                 <hr style="margin: 0; border-color: black">
-
                 <span th:text="${note.denomination >= 1 ? #numbers.formatDecimal(note.denomination,1,0,'COMMA') :  #numbers.formatDecimal(note.denomination,1,2,'COMMA')} + ' ' + ${note.nameCurrency}"></span><br>
                 <strong>Width: </strong>
                 <span th:text="${#numbers.formatDecimal(note.width,1,0)} + 'mm'"></span><br>
