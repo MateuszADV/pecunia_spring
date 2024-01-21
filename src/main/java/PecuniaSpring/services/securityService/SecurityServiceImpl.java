@@ -2,9 +2,14 @@ package PecuniaSpring.services.securityService;
 
 import PecuniaSpring.models.Security;
 import PecuniaSpring.models.repositories.SecurityRepository;
+import PecuniaSpring.models.sqlClass.CountryByStatus;
+import PecuniaSpring.models.sqlClass.CurrencyByStatus;
 import PecuniaSpring.models.sqlClass.GetSecuritiesByStatus;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
 
@@ -66,5 +71,55 @@ public class SecurityServiceImpl implements SecurityService {
             getSecuritiesByStatusList.add(new ModelMapper().map(object[0], GetSecuritiesByStatus.class));
         }
         return getSecuritiesByStatusList;
+    }
+
+    @Override
+    public List<CountryByStatus> getCountryByStatus(String status, String role) {
+        List<Object[]> objects = new ArrayList<>();
+        List<CountryByStatus> countryByStatusList = new ArrayList<>();
+
+        if (role == "ADMIN") {
+            objects = securityRepository.countryByStatus(status);
+            for (Object[] object : objects) {
+                countryByStatusList.add(new ModelMapper().map(object[0], CountryByStatus.class));
+            }
+        } else {
+            objects = securityRepository.countryByStatus(status, true);
+            for (Object[] object : objects) {
+                countryByStatusList.add(new ModelMapper().map(object[0], CountryByStatus.class));
+            }
+        }
+        return countryByStatusList;
+    }
+
+    @Override
+    public List<CurrencyByStatus> getCurrencyByStatus(Long countryId, String status, String role) {
+        List<Object[]> objects = new ArrayList<>();
+        List<CurrencyByStatus> currencyByStatusList = new ArrayList<>();
+
+        if (role == "ADMIN") {
+            objects = securityRepository.currencyByStatus(status, countryId);
+            for (Object[] object : objects) {
+                currencyByStatusList.add(new ModelMapper().map(object[0], CurrencyByStatus.class));
+            }
+        } else {
+            objects = securityRepository.currencyByStatus(status, countryId, true);
+            for (Object[] object : objects) {
+                currencyByStatusList.add(new ModelMapper().map(object[0], CurrencyByStatus.class));
+            }
+        }
+        return currencyByStatusList;
+    }
+
+    @Override
+    public Page<Security> findSecurityPaginated(Integer pageNo, Integer pageSize, Long currencyId, String status, String role) {
+        List<Security> securities = new ArrayList<>();
+        if (role == "ADMIN") {
+            Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
+            return this.securityRepository.securityPageable(currencyId, status, pageable);
+        } else {
+            Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
+            return this.securityRepository.securityPageable(currencyId, status, true, pageable);
+        }
     }
 }
