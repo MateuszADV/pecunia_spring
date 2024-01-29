@@ -3,6 +3,7 @@ package PecuniaSpring.controllers.viewControllers;
 import PecuniaSpring.models.repositories.CoinRepository;
 import PecuniaSpring.models.sqlClass.CountryByStatus;
 import PecuniaSpring.models.sqlClass.GetCoinsByStatus;
+import PecuniaSpring.services.coinServices.CoinServiceImpl;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,7 @@ import java.util.List;
 public class CoinFutureController {
 
     private CoinRepository coinRepository;
+    private CoinServiceImpl coinService;
 
     @GetMapping("/coin/future")
     public String getindex(ModelMap modelMap) {
@@ -40,17 +42,8 @@ public class CoinFutureController {
 
     @GetMapping("/coin/future/country/coins/{countryId}")
     public String getCountryNotes(@PathVariable("countryId") Long countryId, ModelMap modelMap) {
-        System.out.println("[[[[[[[[[[[[[[[[[[[[]]]]]]]]]]]]]]]]]]]]]]]]]]]C");
-        System.out.println(countryId);
-        System.out.println("[[[[[[[[[[[[[[[[[[[[]]]]]]]]]]]]]]]]]]]]]]]]]]]C");
 
-        List<Object[]> objects;
-        objects = coinRepository.getCoinsByStatus("FUTURE", countryId);
-        List<GetCoinsByStatus> getCoinsByStatusList = new ArrayList<>();
-        for (Object[] object : objects) {
-            getCoinsByStatusList.add(new ModelMapper().map(object[0], GetCoinsByStatus.class));
-        }
-
+        List<GetCoinsByStatus> getCoinsByStatusList = coinService.getCoinsByStatus("FUTURE", countryId);
         modelMap.addAttribute("futureCoinsList", getCoinsByStatusList);
         System.out.println(JsonUtils.gsonPretty(getCoinsByStatusList));
         return "coin/future/coins";
