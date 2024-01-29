@@ -1,11 +1,12 @@
 package PecuniaSpring.controllers.viewControllers;
 
-import PecuniaSpring.models.Coin;
-import PecuniaSpring.models.dto.coin.CoinDto;
+
+import PecuniaSpring.models.Security;
+import PecuniaSpring.models.dto.security.SecurityDto;
 import PecuniaSpring.models.sqlClass.CountryByStatus;
 import PecuniaSpring.models.sqlClass.CurrencyByStatus;
 import PecuniaSpring.security.config.UserCheckLoged;
-import PecuniaSpring.services.coinServices.CoinServiceImpl;
+import PecuniaSpring.services.securityService.SecurityServiceImpl;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,77 +16,78 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import utils.JsonUtils;
+import utils.Role;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-public class CoinCollectonController {
+public class SecurityCollectionController {
 
-    private CoinServiceImpl coinService;
-    private UserCheckLoged userCheckLoged;
+    private SecurityServiceImpl securityService;
 
     @Autowired
-    public CoinCollectonController(CoinServiceImpl coinService, UserCheckLoged userCheckLoged) {
-        this.coinService = coinService;
-        this.userCheckLoged = userCheckLoged;
+    public SecurityCollectionController(SecurityServiceImpl securityService) {
+        this.securityService = securityService;
     }
 
-    @GetMapping("/coin/collection")
+    @GetMapping("/security/collection")
     public String getIndex(ModelMap modelMap) {
-        String role = userCheckLoged.UserCheckLoged().getAuthorities().toArray()[0].toString();
+        String role = Role.role();
 
         List<CountryByStatus> countryByStatusList = new ArrayList<>();
         if (role == "ADMIN") {
-            countryByStatusList = coinService.getCountryByStatus("KOLEKCJA", role);
+            countryByStatusList = securityService.getCountryByStatus("KOLEKCJA", role);
         } else {
-            countryByStatusList = coinService.getCountryByStatus("KOLEKCJA", role);
+            countryByStatusList = securityService.getCountryByStatus("KOLEKCJA", role);
             System.out.println("Brak uprawnień to tu");
             modelMap.addAttribute("error", "Brak Uprawnień");
 //            return "error";
         }
         modelMap.addAttribute("countryByStatusList", countryByStatusList);
-        return "coin/collection/index";
+        System.out.println(countryByStatusList.size());
+//        System.out.println(JsonUtils.gsonPretty(countryByStatusList));
+        return "security/collection/index";
     }
 
-    @GetMapping("/coin/collection/currency")
+    @GetMapping("/security/collection/currency")
     public String getCurrency(@RequestParam("selectCountryId") Long countryId, ModelMap modelMap) {
-        String role = userCheckLoged.UserCheckLoged().getAuthorities().toArray()[0].toString();
+        String role = Role.role();
 
         System.out.println(countryId);
         List<CurrencyByStatus> currencyByStatusList = new ArrayList<>();
         if (role == "ADMIN") {
-            currencyByStatusList = coinService.getCurrencyByStatus(countryId, "KOLEKCJA", role);
+            currencyByStatusList = securityService.getCurrencyByStatus(countryId, "KOLEKCJA", role);
         } else {
-            currencyByStatusList = coinService.getCurrencyByStatus(countryId, "KOLEKCJA", role);
+            currencyByStatusList = securityService.getCurrencyByStatus(countryId, "KOLEKCJA", role);
         }
         modelMap.addAttribute("currencyByStatusList", currencyByStatusList);
         System.out.println(JsonUtils.gsonPretty(currencyByStatusList));
-        return "coin/collection/currency";
+        return "security/collection/currency";
     }
 
-    @GetMapping("/coin/collection/coins")
-    public String getCoin(@RequestParam("selectCurrencyId") Long currencyId, ModelMap modelMap) {
+    @GetMapping("/security/collection/securities")
+    public String getSecurity(@RequestParam("selectCurrencyId") Long currencyId, ModelMap modelMap) {
 
         return findPaginated(1, currencyId, "KOLEKCJA", modelMap);
     }
 
-    @GetMapping("/coin/collection/coins/page/{pageNo}")
+    @GetMapping("/security/collection/securities/page/{pageNo}")
     public String findPaginated(@PathVariable(value = "pageNo") int pageNo,
                                 @RequestParam("currencyId") Long currencyId,
                                 @RequestParam("status") String status, ModelMap modelMap) {
-        String role = userCheckLoged.UserCheckLoged().getAuthorities().toArray()[0].toString();
+        String role = Role.role();
         Integer pageSize =10;
 
-            Page<Coin> page = coinService.findCoinPaginated(pageNo, pageSize, currencyId, status, role);
-            List<CoinDto> coinDtoList = new ArrayList<>();
+        Page<Security> page = securityService.findSecurityPaginated(pageNo, pageSize, currencyId, status, role);
+        List<SecurityDto> securityDtoList = new ArrayList<>();
 
         if (page.getTotalPages() >= pageNo) {
-            for (Coin coin : page.getContent()) {
-                coinDtoList.add(new ModelMapper().map(coin, CoinDto.class));
+            for (Security security : page.getContent()) {
+                securityDtoList.add(new ModelMapper().map(security, SecurityDto.class));
             }
 
-            String pathPage = "/coin/collection/coins/page/";
+            String pathPage = "/security/collection/securities/page/";
             modelMap.addAttribute("currentPage", pageNo);
             modelMap.addAttribute("totalPages", page.getTotalPages());
             modelMap.addAttribute("totalItems", page.getTotalElements());
@@ -97,24 +99,22 @@ public class CoinCollectonController {
             System.out.println(page.getTotalPages());
             System.out.println(page.getSize());
 
-            modelMap.addAttribute("coins", coinDtoList);
+            modelMap.addAttribute("securities", securityDtoList);
             System.out.println(role);
             System.out.println("PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP");
-            return "coin/collection/coins";
+            return "security/collection/securities";
         }else {
             return findPaginated(1, currencyId, "KOLEKCJA", modelMap);
         }
-
     }
 
-    @GetMapping("/coin/collection/show/{coinId}")
-    public String getShow(@PathVariable Long coinId, ModelMap modelMap) {
+    @GetMapping("/security/collection/show/{securityId}")
+    public String getShow(@PathVariable Long securityId, ModelMap modelMap) {
+        Security security = securityService.getSecurityById(securityId);
+        SecurityDto securityDto = new ModelMapper().map(security, SecurityDto.class);
+        modelMap.addAttribute("security", securityDto);
+        System.out.println(securityDto.getCurrencies().getId());
 
-        Coin coin = coinService.getCoinById(coinId);
-        CoinDto coinDto = new ModelMapper().map(coin, CoinDto.class);
-        modelMap.addAttribute("coin", coinDto);
-        System.out.println(coinDto.getCurrencies().getId());
-
-        return "coin/collection/show";
+        return "security/collection/show";
     }
 }
