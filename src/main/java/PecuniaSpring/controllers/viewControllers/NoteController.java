@@ -177,7 +177,6 @@ public class NoteController {
             return "note/new";
         }
 
-
         Currency currency = currencyService.getCurrencyById(noteForm.getCurrencies().getId());
         System.out.println("++++++++++++++++++++++++++++++START++++++++++++++++++++++++++++++");
         System.out.println(JsonUtils.gsonPretty(noteForm));
@@ -206,6 +205,8 @@ public class NoteController {
     public String postEdit(@ModelAttribute ("noteForm")@Valid NoteFormDto noteForm, BindingResult result,
                            HttpServletRequest request,
                            ModelMap modelMap) {
+        Currency currencyTmp = currencyService.getCurrencyById(noteForm.getCurrencies().getId());
+        noteFormVariable(modelMap, currencyTmp);
         if (result.hasErrors()) {
             System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&ERROR&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
             System.out.println(result.toString());
@@ -220,9 +221,6 @@ public class NoteController {
             }
             System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&ERROR END&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
 
-            Currency currency = currencyService.getCurrencyById(noteForm.getCurrencies().getId());
-
-            noteFormVariable(modelMap, currency);
             return "note/edit";
         }
 
@@ -230,8 +228,8 @@ public class NoteController {
         System.out.println("++++++++++++++++++++++++++++++START++++++++++++++++++++++++++++++");
         System.out.println(JsonUtils.gsonPretty(noteForm));
         System.out.println("------------------------------------------------------------------");
-        noteForm.setId(noteTmp.get().getId());
-        noteForm.setCreated_at(noteTmp.get().getCreated_at());
+//        noteForm.setId(noteTmp.get().getId());
+//        noteForm.setCreated_at(noteTmp.get().getCreated_at());
         System.out.println(JsonUtils.gsonPretty(noteForm));
         System.out.println("++++++++++++++++++++++++++++++STOP+++++++++++++++++++++++++++++++");
 
