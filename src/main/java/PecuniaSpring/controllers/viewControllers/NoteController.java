@@ -219,6 +219,8 @@ public class NoteController {
 //                result.rejectValue("dateBuy", "typeMismatch", "Błąd Testowy????");
                 modelMap.addAttribute("errorDateBuy", "Podaj porawną datę");
             }
+            System.out.println(JsonUtils.gsonPretty(noteForm.getCurrencies()));
+
             System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&ERROR END&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
 
             return "note/edit";
@@ -264,7 +266,7 @@ public class NoteController {
         for (Currency currency1 : currenciesList) {
             currencyDtos.add(new ModelMapper().map(currency1, CurrencyDto.class));
         }
-//        System.out.println(JsonUtils.gsonPretty(currencyDtos));
+        System.out.println(JsonUtils.gsonPretty(currencyDtos));
 
         List<Bought> boughts = boughtServices.getAllBought();
         List<BoughtDto> boughtDtos = new ArrayList<>();
