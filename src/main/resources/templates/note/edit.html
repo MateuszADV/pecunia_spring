@@ -16,22 +16,14 @@
                 <div>
                     <label class="m-0">Id</label>
                     <input class="form-control form-control-sm mb-2" type="text" th:field="*{id}" placeholder="Id" style="max-width: 80px" readonly/>
-                    <input class="form-control form-control-sm mb-2" type="text" th:field="*{created_at}" placeholder="created At" readonly th:type="hidden" />
+                    <input class="form-control form-control-sm mb-2" type="text" th:field="*{created_at}" placeholder="created At" readonly/>
                 </div>
                 <div th:replace="note/_form :: form"></div>
                 <p> <input type="submit" value="Zapisz Zmiany" class="btn btn-sm btn-primary"></p>
             </form>
             <hr class="my-2">
             <div class="row row-cols-1" style="margin-left: 20px; margin-right: 20px; max-height: 100%">
-<!--                <div class="col field" style="float: left; padding: 10px 10px 10px 10px">-->
-<!--                    <img th:src="${noteForm.aversPath}" style="max-width: 100%; max-height: 350px"/>-->
-<!--                </div>-->
-<!--                <div class="col field" style="float: left; padding: 10px 10px 10px 10px">-->
-<!--                    <img th:src="${noteForm.reversePath}" style="max-width: 100%; max-height: 350px"/>-->
-<!--                </div>-->
-                <div th:replace="note/fragments/_lightBoxNote :: lightBox(note = ${noteForm})"></div>
-<!--                <div class="container col field" style="padding: 10px 10px 10px 10px">-->
-<!--                </div>-->
+                <div th:replace="note/fragments/_lightBoxNote :: lightBox(note = ${noteInfoLightBox})"></div>
             </div>
             <hr class="my-2">
             <div style="display: block ruby">
