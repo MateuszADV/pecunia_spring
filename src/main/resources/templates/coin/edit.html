@@ -12,12 +12,17 @@
         <h1 style="text-align: center">COIN EDIT</h1>
         <hr class="my-2">
         <form th:action="@{/coin/edit}" method="post" th:object="${coinForm}">
+            <div>
+                <label class="m-0">Id</label>
+                <input class="form-control form-control-sm mb-2" type="text" th:field="*{id}" placeholder="Id" style="max-width: 80px" readonly/>
+                <input class="form-control form-control-sm mb-2" type="text" th:field="*{created_at}" placeholder="created At" readonly/>
+            </div>
             <div th:replace="coin/_form :: form"></div>
             <p> <input type="submit" value="Zapisz Zmiany" class="btn btn-sm btn-primary"></p>
         </form>
         <hr class="my-2">
         <div class="row row-cols-1" style="margin-left: 20px; margin-right: 20px; max-height: 100%" >
-            <div th:replace="coin/fragments/_lightBoxCoin :: lightBox(coin = ${coinForm})"></div>
+            <div th:replace="coin/fragments/_lightBoxCoin :: lightBox(coin = ${coinInfoLightBox})"></div>
             <div class="container col field" style="padding: 10px 10px 10px 10px">
             </div>
         </div>
