@@ -5,14 +5,11 @@ import PecuniaSpring.models.sqlClass.CountryByStatus;
 import PecuniaSpring.models.sqlClass.GetNotesByStatus;
 import PecuniaSpring.services.noteServices.NoteServiceImpl;
 import lombok.AllArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import utils.JsonUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller

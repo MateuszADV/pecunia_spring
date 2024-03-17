@@ -11,6 +11,7 @@ import PecuniaSpring.models.dto.quality.QualityDtoSelect;
 import PecuniaSpring.models.dto.security.SecurityDto;
 import PecuniaSpring.models.dto.security.SecurityFormDto;
 import PecuniaSpring.models.dto.status.StatusDtoSelect;
+import PecuniaSpring.models.other.variable.VariableForm;
 import PecuniaSpring.services.activeService.ActiveServiceImpl;
 import PecuniaSpring.services.boughtServices.BoughtServicesImpl;
 import PecuniaSpring.services.countryServices.CountryServiceImpl;
@@ -179,14 +180,7 @@ public class SecurityController {
             imageTypeDtoSelects.add(new ModelMapper().map(imageType, ImageTypeDtoSelect.class));
         }
 
-        modelMap.addAttribute("currencies", currencyDtos);
-        modelMap.addAttribute("boughts", boughtDtos);
-        modelMap.addAttribute("actives", activeDtoSelects);
-        modelMap.addAttribute("makings", makingDtoSelects);
-        modelMap.addAttribute("qualities", qualityDtoSelects);
-        modelMap.addAttribute("statuses", statusDtoSelects);
-        modelMap.addAttribute("imageTypes", imageTypeDtoSelects);
-        modelMap.addAttribute("standartDate", Date.valueOf(LocalDate.now()));
+        VariableForm.variableToSelect(modelMap, currencyDtos, boughtDtos, activeDtoSelects, makingDtoSelects, qualityDtoSelects, statusDtoSelects, imageTypeDtoSelects);
     }
 
     @GetMapping("/security/show/{securityId}")
