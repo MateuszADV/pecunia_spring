@@ -63,4 +63,13 @@ public class ChartRepository {
         List<Object[]> objects = query.getResultList();
         return objects;
     }
+
+    public List<Object[]> my_report_coins_bought() {
+        Query query = entityManager.createQuery("SELECT bou.name, COUNT(coin.boughts) FROM Coin coin" +
+                "  LEFT JOIN Bought bou" +
+                "    ON bou.id = coin.boughts" +
+                " GROUP BY bou.name, coin.boughts");
+        List<Object[]> objects = query.getResultList();
+        return objects;
+    }
 }
