@@ -152,10 +152,11 @@ public class CoinController {
                           HttpServletRequest request,
                           HttpServletResponse response,
                           ModelMap modelMap) {
-            coinTmp = Optional.ofNullable(coinService.getCoinById(coinId));
-        CoinFormDto coinFormDto = new ModelMapper().map(coinTmp, CoinFormDto.class);
+        Optional<Coin> coin = Optional.ofNullable(coinService.getCoinById(coinId));
+        CoinFormDto coinFormDto = new ModelMapper().map(coin, CoinFormDto.class);
         modelMap.addAttribute("coinForm", coinFormDto);
-        formVariable(modelMap, coinTmp.get().getCurrencies());
+        modelMap.addAttribute("coinInfoLightBox", coinFormDto);
+        formVariable(modelMap, coin.get().getCurrencies());
         return "coin/edit";
     }
 
@@ -165,6 +166,11 @@ public class CoinController {
                            ModelMap modelMap) {
         if (result.hasErrors()) {
             System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&ERROR&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+
+            Optional<Coin> coin = Optional.ofNullable(coinService.getCoinById(coinForm.getId()));
+            CoinFormDto coinInfoLightBox = new ModelMapper().map(coin, CoinFormDto.class);
+            modelMap.addAttribute("coinInfoLightBox", coinInfoLightBox);
+
             System.out.println(result.toString());
             System.out.println(result.hasFieldErrors("dateBuy"));
             System.out.println(result.resolveMessageCodes("test błedu", "dateBuy").toString());
@@ -223,7 +229,7 @@ public class CoinController {
     }
 
     private void formVariable(ModelMap modelMap, Currency currency) {
-        List<Currency> currenciesList = currencyService.getCurrencyByCountryByPattern(currency.getCountries().getId(), "COIN");
+        List<Currency> currenciesList = currencyService.getCurrencyByCountryByPattern(currency.getCountries().getId(), currency.getPattern());
         List<CurrencyDto> currencyDtos = new ArrayList<>();
         for (Currency currency1 : currenciesList) {
             currencyDtos.add(new ModelMapper().map(currency1, CurrencyDto.class));
