@@ -1,6 +1,6 @@
 #CHartJS 3.6.0
 report:
-  name: "my_report_coins_bought"
+  name: "my_report_coins_bought_country"
 chart:
   datasets:
     label: 'Ilość Monet'
@@ -14,7 +14,7 @@ chart:
         color: 'red'
       title:
         display: true
-        text: 'Wykres Tstowy 2024.04.21 '
+        text: 'WYKRES TESTOWY 2024.04.22 '
         color: 'blue'
         font:
           weight: 'bold'

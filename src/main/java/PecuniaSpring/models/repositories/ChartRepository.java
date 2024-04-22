@@ -59,7 +59,21 @@ public class ChartRepository {
         Query query = entityManager.createQuery("SELECT bou.name, COUNT(note.boughts) FROM Note note" +
                 "  LEFT JOIN Bought bou" +
                 "    ON bou.id = note.boughts" +
-                " GROUP BY bou.name, note.boughts");
+                " GROUP BY bou.name");
+        List<Object[]> objects = query.getResultList();
+        return objects;
+    }
+
+    public List<Object[]> my_report_notes_bought_country(String country) {
+        Query query = entityManager.createQuery("SELECT bou.name, COUNT(note.boughts) FROM Note note" +
+                "  LEFT JOIN Currency cur" +
+                "    ON note.currencies = cur.id" +
+                "  LEFT JOIN Country  cou" +
+                "    ON cou.id = cur.countries" +
+                "  LEFT JOIN Bought bou" +
+                "    ON bou.id = note.boughts" +
+                " WHERE cou.countryEn = '" + country + "'" +
+                " GROUP BY bou.name");
         List<Object[]> objects = query.getResultList();
         return objects;
     }
@@ -68,7 +82,21 @@ public class ChartRepository {
         Query query = entityManager.createQuery("SELECT bou.name, COUNT(coin.boughts) FROM Coin coin" +
                 "  LEFT JOIN Bought bou" +
                 "    ON bou.id = coin.boughts" +
-                " GROUP BY bou.name, coin.boughts");
+                " GROUP BY bou.name");
+        List<Object[]> objects = query.getResultList();
+        return objects;
+    }
+
+    public List<Object[]> my_report_coins_bought_country(String country) {
+        Query query = entityManager.createQuery("SELECT bou.name, COUNT(coin.boughts) FROM Coin coin" +
+                "  LEFT JOIN Currency cur" +
+                "    ON coin.currencies = cur.id" +
+                "  LEFT JOIN Country  cou" +
+                "    ON cou.id = cur.countries" +
+                "  LEFT JOIN Bought bou" +
+                "    ON bou.id = coin.boughts" +
+                " WHERE cou.countryEn = '" + country + "'"  +
+                " GROUP BY bou.name");
         List<Object[]> objects = query.getResultList();
         return objects;
     }

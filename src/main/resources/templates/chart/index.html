@@ -23,6 +23,8 @@
                     <option th:value="doughnut" th:text="'Doughnut'" th:selected ="${typeChart} == 'doughnut'"></option>
                     <option th:value="pie" th:text="'Pie'" th:selected ="${typeChart} == 'pie'"></option>
                     <option th:value="scatter" th:text="'Scatter'" th:selected ="${typeChart} == 'scatter'"></option>
+                    <option th:value="radar" th:text="'Radar'" th:selected ="${typeChart} == 'radar'"></option>
+                    <option th:value="bubble" th:text="'Bubble'" th:selected ="${typeChart} == 'bubble'"></option>
                 </select>
                 <select th:name="report">
                     <option th:each="report : ${reports}"
