@@ -1,6 +1,6 @@
-#CHartJS 3.6.0
+# CHartJS 3.6.0
 report:
-  name: "my_report_notes_bought"
+  name: "my_report_coins_bought"
 chart:
   datasets:
     label: 'Ilość Banknotow'
