@@ -68,3 +68,5 @@ chart:
           tickColor: 'red'
 #          borderColor: 'red'
           offset: true
+
+          # CHartJS 3.6.0

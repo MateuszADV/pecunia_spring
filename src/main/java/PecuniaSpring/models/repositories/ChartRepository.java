@@ -78,6 +78,28 @@ public class ChartRepository {
         return objects;
     }
 
+//    public List<Object[]> my_report_notes1() {
+//        Query query = entityManager.createQuery("SELECT year(note.created_at), COUNT(note.created_at) FROM Note note" +
+//                " GROUP BY year(note.created_at), month(note.created_at)  " +
+//                " ORDER BY year(note.created_at), month(note.created_at) ");
+//        List<Object[]> objects = query.getResultList();
+//        return objects;
+//    }
+    public List<Object[]> my_report_notes1() {
+        Query query = entityManager.createQuery("SELECT function('to_char', note.created_at, 'YYYY-MM'), COUNT(note.created_at) FROM Note note" +
+                " GROUP BY function('to_char', note.created_at, 'YYYY-MM')  " +
+                " ORDER BY function('to_char', note.created_at, 'YYYY-MM')");
+        List<Object[]> objects = query.getResultList();
+        return objects;
+    }
+
+
+//    SELECT to_char(created_at,'YYYY-MM'), COUNT(created_at)
+//    FROM notes
+//-- AND created_at > now() - interval '30 days'
+//    GROUP BY to_char(created_at,'YYYY-MM')
+//    ORDER BY to_char(created_at,'YYYY-MM') ASC;
+
     public List<Object[]> my_report_coins_bought() {
         Query query = entityManager.createQuery("SELECT bou.name, COUNT(coin.boughts) FROM Coin coin" +
                 "  LEFT JOIN Bought bou" +
@@ -100,4 +122,6 @@ public class ChartRepository {
         List<Object[]> objects = query.getResultList();
         return objects;
     }
+
+
 }
