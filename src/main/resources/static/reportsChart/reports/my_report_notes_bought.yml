@@ -1,5 +1,3 @@
-report:
-  name: "my_report_coins_bought"
 chart:
   datasets:
     label: 'Ilość Banknotow'
