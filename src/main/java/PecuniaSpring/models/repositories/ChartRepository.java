@@ -55,7 +55,7 @@ public class ChartRepository {
         return objects;
     }
 
-    public List<Object[]> my_report_notes_bought() {
+    public List<Object[]> my_report_note_bought() {
         Query query = entityManager.createQuery("SELECT bou.name, COUNT(note.boughts) FROM Note note" +
                 "  LEFT JOIN Bought bou" +
                 "    ON bou.id = note.boughts" +
@@ -86,7 +86,15 @@ public class ChartRepository {
         return objects;
     }
 
-    public List<Object[]> my_report_coins_bought() {
+    public List<Object[]> my_report_notes_buy() {
+        Query query = entityManager.createQuery("SELECT function('to_char', note.dateBuy, 'YYYY-MM'), COUNT(note.dateBuy) FROM Note note" +
+                " GROUP BY function('to_char', note.dateBuy, 'YYYY-MM')  " +
+                " ORDER BY function('to_char', note.dateBuy, 'YYYY-MM')");
+        List<Object[]> objects = query.getResultList();
+        return objects;
+    }
+
+    public List<Object[]> my_report_coin_bought() {
         Query query = entityManager.createQuery("SELECT bou.name, COUNT(coin.boughts) FROM Coin coin" +
                 "  LEFT JOIN Bought bou" +
                 "    ON bou.id = coin.boughts" +
