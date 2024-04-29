@@ -27,7 +27,7 @@ chart:
           size: 30
       legend:
 #        Wyświetlanie legeny
-        display: false
+        display: true
         labels:
           color: 'black'
           font:
@@ -51,7 +51,7 @@ chart:
 #          color: 'black'   # Kolor lini siatki 'y'
           tickColor: 'red'
 #          borderColor: 'red'
-          offset: false
+          offset: true
       x:
         title:
           display: true

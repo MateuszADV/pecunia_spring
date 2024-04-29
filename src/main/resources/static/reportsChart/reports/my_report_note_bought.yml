@@ -25,7 +25,7 @@ chart:
           size: 30
       legend:
 #        Wyświetlanie legeny
-        display: false
+        display: true
         labels:
           color: 'black'
           font:
