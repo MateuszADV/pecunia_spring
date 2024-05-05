@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 import org.yaml.snakeyaml.Yaml;
+import utils.JsonUtils;
 
 import java.io.InputStream;
 import java.lang.reflect.Method;
@@ -51,7 +52,7 @@ public class ChartServiceImpl implements ChartService {
 //        Class claz = ChartRepository.class;
 //        Method[] methods = c.getMethods();
         List<ReportMethod> reportMethods =new ArrayList<>();
-        List<Variable> variables = new ArrayList<>();
+//        List<Variable> variables = new ArrayList<>();
         Method[] methods = c.getDeclaredMethods();
         System.out.println("_________________________________________________________________________________________________________________________");
         System.out.printf("|- %-40s |%-20s |%-30s |%-20s |%n", "Report Name", "quality param", "Type Param", "Name Param");
@@ -59,6 +60,7 @@ public class ChartServiceImpl implements ChartService {
 //                System.out.println(method.getName() + " == " + method.getParameters().length);
             System.out.println("|-----------------------------------------------------------------------------------------------------------------------|");
             if (method.getParameters().length > 0) {
+                List<Variable> variables = new ArrayList<>();
                 System.out.printf("|- %-40s |%-20s |%-30s |%-20s |%n", method.getName(), method.getParameters().length, (method.getParameters()[0]).getType().getName() , (method.getParameters()[0]).getName());
                 for (Parameter parameter : method.getParameters()) {
                     variables.add(new Variable(parameter.getType().getName(), parameter.getName()));
@@ -72,6 +74,7 @@ public class ChartServiceImpl implements ChartService {
         }
         System.out.println("|-----------------------------------------------------------------------------------------------------------------------|");
 
+        System.out.println(JsonUtils.gsonPretty(reportMethods));
         return reportMethods;
     }
 

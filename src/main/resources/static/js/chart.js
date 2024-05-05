@@ -41,6 +41,7 @@ fetch(chartUrl)
                 options: options
             });
         })
-            .catch(error => console.log("Błąd: ", error));
+            // .catch(error => console.log("Błąd: ", error));
+        console.log("JAKIS BLAD")
     });
 
