@@ -189,13 +189,12 @@ public class CoinController {
         }
 
         Currency currency = currencyService.getCurrencyById(coinForm.getCurrencies().getId());
-        coinForm.setId(coinTmp.get().getId());
-        coinForm.setCreated_at(coinTmp.get().getCreated_at());
+//        coinForm.setId(coinTmp.get().getId());
+//        coinForm.setCreated_at(coinTmp.get().getCreated_at());
         System.out.println(JsonUtils.gsonPretty(coinForm));
         System.out.println("++++++++++++++++++++++++++++++STOP+++++++++++++++++++++++++++++++");
 
         Coin coin = new ModelMapper().map(coinForm, Coin.class);
-
         coinService.saveCoin(coin);
 
 //        return getcoinList(currency.getCurrencySeries(), currency.getId(), request, modelMap);
